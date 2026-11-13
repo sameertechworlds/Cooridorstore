@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSTR-1 vs e-Invoice Reconciliation Tool Free – Find Missing IRN & Sales Mismatch | Cooridor Store</title>
+<meta name="description" content="Free e-invoice reconciliation tool. Compare e-invoice (IRN) data from the GST portal with your sales register from Tally or any software. Find missing e-invoices, value mismatches, cancelled and late IRNs. Excel report.">
+<meta name="keywords" content="GSTR-1 reconciliation, e-invoice reconciliation, e-invoice vs sales register, missing IRN, GSTR-1 vs books reconciliation, e-invoice reconciliation excel, IRN reconciliation tool, auto populated e-invoice GSTR-1">
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="calc.css"><script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+.up{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:26px 16px;text-align:center;cursor:pointer;display:block}
+.drop:hover{border-color:var(--pri);background:var(--soft)}
+.drop b{display:block;margin-top:6px}
+.map{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.map label{font-size:.74rem;color:var(--mut);font-weight:600}
+.map select{padding:8px;font-size:.85rem}
+.ok{color:var(--acc);font-weight:600;font-size:.86rem;margin-top:8px}
+.ctl{display:flex;gap:14px;align-items:end;flex-wrap:wrap;margin-top:18px}
+.ctl .f{margin:0;width:170px}
+.chk{display:flex;gap:8px;align-items:center;font-size:.88rem}.chk input{width:auto}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:24px}
+.kpi{padding:16px;cursor:pointer;border-width:2px}.kpi.on{border-color:var(--pri)}
+.kpi b{font-size:1.5rem;display:block}.kpi span{font-size:.78rem;color:var(--mut)}.kpi small{display:block;font-size:.74rem;color:var(--mut)}
+.k1 b{color:#0e9f6e}.k2 b{color:#d97706}.k3 b{color:#dc2626}.k4 b{color:#7c3aed}.k5 b{color:#0b3d91}.k6 b{color:#64748b}
+.tw{overflow:auto;margin-top:10px;max-height:520px}
+.tw table{width:100%;border-collapse:collapse;font-size:.84rem}
+.tw th{position:sticky;top:0;background:var(--soft);text-align:left;padding:8px;white-space:nowrap}
+.tw td{padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tw td.n{text-align:right}.tw td.w{white-space:normal;min-width:200px}
+.bad{color:#dc2626;font-weight:600}
+@media(max-width:1000px){.kpis{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:860px){.up{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+  <div class="crumb"><a href="/">Home</a> › GSTR-1 vs e-Invoice</div>
+  <div class="ph">
+    <h1 data-en="GSTR-1 vs e-Invoice Reconciliation" data-hi="GSTR-1 बनाम ई-इनवॉइस रिकंसिलिएशन">GSTR-1 vs e-Invoice Reconciliation</h1>
+    <p data-en="Upload e-invoice (IRN) data from the GST portal and your sales register. Instantly see which invoices missed e-invoicing, which have mismatches, and which IRNs are cancelled or late. Files stay on your computer." data-hi="GST पोर्टल का ई-इनवॉइस (IRN) डेटा और अपना सेल्स रजिस्टर डालिए। तुरंत देखिए किन बिलों का ई-इनवॉइस छूटा, किनमें फ़र्क है, और कौन से IRN कैंसिल या देर से बने। फ़ाइलें आपके कंप्यूटर पर ही रहती हैं।">Upload e-invoice (IRN) data from the GST portal and your sales register. Instantly see which invoices missed e-invoicing, which have mismatches, and which IRNs are cancelled or late. Files stay on your computer.</p>
+  </div>
+
+  <div class="up">
+    <div class="card box">
+      <h3 data-en="1. e-Invoice data (GST / IRP portal)" data-hi="1. ई-इनवॉइस डेटा (GST / IRP पोर्टल)">1. e-Invoice data (GST / IRP portal)</h3>
+      <label class="drop">🌐<b data-en="Choose e-invoice Excel" data-hi="ई-इनवॉइस Excel चुनें">Choose e-invoice Excel</b><input type="file" accept=".xlsx,.xls,.csv" hidden onchange="readFile(this.files[0],'P')"></label>
+      <div id="mP"></div>
+    </div>
+    <div class="card box">
+      <h3 data-en="2. Sales register (Tally / any software)" data-hi="2. सेल्स रजिस्टर (Tally / कोई भी सॉफ़्टवेयर)">2. Sales register (Tally / any software)</h3>
+      <label class="drop">📒<b data-en="Choose sales Excel" data-hi="सेल्स Excel चुनें">Choose sales Excel</b><input type="file" accept=".xlsx,.xls,.csv" hidden onchange="readFile(this.files[0],'B')"></label>
+      <div id="mB"></div>
+      <p class="note"><a href="#" onclick="sample();return false" style="color:var(--pri)" data-en="⬇ Download sample formats" data-hi="⬇ सैंपल फ़ॉर्मेट डाउनलोड करें">⬇ Download sample formats</a></p>
+    </div>
+  </div>
+
+  <div class="ctl">
+    <div class="f"><label data-en="Amount tolerance (₹)" data-hi="रकम में छूट (₹)">Amount tolerance (₹)</label><input type="number" id="tol" value="1" min="0"></div>
+    <div class="f"><label data-en="IRN time limit (days)" data-hi="IRN की समय सीमा (दिन)">IRN time limit (days)</label><input type="number" id="lim" value="30" min="0"></div>
+    <label class="chk"><input type="checkbox" id="b2b" checked> <span data-en="Exclude B2C invoices (no GSTIN) from books" data-hi="बिना GSTIN वाले B2C बिल अलग रखें">Exclude B2C invoices (no GSTIN) from books</span></label>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+    <button class="btn btn-p" onclick="run()" data-en="Reconcile now" data-hi="अभी मिलान करें">Reconcile now</button>
+    <button class="btn btn-o" id="xl" onclick="exportXL()" disabled data-en="⬇ Download Excel report" data-hi="⬇ Excel रिपोर्ट">⬇ Download Excel report</button>
+  </div>
+
+  <div id="out" style="display:none">
+    <div class="kpis">
+      <div class="card kpi k1 on" onclick="show('M',this)"><b id="c1">0</b><span data-en="Fully matched" data-hi="पूरी तरह मिले">Fully matched</span><small id="s1"></small></div>
+      <div class="card kpi k2" onclick="show('X',this)"><b id="c2">0</b><span data-en="Matched with differences" data-hi="मिले पर फ़र्क">Matched with differences</span><small id="s2"></small></div>
+      <div class="card kpi k3" onclick="show('OB',this)"><b id="c3">0</b><span data-en="e-Invoice missing" data-hi="ई-इनवॉइस छूटा">e-Invoice missing</span><small id="s3"></small></div>
+      <div class="card kpi k4" onclick="show('OP',this)"><b id="c4">0</b><span data-en="Only on portal" data-hi="सिर्फ़ पोर्टल पर">Only on portal</span><small id="s4"></small></div>
+      <div class="card kpi k5" onclick="show('LT',this)"><b id="c5">0</b><span data-en="Cancelled / late IRN" data-hi="कैंसिल / देर से IRN">Cancelled / late IRN</span><small id="s5"></small></div>
+      <div class="card kpi k6" onclick="show('B2C',this)"><b id="c6">0</b><span data-en="B2C / duplicates" data-hi="B2C / दोहराए">B2C / duplicates</span><small id="s6"></small></div>
+    </div>
+    <div class="card box" style="margin-top:16px"><h3 data-en="Month-wise summary" data-hi="महीने-वार सारांश">Month-wise summary</h3><div class="tw" id="mon"></div></div>
+    <div class="card box" style="margin-top:16px"><h3 id="tt"></h3><div class="tw" id="tbl"></div></div>
+  </div>
+
+  <article class="art">
+    <h2>What is e-invoice reconciliation?</h2>
+    <p>Under GST, businesses above the notified turnover limit must report every B2B invoice, credit note and debit note to the Invoice Registration Portal (IRP) to get an IRN. These e-invoices auto-populate in GSTR-1. E-invoice reconciliation means comparing this portal data with your sales register to make sure every B2B invoice has a valid IRN and that the values match before filing GSTR-1.</p>
+
+    <h2>Why reconcile GSTR-1 with e-invoices?</h2>
+    <ul><li>An invoice without a valid IRN is not treated as a valid tax invoice, and your customer may lose ITC.</li><li>Missed e-invoices lead to differences between GSTR-1, GSTR-3B and your customer's GSTR-2B.</li><li>Value or GSTIN mismatches cause notices and customer disputes.</li><li>For taxpayers with AATO of ₹10 crore or more, IRN must be generated within 30 days of the document date.</li></ul>
+
+    <h2>How to download e-invoice data</h2>
+    <ol><li>Log in to the GST portal and open the Returns Dashboard for the period.</li><li>In GSTR-1, use the e-Invoice download option to get the Excel of auto-populated e-invoices. You can also download IRN reports from the e-invoice (IRP) portal.</li><li>From Tally, export the Sales Register: Display More Reports → Account Books → Sales Register → select period → Export (Ctrl + E / Alt + E) → Excel.</li></ol>
+    <p>Menu names can differ slightly on the portals. Any Excel with document number, date, GSTIN and values will work.</p>
+
+    <h2>How this tool matches invoices</h2>
+    <ol>
+      <li>Documents are matched on <b>document type</b> (Invoice, Credit Note, Debit Note) and <b>document number</b>. Numbers are cleaned, so "INV/001" and "inv-1" match.</li>
+      <li>After matching, GSTIN, date, taxable value and tax are compared. Every difference is listed by field.</li>
+      <li>Invoices in books without a GSTIN are treated as B2C and kept separate, since e-invoicing applies to B2B supplies.</li>
+      <li>Cancelled IRNs (from a status column) and IRNs generated after the time limit are flagged.</li>
+    </ol>
+    <div class="fx">Fully matched: number, GSTIN, date and values agree<br>With differences: number matches, other fields differ<br>e-Invoice missing: in books, no IRN on portal<br>Only on portal: IRN exists, not in books</div>
+
+    <h2>Frequently asked questions</h2>
+    <h3>Who needs to generate e-invoices?</h3>
+    <p>Registered businesses whose aggregate turnover in any financial year since 2017-18 exceeds ₹5 crore must generate e-invoices for B2B supplies, exports and credit or debit notes. Check the latest notification for exemptions.</p>
+    <h3>Can I fix a missed e-invoice?</h3>
+    <p>Generate the IRN as soon as possible within the allowed time. If the time limit has passed, consult your tax advisor about the correct course of action.</p>
+    <h3>Is my data safe?</h3>
+    <p>Yes. Everything runs inside your browser. No file is uploaded.</p>
+
+    <h2>Related tools</h2>
+    <div class="related"><a class="card" href="gstr-2b-reconciliation.html">🔄 GSTR-2B Reconciliation</a><a class="card" href="bank-reconciliation.html">🏦 Bank Reconciliation</a><a class="card" href="tally-import.html">📥 Excel to Tally</a></div>
+    <p class="note">Results are for guidance. Please verify before filing GSTR-1.</p>
+  </article>
+</main>
+<div id="site-footer"></div>
+<script>
+var FD={
+ P:[['doc','Document No',/document\s*(no|num)|invoice\s*(no|num)|doc\.?\s*no/i],['type','Document Type',/doc.*type|document\s*type|^type/i],['date','Document Date',/(document|invoice|doc)\.?\s*date|^date$/i],['gstin','Recipient GSTIN',/recipient|buyer|gstin/i],['irn','IRN',/\birn\b(?!\s*date)|irn\s*no/i],['irnd','IRN / Ack Date',/irn\s*date|ack\w*\s*date/i],['status','Status',/status/i],['tv','Taxable Value',/taxable/i],['igst','IGST',/igst|integrated/i],['cgst','CGST',/cgst|central/i],['sgst','SGST',/sgst|utgst|state.*tax/i]],
+ B:[['doc','Invoice No',/invoice\s*(no|num)|voucher\s*no|bill\s*no|doc.*no|vch/i],['type','Voucher Type',/voucher\s*type|doc.*type|^type/i],['date','Date',/date/i],['party','Party Name',/party|customer|buyer|particular|name/i],['gstin','Party GSTIN',/gstin|gst\s*no/i],['tv','Taxable Value',/taxable|value/i],['igst','IGST',/igst/i],['cgst','CGST',/cgst/i],['sgst','SGST',/sgst|utgst/i]]};
+var D={P:null,B:null},R=null,cur='M';
+function num(v){if(typeof v==='number')return v;return parseFloat(String(v).replace(/[^0-9.\-]/g,''))||0;}
+function r2(n){return Math.round(n*100)/100;}
+function inr(n){return (n<0?'-':'')+'₹'+Math.abs(n).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]});}
+var MON={JAN:0,FEB:1,MAR:2,APR:3,MAY:4,JUN:5,JUL:6,AUG:7,SEP:8,OCT:9,NOV:10,DEC:11};
+function pDate(v){if(v instanceof Date&&!isNaN(v))return new Date(v.getFullYear(),v.getMonth(),v.getDate());
+ if(typeof v==='number'&&v>20000&&v<80000){var d=new Date(Math.round((v-25569)*864e5));return new Date(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate());}
+ var s=String(v).trim(),m;if(m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/))return new Date(+m[1],m[2]-1,+m[3]);
+ if(m=s.match(/^(\d{1,2})[\/\-. ]([A-Za-z]{3,9}|\d{1,2})[\/\-. ,]*(\d{2,4})/)){var mo=isNaN(m[2])?MON[m[2].slice(0,3).toUpperCase()]:m[2]-1,y=+m[3];if(y<100)y+=2000;if(mo==null)return null;return new Date(y,mo,+m[1]);}return null;}
+function fd(d){return d?('0'+d.getDate()).slice(-2)+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+d.getFullYear():'';}
+function mk(d){return d?d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2):'No date';}
+function days(a,b){return Math.round((b-a)/864e5);}
+function dtype(s){s=String(s).toUpperCase();if(/CRN|CREDIT|C\/N|\bCN\b/.test(s))return 'CRN';if(/DBN|DEBIT|D\/N|\bDN\b/.test(s))return 'DBN';return 'INV';}
+function norm(s){return String(s).toUpperCase().replace(/[^A-Z0-9]/g,'').replace(/^0+/,'');}
+function dig(s){return String(s).replace(/\D/g,'').replace(/^0+/,'');}
+function readFile(f,side){if(!f)return;var r=new FileReader();r.onload=function(e){
+ var wb=XLSX.read(e.target.result,{type:'array',cellDates:true});
+ var sn=wb.SheetNames.find(function(s){return /b2b|e-?inv|sales|register/i.test(s)})||wb.SheetNames[0];
+ var rows=XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,defval:'',raw:true});
+ var h=0,b=0;for(var i=0;i<Math.min(30,rows.length);i++){var c=rows[i].filter(function(x){return /date|invoice|document|gstin|taxable|irn|voucher|party/i.test(String(x))}).length;if(c>b){b=c;h=i;}}
+ var head=rows[h].map(function(x){return String(x).trim()}),start=h+1,nx=rows[h+1]||[];
+ if(nx.length&&nx.every(function(c){return c===''||isNaN(c)&&!(c instanceof Date)&&!/^[0-9]{2}[A-Z]{5}/.test(String(c))})&&nx.some(function(c){return /no|date|value|tax/i.test(String(c))})){head=head.map(function(c,k){return (c+' '+(nx[k]||'')).trim()});start=h+2;}
+ D[side]={head:head,rows:rows.slice(start),name:f.name,sheet:sn};mapUI(side);};r.readAsArrayBuffer(f);}
+function mapUI(side){var d=D[side],used={},html='<div class="ok">✓ '+esc(d.name)+' · '+esc(d.sheet)+' · '+d.rows.length+' rows</div><div class="map">';
+ FD[side].forEach(function(f){var sel=-1;d.head.forEach(function(c,k){if(sel<0&&!used[k]&&c&&f[2].test(c))sel=k;});if(sel>=0)used[sel]=1;
+  html+='<div><label>'+f[1]+'</label><select id="'+side+'_'+f[0]+'"><option value="-1">— none —</option>'+d.head.map(function(c,k){return '<option value="'+k+'"'+(k===sel?' selected':'')+'>'+esc(c||('Column '+(k+1)))+'</option>'}).join('')+'</select></div>';});
+ document.getElementById('m'+side).innerHTML=html+'</div>';}
+function recs(side){var d=D[side],c={};FD[side].forEach(function(f){c[f[0]]=+document.getElementById(side+'_'+f[0]).value;});
+ function g(r,k){return c[k]>=0?r[c[k]]:'';}
+ var out=[];d.rows.forEach(function(r){var doc=String(g(r,'doc')).trim();if(!doc||/total/i.test(doc))return;
+  var o={doc:doc,type:dtype(g(r,'type')),n:norm(doc),d:dig(doc),date:pDate(g(r,'date')),gstin:String(g(r,'gstin')).trim().toUpperCase(),party:String(g(r,'party')||''),
+   irn:String(g(r,'irn')||''),irnd:pDate(g(r,'irnd')),status:String(g(r,'status')||''),tv:Math.abs(num(g(r,'tv'))),tax:Math.abs(num(g(r,'igst')))+Math.abs(num(g(r,'cgst')))+Math.abs(num(g(r,'sgst')))};
+  if(o.gstin==='URP'||o.gstin==='NA')o.gstin='';out.push(o);});return out;}
+function run(){
+ if(!D.P||!D.B){alert('Please choose both files first.');return;}
+ var P=recs('P'),B=recs('B'),tol=+document.getElementById('tol').value||0,lim=+document.getElementById('lim').value||30,ex=document.getElementById('b2b').checked;
+ var DUP=[],seen={};
+ [['Portal',P],['Books',B]].forEach(function(s){var k2={};s[1].forEach(function(o){var k=o.type+'|'+o.n;if(k2[k]){DUP.push({src:s[0],o:o});o.dup=1;}k2[k]=1;});});
+ var CAN=P.filter(function(o){return /cancel/i.test(o.status)}),act=P.filter(function(o){return !/cancel/i.test(o.status)&&!o.dup});
+ var B2C=ex?B.filter(function(o){return !o.gstin&&!o.dup}):[],BB=B.filter(function(o){return !o.dup&&(!ex||o.gstin)});
+ var mx={},md={};act.forEach(function(o,i){(mx[o.type+'|'+o.n]=mx[o.type+'|'+o.n]||[]).push(i);if(o.d)(md[o.type+'|'+o.d]=md[o.type+'|'+o.d]||[]).push(i);});
+ var used={},M=[],X=[],OB=[];
+ function take(l,b){if(!l)return -1;for(var j=0;j<l.length;j++){var i=l[j];if(!used[i]&&(!b||!act[i].gstin||!b.gstin||act[i].gstin===b.gstin)){used[i]=1;return i;}}return -1;}
+ BB.forEach(function(b){var i=take(mx[b.type+'|'+b.n]);if(i<0&&b.d&&b.d.length>=3)i=take(md[b.type+'|'+b.d],b);
+  if(i<0){OB.push(b);return;}var p=act[i],df=[];
+  if(p.gstin&&b.gstin&&p.gstin!==b.gstin)df.push('GSTIN');
+  if(p.date&&b.date&&days(p.date,b.date)!==0)df.push('Date');
+  if(Math.abs(p.tv-b.tv)>tol)df.push('Taxable ('+inr(r2(b.tv-p.tv))+')');
+  if(Math.abs(p.tax-b.tax)>tol)df.push('Tax ('+inr(r2(b.tax-p.tax))+')');
+  if(p.n!==b.n)df.push('Doc no format');
+  var row={b:b,p:p,df:df};(df.length&&!(df.length===1&&df[0]==='Doc no format')?X:M).push(row);});
+ var OP=act.filter(function(o,i){return !used[i]});
+ var LT=act.filter(function(o){return o.irnd&&o.date&&days(o.date,o.irnd)>lim}).map(function(o){return {o:o,why:'IRN '+days(o.date,o.irnd)+' days after document'}});
+ CAN.forEach(function(o){LT.push({o:o,why:'IRN cancelled'})});
+ R={P:P,B:B,M:M,X:X,OB:OB,OP:OP,LT:LT,B2C:B2C,DUP:DUP};render();}
+function sum(a,f){return a.reduce(function(t,x){return t+f(x)},0);}
+function render(){var r=R;
+ [['c1',r.M.length],['c2',r.X.length],['c3',r.OB.length],['c4',r.OP.length],['c5',r.LT.length],['c6',r.B2C.length+r.DUP.length]].forEach(function(x){document.getElementById(x[0]).textContent=x[1];});
+ document.getElementById('s1').textContent=inr(sum(r.M,function(x){return x.b.tv}));
+ document.getElementById('s2').textContent=inr(sum(r.X,function(x){return x.b.tv}));
+ document.getElementById('s3').textContent=inr(sum(r.OB,function(x){return x.tv}));
+ document.getElementById('s4').textContent=inr(sum(r.OP,function(x){return x.tv}));
+ document.getElementById('s5').textContent=r.LT.filter(function(x){return /cancel/i.test(x.why)}).length+' cancelled';
+ document.getElementById('s6').textContent=r.B2C.length+' B2C · '+r.DUP.length+' dup';
+ var mm={};function add(k,f,v){mm[k]=mm[k]||{n1:0,v1:0,n2:0,v2:0,n3:0,v3:0,n4:0};mm[k][f]+=v;}
+ r.M.concat(r.X).forEach(function(x){add(mk(x.b.date),'n1',1);add(mk(x.b.date),'v1',x.b.tv);});
+ r.OB.forEach(function(x){add(mk(x.date),'n2',1);add(mk(x.date),'v2',x.tv);});
+ r.OP.forEach(function(x){add(mk(x.date),'n3',1);add(mk(x.date),'v3',x.tv);});
+ r.X.forEach(function(x){add(mk(x.b.date),'n4',1);});
+ var ks=Object.keys(mm).sort();
+ document.getElementById('mon').innerHTML='<table><tr><th>Month</th><th>Matched (no.)</th><th>Matched value</th><th>e-Invoice missing (no.)</th><th>Missing value</th><th>Only on portal (no.)</th><th>Portal-only value</th><th>With differences</th></tr>'+ks.map(function(k){var o=mm[k];return '<tr><td>'+k+'</td><td class="n">'+o.n1+'</td><td class="n">'+inr(o.v1)+'</td><td class="n'+(o.n2?' bad':'')+'">'+o.n2+'</td><td class="n">'+inr(o.v2)+'</td><td class="n">'+o.n3+'</td><td class="n">'+inr(o.v3)+'</td><td class="n">'+o.n4+'</td></tr>'}).join('')+'</table>';
+ document.getElementById('out').style.display='block';document.getElementById('xl').disabled=false;
+ show(cur,document.querySelector('.kpi.on'));}
+function one(L,extra){return '<table><tr><th>Type</th><th>Doc no</th><th>Date</th><th>GSTIN</th><th>Party</th><th>Taxable</th><th>Tax</th>'+(extra?'<th>'+extra+'</th>':'')+'</tr>'+L.map(function(x){var o=x.o||x;return '<tr><td>'+o.type+'</td><td>'+esc(o.doc)+'</td><td>'+fd(o.date)+'</td><td>'+esc(o.gstin)+'</td><td class="w">'+esc(o.party)+'</td><td class="n">'+inr(o.tv)+'</td><td class="n">'+inr(o.tax)+'</td>'+(extra?'<td class="bad">'+esc(x.why||x.src||'')+'</td>':'')+'</tr>'}).join('')+'</table>';}
+function show(t,el){cur=t;document.querySelectorAll('.kpi').forEach(function(k){k.classList.remove('on')});if(el)el.classList.add('on');
+ var r=R,h,T={M:'Fully matched',X:'Matched with differences',OB:'In books but e-invoice (IRN) not found on portal',OP:'On portal but not in books',LT:'Cancelled or late IRNs',B2C:'B2C invoices (no GSTIN) and duplicates'};
+ document.getElementById('tt').textContent=T[t];
+ if(t==='M'||t==='X')h='<table><tr><th>Type</th><th>Doc no (books)</th><th>Doc no (portal)</th><th>Date books</th><th>Date portal</th><th>GSTIN books</th><th>GSTIN portal</th><th>Taxable books</th><th>Taxable portal</th><th>Tax books</th><th>Tax portal</th>'+(t==='X'?'<th>Differences</th>':'')+'</tr>'+r[t].map(function(x){return '<tr><td>'+x.b.type+'</td><td>'+esc(x.b.doc)+'</td><td>'+esc(x.p.doc)+'</td><td>'+fd(x.b.date)+'</td><td>'+fd(x.p.date)+'</td><td>'+esc(x.b.gstin)+'</td><td>'+esc(x.p.gstin)+'</td><td class="n">'+inr(x.b.tv)+'</td><td class="n">'+inr(x.p.tv)+'</td><td class="n">'+inr(x.b.tax)+'</td><td class="n">'+inr(x.p.tax)+'</td>'+(t==='X'?'<td class="bad w">'+x.df.join(', ')+'</td>':'')+'</tr>'}).join('')+'</table>';
+ else if(t==='LT')h=one(r.LT,'Issue');
+ else if(t==='B2C')h=one(r.B2C)+(r.DUP.length?'<h3 style="margin:16px 0 6px">Duplicates</h3>'+one(r.DUP,'Found in'):'');
+ else h=one(r[t]);
+ document.getElementById('tbl').innerHTML=h;}
+function exportXL(){var r=R,wb=XLSX.utils.book_new();
+ function add(n,a){XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(a.length?a:[{Info:'No records'}]),n);}
+ function pr(x,d){var o={Type:x.b.type,'Doc No (Books)':x.b.doc,'Doc No (Portal)':x.p.doc,'Date (Books)':fd(x.b.date),'Date (Portal)':fd(x.p.date),'GSTIN (Books)':x.b.gstin,'GSTIN (Portal)':x.p.gstin,'Taxable (Books)':x.b.tv,'Taxable (Portal)':x.p.tv,'Tax (Books)':x.b.tax,'Tax (Portal)':x.p.tax,IRN:x.p.irn};if(d)o.Differences=x.df.join(', ');return o;}
+ function on(x){var o=x.o||x,j={Type:o.type,'Doc No':o.doc,Date:fd(o.date),GSTIN:o.gstin,Party:o.party,Taxable:o.tv,Tax:o.tax,IRN:o.irn};if(x.why)j.Issue=x.why;if(x.src)j['Found in']=x.src;return j;}
+ add('Summary',[{Category:'Fully matched',Count:r.M.length},{Category:'Matched with differences',Count:r.X.length},{Category:'e-Invoice missing (in books only)',Count:r.OB.length},{Category:'Only on portal',Count:r.OP.length},{Category:'Cancelled / late IRN',Count:r.LT.length},{Category:'B2C excluded',Count:r.B2C.length},{Category:'Duplicates',Count:r.DUP.length}]);
+ var mon=[];document.querySelectorAll('#mon tr').forEach(function(tr,i){if(!i)return;var c=tr.querySelectorAll('td');mon.push({Month:c[0].textContent,'Matched':c[1].textContent,'Matched value':c[2].textContent,'e-Invoice missing':c[3].textContent,'Missing value':c[4].textContent,'Only on portal':c[5].textContent,'Portal-only value':c[6].textContent,'With differences':c[7].textContent});});
+ add('Month-wise',mon);add('Matched',r.M.map(function(x){return pr(x)}));add('Differences',r.X.map(function(x){return pr(x,1)}));
+ add('e-Invoice Missing',r.OB.map(on));add('Only on Portal',r.OP.map(on));add('Cancelled-Late IRN',r.LT.map(on));add('B2C Excluded',r.B2C.map(on));add('Duplicates',r.DUP.map(on));
+ XLSX.writeFile(wb,'GSTR1-eInvoice-Reconciliation-CooridorStore.xlsx');}
+function sample(){var wb=XLSX.utils.book_new();
+ XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['GSTIN of Recipient','Document Type','Document Number','Document Date','IRN','IRN Date','Status','Taxable Value','IGST','CGST','SGST'],['09AAACR5055K1Z5','INV','INV/001','01-04-2026','a1b2c3...','01-04-2026','Active',10000,1800,0,0]]),'e-Invoice');
+ XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['Date','Invoice No','Voucher Type','Party Name','Party GSTIN','Taxable Value','IGST','CGST','SGST'],['01-04-2026','INV-1','Sales','Rao Industries','09AAACR5055K1Z5',10000,1800,0,0],['02-04-2026','INV-2','Sales','Cash Customer','',2000,0,180,180]]),'Sales Register');
+ XLSX.writeFile(wb,'GSTR1-eInvoice-Sample-Formats.xlsx');}
+</script>
+</body>
+</html>
