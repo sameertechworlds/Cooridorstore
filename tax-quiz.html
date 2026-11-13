@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GST & Income Tax Quiz – Test Your Tax Knowledge | Cooridor Store</title>
+<meta name="description" content="Free GST and income tax quiz for India. Quick questions with answers and explanations on GSTIN, GSTR-1, GSTR-2B, IGST, CGST, SGST, new tax regime and more. Test yourself and share your score.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<style>
+.quiz{max-width:720px;margin:26px auto 0;padding:28px}
+.qtop{display:flex;justify-content:space-between;color:var(--mut);font-size:.88rem}
+.bar{height:6px;background:var(--soft);border-radius:9px;margin:10px 0 22px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--acc);transition:width .3s}
+.qq{font-size:1.3rem;margin-bottom:18px;letter-spacing:-.2px;line-height:1.4}
+.opts{display:grid;gap:10px;margin-bottom:18px}
+.opt{text-align:left;padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:var(--sur);color:var(--txt);font:inherit;font-weight:500;cursor:pointer;transition:.15s}
+.opt:hover:not(:disabled){border-color:var(--pri)}
+.opt:disabled{cursor:default}
+.opt.ok{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,var(--sur))}
+.opt.bad{border-color:#e5484d;background:color-mix(in srgb,#e5484d 10%,var(--sur))}
+.exp{padding:14px 16px;border-radius:10px;margin-bottom:16px;background:var(--soft);font-size:.95rem}
+.exp b{margin-right:4px}
+.res{text-align:center}
+.res .big{font-size:3.2rem;margin:6px 0}
+.res .acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="index.html">Home</a> › <span data-en="Tax Quiz" data-hi="टैक्स क्विज़">Tax Quiz</span></div>
+ <div class="ph">
+  <h1 data-en="GST &amp; Income Tax Quiz" data-hi="GST और इनकम टैक्स क्विज़">GST &amp; Income Tax Quiz</h1>
+  <p data-en="10 quick questions. See the right answer and the reason after every question. Then challenge your friends!" data-hi="10 छोटे सवाल। हर सवाल के बाद सही जवाब और उसकी वजह देखिए। फिर दोस्तों को चुनौती दीजिए!">10 quick questions. See the right answer and the reason after every question. Then challenge your friends!</p>
+ </div>
+ <div class="card quiz" id="quiz"></div>
+
+ <article class="art">
+  <h2>Why take this tax quiz?</h2>
+  <p>GST and income tax rules touch every business owner, accountant and salaried person in India. This free quiz covers the basics people search for most: what GSTIN digits mean, when GSTR-1 is due, why GSTR-2B matters for input tax credit, how IGST differs from CGST and SGST, and how the new tax regime rebate works.</p>
+  <h2>Topics covered</h2>
+  <ul>
+   <li>GST basics: full form, launch date, CGST, SGST and IGST</li>
+   <li>GSTIN structure: state code and PAN inside the GST number</li>
+   <li>GST returns: GSTR-1 due date and GSTR-2B for ITC</li>
+   <li>Composition scheme turnover limit and e-invoice IRN time limit</li>
+   <li>Income tax: standard deduction, ₹12 lakh rebate and health &amp; education cess</li>
+  </ul>
+  <h2>Want to do the actual calculation?</h2>
+  <div class="related">
+   <a class="card" href="gst-calculator.html">🧮 GST Calculator</a>
+   <a class="card" href="income-tax-calculator.html">📊 Income Tax Calculator</a>
+   <a class="card" href="gstr-2b-reconciliation.html">🔄 GSTR-2B Reconciliation</a>
+  </div>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script>
+var Q=[
+{q:['What is the full form of GST?','GST का पूरा नाम क्या है?'],o:[['Goods and Services Tax','गुड्स एंड सर्विसेज़ टैक्स'],['General Sales Tax','जनरल सेल्स टैक्स'],['Government Service Tax','गवर्नमेंट सर्विस टैक्स'],['Goods and Supply Tax','गुड्स एंड सप्लाई टैक्स']],a:0,e:['GST stands for Goods and Services Tax.','GST का मतलब है Goods and Services Tax।']},
+{q:['When was GST introduced in India?','भारत में GST कब लागू हुआ?'],o:[['1 April 2016','1 अप्रैल 2016'],['1 January 2017','1 जनवरी 2017'],['1 July 2017','1 जुलाई 2017'],['1 April 2018','1 अप्रैल 2018']],a:2,e:['GST came into force across India on 1 July 2017.','GST पूरे भारत में 1 जुलाई 2017 से लागू हुआ।']},
+{q:['A sale within the same state attracts which GST?','एक ही राज्य के अंदर बिक्री पर कौन सा GST लगता है?'],o:[['IGST only','सिर्फ़ IGST'],['CGST + SGST','CGST + SGST'],['IGST + CGST','IGST + CGST'],['No GST','कोई GST नहीं']],a:1,e:['Intra-state supply attracts CGST and SGST (or UTGST), split equally.','राज्य के अंदर सप्लाई पर CGST और SGST (या UTGST) आधा-आधा लगता है।']},
+{q:['A sale from Delhi to Maharashtra attracts which GST?','दिल्ली से महाराष्ट्र बिक्री पर कौन सा GST लगेगा?'],o:[['CGST + SGST','CGST + SGST'],['SGST only','सिर्फ़ SGST'],['CGST only','सिर्फ़ CGST'],['IGST','IGST']],a:3,e:['Inter-state supply attracts IGST.','एक राज्य से दूसरे राज्य में सप्लाई पर IGST लगता है।']},
+{q:['How many characters are there in a GSTIN?','GSTIN में कितने अक्षर/अंक होते हैं?'],o:[['10','10'],['12','12'],['15','15'],['16','16']],a:2,e:['A GSTIN has 15 characters. The first two are the state code.','GSTIN में 15 अक्षर होते हैं, जिनमें पहले दो राज्य कोड होते हैं।']},
+{q:['Characters 3 to 12 of a GSTIN are the taxpayer’s…','GSTIN के अक्षर 3 से 12 तक क्या होते हैं?'],o:[['PAN','PAN'],['Aadhaar number','आधार नंबर'],['Mobile number','मोबाइल नंबर'],['Bank account','बैंक खाता']],a:0,e:['Characters 3 to 12 are the PAN of the business.','अक्षर 3 से 12 तक बिज़नेस का PAN होता है।']},
+{q:['Due date of monthly GSTR-1?','मासिक GSTR-1 की ड्यू डेट क्या है?'],o:[['10th of next month','अगले महीने की 10 तारीख़'],['11th of next month','अगले महीने की 11 तारीख़'],['20th of next month','अगले महीने की 20 तारीख़'],['Last day of the month','महीने का आख़िरी दिन']],a:1,e:['Monthly GSTR-1 is due by the 11th of the next month.','मासिक GSTR-1 अगले महीने की 11 तारीख़ तक भरना होता है।']},
+{q:['Which statement shows the ITC available to you?','कौन सा स्टेटमेंट आपका उपलब्ध ITC दिखाता है?'],o:[['GSTR-1','GSTR-1'],['GSTR-3B','GSTR-3B'],['GSTR-9','GSTR-9'],['GSTR-2B','GSTR-2B']],a:3,e:['GSTR-2B is the auto-drafted statement of input tax credit based on suppliers’ filings.','GSTR-2B सप्लायर्स की फ़ाइलिंग से अपने आप बना ITC स्टेटमेंट है।']},
+{q:['Composition scheme turnover limit for goods (most states)?','सामान के लिए कंपोज़िशन स्कीम की टर्नओवर लिमिट (ज़्यादातर राज्य)?'],o:[['₹20 lakh','₹20 लाख'],['₹75 lakh','₹75 लाख'],['₹1.5 crore','₹1.5 करोड़'],['₹5 crore','₹5 करोड़']],a:2,e:['The limit is ₹1.5 crore for most states (₹75 lakh for special category states).','ज़्यादातर राज्यों में लिमिट ₹1.5 करोड़ है (विशेष श्रेणी राज्यों में ₹75 लाख)।']},
+{q:['Standard deduction for salaried people in the new tax regime?','नई टैक्स रिजीम में नौकरीपेशा लोगों का स्टैंडर्ड डिडक्शन?'],o:[['₹50,000','₹50,000'],['₹75,000','₹75,000'],['₹1,00,000','₹1,00,000'],['Not allowed','नहीं मिलता']],a:1,e:['It is ₹75,000 in the new regime (₹50,000 in the old regime).','नई रिजीम में ₹75,000 है (पुरानी रिजीम में ₹50,000)।']},
+{q:['In the new regime, income up to how much is tax-free due to rebate?','नई रिजीम में रिबेट से कितनी आमदनी तक टैक्स शून्य होता है?'],o:[['₹7 lakh','₹7 लाख'],['₹10 lakh','₹10 लाख'],['₹12 lakh','₹12 लाख'],['₹15 lakh','₹15 लाख']],a:2,e:['Taxable income up to ₹12 lakh is effectively tax-free (₹12.75 lakh salary with standard deduction). Special-rate income like capital gains is excluded.','₹12 लाख तक की टैक्सेबल आमदनी पर टैक्स शून्य होता है (स्टैंडर्ड डिडक्शन के साथ ₹12.75 लाख सैलरी)। कैपिटल गेन जैसी विशेष दर वाली आमदनी इसमें शामिल नहीं।']},
+{q:['Health & education cess on income tax is…','इनकम टैक्स पर हेल्थ और एजुकेशन सेस कितना है?'],o:[['4%','4%'],['2%','2%'],['3%','3%'],['5%','5%']],a:0,e:['A 4% health and education cess is added on income tax.','इनकम टैक्स पर 4% हेल्थ और एजुकेशन सेस लगता है।']},
+{q:['A bill of ₹1,180 includes 18% GST. How much is the GST?','₹1,180 के बिल में 18% GST शामिल है। GST कितना है?'],o:[['₹212.40','₹212.40'],['₹200','₹200'],['₹118','₹118'],['₹180','₹180']],a:3,e:['GST = 1,180 × 18 ÷ 118 = ₹180. The base value is ₹1,000.','GST = 1,180 × 18 ÷ 118 = ₹180। मूल रकम ₹1,000 है।']},
+{q:['Businesses with AATO ₹10 crore+ must generate IRN within how many days of the invoice?','₹10 करोड़+ AATO वाले बिज़नेस को इनवॉइस के कितने दिन में IRN बनाना होता है?'],o:[['7 days','7 दिन'],['30 days','30 दिन'],['60 days','60 दिन'],['No limit','कोई लिमिट नहीं']],a:1,e:['They must report invoices on the IRP within 30 days of the invoice date.','उन्हें इनवॉइस की तारीख़ से 30 दिन के अंदर IRP पर रिपोर्ट करना होता है।']}
+];
+var T={q:['Question','सवाल'],score:['Score','स्कोर'],right:['Correct!','सही जवाब!'],wrong:['Not quite.','सही नहीं।'],next:['Next','अगला'],result:['See result','नतीजा देखें'],again:['Play again','फिर से खेलें'],share:['Challenge on WhatsApp','WhatsApp पर चुनौती दें'],best:['Your best','आपका बेस्ट'],
+ m1:['Tax expert! 🏆','टैक्स एक्सपर्ट! 🏆'],m2:['Very good! 👏','बहुत बढ़िया! 👏'],m3:['Good start! 📘','अच्छी शुरुआत! 📘']};
+var N=10,order=[],i=0,score=0,ans=null;
+function L(){return document.documentElement.lang==='hi'?1:0;}
+function start(){var a=Q.map(function(_,k){return k});for(var k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1)),t=a[k];a[k]=a[j];a[j]=t;}order=a.slice(0,N);i=0;score=0;ans=null;render();}
+function pick(k){if(ans!==null)return;ans=k;if(k===Q[order[i]].a)score++;render();}
+function next(){i++;ans=null;render();}
+function render(){var l=L(),box=document.getElementById('quiz');if(i>=order.length){finish();return;}
+ var q=Q[order[i]],h='<div class="qtop"><span>'+T.q[l]+' '+(i+1)+' / '+order.length+'</span><span>'+T.score[l]+': <b>'+score+'</b></span></div><div class="bar"><i style="width:'+((i+(ans!==null?1:0))/order.length*100)+'%"></i></div><h2 class="qq">'+q.q[l]+'</h2><div class="opts">';
+ q.o.forEach(function(o,k){var c='';if(ans!==null){if(k===q.a)c=' ok';else if(k===ans)c=' bad';}h+='<button type="button" class="opt'+c+'"'+(ans!==null?' disabled':'')+' onclick="pick('+k+')">'+o[l]+'</button>';});
+ h+='</div>';
+ if(ans!==null)h+='<div class="exp"><b>'+(ans===q.a?'✅ '+T.right[l]:'❌ '+T.wrong[l])+'</b>'+q.e[l]+'</div><button type="button" class="btn btn-p" onclick="next()">'+(i+1<order.length?T.next[l]:T.result[l])+' →</button>';
+ box.innerHTML=h;}
+function finish(){var l=L(),best=0;try{best=Math.max(+localStorage.getItem('quiz_best')||0,score);localStorage.setItem('quiz_best',best);}catch(e){best=score;}
+ var msg=score>=8?T.m1[l]:score>=5?T.m2[l]:T.m3[l];
+ var txt=(l?'मैंने टैक्स क्विज़ में '+score+'/'+N+' स्कोर किया! क्या आप मुझसे ज़्यादा ला सकते हैं? ':'I scored '+score+'/'+N+' in this Tax Quiz! Can you beat me? ')+location.href;
+ document.getElementById('quiz').innerHTML='<div class="res"><div class="lbl">'+T.score[l]+'</div><div class="big">'+score+' / '+N+'</div><h2>'+msg+'</h2><p class="lbl">'+T.best[l]+': '+best+' / '+N+'</p><div class="acts"><button type="button" class="btn btn-p" onclick="start()">↻ '+T.again[l]+'</button><a class="btn btn-o" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(txt)+'">💬 '+T.share[l]+'</a></div></div>';}
+document.addEventListener('DOMContentLoaded',start);
+document.addEventListener('langchange',function(){if(order.length)render();});
+</script>
+</body>
+</html>
