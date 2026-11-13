@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bank Reconciliation Tool Free – Auto BRS from Bank Statement & Ledger Excel | Cooridor Store</title>
+<meta name="description" content="Free online bank reconciliation tool. Upload bank statement and bank ledger (Tally/Busy) Excel. Auto-match by amount, date, party name and cheque number, get BRS, month-wise differences and Excel report.">
+<meta name="keywords" content="bank reconciliation, bank reconciliation statement, BRS format in excel, bank reconciliation tool free, auto bank reconciliation, tally bank reconciliation, how to prepare bank reconciliation statement, unpresented cheques, BRS online">
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="calc.css"><script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+.up{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:26px 16px;text-align:center;cursor:pointer;display:block}
+.drop:hover{border-color:var(--pri);background:var(--soft)}
+.drop b{display:block;margin-top:6px}
+.map{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.map label{font-size:.75rem;color:var(--mut);font-weight:600}
+.map select{padding:8px;font-size:.85rem}
+.ok{color:var(--acc);font-weight:600;font-size:.88rem;margin-top:8px}
+.rules{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+.rules .f{margin:0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+.kpi{padding:18px;cursor:pointer;border-width:2px}
+.kpi.on{border-color:var(--pri)}
+.kpi b{font-size:1.6rem;display:block}
+.kpi span{font-size:.82rem;color:var(--mut)}
+.kpi small{display:block;font-size:.78rem;color:var(--mut);margin-top:2px}
+.k1 b{color:#0e9f6e}.k2 b{color:#d97706}.k3 b{color:#dc2626}.k4 b{color:#7c3aed}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.tw{overflow:auto;margin-top:10px;max-height:520px}
+.tw table{width:100%;border-collapse:collapse;font-size:.84rem}
+.tw th{position:sticky;top:0;background:var(--soft);text-align:left;padding:9px;white-space:nowrap}
+.tw td{padding:8px 9px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tw td.n{text-align:right}
+.tw td.w{white-space:normal;min-width:220px}
+.hi{color:#0e9f6e;font-weight:700}.me{color:#d97706;font-weight:700}.lo{color:#dc2626;font-weight:700}
+.brs td{padding:9px 0;border-bottom:1px dashed var(--line)}
+.brs td:last-child{text-align:right;font-weight:600}
+.brs tr.t td{border-top:2px solid var(--pri);border-bottom:none;color:var(--pri);font-size:1.02rem}
+@media(max-width:860px){.up,.two{grid-template-columns:1fr}.rules,.kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+  <div class="crumb"><a href="/">Home</a> › Bank Reconciliation</div>
+  <div class="ph">
+    <h1 data-en="Bank Reconciliation Tool" data-hi="बैंक रिकंसिलिएशन टूल">Bank Reconciliation Tool</h1>
+    <p data-en="Upload your bank statement and the bank ledger from your books. We match entries by amount, date, party name and cheque number, then prepare your BRS with month-wise differences. Files stay on your computer." data-hi="बैंक स्टेटमेंट और अपनी बुक्स का बैंक लेजर डालिए। रकम, तारीख़, पार्टी के नाम और चेक नंबर से मिलान होगा, और महीने-वार फ़र्क के साथ BRS तैयार होगा। फ़ाइलें आपके कंप्यूटर पर ही रहती हैं।">Upload your bank statement and the bank ledger from your books. We match entries by amount, date, party name and cheque number, then prepare your BRS with month-wise differences. Files stay on your computer.</p>
+  </div>
+
+  <div class="up">
+    <div class="card box">
+      <h3 data-en="1. Bank ledger (your books: Tally, Busy etc.)" data-hi="1. बैंक लेजर (आपकी बुक्स: Tally, Busy आदि)">1. Bank ledger (your books: Tally, Busy etc.)</h3>
+      <label class="drop">📒<b data-en="Choose ledger Excel" data-hi="लेजर Excel चुनें">Choose ledger Excel</b><input type="file" accept=".xlsx,.xls,.csv" hidden onchange="readFile(this.files[0],'L')"></label>
+      <div id="mL"></div>
+    </div>
+    <div class="card box">
+      <h3 data-en="2. Bank statement" data-hi="2. बैंक स्टेटमेंट">2. Bank statement</h3>
+      <label class="drop">🏦<b data-en="Choose bank statement Excel" data-hi="बैंक स्टेटमेंट Excel चुनें">Choose bank statement Excel</b><input type="file" accept=".xlsx,.xls,.csv" hidden onchange="readFile(this.files[0],'B')"></label>
+      <div id="mB"></div>
+    </div>
+  </div>
+
+  <div class="card box" style="margin-top:18px">
+    <h3 data-en="Matching rules & balances" data-hi="मिलान के नियम और बैलेंस">Matching rules & balances</h3>
+    <div class="rules">
+      <div class="f"><label data-en="Date window (± days)" data-hi="तारीख़ की सीमा (± दिन)">Date window (± days)</label><input type="number" id="win" value="5" min="0"></div>
+      <div class="f"><label data-en="Amount tolerance (₹)" data-hi="रकम में छूट (₹)">Amount tolerance (₹)</label><input type="number" id="tol" value="0" min="0" step="0.01"></div>
+      <div class="f"><label data-en="Closing balance as per books (₹)" data-hi="बुक्स के अनुसार क्लोज़िंग बैलेंस (₹)">Closing balance as per books (₹)</label><input type="number" id="bb" placeholder="Dr balance, e.g. 250000"></div>
+      <div class="f"><label data-en="Closing balance as per bank (₹)" data-hi="बैंक के अनुसार क्लोज़िंग बैलेंस (₹)">Closing balance as per bank (₹)</label><input type="number" id="kb" placeholder="Optional, to verify"></div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+      <button class="btn btn-p" onclick="run()" data-en="Reconcile now" data-hi="अभी मिलान करें">Reconcile now</button>
+      <button class="btn btn-o" id="xl" onclick="exportXL()" disabled data-en="⬇ Download Excel report" data-hi="⬇ Excel रिपोर्ट">⬇ Download Excel report</button>
+      <button class="btn btn-o" onclick="sample()" data-en="⬇ Sample formats" data-hi="⬇ सैंपल फ़ॉर्मेट">⬇ Sample formats</button>
+    </div>
+  </div>
+
+  <div id="out" style="display:none">
+    <div class="kpis">
+      <div class="card kpi k1 on" onclick="show('M',this)"><b id="c1">0</b><span data-en="Matched" data-hi="मिल गए">Matched</span><small id="s1"></small></div>
+      <div class="card kpi k2" onclick="show('X',this)"><b id="c2">0</b><span data-en="Amount mismatch" data-hi="रकम में फ़र्क">Amount mismatch</span><small id="s2"></small></div>
+      <div class="card kpi k3" onclick="show('OL',this)"><b id="c3">0</b><span data-en="In books, not in bank" data-hi="बुक्स में, बैंक में नहीं">In books, not in bank</span><small id="s3"></small></div>
+      <div class="card kpi k4" onclick="show('OB',this)"><b id="c4">0</b><span data-en="In bank, not in books" data-hi="बैंक में, बुक्स में नहीं">In bank, not in books</span><small id="s4"></small></div>
+    </div>
+    <div class="two">
+      <div class="card box"><h3 data-en="Bank Reconciliation Statement" data-hi="बैंक रिकंसिलिएशन स्टेटमेंट">Bank Reconciliation Statement</h3><table class="brs" id="brs" style="width:100%"></table></div>
+      <div class="card box"><h3 data-en="Month-wise differences" data-hi="महीने-वार फ़र्क">Month-wise differences</h3><div class="tw" id="mon"></div></div>
+    </div>
+    <div class="card box" style="margin-top:18px"><h3 id="tt"></h3><div class="tw" id="tbl"></div></div>
+  </div>
+
+  <article class="art">
+    <h2>What is bank reconciliation?</h2>
+    <p>Bank reconciliation is the process of comparing the bank account in your books (the bank ledger in Tally, Busy or any accounting software) with the bank statement, and explaining every difference. The result is a Bank Reconciliation Statement (BRS) that proves both balances agree.</p>
+
+    <h2>Why do differences arise?</h2>
+    <ul><li><b>Cheques issued but not presented:</b> recorded as payment in books, not yet debited by bank.</li><li><b>Cheques deposited but not credited:</b> recorded as receipt in books, not yet credited by bank.</li><li><b>Direct credits:</b> NEFT/UPI receipts, interest credited by bank, not yet entered in books.</li><li><b>Bank charges and direct debits:</b> SMS charges, EMI, auto-debits not yet entered in books.</li><li><b>Errors:</b> wrong amount, duplicate or missing entries.</li></ul>
+
+    <h2>BRS format</h2>
+    <div class="fx">Balance as per books<br>+ Cheques issued but not presented<br>− Cheques deposited but not credited<br>+ Credits in bank not recorded in books<br>− Debits in bank not recorded in books<br>= Balance as per bank statement</div>
+
+    <h2>How this tool matches entries</h2>
+    <ol>
+      <li><b>Direction:</b> a receipt in books (Debit) is matched only with a deposit in bank, and a payment (Credit) only with a withdrawal.</li>
+      <li><b>Amount:</b> must be equal, within your tolerance.</li>
+      <li><b>Date:</b> must fall within the date window. Closer dates score higher.</li>
+      <li><b>Party name:</b> words from the ledger particulars are searched in the bank narration, ignoring words like NEFT, RTGS, IMPS, UPI and TRANSFER. Truncated names like "SHARMA TRAD" are recognised.</li>
+      <li><b>Cheque / reference number:</b> if found on both sides, the match is treated as the strongest.</li>
+      <li><b>Best match first:</b> every possible pair gets a score and the highest-scoring pairs are matched first, so when the same amount appears many times, the right party is chosen.</li>
+      <li><b>Amount mismatch:</b> unmatched entries with the same party and close dates but different amounts are shown separately with the difference.</li>
+    </ol>
+    <p>Each match shows a confidence level (High, Medium or Low) and the reason, so you can review Low-confidence matches quickly.</p>
+
+    <h2>How to export the bank ledger from Tally</h2>
+    <ol><li>Gateway of Tally → Display More Reports → Account Books → Ledger → select your bank ledger.</li><li>Set the period (Alt + F2).</li><li>Press Alt + E (Export), choose Excel format and export.</li></ol>
+    <p>For the bank statement, download it from net banking in Excel or CSV format.</p>
+
+    <h2>Frequently asked questions</h2>
+    <h3>Which bank statements are supported?</h3>
+    <p>Any bank statement in Excel or CSV with date, narration, withdrawal and deposit columns, including SBI, HDFC, ICICI, Axis, PNB and others. Columns are detected automatically and can be changed.</p>
+    <h3>What if my statement has one amount column with Dr/Cr?</h3>
+    <p>Map the amount column to Deposit and leave Withdrawal as none. Negative amounts are treated as withdrawals.</p>
+    <h3>Is my bank data safe?</h3>
+    <p>Yes. Everything runs inside your browser. No file is uploaded to any server.</p>
+
+    <h2>Related tools</h2>
+    <div class="related"><a class="card" href="gstr-2b-reconciliation.html">🔄 GSTR-2B Reconciliation</a><a class="card" href="tally-import.html">📥 Invoices to Tally</a><a class="card" href="tds-calculator.html">✂️ TDS Calculator</a></div>
+    <p class="note">Results are for guidance. Please review matches before finalising your books.</p>
+  </article>
+</main>
+<div id="site-footer"></div>
+<script>
+var FD={
+ L:[['date','Date',/date/i],['text','Particulars / Party',/particular|narration|description|party|ledger|name/i],['ref','Vch / Cheque No',/chq|cheque|instrument|ref|vch|voucher|utr/i],['in','Debit (Receipt)',/debit|^dr\b|receipt/i],['out','Credit (Payment)',/credit|^cr\b|payment/i]],
+ B:[['date','Txn Date',/date/i],['text','Narration',/narration|description|particular|remark|details/i],['ref','Chq / Ref No',/chq|cheque|ref|utr|instrument/i],['in','Deposit / Credit',/deposit|credit|^cr\b/i],['out','Withdrawal / Debit',/withdraw|debit|^dr\b/i]]};
+var STOP={NEFT:1,RTGS:1,IMPS:1,UPI:1,TRANSFER:1,TRF:1,FROM:1,THE:1,CHQ:1,CHEQUE:1,BANK:1,PVT:1,LTD:1,LIMITED:1,PRIVATE:1,AND:1,FOR:1,PAYMENT:1,RECEIPT:1,DEPOSIT:1,CASH:1,CLG:1,CLEARING:1,INB:1,MOB:1,NET:1,BANKING:1,INWARD:1,OUTWARD:1,BRANCH:1,ACCOUNT:1,SBIN:1,HDFC:1,ICIC:1,UTIB:1,PUNB:1,BARB:1,KKBK:1,YESB:1,CNRB:1,UBIN:1,IDIB:1,BKID:1,MAHB:1,FDRL:1,INDB:1,BEING:1,PAID:1,RECEIVED:1,AGAINST:1,BILL:1,INV:1,TOWARDS:1};
+var D={L:null,B:null},R=null,cur='M';
+function num(v){if(typeof v==='number')return v;var s=String(v).replace(/[,₹\s]/g,'');var neg=/^\(.*\)$/.test(s)||/dr$/i.test(s);s=s.replace(/[^0-9.\-]/g,'');var n=parseFloat(s)||0;return neg?-Math.abs(n):n;}
+function inr(n){return (n<0?'-':'')+'₹'+Math.abs(n).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]});}
+var MON={JAN:0,FEB:1,MAR:2,APR:3,MAY:4,JUN:5,JUL:6,AUG:7,SEP:8,OCT:9,NOV:10,DEC:11};
+function pDate(v){if(v instanceof Date&&!isNaN(v))return new Date(v.getFullYear(),v.getMonth(),v.getDate());
+ if(typeof v==='number'&&v>20000&&v<80000){var d=new Date(Math.round((v-25569)*864e5));return new Date(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate());}
+ var s=String(v).trim(),m;
+ if(m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/))return new Date(+m[1],m[2]-1,+m[3]);
+ if(m=s.match(/^(\d{1,2})[\/\-. ]([A-Za-z]{3,9}|\d{1,2})[\/\-. ,]*(\d{2,4})/)){var mo=isNaN(m[2])?MON[m[2].slice(0,3).toUpperCase()]:m[2]-1,y=+m[3];if(y<100)y+=2000;if(mo==null)return null;return new Date(y,mo,+m[1]);}
+ return null;}
+function fd(d){return d?('0'+d.getDate()).slice(-2)+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+d.getFullYear():'';}
+function mk(d){return d?d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2):'No date';}
+function readFile(f,side){if(!f)return;var r=new FileReader();r.onload=function(e){
+ var wb=XLSX.read(e.target.result,{type:'array',cellDates:true}),sh=wb.Sheets[wb.SheetNames[0]];
+ var rows=XLSX.utils.sheet_to_json(sh,{header:1,defval:'',raw:true});
+ var h=0,best=0;for(var i=0;i<Math.min(40,rows.length);i++){var c=rows[i].filter(function(x){return /date|debit|credit|withdraw|deposit|narration|particular|description/i.test(String(x))}).length;if(c>best){best=c;h=i;}}
+ var head=rows[h].map(function(x){return String(x).trim()});
+ D[side]={head:head,rows:rows.slice(h+1),name:f.name};mapUI(side);};r.readAsArrayBuffer(f);}
+function mapUI(side){var d=D[side],used={},html='<div class="ok">✓ '+esc(d.name)+' · '+d.rows.length+' rows</div><div class="map">';
+ FD[side].forEach(function(f){var sel=-1;d.head.forEach(function(c,k){if(sel<0&&!used[k]&&c&&!/balance|bal\b/i.test(c)&&f[2].test(c))sel=k;});if(sel>=0)used[sel]=1;
+  html+='<div><label>'+f[1]+'</label><select id="'+side+'_'+f[0]+'"><option value="-1">— none —</option>'+d.head.map(function(c,k){return '<option value="'+k+'"'+(k===sel?' selected':'')+'>'+esc(c||('Column '+(k+1)))+'</option>'}).join('')+'</select></div>';});
+ document.getElementById('m'+side).innerHTML=html+'</div>';}
+function recs(side){var d=D[side],c={};FD[side].forEach(function(f){c[f[0]]=+document.getElementById(side+'_'+f[0]).value;});
+ function g(r,k){return c[k]>=0?r[c[k]]:'';}
+ var out=[];d.rows.forEach(function(r,i){var dt=pDate(g(r,'date'));if(!dt)return;
+  var a=num(g(r,'in')),b=c.out>=0?num(g(r,'out')):0,amt=c.out>=0?Math.abs(a)-Math.abs(b):a;
+  if(Math.abs(amt)<0.005)return;var text=String(g(r,'text')||''),ref=String(g(r,'ref')||'');
+  if(/opening|closing|total|carried|brought/i.test(text)&&!ref)return;
+  out.push({id:side+i,date:dt,text:text,ref:ref,amt:Math.round(amt*100)/100});});return out;}
+function toks(s){return String(s).toUpperCase().replace(/[^A-Z ]/g,' ').split(/\s+/).filter(function(t){return t.length>=3&&!STOP[t]});}
+function nameSim(l,b){var t=toks(l.text);if(!t.length)return 0;var bs=' '+String(b.text+' '+b.ref).toUpperCase().replace(/[^A-Z]/g,' ').replace(/\s+/g,' ')+' ',bj=bs.replace(/ /g,''),hit=0;
+ t.forEach(function(w){if(bs.indexOf(' '+w)>-1||bj.indexOf(w)>-1||(w.length>=5&&bj.indexOf(w.slice(0,5))>-1))hit++;});return hit/t.length;}
+function digs(s){return (String(s).match(/\d{4,}/g)||[]).map(function(x){return x.replace(/^0+/,'')}).filter(function(x){return x.length>=4});}
+function refHit(l,b){var a=digs(l.ref+' '+l.text),bb=String(b.ref+' '+b.text).replace(/\D/g,' ');if(!a.length)return false;return a.some(function(x){return (' '+bb+' ').indexOf(x)>-1;});}
+function days(a,b){return Math.round(Math.abs(a-b)/864e5);}
+function run(){
+ if(!D.L||!D.B){alert('Please choose both files first.');return;}
+ var L=recs('L'),B=recs('B'),win=+document.getElementById('win').value||0,tol=+document.getElementById('tol').value||0,P=[];
+ L.forEach(function(l){B.forEach(function(b){if((l.amt>0)!==(b.amt>0))return;if(Math.abs(l.amt-b.amt)>tol+1e-9)return;var d=days(l.date,b.date);if(d>win)return;
+  var s=nameSim(l,b),rf=refHit(l,b),sc=50+30*(1-d/(win+1))+s*30+(rf?40:0);P.push({l:l,b:b,d:d,s:s,rf:rf,sc:sc});});});
+ P.sort(function(x,y){return y.sc-x.sc||x.d-y.d;});
+ var uL={},uB={},M=[];
+ P.forEach(function(p){if(uL[p.l.id]||uB[p.b.id])return;uL[p.l.id]=uB[p.b.id]=1;
+  p.conf=p.rf||(p.s>=0.5&&p.d<=2)?'High':(p.s>0||p.d<=1)?'Medium':'Low';
+  p.why='Amount ✓ · Date '+(p.d?'±'+p.d+'d':'same')+' · Name '+Math.round(p.s*100)+'%'+(p.rf?' · Ref ✓':'');M.push(p);});
+ var rL=L.filter(function(x){return !uL[x.id]}),rB=B.filter(function(x){return !uB[x.id]}),Q=[];
+ rL.forEach(function(l){rB.forEach(function(b){if((l.amt>0)!==(b.amt>0))return;var d=days(l.date,b.date);if(d>win)return;var s=nameSim(l,b),rf=refHit(l,b);if(s<0.5&&!rf)return;Q.push({l:l,b:b,d:d,s:s,rf:rf,sc:s*50+(rf?40:0)-d});});});
+ Q.sort(function(x,y){return y.sc-x.sc;});var X=[];
+ Q.forEach(function(q){if(uL[q.l.id]||uB[q.b.id])return;uL[q.l.id]=uB[q.b.id]=1;q.diff=Math.round((q.l.amt-q.b.amt)*100)/100;X.push(q);});
+ var OL=L.filter(function(x){return !uL[x.id]}),OB=B.filter(function(x){return !uB[x.id]});
+ R={L:L,B:B,M:M,X:X,OL:OL,OB:OB};render();}
+function sum(a,f){return a.reduce(function(t,x){return t+f(x)},0);}
+function render(){var r=R;
+ document.getElementById('c1').textContent=r.M.length;document.getElementById('c2').textContent=r.X.length;document.getElementById('c3').textContent=r.OL.length;document.getElementById('c4').textContent=r.OB.length;
+ document.getElementById('s1').textContent=inr(sum(r.M,function(p){return Math.abs(p.l.amt)}));
+ document.getElementById('s2').textContent='Diff '+inr(sum(r.X,function(q){return q.diff}));
+ document.getElementById('s3').textContent=inr(sum(r.OL,function(x){return x.amt}));
+ document.getElementById('s4').textContent=inr(sum(r.OB,function(x){return x.amt}));
+ var issued=sum(r.OL.filter(function(x){return x.amt<0}),function(x){return -x.amt}),notCr=sum(r.OL.filter(function(x){return x.amt>0}),function(x){return x.amt});
+ var bCr=sum(r.OB.filter(function(x){return x.amt>0}),function(x){return x.amt}),bDr=sum(r.OB.filter(function(x){return x.amt<0}),function(x){return -x.amt});
+ var xBook=sum(r.X,function(q){return q.diff}),bb=parseFloat(document.getElementById('bb').value),kb=parseFloat(document.getElementById('kb').value),hasB=!isNaN(bb);
+ var calc=(hasB?bb:0)+issued-notCr+bCr-bDr-xBook;
+ var h='<tr><td>Balance as per books</td><td>'+(hasB?inr(bb):'—')+'</td></tr>'+
+ '<tr><td>Add: Payments in books not yet debited by bank (cheques issued, not presented)</td><td>'+inr(issued)+'</td></tr>'+
+ '<tr><td>Less: Receipts in books not yet credited by bank</td><td>'+inr(notCr)+'</td></tr>'+
+ '<tr><td>Add: Credits in bank not recorded in books</td><td>'+inr(bCr)+'</td></tr>'+
+ '<tr><td>Less: Debits in bank not recorded in books (charges, auto-debits)</td><td>'+inr(bDr)+'</td></tr>'+
+ '<tr><td>Less: Net amount differences (books − bank)</td><td>'+inr(xBook)+'</td></tr>'+
+ '<tr class="t"><td>'+(hasB?'Balance as per bank (computed)':'Net adjustment to books balance')+'</td><td>'+inr(calc)+'</td></tr>';
+ if(hasB&&!isNaN(kb)){var df=Math.round((kb-calc)*100)/100;h+='<tr><td>Balance as per bank statement (entered)</td><td>'+inr(kb)+'</td></tr><tr><td><b>Unexplained difference</b></td><td style="color:'+(Math.abs(df)<0.01?'#0e9f6e':'#dc2626')+'">'+inr(df)+(Math.abs(df)<0.01?' ✓ Reconciled':'')+'</td></tr>';}
+ document.getElementById('brs').innerHTML=h;
+ var mm={};function add(k,f,v){mm[k]=mm[k]||{a:0,b:0,c:0,d:0,e:0};mm[k][f]+=v;}
+ r.OL.forEach(function(x){add(mk(x.date),x.amt>0?'a':'b',Math.abs(x.amt));});
+ r.OB.forEach(function(x){add(mk(x.date),x.amt>0?'c':'d',Math.abs(x.amt));});
+ r.X.forEach(function(q){add(mk(q.l.date),'e',q.diff);});
+ var ks=Object.keys(mm).sort(),mt='<table><tr><th>Month</th><th>Books only: receipts</th><th>Books only: payments</th><th>Bank only: credits</th><th>Bank only: debits</th><th>Amount diff</th><th>Net effect</th></tr>';
+ ks.forEach(function(k){var o=mm[k],net=o.b-o.a+o.c-o.d-o.e;mt+='<tr><td>'+k+'</td><td class="n">'+inr(o.a)+'</td><td class="n">'+inr(o.b)+'</td><td class="n">'+inr(o.c)+'</td><td class="n">'+inr(o.d)+'</td><td class="n">'+inr(o.e)+'</td><td class="n"><b>'+inr(net)+'</b></td></tr>';});
+ document.getElementById('mon').innerHTML=ks.length?mt+'</table>':'<p class="note">No differences 🎉</p>';
+ document.getElementById('out').style.display='block';document.getElementById('xl').disabled=false;
+ show(cur,document.querySelector('.kpi.on'));}
+function show(t,el){cur=t;document.querySelectorAll('.kpi').forEach(function(k){k.classList.remove('on')});if(el)el.classList.add('on');
+ var r=R,h='',T={M:'Matched entries',X:'Amount mismatches (same party, different amount)',OL:'In books, not in bank',OB:'In bank, not in books'};
+ document.getElementById('tt').textContent=T[t];
+ if(t==='M')h='<table><tr><th>Confidence</th><th>Book date</th><th>Particulars</th><th>Bank date</th><th>Bank narration</th><th>Amount</th><th>Reason</th></tr>'+r.M.map(function(p){return '<tr><td class="'+(p.conf==='High'?'hi':p.conf==='Medium'?'me':'lo')+'">'+p.conf+'</td><td>'+fd(p.l.date)+'</td><td class="w">'+esc(p.l.text)+'</td><td>'+fd(p.b.date)+'</td><td class="w">'+esc(p.b.text)+'</td><td class="n">'+inr(p.l.amt)+'</td><td>'+p.why+'</td></tr>'}).join('')+'</table>';
+ else if(t==='X')h='<table><tr><th>Book date</th><th>Particulars</th><th>Book amount</th><th>Bank date</th><th>Bank narration</th><th>Bank amount</th><th>Difference</th></tr>'+r.X.map(function(q){return '<tr><td>'+fd(q.l.date)+'</td><td class="w">'+esc(q.l.text)+'</td><td class="n">'+inr(q.l.amt)+'</td><td>'+fd(q.b.date)+'</td><td class="w">'+esc(q.b.text)+'</td><td class="n">'+inr(q.b.amt)+'</td><td class="n"><b>'+inr(q.diff)+'</b></td></tr>'}).join('')+'</table>';
+ else{var A=r[t];h='<table><tr><th>Date</th><th>Particulars / Narration</th><th>Ref</th><th>Type</th><th>Amount</th></tr>'+A.map(function(x){var ty=t==='OL'?(x.amt>0?'Receipt not credited':'Payment not presented'):(x.amt>0?'Credit not in books':'Debit not in books');return '<tr><td>'+fd(x.date)+'</td><td class="w">'+esc(x.text)+'</td><td>'+esc(x.ref)+'</td><td>'+ty+'</td><td class="n">'+inr(x.amt)+'</td></tr>'}).join('')+'</table>';}
+ document.getElementById('tbl').innerHTML=h;}
+function exportXL(){var r=R,wb=XLSX.utils.book_new();
+ function add(n,a){XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(a.length?a:[{Info:'No records'}]),n);}
+ var brs=[];document.querySelectorAll('#brs tr').forEach(function(tr){var c=tr.querySelectorAll('td');brs.push({Particulars:c[0].textContent,Amount:c[1].textContent});});
+ add('BRS',brs);
+ var mon=[];document.querySelectorAll('#mon tr').forEach(function(tr,i){if(!i)return;var c=tr.querySelectorAll('td');mon.push({Month:c[0].textContent,'Books only receipts':c[1].textContent,'Books only payments':c[2].textContent,'Bank only credits':c[3].textContent,'Bank only debits':c[4].textContent,'Amount diff':c[5].textContent,'Net effect':c[6].textContent});});
+ add('Month-wise',mon);
+ add('Matched',r.M.map(function(p){return {Confidence:p.conf,'Book Date':fd(p.l.date),Particulars:p.l.text,'Book Ref':p.l.ref,'Bank Date':fd(p.b.date),'Bank Narration':p.b.text,'Bank Ref':p.b.ref,Amount:p.l.amt,Reason:p.why}}));
+ add('Amount Mismatch',r.X.map(function(q){return {'Book Date':fd(q.l.date),Particulars:q.l.text,'Book Amount':q.l.amt,'Bank Date':fd(q.b.date),'Bank Narration':q.b.text,'Bank Amount':q.b.amt,Difference:q.diff}}));
+ add('In Books not in Bank',r.OL.map(function(x){return {Date:fd(x.date),Particulars:x.text,Ref:x.ref,Type:x.amt>0?'Receipt not credited':'Payment not presented',Amount:x.amt}}));
+ add('In Bank not in Books',r.OB.map(function(x){return {Date:fd(x.date),Narration:x.text,Ref:x.ref,Type:x.amt>0?'Credit not in books':'Debit not in books',Amount:x.amt}}));
+ XLSX.writeFile(wb,'Bank-Reconciliation-CooridorStore.xlsx');}
+function sample(){var wb=XLSX.utils.book_new();
+ XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['Date','Particulars','Vch No','Debit','Credit'],['02-04-2026','Sharma Traders','RC-101',25000,''],['05-04-2026','Gupta Electricals','CHQ 004512','',18000]]),'Bank Ledger');
+ XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['Txn Date','Narration','Chq/Ref No','Withdrawal','Deposit','Balance'],['03-04-2026','NEFT/SBIN0001234/SHARMA TRAD','N09312',  '',25000,125000],['08-04-2026','CHQ PAID 004512 GUPTA ELEC','004512',18000,'',107000]]),'Bank Statement');
+ XLSX.writeFile(wb,'Bank-Reco-Sample-Formats.xlsx');}
+</script>
+</body>
+</html>
