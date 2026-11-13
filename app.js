@@ -14,7 +14,8 @@ var header='<header class="hdr"><div class="container">'+BRAND+
  m('gstr-2b-reconciliation.html','🔄','GSTR-2B Reconciliation','GSTR-2B रिकंसिलिएशन','Match 2B with purchase books','2B को परचेज़ बुक्स से मिलाएँ')+
  m('bank-reconciliation.html','🏦','Bank Reconciliation','बैंक रिकंसिलिएशन','Auto BRS from Excel','Excel से ऑटो BRS')+
  m('tally-import.html','📥','Invoices to Tally','इनवॉइस से Tally','Tally-ready import file','Tally इम्पोर्ट फ़ाइल')+
-'</div></div>'+
+ m('gstr-1-einvoice-reconciliation.html','🧾','GSTR-1 vs e-Invoice','GSTR-1 बनाम ई-इनवॉइस','Find missing e-invoices','छूटे ई-इनवॉइस खोजें')+
+ '</div></div>'+
 '<div class="dd"><button data-en="Generators ▾" data-hi="जनरेटर ▾">Generators ▾</button><div class="menu">'+
  m('invoice-generator.html','🧾','GST Invoice','GST इनवॉइस','Create & download PDF','बनाएँ और PDF लें')+
  m('word-to-pdf.html','📄','Word to PDF','Word से PDF','Convert .docx files','.docx फ़ाइल बदलें')+
