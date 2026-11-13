@@ -1,3 +1,4 @@
+(function(){var id='G-BXNLHN3GQX';var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+id;document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config',id);})();
 (function(){
 var LOGO='<svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="var(--pri)"/><path d="M26 13.5a9 9 0 1 0 0 13" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/><path d="M19 20.5l2.6 2.6 5.4-5.6" fill="none" stroke="var(--acc)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 var BRAND='<a href="/" class="brand">'+LOGO+'<div class="brand-t">Cooridor Store<small>TAX · GST · ACCOUNTS</small></div></a>';
