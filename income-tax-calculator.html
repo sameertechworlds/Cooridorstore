@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Income Tax Calculator FY 2026-27 – Old vs New Regime with Working | Cooridor Store</title>
+<meta name="description" content="Free income tax calculator for FY 2026-27. Compare old and new tax regime slab by slab, with standard deduction, 87A rebate, cess and full working.">
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="calc.css"><script src="app.js"></script>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+  <div class="crumb"><a href="/">Home</a> › <span data-en="Income Tax Calculator" data-hi="इनकम टैक्स कैलकुलेटर">Income Tax Calculator</span></div>
+  <div class="ph">
+    <h1 data-en="Income Tax Calculator FY 2026-27" data-hi="इनकम टैक्स कैलकुलेटर FY 2026-27">Income Tax Calculator FY 2026-27</h1>
+    <p data-en="Compare your tax under the old and new regime, slab by slab, and see which one saves you more." data-hi="पुरानी और नई रिजीम में स्लैब के हिसाब से टैक्स की तुलना कीजिए और देखिए कौन सी ज़्यादा बचत कराती है।">Compare your tax under the old and new regime, slab by slab, and see which one saves you more.</p>
+  </div>
+  <div class="lay">
+    <div class="card box">
+      <div class="f"><label data-en="Annual gross income (₹)" data-hi="सालाना कुल आय (₹)">Annual gross income (₹)</label><input type="number" id="inc" value="1500000"></div>
+      <div class="f"><label data-en="Are you salaried?" data-hi="क्या आप नौकरीपेशा हैं?">Are you salaried?</label>
+        <div class="chips"><button class="on" onclick="chip(1,this)" data-en="Yes" data-hi="हाँ">Yes</button><button onclick="chip(0,this)" data-en="No" data-hi="नहीं">No</button></div></div>
+      <div class="f"><label data-en="Deductions for old regime: 80C, 80D, HRA etc. (₹)" data-hi="पुरानी रिजीम की कटौती: 80C, 80D, HRA आदि (₹)">Deductions for old regime: 80C, 80D, HRA etc. (₹)</label><input type="number" id="ded" value="200000"></div>
+      <p class="note" data-en="Deductions apply only to the old regime. Standard deduction is added automatically for salaried people." data-hi="कटौती सिर्फ़ पुरानी रिजीम में लगती है। नौकरीपेशा के लिए स्टैंडर्ड डिडक्शन अपने आप जुड़ता है।">Deductions apply only to the old regime. Standard deduction is added automatically for salaried people.</p>
+    </div>
+    <div class="card box">
+      <div class="lbl" id="winlbl"></div>
+      <div class="big" id="big">₹0</div>
+      <table class="rt" id="rows"></table>
+      <div class="work"><b data-en="New regime working" data-hi="नई रिजीम की कैलकुलेशन">New regime working</b><pre id="wn"></pre></div>
+      <div class="work"><b data-en="Old regime working" data-hi="पुरानी रिजीम की कैलकुलेशन">Old regime working</b><pre id="wo"></pre></div>
+      <p class="note">Surcharge for income above ₹50 lakh is not included.</p>
+    </div>
+  </div>
+
+  <article class="art">
+    <h2>New tax regime slabs (FY 2026-27)</h2>
+    <table><tr><th>Taxable income</th><th>Rate</th></tr>
+    <tr><td>Up to ₹4,00,000</td><td>Nil</td></tr><tr><td>₹4,00,001 – ₹8,00,000</td><td>5%</td></tr>
+    <tr><td>₹8,00,001 – ₹12,00,000</td><td>10%</td></tr><tr><td>₹12,00,001 – ₹16,00,000</td><td>15%</td></tr>
+    <tr><td>₹16,00,001 – ₹20,00,000</td><td>20%</td></tr><tr><td>₹20,00,001 – ₹24,00,000</td><td>25%</td></tr>
+    <tr><td>Above ₹24,00,000</td><td>30%</td></tr></table>
+    <p>Salaried people get a standard deduction of ₹75,000. If taxable income is up to ₹12 lakh, a rebate makes the tax zero, so a salaried person earning up to ₹12.75 lakh pays no tax.</p>
+
+    <h2>Old tax regime slabs</h2>
+    <table><tr><th>Taxable income</th><th>Rate</th></tr>
+    <tr><td>Up to ₹2,50,000</td><td>Nil</td></tr><tr><td>₹2,50,001 – ₹5,00,000</td><td>5%</td></tr>
+    <tr><td>₹5,00,001 – ₹10,00,000</td><td>20%</td></tr><tr><td>Above ₹10,00,000</td><td>30%</td></tr></table>
+    <p>The old regime allows deductions such as 80C (up to ₹1.5 lakh), 80D, HRA and home loan interest, plus a ₹50,000 standard deduction. Income up to ₹5 lakh gets a full rebate. A 4% health and education cess is added in both regimes.</p>
+
+    <h2>Worked example</h2>
+    <p>Salary ₹15,00,000, new regime: taxable income = 15,00,000 − 75,000 = ₹14,25,000. Tax = 0 + 20,000 + 40,000 + 33,750 = ₹93,750. Cess 4% = ₹3,750. Total = ₹97,500.</p>
+
+    <h2>Which regime should I choose?</h2>
+    <p>If your total deductions are small, the new regime usually saves more. If you claim large deductions like HRA, 80C and home loan interest, compare both using the calculator above.</p>
+
+    <h2>Related tools</h2>
+    <div class="related"><a class="card" href="hra-calculator.html">🏠 HRA Calculator</a><a class="card" href="tds-calculator.html">✂️ TDS Calculator</a><a class="card" href="gst-calculator.html">🧮 GST Calculator</a></div>
+    <p class="note">Results are for guidance only. Please verify with a tax professional before filing.</p>
+  </article>
+</main>
+<div id="site-footer"></div>
+<script>
+var sal=1;
+function chip(v,b){sal=v;b.parentNode.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');calc();}
+function inr(n){return '₹'+Math.round(n).toLocaleString('en-IN');}
+function slab(t,S){var tax=0,lines=[],prev=0;for(var i=0;i<S.length;i++){var lim=S[i][0],r=S[i][1];if(t<=prev)break;var part=Math.min(t,lim)-prev;if(r>0){tax+=part*r/100;lines.push(inr(prev)+' – '+(lim===Infinity?'above':inr(Math.min(t,lim)))+' @ '+r+'% = '+inr(part*r/100));}prev=lim;}return {tax:tax,lines:lines};}
+var NEW=[[400000,0],[800000,5],[1200000,10],[1600000,15],[2000000,20],[2400000,25],[Infinity,30]];
+var OLD=[[250000,0],[500000,5],[1000000,20],[Infinity,30]];
+function calc(){
+  var hi=(localStorage.getItem('lang')==='hi'),inc=+document.getElementById('inc').value||0,ded=+document.getElementById('ded').value||0;
+  var tn=Math.max(0,inc-(sal?75000:0)),n=slab(tn,NEW),rn=n.tax,wn='Taxable = '+inr(inc)+(sal?' − 75,000 std. deduction':'')+' = '+inr(tn)+'\n'+n.lines.join('\n')+'\nSlab tax = '+inr(n.tax);
+  if(tn<=1200000){rn=0;wn+='\nRebate (income ≤ ₹12 lakh) → tax = ₹0';}
+  else if(n.tax>tn-1200000){rn=tn-1200000;wn+='\nMarginal relief → tax limited to '+inr(rn);}
+  var cn=rn*0.04;wn+='\nCess 4% = '+inr(cn)+'\nTotal = '+inr(rn+cn);
+  var to=Math.max(0,inc-(sal?50000:0)-ded),o=slab(to,OLD),ro=o.tax,wo='Taxable = '+inr(inc)+(sal?' − 50,000':'')+' − '+inr(ded)+' = '+inr(to)+'\n'+o.lines.join('\n')+'\nSlab tax = '+inr(o.tax);
+  if(to<=500000){ro=0;wo+='\nRebate (income ≤ ₹5 lakh) → tax = ₹0';}
+  var co=ro*0.04;wo+='\nCess 4% = '+inr(co)+'\nTotal = '+inr(ro+co);
+  var N=rn+cn,O=ro+co,best=N<=O;
+  document.getElementById('winlbl').textContent=best?(hi?'नई रिजीम बेहतर है, बचत':'New regime is better. You save'):(hi?'पुरानी रिजीम बेहतर है, बचत':'Old regime is better. You save');
+  document.getElementById('big').textContent=inr(Math.abs(N-O));
+  document.getElementById('rows').innerHTML='<tr><td>'+(hi?'नई रिजीम में टैक्स':'Tax in new regime')+'</td><td>'+inr(N)+'</td></tr><tr><td>'+(hi?'पुरानी रिजीम में टैक्स':'Tax in old regime')+'</td><td>'+inr(O)+'</td></tr>';
+  document.getElementById('wn').textContent=wn;document.getElementById('wo').textContent=wo;
+}
+['inc','ded'].forEach(function(i){document.getElementById(i).addEventListener('input',calc)});
+document.addEventListener('langchange',calc);document.addEventListener('DOMContentLoaded',calc);
+</script>
+</body>
+</html>
