@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact Us | Cooridor Store</title>
+<meta name="description" content="Contact cooridorstore.in for feedback, bug reports, new tool requests or questions about our free tax and accounting tools.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<style>
+.cform{max-width:640px;margin:26px 0 0;padding:26px}
+.cform textarea{width:100%;min-height:140px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--sur);color:var(--txt);font:inherit}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="index.html">Home</a> › Contact</div>
+ <div class="ph"><h1>Contact Us</h1><p>Feedback, a wrong result, or an idea for a new tool? Write to us. We usually reply within 2 working days.</p></div>
+
+ <div class="card cform">
+  <div class="f"><label>Your name</label><input id="cn"></div>
+  <div class="f"><label>Topic</label><select id="ct"><option>Feedback</option><option>Report a wrong result</option><option>Request a new tool</option><option>Advertising / partnership</option><option>Other</option></select></div>
+  <div class="f"><label>Message</label><textarea id="cm"></textarea></div>
+  <button type="button" class="btn btn-p" onclick="sendMail()">✉ Send via email</button>
+  <p class="note">This opens your email app with the message filled in. Or write directly to <a href="mailto:contact@cooridorstore.in" style="color:var(--pri)">contact@cooridorstore.in</a>.</p>
+ </div>
+
+ <article class="art" style="margin-left:0">
+  <h2>Reporting a wrong result</h2>
+  <p>Please mention the tool name, the values you entered and the result you expected. Do not send PAN, Aadhaar, bank account numbers or full client files by email.</p>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script>
+function sendMail(){var n=document.getElementById('cn').value.trim(),t=document.getElementById('ct').value,m=document.getElementById('cm').value.trim();
+ if(!m){alert('Please write your message.');return;}
+ location.href='mailto:contact@cooridorstore.in?subject='+encodeURIComponent('[cooridorstore.in] '+t)+'&body='+encodeURIComponent(m+'\n\n— '+(n||'Website visitor'));}
+</script>
+</body>
+</html>
