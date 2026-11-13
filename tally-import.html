@@ -1,235 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Excel to Tally Import Free – Convert Sales & Purchase Invoices to Tally XML | Cooridor Store</title>
-<meta name="description" content="Free Excel to Tally converter. Import sales and purchase invoices into TallyPrime or Tally ERP 9 using XML. Validates GSTIN, matches ledger names with your chart of accounts and calculates GST.">
-<meta name="keywords" content="excel to tally import, import invoices into tally, excel to tally xml converter free, tally prime import sales voucher from excel, purchase voucher import tally, tally xml format, bulk voucher entry tally">
-<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="calc.css"><script src="app.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Excel to Tally XML Converter – Import Sales & Purchase Invoices into TallyPrime | Cooridor Store</title>
+<meta name="description" content="Free Excel to Tally converter. Import GST sales and purchase invoices from Excel into TallyPrime or Tally ERP 9 as XML vouchers. Matches party names with your Tally ledgers, checks GSTIN and tax, and works fully in your browser.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
 <style>
-.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
-.drop{border:2px dashed var(--line);border-radius:14px;padding:22px 14px;text-align:center;cursor:pointer;display:block}
-.drop:hover{border-color:var(--pri);background:var(--soft)}
-.drop b{display:block;margin-top:6px;font-size:.92rem}
-.ok{color:var(--acc);font-weight:600;font-size:.85rem;margin-top:8px}
-.map,.lg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.map label,.lg label{font-size:.74rem;color:var(--mut);font-weight:600}
-.map select,.lg input,.lg select{padding:8px;font-size:.85rem}
-.num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--pri);color:#fff;font-size:.8rem;margin-right:6px}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
-.kpi{padding:16px}.kpi b{font-size:1.5rem;display:block}.kpi span{font-size:.8rem;color:var(--mut)}
-.tw{overflow:auto;max-height:460px;margin-top:10px}
-.tw table{width:100%;border-collapse:collapse;font-size:.84rem}
-.tw th{position:sticky;top:0;background:var(--soft);text-align:left;padding:8px;white-space:nowrap}
-.tw td{padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
-.tw td.n{text-align:right}.tw td.w{white-space:normal;min-width:200px}
-.tw input{padding:6px;font-size:.84rem;min-width:220px}
-.e{color:#dc2626}.g{color:#0e9f6e;font-weight:700}
-.chk{display:flex;gap:8px;align-items:center;font-size:.88rem;margin-top:10px}
+.steps{display:grid;gap:18px;margin-top:26px}
+.step{padding:24px}
+.step h3{display:flex;gap:10px;align-items:center;font-size:1.05rem;margin-bottom:6px}
+.step h3 i{font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--pri);color:#fff;display:inline-grid;place-items:center;font-size:.85rem;flex:none}
+.sub{color:var(--mut);font-size:.9rem;margin-bottom:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mapg{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:14px}
+.mapg label,.g3 label{font-size:.8rem;font-weight:600;display:block;margin-bottom:4px}
+textarea{width:100%;min-height:90px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--sur);color:var(--txt);font:inherit}
+.chk{display:flex;gap:8px;align-items:center;font-size:.9rem;margin:8px 0}
 .chk input{width:auto}
-@media(max-width:900px){.steps3{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.kpi{padding:14px}.kpi b{display:block;font-size:1.4rem}
+.tw{overflow:auto;max-height:480px;border:1px solid var(--line);border-radius:10px}
+.tw table{width:100%;border-collapse:collapse;font-size:.85rem}
+.tw th,.tw td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+.tw th{position:sticky;top:0;background:var(--soft);z-index:1}
+.tw td.n{text-align:right}
+.bad{color:#e5484d;font-weight:600}.good{color:var(--acc);font-weight:600}
+.iss{white-space:normal!important;min-width:240px;color:#e5484d}
+.nm{display:grid;grid-template-columns:1fr 1fr auto;gap:8px 14px;align-items:center;font-size:.9rem;max-height:360px;overflow:auto}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+@media(max-width:860px){.g3,.kpis{grid-template-columns:1fr 1fr}.nm{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div id="site-header"></div>
 <main class="container page">
-  <div class="crumb"><a href="/">Home</a> › Excel to Tally</div>
-  <div class="ph">
-    <h1 data-en="Excel to Tally: Import Invoices in Bulk" data-hi="Excel से Tally: एक साथ सारे बिल इम्पोर्ट करें">Excel to Tally: Import Invoices in Bulk</h1>
-    <p data-en="Turn your sales or purchase invoice Excel into a Tally XML file. Ledger names are checked against your Tally chart of accounts, GSTINs are validated and GST is calculated, so the import works the first time." data-hi="सेल्स या परचेज़ बिलों की Excel को Tally XML फ़ाइल में बदलिए। लेजर के नाम Tally के चार्ट ऑफ़ अकाउंट्स से जाँचे जाते हैं, GSTIN जाँचा जाता है और GST अपने आप निकलता है, ताकि इम्पोर्ट पहली बार में सही हो।">Turn your sales or purchase invoice Excel into a Tally XML file. Ledger names are checked against your Tally chart of accounts, GSTINs are validated and GST is calculated, so the import works the first time.</p>
+ <div class="crumb"><a href="index.html">Home</a> › <span data-en="Invoices to Tally" data-hi="इनवॉइस से Tally">Invoices to Tally</span></div>
+ <div class="ph">
+  <h1 data-en="Invoices to Tally (Excel to Tally XML)" data-hi="इनवॉइस से Tally (Excel से Tally XML)">Invoices to Tally (Excel to Tally XML)</h1>
+  <p data-en="Turn your sales or purchase invoice Excel into a Tally import file in minutes. Errors are caught before import. Your data never leaves your computer." data-hi="अपनी सेल्स या परचेज़ इनवॉइस की Excel को कुछ ही मिनट में Tally इम्पोर्ट फ़ाइल में बदलिए। इम्पोर्ट से पहले ही ग़लतियाँ पकड़ी जाती हैं। आपका डेटा आपके कंप्यूटर से बाहर नहीं जाता।">Turn your sales or purchase invoice Excel into a Tally import file in minutes. Errors are caught before import. Your data never leaves your computer.</p>
+ </div>
+
+ <div class="steps">
+  <section class="card step">
+   <h3><i>1</i><span data-en="Load your Tally ledger names (recommended)" data-hi="अपने Tally लेजर के नाम डालिए (ज़रूरी सलाह)">Load your Tally ledger names (recommended)</span></h3>
+   <p class="sub" data-en="Export the ledger list from Tally (see guide below) and upload it, or paste ledger names one per line. Party and GST ledger names will be matched exactly with Tally." data-hi="Tally से लेजर लिस्ट एक्सपोर्ट करके (नीचे गाइड देखिए) अपलोड कीजिए, या एक लाइन में एक नाम पेस्ट कीजिए। पार्टी और GST लेजर के नाम Tally से हूबहू मिलाए जाएँगे।">Export the ledger list from Tally (see guide below) and upload it, or paste ledger names one per line. Party and GST ledger names will be matched exactly with Tally.</p>
+   <input type="file" accept=".xlsx,.xls,.csv" onchange="readCOA(this.files[0])">
+   <textarea id="coaTxt" style="margin-top:10px" data-ph-en="Or paste ledger names here, one per line" data-ph-hi="या यहाँ लेजर के नाम पेस्ट कीजिए, एक लाइन में एक" placeholder="Or paste ledger names here, one per line"></textarea>
+   <div class="acts"><button type="button" class="btn btn-o" onclick="pasteCOA()" data-en="Use pasted names" data-hi="पेस्ट किए नाम इस्तेमाल करें">Use pasted names</button></div>
+   <p id="coaInfo" style="margin-top:10px"></p>
+   <datalist id="coaList"></datalist>
+  </section>
+
+  <section class="card step">
+   <h3><i>2</i><span data-en="Settings" data-hi="सेटिंग्स">Settings</span></h3>
+   <div class="g3">
+    <div><label data-en="Voucher type" data-hi="वाउचर टाइप">Voucher type</label><select id="vt" onchange="defaults()"><option>Sales</option><option>Purchase</option></select></div>
+    <div><label data-en="Voucher type name in Tally" data-hi="Tally में वाउचर टाइप का नाम">Voucher type name in Tally</label><input id="vtn" value="Sales"></div>
+    <div><label data-en="Your GSTIN (for CGST/SGST vs IGST)" data-hi="आपका GSTIN (CGST/SGST या IGST तय करने के लिए)">Your GSTIN (for CGST/SGST vs IGST)</label><input id="myg" maxlength="15" placeholder="e.g. 07ABCDE1234F1Z5"></div>
+    <div><label data-en="Sales/Purchase ledger ({rate} = GST rate)" data-hi="सेल्स/परचेज़ लेजर ({rate} = GST रेट)">Sales/Purchase ledger ({rate} = GST rate)</label><input id="lgItem"></div>
+    <div><label>CGST ledger</label><input id="lgC"></div>
+    <div><label>SGST ledger</label><input id="lgS"></div>
+    <div><label>IGST ledger</label><input id="lgI"></div>
+    <div><label data-en="Round off ledger" data-hi="राउंड ऑफ़ लेजर">Round off ledger</label><input id="lgRo" value="Round Off"></div>
+    <div><label data-en="Tally company name (optional)" data-hi="Tally कंपनी का नाम (वैकल्पिक)">Tally company name (optional)</label><input id="cmp"></div>
+   </div>
+   <label class="chk"><input type="checkbox" id="ro" checked> <span data-en="Round off invoice total to nearest rupee" data-hi="बिल का टोटल नज़दीकी रुपये में राउंड करें">Round off invoice total to nearest rupee</span></label>
+   <label class="chk"><input type="checkbox" id="bw" checked> <span data-en="Add bill-wise reference (New Ref = invoice no)" data-hi="बिल-वाइज़ रेफ़रेंस जोड़ें (New Ref = इनवॉइस नंबर)">Add bill-wise reference (New Ref = invoice no)</span></label>
+  </section>
+
+  <section class="card step">
+   <h3><i>3</i><span data-en="Upload invoice Excel" data-hi="इनवॉइस की Excel डालिए">Upload invoice Excel</span></h3>
+   <p class="sub" data-en="One row per invoice per GST rate. Required: Invoice Date, Invoice No, Party Name, Taxable Value, and either GST Rate or tax amounts." data-hi="हर इनवॉइस के हर GST रेट की एक लाइन। ज़रूरी कॉलम: Invoice Date, Invoice No, Party Name, Taxable Value, और GST Rate या टैक्स की रकम।">One row per invoice per GST rate. Required: Invoice Date, Invoice No, Party Name, Taxable Value, and either GST Rate or tax amounts.</p>
+   <input type="file" accept=".xlsx,.xls,.csv" onchange="readInv(this.files[0])">
+   <div class="acts"><button type="button" class="btn btn-o" onclick="sample()" data-en="⬇ Download sample format" data-hi="⬇ सैंपल फ़ॉर्मेट डाउनलोड करें">⬇ Download sample format</button></div>
+   <div id="map"></div>
+   <div class="acts"><button type="button" class="btn btn-p" onclick="check()" data-en="Check invoices" data-hi="इनवॉइस जाँचें">Check invoices</button></div>
+  </section>
+
+  <section class="card step" id="out" style="display:none">
+   <h3><i>4</i><span data-en="Review and download" data-hi="देखिए और डाउनलोड कीजिए">Review and download</span></h3>
+   <div class="kpis">
+    <div class="card kpi"><span class="lbl" data-en="Vouchers" data-hi="वाउचर">Vouchers</span><b id="k1">0</b></div>
+    <div class="card kpi"><span class="lbl" data-en="Ready" data-hi="तैयार">Ready</span><b id="k2" class="good">0</b></div>
+    <div class="card kpi"><span class="lbl" data-en="With errors" data-hi="ग़लती वाले">With errors</span><b id="k3" class="bad">0</b></div>
+    <div class="card kpi"><span class="lbl" data-en="Value ready" data-hi="तैयार रकम">Value ready</span><b id="k4">₹0</b></div>
+   </div>
+   <div id="nameBox" style="display:none;margin-bottom:18px">
+    <h3 style="font-size:.95rem" data-en="Party name matching (Excel → Tally)" data-hi="पार्टी नाम मिलान (Excel → Tally)">Party name matching (Excel → Tally)</h3>
+    <p class="sub" data-en="Suggested Tally names are filled in. Change any that are wrong, then press Re-check." data-hi="सुझाए गए Tally नाम भर दिए गए हैं। जो ग़लत हों उन्हें बदलिए, फिर Re-check दबाइए।">Suggested Tally names are filled in. Change any that are wrong, then press Re-check.</p>
+    <div class="nm" id="names"></div>
+    <div class="acts"><button type="button" class="btn btn-o" onclick="check()" data-en="↻ Re-check" data-hi="↻ दोबारा जाँचें">↻ Re-check</button></div>
+   </div>
+   <div class="tw" id="tbl"></div>
+   <div class="acts">
+    <button type="button" class="btn btn-p" id="gx" onclick="genXML()" data-en="⬇ Download Tally XML (ready vouchers)" data-hi="⬇ Tally XML डाउनलोड करें (तैयार वाउचर)">⬇ Download Tally XML (ready vouchers)</button>
+    <button type="button" class="btn btn-o" id="ge" onclick="errXL()" data-en="⬇ Download check report (Excel)" data-hi="⬇ जाँच रिपोर्ट डाउनलोड करें (Excel)">⬇ Download check report (Excel)</button>
+   </div>
+   <p class="note" data-en="Only vouchers without errors go into the XML. Fix the red rows in your Excel and upload again." data-hi="XML में सिर्फ़ बिना ग़लती वाले वाउचर जाते हैं। लाल वाली लाइनें Excel में ठीक करके दोबारा डालिए।">Only vouchers without errors go into the XML. Fix the red rows in your Excel and upload again.</p>
+  </section>
+ </div>
+
+ <article class="art">
+  <h2>How to import invoices from Excel into Tally (step by step)</h2>
+  <ol>
+   <li><b>Export your ledger list from Tally.</b> In TallyPrime go to Gateway of Tally → Chart of Accounts → Ledgers, press <b>Ctrl+E</b> (Export), choose Excel (Spreadsheet) as the format and press Send. In Tally ERP 9 the export key is <b>Alt+E</b>. You can also use Display More Reports → List of Accounts.</li>
+   <li><b>Load that file in Step 1</b> above. The tool now knows the exact spelling of every ledger in your company.</li>
+   <li><b>Check your GST ledgers.</b> Ledger names in Step 2 must exist in Tally exactly as typed, for example "Sales @18%", "Output CGST", "Output SGST", "Output IGST" and "Round Off". Use {rate} in the sales or purchase ledger name if you keep one ledger per rate. Create any missing ledger in Tally first (Create → Ledger), under Sales Accounts, Purchase Accounts or Duties &amp; Taxes (type GST) as needed.</li>
+   <li><b>Prepare the Excel</b> using the sample format: one row per invoice per GST rate. An invoice with 5% and 18% items has two rows with the same invoice number.</li>
+   <li><b>Upload, check the column mapping and press Check invoices.</b> Fix red rows, confirm party name matches, and press Re-check.</li>
+   <li><b>Download the Tally XML.</b></li>
+   <li><b>Import in Tally.</b> In TallyPrime: Gateway of Tally → Import (<b>Alt+O</b>) → Transactions, give the XML file path and import. In Tally ERP 9: Gateway of Tally → Import of Data → Vouchers.</li>
+   <li><b>Verify.</b> Open the Day Book for the period and match the totals with this tool. Then check GSTR-1 or GSTR-3B in Tally.</li>
+  </ol>
+  <div class="fx">Tip: always take a backup, or try the file on a test company first.</div>
+
+  <h2>Shortcut for matching party names</h2>
+  <p>The biggest reason Tally imports fail is a small spelling difference, like "Sharma Traders" in Excel and "SHARMA TRADERS PVT LTD" in Tally. After you load the ledger list, the tool suggests the closest Tally name for every party. You only need to correct the few that are wrong, and your choices are remembered for next month.</p>
+
+  <h2>How the voucher is created</h2>
+  <table>
+   <tr><th>Sales voucher</th><th>Purchase voucher</th></tr>
+   <tr><td>Party Dr (invoice total)</td><td>Purchase ledger Dr (taxable value)</td></tr>
+   <tr><td>Sales ledger Cr (taxable value)</td><td>Input CGST/SGST or IGST Dr</td></tr>
+   <tr><td>Output CGST/SGST or IGST Cr</td><td>Party Cr (invoice total)</td></tr>
+   <tr><td>Round Off Dr/Cr (if any)</td><td>Round Off Dr/Cr (if any)</td></tr>
+  </table>
+  <p>Debits and credits always balance, so you will not see the "voucher totals do not match" error.</p>
+
+  <h2>Common Tally import errors and fixes</h2>
+  <ul>
+   <li><b>Ledger does not exist:</b> the name in the file is not in Tally. Load your ledger list in Step 1 so the tool catches this before import, or create the ledger.</li>
+   <li><b>Date out of range:</b> the invoice date is outside the books period of the company. Change the period or check the dates.</li>
+   <li><b>Educational mode:</b> Tally in educational mode only accepts the 1st, 2nd and 31st of a month.</li>
+   <li><b>Invoices missing in GSTR-1 in Tally:</b> party ledgers need their GSTIN and state, and the sales and tax ledgers need GST details set in Tally.</li>
+  </ul>
+
+  <h2>FAQ</h2>
+  <h3>Does it work with TallyPrime and Tally ERP 9?</h3>
+  <p>Yes. Both accept this XML voucher format.</p>
+  <h3>Is my data uploaded anywhere?</h3>
+  <p>No. The Excel is read and the XML is built inside your browser.</p>
+  <h3>Does it create item-wise inventory invoices?</h3>
+  <p>Not yet. It creates accounting vouchers with ledger-wise GST. Item-wise invoices need stock items set up in Tally.</p>
+
+  <h2>Related tools</h2>
+  <div class="related">
+   <a class="card" href="gstr-2b-reconciliation.html">🔄 GSTR-2B Reconciliation</a>
+   <a class="card" href="gstr-1-einvoice-reconciliation.html">🧾 GSTR-1 vs e-Invoice</a>
+   <a class="card" href="invoice-generator.html">🧾 GST Invoice Generator</a>
   </div>
-
-  <div class="steps3">
-    <div class="card box">
-      <h3><span class="num">1</span><span data-en="Tally ledger list (recommended)" data-hi="Tally लेजर लिस्ट (ज़रूरी सलाह)">Tally ledger list (recommended)</span></h3>
-      <label class="drop">📚<b data-en="Choose 'List of Accounts' Excel" data-hi="'List of Accounts' Excel चुनें">Choose 'List of Accounts' Excel</b><input type="file" accept=".xlsx,.xls,.csv" hidden onchange="readCOA(this.files[0])"></label>
-      <div id="coaInfo" class="note" data-en="See the guide below to export it from Tally in 30 seconds." data-hi="नीचे गाइड में देखें, Tally से 30 सेकंड में कैसे निकालें।">See the guide below to export it from Tally in 30 seconds.</div>
-    </div>
-    <div class="card box">
-      <h3><span class="num">2</span><span data-en="Settings" data-hi="सेटिंग्स">Settings</span></h3>
-      <div class="lg">
-        <div><label data-en="Voucher type" data-hi="वाउचर टाइप">Voucher type</label><select id="vt" onchange="defaults()"><option>Sales</option><option>Purchase</option></select></div>
-        <div><label data-en="Your GSTIN / state code" data-hi="आपका GSTIN / राज्य कोड">Your GSTIN / state code</label><input id="myg" placeholder="e.g. 05 or 05ABCDE1234F1Z5"></div>
-        <div><label data-en="Item ledger (use {rate})" data-hi="आइटम लेजर ({rate} लिखें)">Item ledger (use {rate})</label><input id="lgItem"></div>
-        <div><label data-en="Round off ledger" data-hi="राउंड ऑफ़ लेजर">Round off ledger</label><input id="lgRo" value="Round Off"></div>
-        <div><label>CGST ledger</label><input id="lgC"></div>
-        <div><label>SGST ledger</label><input id="lgS"></div>
-        <div><label>IGST ledger</label><input id="lgI"></div>
-        <div><label data-en="Company name (optional)" data-hi="कंपनी का नाम (वैकल्पिक)">Company name (optional)</label><input id="cmp" placeholder="As in Tally"></div>
-      </div>
-      <label class="chk"><input type="checkbox" id="ro" checked> <span data-en="Round off invoice total" data-hi="बिल का टोटल राउंड ऑफ़ करें">Round off invoice total</span></label>
-      <label class="chk"><input type="checkbox" id="bw" checked> <span data-en="Add bill-wise reference (New Ref)" data-hi="बिल-वाइज़ रेफ़रेंस जोड़ें (New Ref)">Add bill-wise reference (New Ref)</span></label>
-    </div>
-    <div class="card box">
-      <h3><span class="num">3</span><span data-en="Invoice Excel" data-hi="बिलों की Excel">Invoice Excel</span></h3>
-      <label class="drop">🧾<b data-en="Choose invoice Excel" data-hi="बिलों की Excel चुनें">Choose invoice Excel</b><input type="file" accept=".xlsx,.xls,.csv" hidden onchange="readInv(this.files[0])"></label>
-      <div id="mI"></div>
-      <p class="note"><a href="#" onclick="sample();return false" style="color:var(--pri)" data-en="⬇ Download sample invoice format" data-hi="⬇ बिलों का सैंपल फ़ॉर्मेट डाउनलोड करें">⬇ Download sample invoice format</a></p>
-    </div>
-  </div>
-
-  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
-    <button class="btn btn-p" onclick="check()" data-en="Check & prepare" data-hi="जाँचें और तैयार करें">Check & prepare</button>
-    <button class="btn btn-p" id="gx" onclick="genXML()" disabled data-en="⬇ Download Tally XML" data-hi="⬇ Tally XML डाउनलोड">⬇ Download Tally XML</button>
-    <button class="btn btn-o" id="ge" onclick="errXL()" disabled data-en="⬇ Error report (Excel)" data-hi="⬇ एरर रिपोर्ट (Excel)">⬇ Error report (Excel)</button>
-  </div>
-
-  <div id="out" style="display:none">
-    <div class="kpis">
-      <div class="card kpi"><b id="k1">0</b><span data-en="Invoices found" data-hi="कुल बिल">Invoices found</span></div>
-      <div class="card kpi"><b id="k2" class="g">0</b><span data-en="Ready to import" data-hi="इम्पोर्ट के लिए तैयार">Ready to import</span></div>
-      <div class="card kpi"><b id="k3" class="e">0</b><span data-en="With errors (skipped)" data-hi="एरर वाले (छोड़े जाएँगे)">With errors (skipped)</span></div>
-      <div class="card kpi"><b id="k4">₹0</b><span data-en="Total value (ready)" data-hi="कुल रकम (तैयार)">Total value (ready)</span></div>
-    </div>
-    <div class="card box" style="margin-top:16px" id="nameBox"><h3 data-en="Party names: Excel → Tally" data-hi="पार्टी के नाम: Excel → Tally">Party names: Excel → Tally</h3><p class="note" data-en="Suggested Tally names are pre-filled. Change any of them and click 'Check & prepare' again." data-hi="सुझाए गए Tally नाम पहले से भरे हैं। कोई भी बदलकर फिर से 'जाँचें और तैयार करें' दबाएँ।">Suggested Tally names are pre-filled. Change any of them and click 'Check & prepare' again.</p><div class="tw" id="names"></div></div>
-    <div class="card box" style="margin-top:16px"><h3 data-en="Invoice check" data-hi="बिलों की जाँच">Invoice check</h3><div class="tw" id="tbl"></div></div>
-  </div>
-  <datalist id="coaList"></datalist>
-
-  <article class="art">
-    <h2>Complete guide: import invoices from Excel to Tally</h2>
-
-    <h3>Step 1: Export your chart of accounts (ledger list) from Tally</h3>
-    <p>This makes sure every party and ledger name in the XML matches Tally exactly. Even one extra space or a different spelling causes the error "Ledger does not exist".</p>
-    <ol>
-      <li><b>TallyPrime:</b> Gateway of Tally → Display More Reports → List of Accounts. Press <b>Ctrl + E</b> (Export), choose Format: Excel, and press Enter to export.</li>
-      <li><b>Tally ERP 9:</b> Gateway of Tally → Display → List of Accounts. Press <b>Alt + E</b>, choose Excel format and export.</li>
-      <li>Upload that Excel in Step 1 above. The list is remembered on this device for next time.</li>
-    </ol>
-    <p><b>Shortcut tip:</b> in List of Accounts, press <b>Ctrl + B</b> (or F5 in ERP 9) to switch to Ledgers view so that only ledger names are exported, not groups.</p>
-
-    <h3>Step 2: Prepare your invoice Excel</h3>
-    <p>Download the sample format above. One row per item or per GST rate. Rows with the same invoice number become one voucher.</p>
-    <table><tr><th>Column</th><th>Required?</th><th>Example</th></tr>
-    <tr><td>Invoice Date</td><td>Yes</td><td>01-04-2026</td></tr>
-    <tr><td>Invoice No</td><td>Yes</td><td>INV/001</td></tr>
-    <tr><td>Party Name</td><td>Yes</td><td>Sharma Traders</td></tr>
-    <tr><td>Party GSTIN</td><td>If registered</td><td>05ABCDE1234F1Z5</td></tr>
-    <tr><td>Taxable Value</td><td>Yes</td><td>10000</td></tr>
-    <tr><td>GST Rate</td><td>Yes</td><td>18</td></tr>
-    <tr><td>IGST / CGST / SGST</td><td>Optional (auto-calculated)</td><td>900</td></tr>
-    <tr><td>Narration</td><td>Optional</td><td>Being goods sold</td></tr></table>
-
-    <h3>Step 3: Match ledger names</h3>
-    <p>Enter the exact names of your item and tax ledgers in Settings, such as "Sales @18%" or "Output CGST". Write <b>{rate}</b> where the rate should appear, so "Sales @{rate}%" becomes "Sales @18%" and "Sales @5%" automatically. Any ledger not found in your Tally list is flagged.</p>
-    <p>If a ledger is missing, create it in Tally first: <b>Alt + G</b> (Go To) → Create Ledger, or Gateway → Create → Ledger. For tax ledgers, choose group Duties & Taxes, type of duty GST, and the correct tax type.</p>
-
-    <h3>Step 4: Import the XML into Tally</h3>
-    <ol>
-      <li><b>Take a backup first</b> or test on a copy of the company.</li>
-      <li><b>TallyPrime:</b> press <b>Alt + O</b> (Import) → Transactions. Enter the full path of the XML file, for example C:\Users\You\Downloads\tally-import.xml, and press Enter.</li>
-      <li><b>Tally ERP 9:</b> Gateway of Tally → Import of Data → Vouchers, enter the file path and press Enter.</li>
-      <li>Check the import summary for created and errored vouchers.</li>
-    </ol>
-    <p><b>Duplicate protection:</b> in TallyPrime, set "Behaviour of import if voucher already exists" to <b>Ignore Duplicates</b> so the same invoices are never entered twice.</p>
-
-    <h3>Common import errors and fixes</h3>
-    <table><tr><th>Error in Tally</th><th>Fix</th></tr>
-    <tr><td>Ledger 'X' does not exist</td><td>Create the ledger or correct the name using the ledger list.</td></tr>
-    <tr><td>Voucher totals do not match</td><td>Turn on Round off and make sure the Round Off ledger exists.</td></tr>
-    <tr><td>Date is out of range</td><td>The invoice date is before Books Beginning or outside the current period. Change the period with Alt + F2.</td></tr>
-    <tr><td>Voucher type does not exist</td><td>Make sure a voucher type named exactly Sales or Purchase exists.</td></tr></table>
-
-    <h2>Frequently asked questions</h2>
-    <h3>Does this work with TallyPrime and Tally ERP 9?</h3>
-    <p>Yes. The XML follows Tally's standard voucher import format used by both.</p>
-    <h3>Is my data uploaded anywhere?</h3>
-    <p>No. Files are read and the XML is created inside your browser.</p>
-    <h3>Can I import purchase invoices from GSTR-2B?</h3>
-    <p>Yes. Reconcile first using our <a href="gstr-2b-reconciliation.html" style="color:var(--pri)">GSTR-2B Reconciliation tool</a>, then arrange the matched invoices in the sample format and import them as Purchase.</p>
-
-    <h2>Related tools</h2>
-    <div class="related"><a class="card" href="gstr-2b-reconciliation.html">🔄 GSTR-2B Reconciliation</a><a class="card" href="bank-reconciliation.html">🏦 Bank Reconciliation</a><a class="card" href="invoice-generator.html">🧾 Invoice Generator</a></div>
-    <p class="note">Always test the import on a backup or copy of your company first.</p>
-  </article>
+ </article>
 </main>
 <div id="site-footer"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="app.js"></script>
 <script>
-var FD=[['date','Invoice Date',/date/i],['inv','Invoice No',/invoice\s*(no|num)|bill\s*no|voucher\s*no|^inv|doc/i],['party','Party Name',/party|customer|supplier|buyer|name|ledger/i],['gstin','Party GSTIN',/gstin|gst\s*no/i],['tv','Taxable Value',/taxable|value|amount/i],['rate','GST Rate',/rate|%/i],['igst','IGST',/igst/i],['cgst','CGST',/cgst/i],['sgst','SGST',/sgst|utgst/i],['nar','Narration',/narration|remark|description/i]];
-var COA=JSON.parse(localStorage.getItem('tally_coa')||'[]'),INV=null,MAPN={},OUT=null;
-function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]});}
-function xe(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');}
-function num(v){if(typeof v==='number')return v;return parseFloat(String(v).replace(/[^0-9.\-]/g,''))||0;}
-function r2(n){return Math.round(n*100)/100;}
-function inr(n){return '₹'+n.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+var FD=[
+ ['date','Invoice Date',[/date/i],1],
+ ['inv','Invoice No',[/invoice\s*(no|num|#)|bill\s*no|voucher\s*no|doc(ument)?\s*no|inv\s*no/i,/^inv/i],1],
+ ['gstin','Party GSTIN',[/gstin|gst\s*no|gst\s*number/i],0],
+ ['party','Party Name',[/party|customer|supplier|buyer|ledger/i,/name/i],1],
+ ['igst','IGST',[/igst/i],0],
+ ['cgst','CGST',[/cgst/i],0],
+ ['sgst','SGST / UTGST',[/sgst|utgst/i],0],
+ ['rate','GST Rate %',[/rate|%/i],0],
+ ['tv','Taxable Value',[/taxable/i,/^(value|amount|basic)/i],1],
+ ['nar','Narration',[/narration|remark|description/i],0]];
+var RATES=[0,0.1,0.25,1,1.5,3,5,6,7.5,12,18,28,40];
+var COA=[],INV=null,MAPN={},OUT=null;
+function get(k,d){try{var v=localStorage.getItem(k);return v==null?d:v;}catch(e){return d;}}
+function put(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+try{COA=JSON.parse(get('tally_coa','[]'));MAPN=JSON.parse(get('tally_map','{}'));}catch(e){COA=[];MAPN={};}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function xe(s){return esc(s).replace(/'/g,'&apos;');}
+function num(v){if(typeof v==='number')return v;var n=parseFloat(String(v).replace(/[^0-9.\-]/g,''));return isNaN(n)?0:n;}
+function r2(n){return Math.round((n+Number.EPSILON)*100)/100;}
+function inr(n){return '₹'+(n||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
 var MON={JAN:0,FEB:1,MAR:2,APR:3,MAY:4,JUN:5,JUL:6,AUG:7,SEP:8,OCT:9,NOV:10,DEC:11};
-function pDate(v){if(v instanceof Date&&!isNaN(v))return new Date(v.getFullYear(),v.getMonth(),v.getDate());
+function pDate(v){
+ if(v instanceof Date&&!isNaN(v))return new Date(v.getFullYear(),v.getMonth(),v.getDate());
  if(typeof v==='number'&&v>20000&&v<80000){var d=new Date(Math.round((v-25569)*864e5));return new Date(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate());}
- var s=String(v).trim(),m;if(m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/))return new Date(+m[1],m[2]-1,+m[3]);
- if(m=s.match(/^(\d{1,2})[\/\-. ]([A-Za-z]{3,9}|\d{1,2})[\/\-. ,]*(\d{2,4})/)){var mo=isNaN(m[2])?MON[m[2].slice(0,3).toUpperCase()]:m[2]-1,y=+m[3];if(y<100)y+=2000;if(mo==null)return null;return new Date(y,mo,+m[1]);}return null;}
+ var s=String(v).trim(),m;
+ if(m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/))return new Date(+m[1],m[2]-1,+m[3]);
+ if(m=s.match(/^(\d{1,2})[\/\-. ]([A-Za-z]{3,9}|\d{1,2})[\/\-. ,]*(\d{2,4})/)){var mo=isNaN(m[2])?MON[m[2].slice(0,3).toUpperCase()]:m[2]-1,y=+m[3];if(y<100)y+=2000;if(mo==null||mo<0||mo>11)return null;return new Date(y,mo,+m[1]);}
+ return null;}
 function tDate(d){return d.getFullYear()+('0'+(d.getMonth()+1)).slice(-2)+('0'+d.getDate()).slice(-2);}
 function fd(d){return d?('0'+d.getDate()).slice(-2)+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+d.getFullYear():'';}
-function gstOk(g){g=String(g).toUpperCase().trim();if(!/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/.test(g))return false;var c='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',s=0;for(var i=0;i<14;i++){var v=c.indexOf(g[i])*(i%2?2:1);s+=Math.floor(v/36)+v%36;}return c[(36-s%36)%36]===g[14];}
-function nrm(s){return String(s).toLowerCase().replace(/\b(m\/s|ms|pvt|private|ltd|limited|llp|the|and|co)\b/g,'').replace(/[^a-z0-9]/g,'');}
+function gstOk(g){g=String(g).toUpperCase().trim();if(!/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/.test(g))return false;
+ var c='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',s=0;for(var i=0;i<14;i++){var p=c.indexOf(g[i])*(i%2?2:1);s+=Math.floor(p/36)+p%36;}return c[(36-s%36)%36]===g[14];}
+function nrm(s){return String(s).toLowerCase().replace(/\b(m\/s|ms|messrs|pvt|private|ltd|limited|llp|the|and|co|company)\b/g,'').replace(/[^a-z0-9]/g,'');}
 function lev(a,b){var m=a.length,n=b.length;if(!m)return n;if(!n)return m;var p=[],i,j;for(j=0;j<=n;j++)p[j]=j;for(i=1;i<=m;i++){var prev=p[0];p[0]=i;for(j=1;j<=n;j++){var t=p[j];p[j]=Math.min(p[j]+1,p[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));prev=t;}}return p[n];}
-function best(name){if(!COA.length)return {n:name,s:1};var k=nrm(name),bn=null,bs=0;
- for(var i=0;i<COA.length;i++){var c=COA[i];if(c===name)return {n:c,s:1};var ck=nrm(c);if(!ck)continue;if(ck===k)return {n:c,s:0.99};
-  var s=1-lev(k,ck)/Math.max(k.length,ck.length);if(ck.indexOf(k)===0||k.indexOf(ck)===0)s=Math.max(s,0.85);if(s>bs){bs=s;bn=c;}}
- return bs>=0.75?{n:bn,s:bs}:{n:name,s:0};}
+function best(name){if(!COA.length)return name;if(COA.indexOf(name)>-1)return name;var k=nrm(name),bn=null,bs=0;
+ for(var i=0;i<COA.length;i++){var ck=nrm(COA[i]);if(!ck)continue;if(ck===k)return COA[i];
+  var s=1-lev(k,ck)/Math.max(k.length,ck.length);if(k.length>3&&(ck.indexOf(k)===0||k.indexOf(ck)===0))s=Math.max(s,0.85);if(s>bs){bs=s;bn=COA[i];}}
+ return bs>=0.8?bn:name;}
 function inCOA(n){return !COA.length||COA.indexOf(n)>-1;}
+function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
+
+/* ---------- Step 1: Tally ledger list ---------- */
+function setCOA(list){var s={};list.forEach(function(v){v=String(v==null?'':v).trim();
+  if(v&&v.length<100&&!/^(list of accounts|chart of accounts|particulars|name|ledger|ledgers|grand total|total)$/i.test(v)&&!/^[\d.,\s\-:]+$/.test(v))s[v]=1;});
+ COA=Object.keys(s);put('tally_coa',JSON.stringify(COA));coaUI();if(OUT)check();}
+function readCOA(f){if(!f)return;var r=new FileReader();r.onload=function(e){var wb=XLSX.read(e.target.result,{type:'array'}),list=[];
+ wb.SheetNames.forEach(function(sn){XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,defval:''}).forEach(function(row){for(var i=0;i<row.length;i++){if(String(row[i]).trim()!==''){if(typeof row[i]==='string')list.push(row[i]);break;}}});});
+ setCOA(list);};r.readAsArrayBuffer(f);}
+function pasteCOA(){setCOA(document.getElementById('coaTxt').value.split(/\r?\n/));}
+function clearCOA(){COA=[];put('tally_coa','[]');coaUI();}
+function coaUI(){document.getElementById('coaInfo').innerHTML=COA.length?'<span class="good">✓ '+COA.length+' '+T('Tally ledger names loaded','Tally लेजर नाम लोड हुए')+'</span> · <a href="#" style="color:var(--pri)" onclick="clearCOA();return false">'+T('clear','हटाएँ')+'</a>':'<span class="lbl">'+T('No ledger list loaded. Names will not be checked against Tally.','कोई लेजर लिस्ट नहीं डाली गई। नामों की Tally से जाँच नहीं होगी।')+'</span>';
+ document.getElementById('coaList').innerHTML=COA.map(function(c){return '<option value="'+esc(c)+'">';}).join('');}
+
+/* ---------- Step 2: settings ---------- */
 function defaults(){var s=document.getElementById('vt').value==='Sales';
+ document.getElementById('vtn').value=s?'Sales':'Purchase';
  document.getElementById('lgItem').value=s?'Sales @{rate}%':'Purchase @{rate}%';
- document.getElementById('lgC').value=s?'Output CGST':'Input CGST';document.getElementById('lgS').value=s?'Output SGST':'Input SGST';document.getElementById('lgI').value=s?'Output IGST':'Input IGST';}
-function readCOA(f){if(!f)return;var r=new FileReader();r.onload=function(e){var wb=XLSX.read(e.target.result,{type:'array'}),set={};
- wb.SheetNames.forEach(function(sn){XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,defval:''}).forEach(function(row){var v=String(row[0]||row[1]||'').trim();
-  if(v&&v.length<100&&!/^list of accounts|^particulars$|^name$|^grand total|^\d+$/i.test(v))set[v]=1;});});
- COA=Object.keys(set);try{localStorage.setItem('tally_coa',JSON.stringify(COA));}catch(x){}coaUI();};r.readAsArrayBuffer(f);}
-function coaUI(){document.getElementById('coaInfo').innerHTML=COA.length?'<span class="ok">✓ '+COA.length+' ledger names loaded</span> · <a href="#" style="color:var(--pri)" onclick="COA=[];localStorage.removeItem(\'tally_coa\');coaUI();return false">clear</a>':'';
- document.getElementById('coaList').innerHTML=COA.map(function(c){return '<option value="'+esc(c)+'">'}).join('');}
-function readInv(f){if(!f)return;var r=new FileReader();r.onload=function(e){var wb=XLSX.read(e.target.result,{type:'array',cellDates:true}),rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,defval:'',raw:true});
- var h=0,b=0;for(var i=0;i<Math.min(30,rows.length);i++){var c=rows[i].filter(function(x){return /date|invoice|party|taxable|gstin|rate/i.test(String(x))}).length;if(c>b){b=c;h=i;}}
- var head=rows[h].map(function(x){return String(x).trim()}),used={},html='<div class="ok">✓ '+esc(f.name)+' · '+(rows.length-h-1)+' rows</div><div class="map">';
- FD.forEach(function(fd){var sel=-1;head.forEach(function(c,k){if(sel<0&&!used[k]&&c&&fd[2].test(c))sel=k;});if(sel>=0)used[sel]=1;
-  html+='<div><label>'+fd[1]+'</label><select id="I_'+fd[0]+'"><option value="-1">— none —</option>'+head.map(function(c,k){return '<option value="'+k+'"'+(k===sel?' selected':'')+'>'+esc(c||('Column '+(k+1)))+'</option>'}).join('')+'</select></div>';});
- document.getElementById('mI').innerHTML=html+'</div>';INV={head:head,rows:rows.slice(h+1)};MAPN={};};r.readAsArrayBuffer(f);}
+ document.getElementById('lgC').value=s?'Output CGST':'Input CGST';
+ document.getElementById('lgS').value=s?'Output SGST':'Input SGST';
+ document.getElementById('lgI').value=s?'Output IGST':'Input IGST';}
+function loadSettings(){var st={};try{st=JSON.parse(get('tally_set','{}'));}catch(e){}
+ if(st.vt){['vt','vtn','myg','lgItem','lgC','lgS','lgI','lgRo','cmp'].forEach(function(k){if(st[k]!=null)document.getElementById(k).value=st[k];});document.getElementById('ro').checked=st.ro!==false;document.getElementById('bw').checked=st.bw!==false;}
+ else defaults();}
+function saveSettings(){var st={};['vt','vtn','myg','lgItem','lgC','lgS','lgI','lgRo','cmp'].forEach(function(k){st[k]=document.getElementById(k).value;});st.ro=document.getElementById('ro').checked;st.bw=document.getElementById('bw').checked;put('tally_set',JSON.stringify(st));}
+
+/* ---------- Step 3: invoice Excel ---------- */
+function readInv(f){if(!f)return;var r=new FileReader();r.onload=function(e){
+ var wb=XLSX.read(e.target.result,{type:'array'}),rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,defval:'',raw:true});
+ var h=0,bs=-1;for(var i=0;i<Math.min(20,rows.length);i++){var sc=0;rows[i].forEach(function(c){var t=String(c);if(t&&isNaN(t))FD.forEach(function(f){if(f[2].some(function(x){return x.test(t);}))sc++;});});if(sc>bs){bs=sc;h=i;}}
+ var head=rows[h].map(function(c){return String(c).trim();}),used={},map={};
+ FD.forEach(function(f){map[f[0]]=-1;for(var p=0;p<f[2].length&&map[f[0]]<0;p++)for(var c=0;c<head.length;c++){if(used[c]||!head[c])continue;if(f[2][p].test(head[c])){map[f[0]]=c;used[c]=1;break;}}});
+ var data=rows.slice(h+1).filter(function(r){return r.some(function(c){return String(c).trim()!=='';});});
+ INV={head:head,rows:data,start:h+2};
+ document.getElementById('map').innerHTML='<p class="note">'+data.length+' '+T('data rows found. Check the column mapping:','डेटा लाइनें मिलीं। कॉलम मैपिंग जाँच लीजिए:')+'</p><div class="mapg">'+FD.map(function(f){return '<div><label>'+f[1]+(f[3]?' *':'')+'</label><select id="I_'+f[0]+'"><option value="-1">— none —</option>'+head.map(function(t,k){return '<option value="'+k+'"'+(map[f[0]]===k?' selected':'')+'>'+esc(t||('Column '+(k+1)))+'</option>';}).join('')+'</select></div>';}).join('')+'</div>';
+ };r.readAsArrayBuffer(f);}
+
 function check(){
- if(!INV){alert('Please choose the invoice Excel first.');return;}
- document.querySelectorAll('#names input').forEach(function(i){MAPN[i.dataset.k]=i.value.trim();});
- var c={};FD.forEach(function(f){c[f[0]]=+document.getElementById('I_'+f[0]).value;});
+ if(!INV){alert(T('Please upload the invoice Excel first.','पहले इनवॉइस की Excel डालिए।'));return;}
+ document.querySelectorAll('#names input').forEach(function(i){var v=i.value.trim();if(v)MAPN[i.dataset.k]=v;});
+ put('tally_map',JSON.stringify(MAPN));saveSettings();
+ var c={},miss=[];FD.forEach(function(f){c[f[0]]=+document.getElementById('I_'+f[0]).value;if(f[3]&&c[f[0]]<0)miss.push(f[1]);});
+ if(miss.length){alert(T('Please map these columns: ','ये कॉलम चुनिए: ')+miss.join(', '));return;}
+ var hasTax=c.igst>=0||c.cgst>=0||c.sgst>=0;
+ if(!hasTax&&c.rate<0){alert(T('Map either the GST Rate column or the tax amount columns.','GST Rate का कॉलम या टैक्स की रकम वाले कॉलम चुनिए।'));return;}
  function g(r,k){return c[k]>=0?r[c[k]]:'';}
- var vt=document.getElementById('vt').value,my=String(document.getElementById('myg').value).trim().slice(0,2),hasTax=c.igst>=0||c.cgst>=0||c.sgst>=0;
+ var vt=document.getElementById('vt').value,sales=vt==='Sales',myg=document.getElementById('myg').value.trim().toUpperCase(),my=/^\d{2}/.test(myg)?myg.slice(0,2):'';
  var L={item:document.getElementById('lgItem').value.trim(),c:document.getElementById('lgC').value.trim(),s:document.getElementById('lgS').value.trim(),i:document.getElementById('lgI').value.trim(),ro:document.getElementById('lgRo').value.trim()};
- var G={},order=[];
- INV.rows.forEach(function(r,idx){var inv=String(g(r,'inv')).trim(),party=String(g(r,'party')).trim();if(!inv&&!party&&!num(g(r,'tv')))return;
-  var key=(vt==='Purchase'?party.toUpperCase()+'|':'')+inv.toUpperCase();
-  if(!G[key]){G[key]={inv:inv,party:party,gstin:String(g(r,'gstin')).trim().toUpperCase(),date:pDate(g(r,'date')),nar:String(g(r,'nar')||''),lines:[],err:[],warn:[],rows:[]};order.push(key);}
-  var o=G[key];o.rows.push(idx+1);var tv=num(g(r,'tv')),rate=num(g(r,'rate')),ig=num(g(r,'igst')),cg=num(g(r,'cgst')),sg=num(g(r,'sgst'));
-  if(!hasTax){var inter=o.gstin.length>=2&&my&&o.gstin.slice(0,2)!==my;if(inter)ig=r2(tv*rate/100);else{cg=r2(tv*rate/200);sg=cg;}}
-  else if(rate&&Math.abs((ig+cg+sg)-tv*rate/100)>1)o.warn.push('Tax ≠ '+rate+'% of taxable');
+ var G={},order=[],invParty={};
+ INV.rows.forEach(function(r,idx){
+  var inv=String(g(r,'inv')).trim(),party=String(g(r,'party')).trim();if(!inv&&!party)return;
+  var key=(sales?'':party.toUpperCase()+'|')+inv.toUpperCase().replace(/\s+/g,'');
+  if(!G[key]){G[key]={inv:inv,party:party,gstin:String(g(r,'gstin')).trim().toUpperCase(),date:pDate(g(r,'date')),dates:{},nar:String(g(r,'nar')||'').trim(),lines:[],err:[],warn:[],rows:[]};order.push(key);}
+  var o=G[key];o.rows.push(INV.start+idx);var d=pDate(g(r,'date'));o.dates[d?d.getTime():'x']=1;
+  if(sales&&party&&o.party&&party.toUpperCase()!==o.party.toUpperCase())o.err.push(T('Same invoice no used for two parties','एक ही इनवॉइस नंबर दो पार्टियों में'));
+  var tv=r2(num(g(r,'tv'))),rate=num(g(r,'rate')),ig=r2(num(g(r,'igst'))),cg=r2(num(g(r,'cgst'))),sg=r2(num(g(r,'sgst')));
+  var pst=/^\d{2}/.test(o.gstin)?o.gstin.slice(0,2):'',inter=!!(pst&&my&&pst!==my);
+  if(!hasTax){if(inter)ig=r2(tv*rate/100);else{cg=r2(tv*rate/200);sg=cg;}}
+  else{if(c.rate<0&&tv)rate=Math.round((ig+cg+sg)/tv*10000)/100;
+   else if(rate&&Math.abs((ig+cg+sg)-tv*rate/100)>1)o.warn.push(T('Tax is not ','टैक्स ')+rate+T('% of taxable value','% के हिसाब से नहीं'));}
+  if(ig&&(cg||sg))o.err.push(T('Both IGST and CGST/SGST on one line','एक लाइन पर IGST और CGST/SGST दोनों'));
+  if(Math.abs(cg-sg)>0.5)o.warn.push(T('CGST and SGST are not equal','CGST और SGST बराबर नहीं'));
+  if(pst&&my){if(inter&&(cg||sg))o.warn.push(T('Other-state party but CGST/SGST charged','दूसरे राज्य की पार्टी पर CGST/SGST'));if(!inter&&ig)o.warn.push(T('Same-state party but IGST charged','उसी राज्य की पार्टी पर IGST'));}
+  if(RATES.indexOf(rate)<0)o.warn.push(T('Unusual GST rate ','असामान्य GST रेट ')+rate+'%');
+  if(o.lines.some(function(l){return l.tv===tv&&l.rate===rate;}))o.warn.push(T('Possible duplicate line','शायद दोहराई गई लाइन'));
   o.lines.push({tv:tv,rate:rate,ig:ig,cg:cg,sg:sg});});
- var seen={},parties={};
+ var parties={};
  order.forEach(function(k){var o=G[k];
-  if(!o.inv)o.err.push('Invoice no missing');if(!o.party)o.err.push('Party missing');if(!o.date)o.err.push('Invalid date');
-  if(o.gstin&&!gstOk(o.gstin))o.err.push('Invalid GSTIN');
-  if(o.lines.some(function(l){return l.tv<=0}))o.err.push('Taxable value ≤ 0');
-  var dk=o.inv.toUpperCase()+'|'+o.party.toUpperCase();if(seen[dk])o.err.push('Duplicate invoice');seen[dk]=1;
-  if(o.party){if(!(o.party in MAPN))MAPN[o.party]=best(o.party).n;parties[o.party]=1;o.tparty=MAPN[o.party]||o.party;if(!inCOA(o.tparty))o.err.push('Party not in Tally list');}
-  o.ledgers=[];o.lines.forEach(function(l){var n=L.item.replace('{rate}',l.rate);if(o.ledgers.indexOf(n)<0)o.ledgers.push(n);});
-  if(o.lines.some(function(l){return l.cg||l.sg}))o.ledgers.push(L.c,L.s);if(o.lines.some(function(l){return l.ig}))o.ledgers.push(L.i);
-  o.ledgers.forEach(function(n){if(!inCOA(n))o.err.push('Ledger not in Tally: '+n);});
-  o.tv=r2(o.lines.reduce(function(t,l){return t+l.tv},0));o.tax=r2(o.lines.reduce(function(t,l){return t+l.ig+l.cg+l.sg},0));o.total=r2(o.tv+o.tax);});
- OUT={G:G,order:order,L:L,vt:vt};
- var ok=order.filter(function(k){return !G[k].err.length});
+  if(!o.inv)o.err.push(T('Invoice no missing','इनवॉइस नंबर नहीं'));
+  if(!o.party)o.err.push(T('Party name missing','पार्टी का नाम नहीं'));
+  if(!o.date)o.err.push(T('Invalid date','ग़लत तारीख़'));
+  if(Object.keys(o.dates).length>1)o.warn.push(T('Different dates in lines of same invoice','एक ही इनवॉइस की लाइनों में अलग तारीख़'));
+  if(o.gstin&&!gstOk(o.gstin))o.err.push(T('Invalid GSTIN','ग़लत GSTIN'));
+  if(o.lines.some(function(l){return l.tv<=0;}))o.err.push(T('Taxable value missing or ≤ 0','Taxable value नहीं या 0 से कम'));
+  if(o.party){if(!MAPN[o.party]||!inCOA(MAPN[o.party]))MAPN[o.party]=best(o.party);o.tparty=MAPN[o.party];parties[o.party]=1;
+   if(!inCOA(o.tparty))o.err.push(T('Party not found in Tally: ','पार्टी Tally में नहीं: ')+o.tparty);}
+  var led=[];o.lines.forEach(function(l){var n=L.item.replace(/\{rate\}/g,String(l.rate));if(led.indexOf(n)<0)led.push(n);});
+  if(o.lines.some(function(l){return l.cg;}))led.push(L.c);if(o.lines.some(function(l){return l.sg;}))led.push(L.s);if(o.lines.some(function(l){return l.ig;}))led.push(L.i);
+  led.forEach(function(n){if(!inCOA(n))o.err.push(T('Ledger not in Tally: ','लेजर Tally में नहीं: ')+n);});
+  o.tv=r2(o.lines.reduce(function(t,l){return t+l.tv;},0));
+  o.ig=r2(o.lines.reduce(function(t,l){return t+l.ig;},0));o.cg=r2(o.lines.reduce(function(t,l){return t+l.cg;},0));o.sg=r2(o.lines.reduce(function(t,l){return t+l.sg;},0));
+  o.total=r2(o.tv+o.ig+o.cg+o.sg);
+  o.err=o.err.filter(function(x,i,a){return a.indexOf(x)===i;});o.warn=o.warn.filter(function(x,i,a){return a.indexOf(x)===i;});});
+ OUT={G:G,order:order,L:L,vt:vt,sales:sales};
+ var ok=order.filter(function(k){return !G[k].err.length;});
  document.getElementById('k1').textContent=order.length;document.getElementById('k2').textContent=ok.length;document.getElementById('k3').textContent=order.length-ok.length;
- document.getElementById('k4').textContent=inr(ok.reduce(function(t,k){return t+G[k].total},0));
- var pn=Object.keys(parties);
- document.getElementById('nameBox').style.display=COA.length?'block':'none';
- document.getElementById('names').innerHTML='<table><tr><th>Excel name</th><th>Tally name (editable)</th><th>Status</th></tr>'+pn.map(function(p){var t=MAPN[p],okk=inCOA(t);return '<tr><td>'+esc(p)+'</td><td><input list="coaList" data-k="'+esc(p)+'" value="'+esc(t)+'"></td><td class="'+(okk?'g':'e')+'">'+(okk?(t===p?'✓ Exact':'✓ Matched'):'✗ Not found')+'</td></tr>'}).join('')+'</table>';
- document.getElementById('tbl').innerHTML='<table><tr><th>Status</th><th>Date</th><th>Invoice</th><th>Party (Tally)</th><th>GSTIN</th><th>Taxable</th><th>Tax</th><th>Total</th><th>Issues</th></tr>'+order.map(function(k){var o=G[k];return '<tr><td class="'+(o.err.length?'e':'g')+'">'+(o.err.length?'✗':'✓')+'</td><td>'+fd(o.date)+'</td><td>'+esc(o.inv)+'</td><td>'+esc(o.tparty||'')+'</td><td>'+esc(o.gstin)+'</td><td class="n">'+inr(o.tv)+'</td><td class="n">'+inr(o.tax)+'</td><td class="n">'+inr(o.total)+'</td><td class="w e">'+esc(o.err.concat(o.warn).join('; '))+'</td></tr>'}).join('')+'</table>';
- document.getElementById('out').style.display='block';document.getElementById('gx').disabled=!ok.length;document.getElementById('ge').disabled=false;}
-function le(name,amt,pos,bill){var s='<ALLLEDGERENTRIES.LIST><LEDGERNAME>'+xe(name)+'</LEDGERNAME><ISDEEMEDPOSITIVE>'+(pos?'Yes':'No')+'</ISDEEMEDPOSITIVE><ISPARTYLEDGER>'+(bill?'Yes':'No')+'</ISPARTYLEDGER><AMOUNT>'+amt.toFixed(2)+'</AMOUNT>';
- if(bill)s+='<BILLALLOCATIONS.LIST><NAME>'+xe(bill)+'</NAME><BILLTYPE>New Ref</BILLTYPE><AMOUNT>'+amt.toFixed(2)+'</AMOUNT></BILLALLOCATIONS.LIST>';return s+'</ALLLEDGERENTRIES.LIST>';}
-function genXML(){var O=OUT,sales=O.vt==='Sales',ro=document.getElementById('ro').checked,bw=document.getElementById('bw').checked,cmp=document.getElementById('cmp').value.trim(),v='';
- O.order.forEach(function(k){var o=O.G[k];if(o.err.length)return;
-  var dr=sales?-1:1,items={},cg=0,sg=0,ig=0;
-  o.lines.forEach(function(l){var n=O.L.item.replace('{rate}',l.rate);items[n]=(items[n]||0)+l.tv;cg+=l.cg;sg+=l.sg;ig+=l.ig;});
-  var tot=r2(o.tv+cg+sg+ig),pt=ro?Math.round(tot):tot,rd=r2(pt-tot),body='';
-  body+=le(o.tparty,(sales?-pt:pt),sales,bw?o.inv:'');
-  Object.keys(items).forEach(function(n){body+=le(n,(sales?1:-1)*r2(items[n]),!sales,'');});
-  if(cg)body+=le(O.L.c,(sales?1:-1)*r2(cg),!sales,'');if(sg)body+=le(O.L.s,(sales?1:-1)*r2(sg),!sales,'');if(ig)body+=le(O.L.i,(sales?1:-1)*r2(ig),!sales,'');
-  if(rd)body+=le(O.L.ro,(sales?1:-1)*rd,(sales?rd<0:rd>0),'');
-  var dt=tDate(o.date);
-  v+='<TALLYMESSAGE xmlns:UDF="TallyUDF"><VOUCHER VCHTYPE="'+O.vt+'" ACTION="Create" OBJVIEW="Accounting Voucher View"><DATE>'+dt+'</DATE><EFFECTIVEDATE>'+dt+'</EFFECTIVEDATE><VOUCHERTYPENAME>'+O.vt+'</VOUCHERTYPENAME><VOUCHERNUMBER>'+xe(o.inv)+'</VOUCHERNUMBER><REFERENCE>'+xe(o.inv)+'</REFERENCE><REFERENCEDATE>'+dt+'</REFERENCEDATE><PARTYLEDGERNAME>'+xe(o.tparty)+'</PARTYLEDGERNAME><PARTYGSTIN>'+xe(o.gstin)+'</PARTYGSTIN><PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW><ISINVOICE>No</ISINVOICE><NARRATION>'+xe(o.nar||((sales?'Sales':'Purchase')+' invoice '+o.inv))+'</NARRATION>'+body+'</VOUCHER></TALLYMESSAGE>';});
+ document.getElementById('k4').textContent=inr(ok.reduce(function(t,k){return t+G[k].total;},0));
+ var pn=Object.keys(parties).sort(function(a,b){return (inCOA(MAPN[a])?1:0)-(inCOA(MAPN[b])?1:0)||a.localeCompare(b);});
+ document.getElementById('nameBox').style.display=COA.length&&pn.length?'block':'none';
+ document.getElementById('names').innerHTML=pn.slice(0,400).map(function(p){var okn=inCOA(MAPN[p]);return '<div>'+esc(p)+'</div><input list="coaList" data-k="'+esc(p)+'" value="'+esc(MAPN[p])+'"><span class="'+(okn?'good':'bad')+'">'+(okn?'✓':'✗')+'</span>';}).join('');
+ var h='<table><tr><th></th><th>'+T('Row','लाइन')+'</th><th>'+T('Date','तारीख़')+'</th><th>'+T('Invoice','इनवॉइस')+'</th><th>'+T('Party (Tally)','पार्टी (Tally)')+'</th><th>GSTIN</th><th>'+T('Taxable','टैक्सेबल')+'</th><th>IGST</th><th>CGST</th><th>SGST</th><th>'+T('Total','कुल')+'</th><th>'+T('Issues','समस्याएँ')+'</th></tr>';
+ order.forEach(function(k){var o=G[k];h+='<tr><td class="'+(o.err.length?'bad':'good')+'">'+(o.err.length?'✗':'✓')+'</td><td>'+o.rows.join(', ')+'</td><td>'+fd(o.date)+'</td><td>'+esc(o.inv)+'</td><td>'+esc(o.tparty||'')+'</td><td>'+esc(o.gstin)+'</td><td class="n">'+inr(o.tv)+'</td><td class="n">'+inr(o.ig)+'</td><td class="n">'+inr(o.cg)+'</td><td class="n">'+inr(o.sg)+'</td><td class="n">'+inr(o.total)+'</td><td class="iss">'+esc(o.err.join('; '))+(o.warn.length?'<span style="color:#d4a017">'+(o.err.length?'; ':'')+esc(o.warn.join('; '))+'</span>':'')+'</td></tr>';});
+ document.getElementById('tbl').innerHTML=h+'</table>';
+ document.getElementById('out').style.display='block';document.getElementById('gx').disabled=!ok.length;
+ document.getElementById('out').scrollIntoView({behavior:'smooth'});}
+
+/* ---------- Tally XML ---------- */
+function le(name,d,party,bill){if(!d)return '';var amt=(-d).toFixed(2);
+ var s='<ALLLEDGERENTRIES.LIST><LEDGERNAME>'+xe(name)+'</LEDGERNAME><ISDEEMEDPOSITIVE>'+(d>0?'Yes':'No')+'</ISDEEMEDPOSITIVE>'+(party?'<ISPARTYLEDGER>Yes</ISPARTYLEDGER>':'')+'<AMOUNT>'+amt+'</AMOUNT>';
+ if(bill)s+='<BILLALLOCATIONS.LIST><NAME>'+xe(bill)+'</NAME><BILLTYPE>New Ref</BILLTYPE><AMOUNT>'+amt+'</AMOUNT></BILLALLOCATIONS.LIST>';
+ return s+'</ALLLEDGERENTRIES.LIST>';}
+function genXML(){if(!OUT)return;saveSettings();
+ var O=OUT,S=O.sales?1:-1,ro=document.getElementById('ro').checked,bw=document.getElementById('bw').checked,cmp=document.getElementById('cmp').value.trim(),vtn=document.getElementById('vtn').value.trim()||O.vt,v='',n=0;
+ O.order.forEach(function(k){var o=O.G[k];if(o.err.length)return;n++;
+  var items={};o.lines.forEach(function(l){var nm=O.L.item.replace(/\{rate\}/g,String(l.rate));items[nm]=r2((items[nm]||0)+l.tv);});
+  var pt=ro?Math.round(o.total):o.total,rd=r2(pt-o.total),body='';
+  /* debit = positive. Sales: party Dr, rest Cr. Purchase: reverse. */
+  body+=le(o.tparty,S*pt,true,bw?o.inv:'');
+  Object.keys(items).forEach(function(nm){body+=le(nm,-S*items[nm]);});
+  body+=le(O.L.c,-S*o.cg)+le(O.L.s,-S*o.sg)+le(O.L.i,-S*o.ig)+le(O.L.ro,-S*rd);
+  var dt=tDate(o.date),nar=o.nar||((O.sales?'Being sales vide invoice no ':'Being purchase vide invoice no ')+o.inv);
+  v+='<TALLYMESSAGE xmlns:UDF="TallyUDF"><VOUCHER VCHTYPE="'+xe(vtn)+'" ACTION="Create" OBJVIEW="Accounting Voucher View"><DATE>'+dt+'</DATE><EFFECTIVEDATE>'+dt+'</EFFECTIVEDATE><VOUCHERTYPENAME>'+xe(vtn)+'</VOUCHERTYPENAME><VOUCHERNUMBER>'+xe(o.inv)+'</VOUCHERNUMBER><REFERENCE>'+xe(o.inv)+'</REFERENCE>'+(O.sales?'':'<REFERENCEDATE>'+dt+'</REFERENCEDATE>')+'<PARTYLEDGERNAME>'+xe(o.tparty)+'</PARTYLEDGERNAME>'+(o.gstin?'<PARTYGSTIN>'+xe(o.gstin)+'</PARTYGSTIN>':'')+'<NARRATION>'+xe(nar)+'</NARRATION><PERSISTEDVIEW>Accounting Voucher View</PERSISTEDVIEW>'+body+'</VOUCHER></TALLYMESSAGE>';});
  var xml='<?xml version="1.0" encoding="UTF-8"?>\n<ENVELOPE><HEADER><TALLYREQUEST>Import Data</TALLYREQUEST></HEADER><BODY><IMPORTDATA><REQUESTDESC><REPORTNAME>Vouchers</REPORTNAME>'+(cmp?'<STATICVARIABLES><SVCURRENTCOMPANY>'+xe(cmp)+'</SVCURRENTCOMPANY></STATICVARIABLES>':'')+'</REQUESTDESC><REQUESTDATA>'+v+'</REQUESTDATA></IMPORTDATA></BODY></ENVELOPE>';
- var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([xml],{type:'application/xml
+ var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([xml],{type:'application/xml'}));a.download=(O.sales?'tally-sales-':'tally-purchase-')+n+'-vouchers.xml';document.body.appendChild(a);a.click();a.remove();
+ if(window.gtag)gtag('event','tally_xml_download',{vouchers:n});}
+
+/* ---------- Excel report & sample ---------- */
+function errXL(){if(!OUT)return;var all=[],bad=[];
+ OUT.order.forEach(function(k){var o=OUT.G[k],r={'Status':o.err.length?'Error':'Ready','Excel Rows':o.rows.join(', '),'Date':fd(o.date),'Invoice No':o.inv,'Party (Excel)':o.party,'Party (Tally)':o.tparty||'','GSTIN':o.gstin,'Taxable':o.tv,'IGST':o.ig,'CGST':o.cg,'SGST':o.sg,'Total':o.total,'Errors':o.err.join('; '),'Warnings':o.warn.join('; ')};all.push(r);if(o.err.length)bad.push(r);});
+ var wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(all),'All Vouchers');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(bad.length?bad:[{'Status':'No errors'}]),'Errors');
+ XLSX.writeFile(wb,'tally-import-check-report.xlsx');}
+function sample(){var d=[
+ {'Invoice Date':'01-11-2026','Invoice No':'INV/101','Party Name':'Sharma Traders','Party GSTIN':'','GST Rate':18,'Taxable Value':10000,'IGST':'','CGST':'','SGST':'','Narration':''},
+ {'Invoice Date':'01-11-2026','Invoice No':'INV/101','Party Name':'Sharma Traders','Party GSTIN':'','GST Rate':5,'Taxable Value':2000,'IGST':'','CGST':'','SGST':'','Narration':''},
+ {'Invoice Date':'03-11-2026','Invoice No':'INV/102','Party Name':'Gupta Enterprises','Party GSTIN':'','GST Rate':18,'Taxable Value':25000,'IGST':'','CGST':'','SGST':'','Narration':'Bulk order'},
+ {'Invoice Date':'05-11-2026','Invoice No':'INV/103','Party Name':'Cash Sales','Party GSTIN':'','GST Rate':18,'Taxable Value':1500,'IGST':'','CGST':'','SGST':'','Narration':''}];
+ var wb=XLSX.utils.book_new(),ws=XLSX.utils.json_to_sheet(d);XLSX.utils.sheet_add_aoa(ws,[[],['Notes: one row per invoice per GST rate. Fill Party GSTIN for registered parties. If you fill IGST/CGST/SGST amounts, the rate column is optional.']],{origin:-1});
+ XLSX.utils.book_append_sheet(wb,ws,'Invoices');XLSX.writeFile(wb,'tally-import-sample.xlsx');}
+
+document.addEventListener('DOMContentLoaded',function(){loadSettings();coaUI();});
+document.addEventListener('langchange',function(){coaUI();if(OUT)check();});
+</script>
+</body>
+</html>
