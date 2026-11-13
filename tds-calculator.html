@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TDS Calculator – Section-wise TDS Rates with Working | Cooridor Store</title>
+<meta name="description" content="Free TDS calculator for India. Calculate TDS on professional fees, contracts, rent, commission and interest with threshold check and step-by-step working.">
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="calc.css"><script src="app.js"></script>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+  <div class="crumb"><a href="/">Home</a> › <span data-en="TDS Calculator" data-hi="TDS कैलकुलेटर">TDS Calculator</span></div>
+  <div class="ph">
+    <h1 data-en="TDS Calculator" data-hi="TDS कैलकुलेटर">TDS Calculator</h1>
+    <p data-en="Choose the payment type, enter the amount and see how much TDS to deduct and the net amount payable." data-hi="पेमेंट का प्रकार चुनिए, रकम डालिए और देखिए कितना TDS काटना है और कितना भुगतान करना है।">Choose the payment type, enter the amount and see how much TDS to deduct and the net amount payable.</p>
+  </div>
+  <div class="lay">
+    <div class="card box">
+      <div class="f"><label data-en="Nature of payment" data-hi="पेमेंट का प्रकार">Nature of payment</label><select id="sec"></select></div>
+      <div class="f"><label data-en="Payment amount (₹)" data-hi="पेमेंट की रकम (₹)">Payment amount (₹)</label><input type="number" id="amt" value="100000"></div>
+      <div class="f"><label data-en="Payee type" data-hi="पाने वाले का प्रकार">Payee type</label>
+        <div class="chips"><button class="on" onclick="chip('who','ind',this)" data-en="Individual / HUF" data-hi="व्यक्ति / HUF">Individual / HUF</button><button onclick="chip('who','oth',this)" data-en="Company / Firm" data-hi="कंपनी / फ़र्म">Company / Firm</button></div></div>
+      <div class="f"><label data-en="Does payee have PAN?" data-hi="क्या PAN है?">Does payee have PAN?</label>
+        <div class="chips"><button class="on" onclick="chip('pan',1,this)" data-en="Yes" data-hi="हाँ">Yes</button><button onclick="chip('pan',0,this)" data-en="No" data-hi="नहीं">No</button></div></div>
+    </div>
+    <div class="card box">
+      <div class="lbl" data-en="TDS to deduct" data-hi="काटा जाने वाला TDS">TDS to deduct</div>
+      <div class="big" id="big">₹0</div>
+      <table class="rt" id="rows"></table>
+      <div class="work"><b data-en="How we calculated it" data-hi="कैलकुलेशन कैसे हुई">How we calculated it</b><pre id="work"></pre></div>
+      <p class="note">Thresholds here are per payment or per year as noted. Check aggregate limits for the full year.</p>
+    </div>
+  </div>
+
+  <article class="art">
+    <h2>What is TDS?</h2>
+    <p>Tax Deducted at Source (TDS) means the payer cuts a part of the payment as tax and deposits it with the government. The receiver can see it in Form 26AS and claim credit while filing the return.</p>
+    <h2>Formula</h2>
+    <div class="fx">TDS = Payment amount × TDS rate ÷ 100<br>Net payable = Payment amount − TDS</div>
+    <h2>Common TDS rates</h2>
+    <table><tr><th>Section</th><th>Payment</th><th>Rate</th><th>Threshold</th></tr>
+    <tr><td>194J</td><td>Professional fees</td><td>10%</td><td>₹50,000 a year</td></tr>
+    <tr><td>194J</td><td>Technical services</td><td>2%</td><td>₹50,000 a year</td></tr>
+    <tr><td>194C</td><td>Contractor</td><td>1% individual / 2% others</td><td>₹30,000 single bill</td></tr>
+    <tr><td>194H</td><td>Commission</td><td>2%</td><td>₹20,000 a year</td></tr>
+    <tr><td>194I</td><td>Rent of building</td><td>10%</td><td>₹50,000 a month</td></tr>
+    <tr><td>194I</td><td>Rent of machinery</td><td>2%</td><td>₹50,000 a month</td></tr>
+    <tr><td>194A</td><td>Interest (non-bank)</td><td>10%</td><td>₹10,000 a year</td></tr></table>
+    <p>If the payee does not give PAN, TDS is usually deducted at 20%. From 1 April 2026, the Income-tax Act, 2025 replaced the 1961 Act and section numbers have been renumbered; the familiar old numbers are shown here for easy reference.</p>
+    <h2>Worked example</h2>
+    <p>A company pays ₹1,00,000 as professional fees to a CA. TDS under 194J = 1,00,000 × 10% = ₹10,000. The CA receives ₹90,000.</p>
+    <h2>Related tools</h2>
+    <div class="related"><a class="card" href="income-tax-calculator.html">📊 Income Tax Calculator</a><a class="card" href="gst-calculator.html">🧮 GST Calculator</a><a class="card" href="invoice-generator.html">🧾 Invoice Generator</a></div>
+    <p class="note">Rates and limits change from time to time. Please verify with a tax professional before deducting.</p>
+  </article>
+</main>
+<div id="site-footer"></div>
+<script>
+var D=[
+ {n:'194J – Professional fees',i:10,o:10,t:50000,tl:'₹50,000 / year'},
+ {n:'194J – Technical services',i:2,o:2,t:50000,tl:'₹50,000 / year'},
+ {n:'194C – Contractor payment',i:1,o:2,t:30000,tl:'₹30,000 per bill'},
+ {n:'194H – Commission / brokerage',i:2,o:2,t:20000,tl:'₹20,000 / year'},
+ {n:'194I – Rent of land / building',i:10,o:10,t:50000,tl:'₹50,000 / month'},
+ {n:'194I – Rent of plant / machinery',i:2,o:2,t:50000,tl:'₹50,000 / month'},
+ {n:'194A – Interest (other than bank)',i:10,o:10,t:10000,tl:'₹10,000 / year'}];
+var S={who:'ind',pan:1},sel=document.getElementById('sec');
+D.forEach(function(d,k){var o=document.createElement('option');o.value=k;o.textContent=d.n;sel.appendChild(o);});
+function chip(g,v,b){S[g]=v;b.parentNode.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');calc();}
+function inr(n){return '₹'+n.toLocaleString('en-IN',{maximumFractionDigits:2});}
+function calc(){
+  var hi=(localStorage.getItem('lang')==='hi'),d=D[sel.value],a=+document.getElementById('amt').value||0;
+  var r=S.who==='ind'?d.i:d.o,w='Section: '+d.n+'\nThreshold: '+d.tl+'\n';
+  if(!S.pan){r=Math.max(r,20);w+='No PAN → rate 20%\n';}
+  var tds=0;
+  if(a<d.t){w+='Amount '+inr(a)+' is below threshold → no TDS';}
+  else{tds=a*r/100;w+='TDS = '+inr(a)+' × '+r+'% = '+inr(tds)+'\nNet payable = '+inr(a)+' − '+inr(tds)+' = '+inr(a-tds);}
+  document.getElementById('big').textContent=inr(tds);
+  document.getElementById('rows').innerHTML='<tr><td>'+(hi?'रेट':'Rate')+'</td><td>'+(a<d.t?'—':r+'%')+'</td></tr><tr><td>'+(hi?'पेमेंट':'Payment')+'</td><td>'+inr(a)+'</td></tr><tr class="tot"><td>'+(hi?'भुगतान करने वाली रकम':'Net payable')+'</td><td>'+inr(a-tds)+'</td></tr>';
+  document.getElementById('work').textContent=w;
+}
+sel.addEventListener('change',calc);document.getElementById('amt').addEventListener('input',calc);
+document.addEventListener('langchange',calc);document.addEventListener('DOMContentLoaded',calc);
+</script>
+</body>
+</html>
