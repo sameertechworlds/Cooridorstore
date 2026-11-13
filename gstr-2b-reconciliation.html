@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSTR-2B Reconciliation Tool Free – Match Purchase Register with GSTR-2B in Excel | Cooridor Store</title>
+<meta name="description" content="Free online GSTR-2B reconciliation tool. Upload GSTR-2B Excel and your purchase register to find matched, mismatched and missing invoices, and claim the right ITC. No upload to server.">
+<meta name="keywords" content="GSTR-2B reconciliation, GSTR 2B reconciliation excel, ITC reconciliation, purchase register vs GSTR-2B, GSTR-2A reconciliation, input tax credit reconciliation tool, GST reconciliation online free">
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="calc.css"><script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+.up{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:28px 16px;text-align:center;cursor:pointer;display:block}
+.drop:hover{border-color:var(--pri);background:var(--soft)}
+.drop b{display:block;margin-top:6px}
+.map{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.map label{font-size:.75rem;color:var(--mut);font-weight:600}
+.map select{padding:8px;font-size:.85rem}
+.ok{color:var(--acc);font-weight:600;font-size:.88rem;margin-top:8px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+.kpi{padding:18px;cursor:pointer;border-width:2px}
+.kpi.on{border-color:var(--pri)}
+.kpi b{font-size:1.6rem;display:block}
+.kpi span{font-size:.82rem;color:var(--mut)}
+.k1 b{color:#0e9f6e}.k2 b{color:#d97706}.k3 b{color:#dc2626}.k4 b{color:#7c3aed}
+.tw{overflow:auto;margin-top:16px;max-height:520px}
+.tw table{width:100%;border-collapse:collapse;font-size:.85rem}
+.tw th{position:sticky;top:0;background:var(--soft);text-align:left;padding:9px;white-space:nowrap}
+.tw td{padding:8px 9px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tw td.n{text-align:right}
+.ctl{display:flex;gap:12px;align-items:end;flex-wrap:wrap;margin-top:20px}
+.ctl .f{margin:0;width:180px}
+@media(max-width:860px){.up,.kpis{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.up,.kpis{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+  <div class="crumb"><a href="/">Home</a> › GSTR-2B Reconciliation</div>
+  <div class="ph">
+    <h1 data-en="GSTR-2B Reconciliation Tool" data-hi="GSTR-2B रिकंसिलिएशन टूल">GSTR-2B Reconciliation Tool</h1>
+    <p data-en="Upload your GSTR-2B Excel and purchase register. Get matched, mismatched and missing invoices instantly, and download the report in Excel. Files never leave your computer." data-hi="GSTR-2B की Excel और परचेज़ रजिस्टर डालिए। तुरंत मिले, फ़र्क वाले और छूटे हुए बिल देखिए और Excel में रिपोर्ट लीजिए। फ़ाइलें आपके कंप्यूटर से बाहर नहीं जातीं।">Upload your GSTR-2B Excel and purchase register. Get matched, mismatched and missing invoices instantly, and download the report in Excel. Files never leave your computer.</p>
+  </div>
+
+  <div class="up">
+    <div class="card box">
+      <h3>1. GSTR-2B (from GST portal)</h3>
+      <label class="drop">📥<b data-en="Choose GSTR-2B Excel" data-hi="GSTR-2B Excel चुनें">Choose GSTR-2B Excel</b><input type="file" accept=".xlsx,.xls,.csv" hidden onchange="readFile(this.files[0],'a')"></label>
+      <div id="ma"></div>
+    </div>
+    <div class="card box">
+      <h3 data-en="2. Purchase register (your books)" data-hi="2. परचेज़ रजिस्टर (आपकी बुक्स)">2. Purchase register (your books)</h3>
+      <label class="drop">📥<b data-en="Choose purchase Excel" data-hi="परचेज़ Excel चुनें">Choose purchase Excel</b><input type="file" accept=".xlsx,.xls,.csv" hidden onchange="readFile(this.files[0],'b')"></label>
+      <div id="mb"></div>
+      <p class="note"><a href="#" onclick="sample();return false" style="color:var(--pri)" data-en="⬇ Download sample purchase register format" data-hi="⬇ परचेज़ रजिस्टर का सैंपल फ़ॉर्मेट डाउनलोड करें">⬇ Download sample purchase register format</a></p>
+    </div>
+  </div>
+
+  <div class="ctl">
+    <div class="f"><label data-en="Tolerance (₹)" data-hi="छूट की सीमा (₹)">Tolerance (₹)</label><input type="number" id="tol" value="1"></div>
+    <button class="btn btn-p" onclick="run()" data-en="Reconcile now" data-hi="अभी मिलान करें">Reconcile now</button>
+    <button class="btn btn-o" id="xl" onclick="exportXL()" disabled data-en="⬇ Download Excel report" data-hi="⬇ Excel रिपोर्ट">⬇ Download Excel report</button>
+  </div>
+
+  <div id="out" style="display:none">
+    <div class="kpis">
+      <div class="card kpi k1 on" onclick="show('m',this)"><b id="c1">0</b><span data-en="Matched" data-hi="मिल गए">Matched</span></div>
+      <div class="card kpi k2" onclick="show('x',this)"><b id="c2">0</b><span data-en="Amount mismatch" data-hi="रकम में फ़र्क">Amount mismatch</span></div>
+      <div class="card kpi k3" onclick="show('b',this)"><b id="c3">0</b><span data-en="In books, not in 2B" data-hi="बुक्स में, 2B में नहीं">In books, not in 2B</span></div>
+      <div class="card kpi k4" onclick="show('a',this)"><b id="c4">0</b><span data-en="In 2B, not in books" data-hi="2B में, बुक्स में नहीं">In 2B, not in books</span></div>
+    </div>
+    <div class="card box" style="margin-top:16px"><div id="itc"></div><div class="tw" id="tbl"></div></div>
+  </div>
+
+  <article class="art">
+    <h2>What is GSTR-2B reconciliation?</h2>
+    <p>GSTR-2B is an auto-drafted, static statement of input tax credit (ITC) generated every month on the GST portal from your suppliers' GSTR-1 filings. GSTR-2B reconciliation means comparing this statement with your purchase register to make sure you claim only eligible ITC in GSTR-3B, and that no credit is missed.</p>
+    <h2>Why is ITC reconciliation important?</h2>
+    <ul><li>ITC can be claimed only if the invoice appears in your GSTR-2B.</li><li>Claiming excess ITC can lead to notices, interest and penalty.</li><li>Missing invoices mean lost credit and higher tax outflow.</li><li>It helps you follow up with suppliers who have not filed GSTR-1.</li></ul>
+    <h2>How to reconcile GSTR-2B with purchase register in Excel</h2>
+    <ol><li>Download GSTR-2B in Excel from the GST portal: Returns → GSTR-2B → Download Excel.</li><li>Export your purchase register from Tally, Busy or any software in Excel.</li><li>Upload both files above. The tool auto-detects columns like GSTIN, invoice number, taxable value, IGST, CGST and SGST. Change them if needed.</li><li>Click Reconcile now and review the four categories.</li><li>Download the Excel report and follow up on mismatches.</li></ol>
+    <h2>How does the matching work?</h2>
+    <p>Invoices are matched on supplier GSTIN and invoice number. The tool cleans invoice numbers by removing spaces, slashes, hyphens and leading zeros, so "INV/001" and "inv-1" are treated as the same bill. Differences within your tolerance (default ₹1) count as matched.</p>
+    <div class="fx">Matched: same GSTIN + invoice, difference ≤ tolerance<br>Mismatch: same GSTIN + invoice, difference > tolerance<br>In books only: ITC at risk, follow up with supplier<br>In 2B only: possibly unrecorded purchase</div>
+    <h2>Frequently asked questions</h2>
+    <h3>What is the difference between GSTR-2A and GSTR-2B?</h3>
+    <p>GSTR-2A is dynamic and keeps changing as suppliers file returns. GSTR-2B is static for each month and is the basis for claiming ITC in GSTR-3B.</p>
+    <h3>Can I use this for GSTR-2A reconciliation?</h3>
+    <p>Yes. Upload the GSTR-2A Excel in place of 2B; the matching works the same way.</p>
+    <h3>Is my data safe?</h3>
+    <p>Yes. Files are read inside your browser. Nothing is uploaded to any server.</p>
+    <h2>Related tools</h2>
+    <div class="related"><a class="card" href="bank-reconciliation.html">🏦 Bank Reconciliation</a><a class="card" href="gst-calculator.html">🧮 GST Calculator</a><a class="card" href="invoice-generator.html">🧾 Invoice Generator</a></div>
+    <p class="note">Results are for guidance only. Please verify before filing GSTR-3B.</p>
+  </article>
+</main>
+<div id="site-footer"></div>
+<script>
+var FD=[['gstin','GSTIN',/gstin|gst\s*no|gst\s*number/i],['inv','Invoice No',/invoice\s*(no|num)|bill\s*no|voucher\s*no|document\s*no|^inv/i],['date','Invoice Date',/date/i],['name','Party Name',/trade|legal|party|supplier\s*name|name/i],['tv','Taxable Value',/taxable/i],['igst','IGST',/igst|integrated/i],['cgst','CGST',/cgst|central/i],['sgst','SGST',/sgst|utgst|state.*tax/i]];
+var D={a:null,b:null},R=null,cur='m';
+function num(v){return parseFloat(String(v).replace(/[,₹\s]/g,''))||0;}
+function inr(n){return n.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]});}
+function isG(v){return /^[0-9]{2}[A-Z0-9]{13}$/i.test(String(v).trim());}
+function readFile(f,side){if(!f)return;var r=new FileReader();r.onload=function(e){
+  var wb=XLSX.read(e.target.result,{type:'array',cellDates:true});
+  var sn=wb.SheetNames.find(function(s){return /b2b/i.test(s)&&!/cdn|amend/i.test(s)})||wb.SheetNames[0];
+  var rows=XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,defval:'',raw:false});
+  var h=0;for(var i=0;i<Math.min(20,rows.length);i++){if(rows[i].some(function(c){return /gstin/i.test(c)})){h=i;break;}}
+  var head=rows[h].map(String),start=h+1,nx=rows[h+1]||[];
+  if(!nx.some(isG)){head=head.map(function(c,k){return (c+' '+(nx[k]||'')).trim()});start=h+2;}
+  for(var k=1;k<head.length;k++)if(!head[k])head[k]=head[k-1];
+  D[side]={head:head,rows:rows.slice(start).filter(function(r){return r.some(function(c){return String(c).trim()})}),sheet:sn,name:f.name};
+  mapUI(side);};r.readAsArrayBuffer(f);}
+function mapUI(side){var d=D[side],used={},html='<div class="ok">✓ '+esc(d.name)+' · '+esc(d.sheet)+' · '+d.rows.length+' rows</div><div class="map">';
+  FD.forEach(function(fd){var sel=-1;d.head.forEach(function(c,k){if(sel<0&&!used[k]&&fd[2].test(c))sel=k;});if(sel>=0)used[sel]=1;
+   html+='<div><label>'+fd[1]+'</label><select id="'+side+'_'+fd[0]+'"><option value="-1">— none —</option>'+d.head.map(function(c,k){return '<option value="'+k+'"'+(k===sel?' selected':'')+'>'+esc(c||('Column '+(k+1)))+'</option>'}).join('')+'</select></div>';});
+  document.getElementById('m'+side).innerHTML=html+'</div>';}
+function norm(s){return String(s).toUpperCase().replace(/[^A-Z0-9]/g,'').replace(/^0+/,'');}
+function dig(s){return String(s).replace(/\D/g,'').replace(/^0+/,'');}
+function recs(side){var d=D[side],c={};FD.forEach(function(fd){c[fd[0]]=+document.getElementById(side+'_'+fd[0]).value;});
+  function g(r,k){return c[k]>=0?r[c[k]]:'';}
+  return d.rows.map(function(r){var gs=String(g(r,'gstin')).trim().toUpperCase(),iv=String(g(r,'inv')).trim();
+   return {g:gs,inv:iv,n:norm(iv),d:dig(iv),name:g(r,'name'),date:g(r,'date'),tv:num(g(r,'tv')),tax:num(g(r,'igst'))+num(g(r,'cgst'))+num(g(r,'sgst'))};}).filter(function(x){return isG(x.g)&&x.inv;});}
+function run(){
+  if(!D.a||!D.b){alert('Please choose both files first.');return;}
+  var A=recs('a'),B=recs('b'),tol=+document.getElementById('tol').value||0,mx={},md={};
+  A.forEach(function(x,i){(mx[x.g+'|'+x.n]=mx[x.g+'|'+x.n]||[]).push(i);(md[x.g+'|'+x.d]=md[x.g+'|'+x.d]||[]).push(i);});
+  var used={},M=[],X=[],OB=[];
+  function take(list){if(!list)return -1;for(var j=0;j<list.length;j++)if(!used[list[j]]){used[list[j]]=1;return list[j];}return -1;}
+  B.forEach(function(b){var i=take(mx[b.g+'|'+b.n]);if(i<0&&b.d)i=take(md[b.g+'|'+b.d]);
+   if(i<0){OB.push(b);return;}var a=A[i],dt=b.tv-a.tv,dx=b.tax-a.tax,row={b:b,a:a,dt:dt,dx:dx};
+   (Math.abs(dt)<=tol&&Math.abs(dx)<=tol?M:X).push(row);});
+  var OA=A.filter(function(x,i){return !used[i]});
+  R={M:M,X:X,OB:OB,OA:OA};
+  document.getElementById('c1').textContent=M.length;document.getElementById('c2').textContent=X.length;
+  document.getElementById('c3').textContent=OB.length;document.getElementById('c4').textContent=OA.length;
+  var s=function(arr,f){return arr.reduce(function(t,x){return t+f(x)},0)};
+  document.getElementById('itc').innerHTML='<b>ITC as per books:</b> ₹'+inr(s(B,function(x){return x.tax}))+' &nbsp;·&nbsp; <b>ITC as per 2B:</b> ₹'+inr(s(A,function(x){return x.tax}))+' &nbsp;·&nbsp; <b style="color:#dc2626">ITC at risk:</b> ₹'+inr(s(OB,function(x){return x.tax})+s(X,function(x){return Math.max(0,x.dx)}));
+  document.getElementById('out').style.display='block';document.getElementById('xl').disabled=false;
+  show(cur,document.querySelector('.kpi.on'));}
+function show(t,el){cur=t;document.querySelectorAll('.kpi').forEach(function(k){k.classList.remove('on')});if(el)el.classList.add('on');
+  var h='',r=R;
+  if(t==='m'||t==='x'){var L=t==='m'?r.M:r.X;h='<table><tr><th>GSTIN</th><th>Party</th><th>Invoice (books)</th><th>Invoice (2B)</th><th>Taxable books</th><th>Taxable 2B</th><th>Tax books</th><th>Tax 2B</th><th>Tax diff</th></tr>'+
+   L.map(function(x){return '<tr><td>'+x.b.g+'</td><td>'+esc(x.b.name||x.a.name)+'</td><td>'+esc(x.b.inv)+'</td><td>'+esc(x.a.inv)+'</td><td class="n">'+inr(x.b.tv)+'</td><td class="n">'+inr(x.a.tv)+'</td><td class="n">'+inr(x.b.tax)+'</td><td class="n">'+inr(x.a.tax)+'</td><td class="n">'+inr(x.dx)+'</td></tr>'}).join('')+'</table>';}
+  else{var L2=t==='b'?r.OB:r.OA;h='<table><tr><th>GSTIN</th><th>Party</th><th>Invoice</th><th>Date</th><th>Taxable</th><th>Total tax</th></tr>'+
+   L2.map(function(x){return '<tr><td>'+x.g+'</td><td>'+esc(x.name)+'</td><td>'+esc(x.inv)+'</td><td>'+esc(x.date)+'</td><td class="n">'+inr(x.tv)+'</td><td class="n">'+inr(x.tax)+'</td></tr>'}).join('')+'</table>';}
+  document.getElementById('tbl').innerHTML=h||'<p class="note">No records.</p>';}
+function exportXL(){var wb=XLSX.utils.book_new();
+  function pair(L){return L.map(function(x){return {GSTIN:x.b.g,Party:x.b.name||x.a.name,'Invoice (Books)':x.b.inv,'Invoice (2B)':x.a.inv,'Taxable (Books)':x.b.tv,'Taxable (2B)':x.a.tv,'Tax (Books)':x.b.tax,'Tax (2B)':x.a.tax,'Taxable Diff':x.dt,'Tax Diff':x.dx}})}
+  function one(L){return L.map(function(x){return {GSTIN:x.g,Party:x.name,Invoice:x.inv,Date:x.date,Taxable:x.tv,'Total Tax':x.tax}})}
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(pair(R.M)),'Matched');
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(pair(R.X)),'Mismatch');
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(one(R.OB)),'In Books not in 2B');
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(one(R.OA)),'In 2B not in Books');
+  XLSX.writeFile(wb,'GSTR-2B-Reconciliation-CooridorStore.xlsx');}
+function sample(){var ws=XLSX.utils.aoa_to_sheet([['GSTIN of Supplier','Party Name','Invoice No','Invoice Date','Taxable Value','IGST','CGST','SGST'],['05ABCDE1234F1Z5','Sharma Traders','INV/001','01-04-2026',10000,0,900,900]]);
+  var wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Purchase Register');XLSX.writeFile(wb,'Purchase-Register-Format.xlsx');}
+</script>
+</body>
+</html>
