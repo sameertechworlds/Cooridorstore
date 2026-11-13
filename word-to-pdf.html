@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word to PDF Converter – Free, Private, No Upload | Cooridor Store</title>
+<meta name="description" content="Convert Word (.docx) files to PDF for free. Works fully in your browser, so your document is never uploaded to any server.">
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="calc.css"><script src="app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<style>
+.drop{border:2px dashed var(--line);border-radius:14px;padding:50px 20px;text-align:center;cursor:pointer;transition:.15s}
+.drop:hover,.drop.over{border-color:var(--pri);background:var(--soft)}
+.drop .ic{font-size:2.6rem}
+#doc{background:#fff;color:#111;padding:40px;border-radius:12px;border:1px solid var(--line);min-height:300px;font-family:Calibri,Arial,sans-serif;line-height:1.5}
+#doc img{max-width:100%}#doc table{border-collapse:collapse}#doc td,#doc th{border:1px solid #ccc;padding:6px}
+@media print{body *{visibility:hidden}#doc,#doc *{visibility:visible}#doc{position:absolute;left:0;top:0;width:100%;border:none;padding:0}}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+  <div class="crumb"><a href="/">Home</a> › Word to PDF</div>
+  <div class="ph">
+    <h1 data-en="Word to PDF Converter" data-hi="Word से PDF कन्वर्टर">Word to PDF Converter</h1>
+    <p data-en="Convert .docx files to PDF in seconds. Your file stays on your device and is never uploaded." data-hi="सेकंडों में .docx फ़ाइल को PDF बनाइए। फ़ाइल आपके डिवाइस पर ही रहती है, कहीं अपलोड नहीं होती।">Convert .docx files to PDF in seconds. Your file stays on your device and is never uploaded.</p>
+  </div>
+  <div class="lay">
+    <div class="card box">
+      <label class="drop" id="drop"><div class="ic">📄</div><b data-en="Drop your .docx file here or click to choose" data-hi=".docx फ़ाइल यहाँ डालें या क्लिक करके चुनें">Drop your .docx file here or click to choose</b><input type="file" id="file" accept=".docx" hidden></label>
+      <p id="status" class="note"></p>
+      <div class="bar" style="display:flex;gap:10px;margin-top:14px">
+        <button class="btn btn-p" id="dl" onclick="window.print()" disabled data-en="⬇ Download PDF" data-hi="⬇ PDF डाउनलोड">⬇ Download PDF</button>
+      </div>
+      <p class="note" data-en="In the print window, choose 'Save as PDF'. Complex layouts may look slightly different from Word." data-hi="प्रिंट विंडो में 'Save as PDF' चुनिए। बहुत जटिल लेआउट Word से थोड़ा अलग दिख सकता है।">In the print window, choose 'Save as PDF'. Complex layouts may look slightly different from Word.</p>
+    </div>
+    <div id="doc"><p style="color:#888;text-align:center;margin-top:100px">Preview will appear here</p></div>
+  </div>
+  <article class="art">
+    <h2>How to convert Word to PDF</h2>
+    <ol><li>Click the box or drag your .docx file into it.</li><li>Check the preview on the right.</li><li>Click Download PDF and choose Save as PDF.</li></ol>
+    <h2>Is it safe?</h2>
+    <p>Yes. The conversion happens inside your browser. Your document is never sent to our servers.</p>
+    <h2>Which files are supported?</h2>
+    <p>Modern Word files (.docx) are supported. Older .doc files should first be saved as .docx in Word.</p>
+    <h2>Related tools</h2>
+    <div class="related"><a class="card" href="invoice-generator.html">🧾 Invoice Generator</a><a class="card" href="gst-calculator.html">🧮 GST Calculator</a></div>
+  </article>
+</main>
+<div id="site-footer"></div>
+<script>
+var drop=document.getElementById('drop'),st=document.getElementById('status');
+function load(f){if(!f||!/\.docx$/i.test(f.name)){st.textContent='Please choose a .docx file.';return;}
+ st.textContent='Converting '+f.name+'…';var r=new FileReader();
+ r.onload=function(){mammoth.convertToHtml({arrayBuffer:r.result}).then(function(res){document.getElementById('doc').innerHTML=res.value;st.textContent='✓ Ready: '+f.name;document.getElementById('dl').disabled=false;document.title=f.name.replace(/\.docx$/i,'');}).catch(function(){st.textContent='Sorry, this file could not be read.';});};
+ r.readAsArrayBuffer(f);}
+document.getElementById('file').onchange=function(e){load(e.target.files[0]);};
+['dragover','dragenter'].forEach(function(t){drop.addEventListener(t,function(e){e.preventDefault();drop.classList.add('over');});});
+['dragleave','drop'].forEach(function(t){drop.addEventListener(t,function(e){e.preventDefault();drop.classList.remove('over');});});
+drop.addEventListener('drop',function(e){load(e.dataTransfer.files[0]);});
+</script>
+</body>
+</html>
