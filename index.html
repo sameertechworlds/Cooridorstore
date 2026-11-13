@@ -1,11 +1,98 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <title>Corridor Store - Free Tax & Finance Tools</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cooridor Store - Free GST, Tax & Accounting Tools for India</title>
+<meta name="description" content="Free online GST calculator, income tax calculator, invoice generator, HRA, TDS and accounting tools for India - all in one place.">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",Arial,sans-serif}
+  body{background:#f4f7fb;color:#1e293b}
+  header{background:linear-gradient(135deg,#0f766e,#14b8a6);color:#fff;text-align:center;padding:50px 20px}
+  header h1{font-size:2.6rem}
+  header p{margin-top:10px;font-size:1.15rem;opacity:.95}
+  .wrap{max-width:1100px;margin:auto;padding:30px 20px}
+  h2{margin:10px 0 20px;color:#0f766e}
+  .calc{background:#fff;border-radius:14px;padding:25px;box-shadow:0 4px 15px rgba(0,0,0,.07);margin-bottom:40px}
+  .row{display:flex;flex-wrap:wrap;gap:15px}
+  .row div{flex:1;min-width:200px}
+  label{display:block;font-weight:600;margin-bottom:6px}
+  input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:1rem}
+  .btns{margin-top:15px;display:flex;gap:10px;flex-wrap:wrap}
+  button{padding:12px 22px;border:none;border-radius:8px;background:#0f766e;color:#fff;font-size:1rem;cursor:pointer}
+  button.alt{background:#64748b}
+  .result{margin-top:20px;background:#f0fdfa;border-left:5px solid #14b8a6;padding:15px;border-radius:8px;line-height:1.9;display:none}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+  .card{background:#fff;border-radius:14px;padding:22px;box-shadow:0 4px 15px rgba(0,0,0,.06)}
+  .card h3{font-size:1.1rem;margin-bottom:8px}
+  .card p{font-size:.92rem;color:#475569}
+  .soon{display:inline-block;margin-top:12px;font-size:.8rem;background:#fef3c7;color:#92400e;padding:4px 10px;border-radius:20px}
+  footer{text-align:center;padding:25px;color:#64748b;font-size:.9rem}
+</style>
 </head>
 <body>
-  <h1>Corridor Store</h1>
-  <p>Free accounting, tax and finance tools for India. Coming soon!</p>
+
+<header>
+  <h1>Cooridor Store</h1>
+  <p>Free Tax, GST & Accounting Tools – सब एक जगह</p>
+</header>
+
+<div class="wrap">
+
+  <h2>GST कैलकुलेटर</h2>
+  <div class="calc">
+    <div class="row">
+      <div>
+        <label>रकम (₹)</label>
+        <input type="number" id="amt" placeholder="जैसे 1000">
+      </div>
+      <div>
+        <label>GST रेट</label>
+        <select id="rate">
+          <option value="5">5%</option>
+          <option value="12">12%</option>
+          <option value="18" selected>18%</option>
+          <option value="28">28%</option>
+        </select>
+      </div>
+    </div>
+    <div class="btns">
+      <button onclick="gst('add')">GST जोड़ें</button>
+      <button class="alt" onclick="gst('remove')">GST निकालें</button>
+    </div>
+    <div class="result" id="res"></div>
+  </div>
+
+  <h2>सारे टूल्स</h2>
+  <div class="grid">
+    <div class="card"><h3>GST इनवॉइस जनरेटर</h3><p>GST वाला प्रोफ़ेशनल बिल बनाइए और PDF डाउनलोड कीजिए।</p><span class="soon">जल्द आ रहा है</span></div>
+    <div class="card"><h3>इनकम टैक्स कैलकुलेटर</h3><p>पुरानी और नई रिजीम में टैक्स की तुलना।</p><span class="soon">जल्द आ रहा है</span></div>
+    <div class="card"><h3>HRA कैलकुलेटर</h3><p>पता कीजिए कितना HRA टैक्स-फ़्री है।</p><span class="soon">जल्द आ रहा है</span></div>
+    <div class="card"><h3>TDS कैलकुलेटर</h3><p>अलग-अलग सेक्शन के हिसाब से TDS।</p><span class="soon">जल्द आ रहा है</span></div>
+    <div class="card"><h3>रेंट रसीद जनरेटर</h3><p>HRA क्लेम के लिए किराए की रसीद।</p><span class="soon">जल्द आ रहा है</span></div>
+    <div class="card"><h3>EMI कैलकुलेटर</h3><p>लोन की मासिक किस्त तुरंत जानिए।</p><span class="soon">जल्द आ रहा है</span></div>
+    <div class="card"><h3>Amount in Words</h3><p>रकम को शब्दों में बदलिए, चेक और बिल के लिए।</p><span class="soon">जल्द आ रहा है</span></div>
+    <div class="card"><h3>सैलरी स्लिप जनरेटर</h3><p>कर्मचारियों की सैलरी स्लिप मिनटों में।</p><span class="soon">जल्द आ रहा है</span></div>
+  </div>
+
+</div>
+
+<footer>© 2026 Cooridor Store · cooridorstore.in</footer>
+
+<script>
+function gst(type){
+  var a=parseFloat(document.getElementById('amt').value);
+  var r=parseFloat(document.getElementById('rate').value);
+  var box=document.getElementById('res');
+  if(isNaN(a)||a<=0){box.style.display='block';box.innerHTML='कृपया सही रकम डालें।';return;}
+  var base,tax,total;
+  if(type==='add'){base=a;tax=a*r/100;total=a+tax;}
+  else{total=a;base=a*100/(100+r);tax=a-base;}
+  var f=function(n){return '₹'+n.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});};
+  box.style.display='block';
+  box.innerHTML='मूल रकम: <b>'+f(base)+'</b><br>GST ('+r+'%): <b>'+f(tax)+'</b><br>CGST: '+f(tax/2)+' | SGST: '+f(tax/2)+'<br>कुल रकम: <b>'+f(total)+'</b>';
+}
+</script>
+
 </body>
 </html>
