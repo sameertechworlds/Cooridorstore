@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HRA Calculator – Calculate HRA Exemption with Working | Cooridor Store</title>
+<meta name="description" content="Free HRA exemption calculator for India. Enter basic salary, HRA and rent to find exempt and taxable HRA with step-by-step working under Section 10(13A).">
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="calc.css"><script src="app.js"></script>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+  <div class="crumb"><a href="/">Home</a> › <span data-en="HRA Calculator" data-hi="HRA कैलकुलेटर">HRA Calculator</span></div>
+  <div class="ph">
+    <h1 data-en="HRA Exemption Calculator" data-hi="HRA छूट कैलकुलेटर">HRA Exemption Calculator</h1>
+    <p data-en="Find out how much of your House Rent Allowance is tax-free and how much is taxable." data-hi="जानिए आपके HRA का कितना हिस्सा टैक्स-फ़्री है और कितना टैक्सेबल।">Find out how much of your House Rent Allowance is tax-free and how much is taxable.</p>
+  </div>
+  <div class="lay">
+    <div class="card box">
+      <h3 data-en="Enter monthly amounts" data-hi="मासिक रकम डालें">Enter monthly amounts</h3>
+      <div class="f"><label data-en="Basic salary + DA (₹/month)" data-hi="बेसिक सैलरी + DA (₹/महीना)">Basic salary + DA (₹/month)</label><input type="number" id="basic" value="40000"></div>
+      <div class="f"><label data-en="HRA received (₹/month)" data-hi="मिलने वाला HRA (₹/महीना)">HRA received (₹/month)</label><input type="number" id="hra" value="20000"></div>
+      <div class="f"><label data-en="Rent paid (₹/month)" data-hi="दिया गया किराया (₹/महीना)">Rent paid (₹/month)</label><input type="number" id="rent" value="18000"></div>
+      <div class="f"><label data-en="City" data-hi="शहर">City</label>
+        <div class="chips"><button onclick="chip(1,this)" data-en="Metro (50%)" data-hi="मेट्रो (50%)">Metro (50%)</button><button class="on" onclick="chip(0,this)" data-en="Non-metro (40%)" data-hi="नॉन-मेट्रो (40%)">Non-metro (40%)</button></div></div>
+    </div>
+    <div class="card box">
+      <div class="lbl" data-en="Exempt HRA (yearly)" data-hi="टैक्स-फ़्री HRA (सालाना)">Exempt HRA (yearly)</div>
+      <div class="big" id="big">₹0</div>
+      <table class="rt" id="rows"></table>
+      <div class="work"><b data-en="How we calculated it" data-hi="कैलकुलेशन कैसे हुई">How we calculated it</b><pre id="work"></pre></div>
+      <p class="note" data-en="HRA exemption is available only under the old tax regime." data-hi="HRA छूट सिर्फ़ पुरानी टैक्स रिजीम में मिलती है।">HRA exemption is available only under the old tax regime.</p>
+    </div>
+  </div>
+
+  <article class="art">
+    <h2>What is HRA?</h2>
+    <p>House Rent Allowance (HRA) is a part of salary paid by employers to help employees pay rent. Under Section 10(13A) of the Income Tax Act, a portion of HRA can be tax-free if you live in a rented house.</p>
+    <h2>HRA exemption formula</h2>
+    <p>The exempt HRA is the <b>lowest</b> of these three amounts:</p>
+    <div class="fx">1. Actual HRA received<br>2. Rent paid − 10% of (Basic + DA)<br>3. 50% of (Basic + DA) in metro cities, or 40% elsewhere</div>
+    <p>Metro cities for HRA are Delhi, Mumbai, Kolkata and Chennai. The remaining HRA is added to your taxable salary.</p>
+    <h2>Worked example</h2>
+    <p>Basic + DA = ₹40,000 per month, HRA = ₹20,000, rent = ₹18,000, non-metro city.</p>
+    <ol><li>Actual HRA = ₹20,000</li><li>Rent − 10% of basic = 18,000 − 4,000 = ₹14,000</li><li>40% of basic = ₹16,000</li></ol>
+    <p>The lowest is ₹14,000 per month, so ₹1,68,000 a year is tax-free and ₹72,000 a year is taxable.</p>
+    <h2>Documents you need</h2>
+    <ul><li>Rent receipts or rent agreement</li><li>Landlord's PAN if annual rent is above ₹1,00,000</li></ul>
+    <h2>Frequently asked questions</h2>
+    <h3>Can I claim HRA in the new tax regime?</h3>
+    <p>No. HRA exemption is available only if you choose the old tax regime.</p>
+    <h3>Can I pay rent to my parents and claim HRA?</h3>
+    <p>Yes, if you genuinely pay rent and your parent owns the house. They must show the rent as income.</p>
+    <h2>Related tools</h2>
+    <div class="related"><a class="card" href="income-tax-calculator.html">📊 Income Tax Calculator</a><a class="card" href="gst-calculator.html">🧮 GST Calculator</a><a class="card" href="tds-calculator.html">✂️ TDS Calculator</a></div>
+    <p class="note">Results are for guidance only. Please verify with a tax professional before filing.</p>
+  </article>
+</main>
+<div id="site-footer"></div>
+<script>
+var metro=0;
+function chip(v,b){metro=v;b.parentNode.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');calc();}
+function inr(n){return '₹'+Math.round(n).toLocaleString('en-IN');}
+function g(id){return parseFloat(document.getElementById(id).value)||0;}
+function calc(){
+  var hi=(localStorage.getItem('lang')==='hi'),b=g('basic'),h=g('hra'),r=g('rent'),p=metro?50:40;
+  var c1=h,c2=Math.max(0,r-b*0.1),c3=b*p/100,ex=Math.min(c1,c2,c3),tx=h-ex;
+  document.getElementById('big').textContent=inr(ex*12);
+  document.getElementById('rows').innerHTML=
+   '<tr><td>'+(hi?'टैक्स-फ़्री HRA (महीना)':'Exempt HRA (monthly)')+'</td><td>'+inr(ex)+'</td></tr>'+
+   '<tr><td>'+(hi?'टैक्सेबल HRA (महीना)':'Taxable HRA (monthly)')+'</td><td>'+inr(tx)+'</td></tr>'+
+   '<tr class="tot"><td>'+(hi?'टैक्सेबल HRA (सालाना)':'Taxable HRA (yearly)')+'</td><td>'+inr(tx*12)+'</td></tr>';
+  document.getElementById('work').textContent=
+   'a) Actual HRA = '+inr(c1)+'\nb) Rent − 10% basic = '+inr(r)+' − '+inr(b*0.1)+' = '+inr(c2)+'\nc) '+p+'% of basic = '+inr(c3)+
+   '\n\nExempt = lowest of a, b, c = '+inr(ex)+' / month\nYearly = '+inr(ex)+' × 12 = '+inr(ex*12);
+}
+['basic','hra','rent'].forEach(function(i){document.getElementById(i).addEventListener('input',calc)});
+document.addEventListener('langchange',calc);
+document.addEventListener('DOMContentLoaded',calc);
+</script>
+</body>
+</html>
