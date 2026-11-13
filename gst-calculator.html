@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GST Calculator India – Add or Remove GST with Step-by-Step Working | Cooridor Store</title>
+<meta name="description" content="Free GST calculator for India. Add or remove GST at 5%, 12%, 18%, 28% or 40%, see CGST, SGST, IGST split and full step-by-step calculation.">
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="calc.css"><script src="app.js"></script>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+  <div class="crumb"><a href="/">Home</a> › <span data-en="GST Calculator" data-hi="GST कैलकुलेटर">GST Calculator</span></div>
+  <div class="ph">
+    <h1 data-en="GST Calculator" data-hi="GST कैलकुलेटर">GST Calculator</h1>
+    <p data-en="Add GST to a price or remove GST from an inclusive amount. See CGST, SGST or IGST and every step of the calculation." data-hi="किसी रकम में GST जोड़िए या GST वाली रकम से GST निकालिए। CGST, SGST, IGST और हर स्टेप की कैलकुलेशन देखिए।">Add GST to a price or remove GST from an inclusive amount. See CGST, SGST or IGST and every step of the calculation.</p>
+  </div>
+
+  <div class="lay">
+    <div class="card box">
+      <div class="f"><label data-en="Amount (₹)" data-hi="रकम (₹)">Amount (₹)</label><input type="number" id="amt" value="10000" min="0"></div>
+      <div class="f"><label data-en="Calculation type" data-hi="कैलकुलेशन का प्रकार">Calculation type</label>
+        <div class="chips"><button class="on" onclick="chip('type','ex',this)" data-en="Add GST (exclusive)" data-hi="GST जोड़ें">Add GST (exclusive)</button><button onclick="chip('type','in',this)" data-en="Remove GST (inclusive)" data-hi="GST निकालें">Remove GST (inclusive)</button></div></div>
+      <div class="f"><label data-en="GST rate" data-hi="GST रेट">GST rate</label>
+        <div class="chips"><button onclick="chip('rate',3,this)">3%</button><button onclick="chip('rate',5,this)">5%</button><button onclick="chip('rate',12,this)">12%</button><button class="on" onclick="chip('rate',18,this)">18%</button><button onclick="chip('rate',28,this)">28%</button><button onclick="chip('rate',40,this)">40%</button></div></div>
+      <div class="f"><label data-en="Type of supply" data-hi="सप्लाई का प्रकार">Type of supply</label>
+        <div class="chips"><button class="on" onclick="chip('sup','intra',this)" data-en="Within state (CGST+SGST)" data-hi="राज्य के अंदर (CGST+SGST)">Within state (CGST+SGST)</button><button onclick="chip('sup','inter',this)" data-en="Other state (IGST)" data-hi="दूसरा राज्य (IGST)">Other state (IGST)</button></div></div>
+    </div>
+
+    <div class="card box">
+      <div class="lbl" data-en="Total amount" data-hi="कुल रकम">Total amount</div>
+      <div class="big" id="big">₹0</div>
+      <table class="rt" id="rows"></table>
+      <div class="work"><b data-en="How we calculated it" data-hi="कैलकुलेशन कैसे हुई">How we calculated it</b><pre id="work"></pre></div>
+    </div>
+  </div>
+
+  <article class="art">
+    <h2>What is GST?</h2>
+    <p>Goods and Services Tax (GST) is an indirect tax charged on the supply of goods and services in India. It replaced older taxes like VAT, excise and service tax. The seller collects GST from the buyer and deposits it with the government.</p>
+
+    <h2>GST formulas</h2>
+    <h3>1. Adding GST (price is exclusive of GST)</h3>
+    <div class="fx">GST amount = Original price × GST rate ÷ 100<br>Total price = Original price + GST amount</div>
+    <h3>2. Removing GST (price is inclusive of GST)</h3>
+    <div class="fx">Base price = Total price × 100 ÷ (100 + GST rate)<br>GST amount = Total price − Base price</div>
+
+    <h2>Worked examples</h2>
+    <h3>Example 1: Add 18% GST to ₹10,000</h3>
+    <p>GST = 10,000 × 18 ÷ 100 = ₹1,800. Total = 10,000 + 1,800 = ₹11,800. If the sale is within the same state, CGST = ₹900 and SGST = ₹900.</p>
+    <h3>Example 2: Remove 18% GST from ₹11,800</h3>
+    <p>Base price = 11,800 × 100 ÷ 118 = ₹10,000. GST = 11,800 − 10,000 = ₹1,800.</p>
+    <h3>Example 3: Inter-state sale of ₹50,000 at 12%</h3>
+    <p>GST = 50,000 × 12 ÷ 100 = ₹6,000, charged fully as IGST. Total = ₹56,000.</p>
+
+    <h2>CGST, SGST and IGST explained</h2>
+    <table><tr><th>Supply</th><th>Tax charged</th><th>Example at 18%</th></tr>
+    <tr><td>Within the same state</td><td>CGST + SGST (half each)</td><td>9% + 9%</td></tr>
+    <tr><td>To another state</td><td>IGST (full)</td><td>18%</td></tr>
+    <tr><td>Within a Union Territory</td><td>CGST + UTGST</td><td>9% + 9%</td></tr></table>
+
+    <h2>Common GST rates in India</h2>
+    <p>Under the revised GST structure, most goods fall under 5% or 18%, while a 40% rate applies to select luxury and sin goods. Some items such as gold use 3%, and older invoices may still show 12% or 28%. Always confirm the current rate for your HSN or SAC code on the official GST portal.</p>
+
+    <h2>Frequently asked questions</h2>
+    <h3>How do I calculate GST on a GST-inclusive price?</h3>
+    <p>Divide the total by (100 + rate) and multiply by 100 to get the base price. The difference is the GST.</p>
+    <h3>Is this GST calculator free?</h3>
+    <p>Yes, it is completely free, needs no login, and runs entirely in your browser.</p>
+
+    <h2>Related tools</h2>
+    <div class="related"><a class="card" href="invoice-generator.html">🧾 GST Invoice Generator</a><a class="card" href="income-tax-calculator.html">📊 Income Tax Calculator</a><a class="card" href="tds-calculator.html">✂️ TDS Calculator</a></div>
+    <p class="note">Results are for guidance only. Please verify with a tax professional before filing.</p>
+  </article>
+</main>
+<div id="site-footer"></div>
+<script>
+var S={type:'ex',rate:18,sup:'intra'};
+function chip(g,v,b){S[g]=v;b.parentNode.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');calc();}
+function inr(n){return '₹'+n.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function calc(){
+  var hi=(localStorage.getItem('lang')==='hi'),a=parseFloat(document.getElementById('amt').value)||0,r=S.rate,base,tax,tot,w;
+  if(S.type==='ex'){base=a;tax=a*r/100;tot=a+tax;
+    w='Step 1: GST = '+inr(a)+' × '+r+' ÷ 100 = '+inr(tax)+'\nStep 2: Total = '+inr(a)+' + '+inr(tax)+' = '+inr(tot);}
+  else{tot=a;base=a*100/(100+r);tax=a-base;
+    w='Step 1: Base = '+inr(a)+' × 100 ÷ '+(100+r)+' = '+inr(base)+'\nStep 2: GST = '+inr(a)+' − '+inr(base)+' = '+inr(tax);}
+  var rows='<tr><td>'+(hi?'मूल रकम':'Base amount')+'</td><td>'+inr(base)+'</td></tr>';
+  if(S.sup==='intra'){rows+='<tr><td>CGST ('+r/2+'%)</td><td>'+inr(tax/2)+'</td></tr><tr><td>SGST ('+r/2+'%)</td><td>'+inr(tax/2)+'</td></tr>';
+    w+='\nStep 3: CGST = SGST = '+inr(tax)+' ÷ 2 = '+inr(tax/2);}
+  else{rows+='<tr><td>IGST ('+r+'%)</td><td>'+inr(tax)+'</td></tr>';w+='\nStep 3: '+(hi?'दूसरे राज्य की सप्लाई, पूरा ':'Inter-state supply, full ')+inr(tax)+' = IGST';}
+  rows+='<tr><td>'+(hi?'कुल GST':'Total GST')+'</td><td>'+inr(tax)+'</td></tr><tr class="tot"><td>'+(hi?'कुल रकम':'Total amount')+'</td><td>'+inr(tot)+'</td></tr>';
+  document.getElementById('rows').innerHTML=rows;document.getElementById('big').textContent=inr(tot);document.getElementById('work').textContent=w;
+}
+document.getElementById('amt').addEventListener('input',calc);
+document.addEventListener('langchange',calc);
+document.addEventListener('DOMContentLoaded',calc);
+</script>
+</body>
+</html>
