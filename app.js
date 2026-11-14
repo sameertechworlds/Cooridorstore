@@ -23,6 +23,7 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
   m('income-tax-calculator.html','📊','Income Tax','इनकम टैक्स','Old vs new regime','पुरानी बनाम नई रिजीम')+
   m('hra-calculator.html','🏠','HRA Calculator','HRA कैलकुलेटर','Exempt and taxable HRA','छूट और टैक्सेबल HRA')+
   m('tds-calculator.html','✂️','TDS Calculator','TDS कैलकुलेटर','TDS by section','सेक्शन के हिसाब से TDS')+
+  m('80gg-calculator.html','🏠','80GG Calculator','80GG कैलकुलेटर','Rent deduction without HRA','बिना HRA किराये पर छूट')+
   m('emi-calculator.html','🏦','EMI Calculator','EMI कैलकुलेटर','Loan EMI and schedule','लोन EMI और शेड्यूल')+
   m('sip-calculator.html','📈','SIP Calculator','SIP कैलकुलेटर','SIP returns with step-up','step-up के साथ SIP रिटर्न'))+
  dd('Reconciliation','रिकंसिलिएशन',
@@ -46,6 +47,7 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
 var footer='<footer class="ftr"><div class="container">'+
  '<div class="ftr-top">'+brand+'<p data-en="Free tax, accounting, finance and PDF tools for India. No signup, nothing uploaded." data-hi="भारत के लिए फ्री टैक्स, अकाउंटिंग, फ़ाइनेंस और PDF टूल्स। बिना साइनअप, कुछ अपलोड नहीं।">Free tax, accounting, finance and PDF tools for India. No signup, nothing uploaded.</p></div>'+
  '<div class="ftr-g f5">'+
+ ['80gg-calculator.html','80GG'],
  col('Calculators','कैलकुलेटर',[['gst-calculator.html','GST'],['gst-late-fee-calculator.html','GST Late Fee'],['income-tax-calculator.html','Income Tax'],['hra-calculator.html','HRA'],['tds-calculator.html','TDS'],['emi-calculator.html','EMI'],['sip-calculator.html','SIP']])+
  col('Reconciliation','रिकंसिलिएशन',[['gstr-2b-reconciliation.html','GSTR-2B Reco'],['gstr-1-einvoice-reconciliation.html','GSTR-1 vs e-Invoice'],['bank-reconciliation.html','Bank Reco']])+
  col('Generators','जनरेटर',[['invoice-generator.html','Invoice Generator'],['rent-receipt-generator.html','Rent Receipt'],['tally-import.html','Invoices to Tally']])+
