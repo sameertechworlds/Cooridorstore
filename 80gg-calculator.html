@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Section 80GG Calculator – Rent Deduction Without HRA (Section 134, FY 2026-27) | Cooridor Store</title>
+<meta name="description" content="Free 80GG calculator: find your deduction for rent paid without HRA with full working. Covers the ₹5,000 per month limit, 25% and 10% tests, eligibility, Form 10BA, new tax regime and Section 134 of the Income-tax Act 2025.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<style>
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.yn{display:flex;gap:6px}
+.yn button{border:1px solid var(--line);background:var(--sur);color:var(--txt);padding:7px 14px;border-radius:8px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer}
+.yn button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.q3{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:.9rem}
+.lim{display:grid;gap:8px;margin-top:14px}
+.lim div{display:flex;justify-content:space-between;padding:10px 12px;border-radius:10px;background:var(--soft);font-size:.92rem}
+.lim div.min{background:color-mix(in srgb,var(--acc) 16%,var(--sur));font-weight:700}
+.bad{margin-top:12px;padding:14px;border-radius:10px;background:color-mix(in srgb,#e5484d 12%,var(--sur));font-size:.92rem}
+.art details{background:var(--sur);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.art summary{font-weight:600;cursor:pointer;color:var(--txt)}
+.art details p{margin:8px 0 0}
+@media(max-width:600px){.g2{grid-template-columns:1fr}.q3{flex-direction:column;align-items:flex-start}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is the maximum deduction under Section 80GG?","acceptedAnswer":{"@type":"Answer","text":"The deduction is the least of: rent paid minus 10% of adjusted total income, ₹5,000 per month (₹60,000 a year), or 25% of adjusted total income."}},
+{"@type":"Question","name":"Who is eligible for Section 80GG?","acceptedAnswer":{"@type":"Answer","text":"Individuals who pay rent for their own home and do not receive HRA, including self-employed people and salaried people without HRA, who choose the old tax regime and do not own a house at the place where they live or work."}},
+{"@type":"Question","name":"Can I claim 80GG in the new tax regime?","acceptedAnswer":{"@type":"Answer","text":"No. Section 80GG (Section 134 of the Income-tax Act 2025) is available only under the old tax regime."}},
+{"@type":"Question","name":"What is Form 10BA for 80GG?","acceptedAnswer":{"@type":"Answer","text":"Form 10BA is the declaration of rent paid that you file on the income tax e-filing portal before claiming 80GG in your return."}},
+{"@type":"Question","name":"Can I claim 80GG and HRA together?","acceptedAnswer":{"@type":"Answer","text":"No. 80GG is only for people who do not receive HRA. If you receive HRA, claim the HRA exemption instead."}},
+{"@type":"Question","name":"Can I claim 80GG for rent paid to my parents?","acceptedAnswer":{"@type":"Answer","text":"Yes, if the rent is genuinely paid, preferably by bank transfer, backed by a rent agreement and receipts, and your parents show the rent as income in their return."}},
+{"@type":"Question","name":"Can self-employed people claim 80GG?","acceptedAnswer":{"@type":"Answer","text":"Yes. Self-employed people and professionals who pay rent for their home can claim 80GG under the old regime if the other conditions are met."}},
+{"@type":"Question","name":"What documents are needed for 80GG?","acceptedAnswer":{"@type":"Answer","text":"Form 10BA filed on the portal, rent agreement, rent receipts and proof of payment such as bank or UPI statements."}},
+{"@type":"Question","name":"What is the new section number of 80GG?","acceptedAnswer":{"@type":"Answer","text":"From 1 April 2026, Section 80GG of the Income-tax Act 1961 is Section 134 of the Income-tax Act 2025. The limits are unchanged."}},
+{"@type":"Question","name":"How is 80GG calculated with an example?","acceptedAnswer":{"@type":"Answer","text":"With adjusted total income of ₹6,00,000 and rent of ₹10,000 a month: rent minus 10% of income is ₹60,000, 25% of income is ₹1,50,000 and the cap is ₹60,000, so the deduction is ₹60,000."}}
+]}
+</script>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="index.html">Home</a> › <span data-en="80GG Calculator" data-hi="80GG कैलकुलेटर">80GG Calculator</span></div>
+ <div class="ph">
+  <h1 data-en="Section 80GG Calculator" data-hi="सेक्शन 80GG कैलकुलेटर">Section 80GG Calculator</h1>
+  <p data-en="Rent deduction for people who do not get HRA. Now Section 134 of the Income-tax Act 2025, with the same limits." data-hi="जिन्हें HRA नहीं मिलता, उनके लिए किराये पर छूट। अब ये Income-tax Act 2025 का Section 134 है, लिमिट वही हैं।">Rent deduction for people who do not get HRA. Now Section 134 of the Income-tax Act 2025, with the same limits.</p>
+ </div>
+ <div class="lay">
+  <div class="card box">
+   <h3 data-en="1. Eligibility" data-hi="1. पात्रता">1. Eligibility</h3>
+   <div class="q3"><span data-en="Do you receive HRA from your employer?" data-hi="क्या आपको एम्प्लॉयर से HRA मिलता है?">Do you receive HRA from your employer?</span><div class="yn" data-k="hra"><button type="button" data-v="1">Yes</button><button type="button" data-v="0" class="on">No</button></div></div>
+   <div class="q3"><span data-en="Tax regime you will choose" data-hi="आप कौन सी टैक्स रिजीम चुनेंगे">Tax regime you will choose</span><div class="yn" data-k="reg"><button type="button" data-v="old" class="on">Old</button><button type="button" data-v="new">New</button></div></div>
+   <div class="q3"><span data-en="Do you, your spouse or minor child own a house in the city where you live or work?" data-hi="क्या आपका, जीवनसाथी या नाबालिग बच्चे का उसी शहर में अपना मकान है जहाँ आप रहते या काम करते हैं?">Do you, your spouse or minor child own a house in the city where you live or work?</span><div class="yn" data-k="own"><button type="button" data-v="1">Yes</button><button type="button" data-v="0" class="on">No</button></div></div>
+   <h3 style="margin-top:20px" data-en="2. Income and rent" data-hi="2. आय और किराया">2. Income and rent</h3>
+   <div class="f"><label data-en="Gross total income for the year, ₹" data-hi="साल की कुल आय (Gross Total Income), ₹">Gross total income for the year, ₹</label><input id="gti" inputmode="decimal" value="600000"></div>
+   <div class="g2">
+    <div class="f"><label data-en="Capital gains at special rates (LTCG/STCG), ₹" data-hi="विशेष दर वाले कैपिटल गेन (LTCG/STCG), ₹">Capital gains at special rates (LTCG/STCG), ₹</label><input id="cg" inputmode="decimal" value="0"></div>
+    <div class="f"><label data-en="Other deductions (80C, 80D etc.), ₹" data-hi="बाकी छूटें (80C, 80D आदि), ₹">Other deductions (80C, 80D etc.), ₹</label><input id="od" inputmode="decimal" value="0"></div>
+    <div class="f"><label data-en="Rent paid per month, ₹" data-hi="हर महीने का किराया, ₹">Rent paid per month, ₹</label><input id="rent" inputmode="decimal" value="10000"></div>
+    <div class="f"><label data-en="Months of rent in the year" data-hi="साल में किराये के महीने">Months of rent in the year</label><input id="mo" inputmode="numeric" value="12"></div>
+   </div>
+   <div class="f"><label data-en="Your tax slab (for tax saving estimate)" data-hi="आपका टैक्स स्लैब (बचत के अंदाज़े के लिए)">Your tax slab (for tax saving estimate)</label>
+    <select id="sl"><option value="5">5%</option><option value="20">20%</option><option value="30" selected>30%</option></select></div>
+  </div>
+  <div class="card box">
+   <span class="lbl" data-en="80GG deduction you can claim" data-hi="आप जितनी 80GG छूट ले सकते हैं">80GG deduction you can claim</span>
+   <div class="big" id="ded">₹0</div>
+   <div id="out"></div>
+   <div class="work"><b data-en="How we calculated it" data-hi="हमने कैसे निकाला">How we calculated it</b><pre id="wk"></pre></div>
+   <p class="note" data-en="Estimate for guidance. Confirm with a tax professional for complex cases." data-hi="ये अंदाज़ा मार्गदर्शन के लिए है। मुश्किल मामलों में टैक्स विशेषज्ञ से पुष्टि कर लीजिए।">Estimate for guidance. Confirm with a tax professional for complex cases.</p>
+  </div>
+ </div>
+
+ <article class="art">
+  <h2>What is Section 80GG?</h2>
+  <p>Section 80GG gives a deduction for rent paid on the house you live in, if you do not get House Rent Allowance (HRA). It helps self-employed people, professionals, and salaried people whose salary has no HRA. Under the Income-tax Act 2025, which applies from 1 April 2026, the same deduction is in Section 134, with the same limits.</p>
+
+  <h2>80GG deduction limit and formula</h2>
+  <p>The deduction is the least of these three amounts:</p>
+  <ol>
+   <li>Rent paid minus 10% of adjusted total income</li>
+   <li>₹5,000 per month (₹60,000 for a full year)</li>
+   <li>25% of adjusted total income</li>
+  </ol>
+  <div class="fx">Adjusted total income = Gross total income − capital gains at special rates − other deductions (80C, 80D…) except 80GG</div>
+
+  <h2>80GG calculation example</h2>
+  <p>Adjusted total income is ₹6,00,000 and rent is ₹10,000 a month (₹1,20,000 a year).</p>
+  <table>
+   <tr><th>Test</th><th>Working</th><th>Amount</th></tr>
+   <tr><td>Rent − 10% of income</td><td>1,20,000 − 60,000</td><td>₹60,000</td></tr>
+   <tr><td>₹5,000 per month</td><td>5,000 × 12</td><td>₹60,000</td></tr>
+   <tr><td>25% of income</td><td>6,00,000 × 25%</td><td>₹1,50,000</td></tr>
+   <tr><td colspan="2"><b>Deduction (least)</b></td><td><b>₹60,000</b></td></tr>
+  </table>
+
+  <h2>80GG eligibility conditions</h2>
+  <ul>
+   <li>You are an individual (salaried or self-employed) who pays rent for your own residence.</li>
+   <li>You do not receive HRA from an employer.</li>
+   <li>You, your spouse, your minor child or your HUF do not own a house in the place where you live or work.</li>
+   <li>If you own a house somewhere else, you must not be claiming it as self-occupied.</li>
+   <li>You choose the old tax regime.</li>
+   <li>You file Form 10BA, the declaration of rent paid.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <details><summary>1. What is the maximum deduction under Section 80GG?</summary><p>The least of: rent paid minus 10% of adjusted total income, ₹5,000 per month (₹60,000 a year), or 25% of adjusted total income. For most people the ₹60,000 cap is the limit that applies.</p></details>
+  <details><summary>2. Who is eligible for Section 80GG?</summary><p>Individuals who pay rent for their home and do not receive HRA, including self-employed people and salaried people without HRA, who choose the old regime and do not own a house where they live or work.</p></details>
+  <details><summary>3. Can I claim 80GG in the new tax regime?</summary><p>No. Like most deductions, 80GG (Section 134) is available only under the old tax regime. Use our <a href="income-tax-calculator.html" style="color:var(--pri)">income tax calculator</a> to see which regime is better for you.</p></details>
+  <details><summary>4. What is Form 10BA and how do I file it?</summary><p>Form 10BA is the declaration of rent paid. File it on the income tax e-filing portal before you file your return, giving details such as the rented address, rent paid and the landlord's name and address.</p></details>
+  <details><summary>5. 80GG vs HRA: can I claim both?</summary><p>No. 80GG is only for people who do not receive HRA. If your salary includes HRA, claim the HRA exemption instead. Try our <a href="hra-calculator.html" style="color:var(--pri)">HRA calculator</a>.</p></details>
+  <details><summary>6. Can I claim 80GG for rent paid to my parents?</summary><p>Yes, if the rent is genuinely paid, preferably by bank transfer, backed by a rent agreement and receipts, and your parents show the rent as income in their return. You cannot pay rent to your spouse for a house you share as a family.</p></details>
+  <details><summary>7. Can self-employed people and freelancers claim 80GG?</summary><p>Yes. Self-employed people, freelancers and professionals who pay rent for their home can claim it under the old regime if the other conditions are met.</p></details>
+  <details><summary>8. What documents are required for 80GG?</summary><p>Form 10BA filed on the portal, a rent agreement, monthly rent receipts and proof of payment such as bank or UPI statements. Our <a href="rent-receipt-generator.html" style="color:var(--pri)">rent receipt generator</a> can make the receipts.</p></details>
+  <details><summary>9. What is the new section number of 80GG?</summary><p>From 1 April 2026, Section 80GG of the Income-tax Act 1961 is Section 134 of the Income-tax Act 2025. The ₹5,000 per month cap and the 10% and 25% tests are unchanged.</p></details>
+  <details><summary>10. Can I claim 80GG if I own a house in another city?</summary><p>Yes, as long as the house is not in the place where you live or work and you are not claiming it as self-occupied in your return.</p></details>
+
+  <h2>Related tools</h2>
+  <div class="related">
+   <a class="card" href="hra-calculator.html">🏠 HRA Calculator</a>
+   <a class="card" href="rent-receipt-generator.html">🏘️ Rent Receipt Generator</a>
+   <a class="card" href="income-tax-calculator.html">📊 Income Tax Calculator</a>
+  </div>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script>
+var S={hra:'0',reg:'old',own:'0'};
+function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
+function inr(n){return '₹'+Math.round(n).toLocaleString('en-IN');}
+function num(id){return parseFloat(String(document.getElementById(id).value).replace(/[^0-9.]/g,''))||0;}
+document.querySelectorAll('.yn').forEach(function(g){g.querySelectorAll('button').forEach(function(b){b.onclick=function(){S[g.dataset.k]=b.dataset.v;g.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b);});calc();};});});
+['gti','cg','od','rent','mo'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+document.getElementById('sl').addEventListener('change',calc);
+function calc(){
+ var out=document.getElementById('out'),wk=document.getElementById('wk'),why=[];
+ if(S.hra==='1')why.push(T('You receive HRA. Claim the HRA exemption instead of 80GG.','आपको HRA मिलता है। 80GG की जगह HRA छूट लीजिए।')+' <a href="hra-calculator.html" style="color:var(--pri)">HRA calculator →</a>');
+ if(S.reg==='new')why.push(T('80GG is not allowed in the new tax regime.','नई टैक्स रिजीम में 80GG नहीं मिलता।'));
+ if(S.own==='1')why.push(T('A house owned at the place where you live or work makes you ineligible.','जहाँ आप रहते या काम करते हैं, वहाँ अपना मकान होने पर 80GG नहीं मिलता।'));
+ if(why.length){document.getElementById('ded').textContent='₹0';out.innerHTML='<div class="bad">✗ '+T('Not eligible for 80GG:','80GG के पात्र नहीं:')+'<br>'+why.join('<br>')+'</div>';wk.textContent=T('Change the eligibility answers to see the calculation.','कैलकुलेशन देखने के लिए पात्रता के जवाब बदलिए।');return;}
+ var gti=num('gti'),cg=num('cg'),od=num('od'),rm=num('rent'),mo=Math.min(12,Math.max(0,Math.round(num('mo')))),sl=+document.getElementById('sl').value;
+ var ati=Math.max(0,gti-cg-od),rent=rm*mo,a=Math.max(0,rent-ati*0.10),b=5000*mo,c=ati*0.25,ded=Math.max(0,Math.min(a,b,c)),save=ded*sl/100*1.04;
+ var lim=[[T('Rent − 10% of income','किराया − आय का 10%'),a],[T('₹5,000 × months','₹5,000 × महीने'),b],[T('25% of income','आय का 25%'),c]],mi=ded;
+ document.getElementById('ded').textContent=inr(ded);
+ out.innerHTML='<div class="lim">'+lim.map(function(l){return '<div class="'+(Math.abs(l[1]-mi)<0.5?'min':'')+'"><span>'+l[0]+'</span><span>'+inr(l[1])+'</span></div>';}).join('')+'</div>'+
+  '<table class="rt"><tr><td>'+T('Adjusted total income','समायोजित कुल आय')+'</td><td>'+inr(ati)+'</td></tr><tr><td>'+T('Annual rent paid','सालाना किराया')+'</td><td>'+inr(rent)+'</td></tr><tr class="tot"><td>'+T('Estimated tax saved','अनुमानित टैक्स बचत')+'</td><td>'+inr(save)+'</td></tr></table>';
+ wk.textContent=
+  T('Adjusted total income','समायोजित कुल आय')+' = '+inr(gti)+' − '+inr(cg)+' − '+inr(od)+' = '+inr(ati)+'\n'+
+  T('Annual rent','सालाना किराया')+' = '+inr(rm)+' × '+mo+' = '+inr(rent)+'\n\n'+
+  '(a) '+inr(rent)+' − 10% × '+inr(ati)+' = '+inr(a)+'\n'+
+  '(b) ₹5,000 × '+mo+' = '+inr(b)+'\n'+
+  '(c) 25% × '+inr(ati)+' = '+inr(c)+'\n\n'+
+  T('Deduction = least of (a), (b), (c) = ','छूट = (a), (b), (c) में सबसे कम = ')+inr(ded)+'\n'+
+  T('Tax saved ≈ ','टैक्स बचत ≈ ')+inr(ded)+' × '+sl+'% × 1.04 ('+T('cess','सेस')+') = '+inr(save)+
+  (rent<=ati*0.10?'\n\n'+T('Rent is not more than 10% of income, so no deduction.','किराया आय के 10% से ज़्यादा नहीं है, इसलिए कोई छूट नहीं।'):'');}
+calc();
+document.addEventListener('langchange',calc);
+</script>
+</body>
+</html>
