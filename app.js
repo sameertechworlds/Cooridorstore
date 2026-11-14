@@ -4,7 +4,13 @@
 var NAME='Cooridor Store';
 var TAG='ACCOUNTS · TAX · PDF';
 /* ========================== */
-var css=document.createElement('style');css.textContent='.ftr-g.f5{grid-template-columns:repeat(5,1fr)}@media(max-width:860px){.ftr-g.f5{grid-template-columns:1fr 1fr}}';document.head.appendChild(css);
+var css=document.createElement('style');
+css.textContent='.ftr .ftr-g.f5{display:grid;grid-template-columns:repeat(5,1fr);gap:30px}'+
+ '.ftr a.brand{display:inline-flex;align-items:center;gap:10px;padding:0}'+
+ '.ftr-top{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:30px;padding-bottom:24px;border-bottom:1px solid var(--line)}'+
+ '.ftr-top p{max-width:460px;margin:0}'+
+ '@media(max-width:860px){.ftr .ftr-g.f5{grid-template-columns:1fr 1fr}}';
+document.head.appendChild(css);
 var LOGO='<svg width="36" height="36" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0b3d91"/><path d="M27 13.5A9.5 9.5 0 1 0 27 26.5" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><path d="M17 20.5l3 3 6-6.5" fill="none" stroke="#34d399" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function m(h,i,en,hi,sen,shi){return '<a href="'+h+'"><b style="font-size:1.15rem;width:24px;text-align:center">'+i+'</b><div><div data-en="'+en+'" data-hi="'+hi+'">'+en+'</div><span data-en="'+sen+'" data-hi="'+shi+'">'+sen+'</span></div></a>';}
 function dd(en,hi,items){return '<div class="dd"><button type="button" data-en="'+en+' ▾" data-hi="'+hi+' ▾">'+en+' ▾</button><div class="menu">'+items+'</div></div>';}
@@ -34,17 +40,17 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
   m('compress-pdf.html','🗜️','Compress PDF','PDF छोटी करें','Reduce PDF file size','PDF का साइज़ घटाएँ')+
   m('merge-pdf.html','📑','Merge PDF','PDF जोड़ें','Combine PDFs into one','कई PDF को एक बनाएँ'))+
  dd('Learn','सीखें',
-  m('accounting-games.html','🎮','Accounting Games','अकाउंटिंग गेम्स','Refresh your mind','दिमाग़ ताज़ा कीजिए')+ 
+  m('accounting-games.html','🎮','Accounting Games','अकाउंटिंग गेम्स','Refresh your mind','दिमाग़ ताज़ा कीजिए')+
   m('tax-quiz.html','🎯','Tax Quiz','टैक्स क्विज़','Test your GST and tax knowledge','अपना GST और टैक्स ज्ञान परखें'))+
  '<div class="tools"><div class="seg"><button type="button" id="l-en">EN</button><button type="button" id="l-hi">हिं</button></div><button type="button" class="icon-btn" id="theme" aria-label="Dark mode">🌙</button></div></nav><button type="button" class="icon-btn burger" id="burger" aria-label="Menu">☰</button></div></header>';
 var footer='<footer class="ftr"><div class="container">'+
- '<div style="margin-bottom:26px">'+brand+'<p style="margin-top:12px" data-en="Free tax, accounting, finance and PDF tools for India. No signup, nothing uploaded." data-hi="भारत के लिए फ्री टैक्स, अकाउंटिंग, फ़ाइनेंस और PDF टूल्स। बिना साइनअप, कुछ अपलोड नहीं।">Free tax, accounting, finance and PDF tools for India. No signup, nothing uploaded.</p></div>'+
+ '<div class="ftr-top">'+brand+'<p data-en="Free tax, accounting, finance and PDF tools for India. No signup, nothing uploaded." data-hi="भारत के लिए फ्री टैक्स, अकाउंटिंग, फ़ाइनेंस और PDF टूल्स। बिना साइनअप, कुछ अपलोड नहीं।">Free tax, accounting, finance and PDF tools for India. No signup, nothing uploaded.</p></div>'+
  '<div class="ftr-g f5">'+
- col('Calculators','कैलकुलेटर',[['gst-calculator.html','GST'],['gst-late-fee-calculator.html','GST Late Fee'],['income-tax-calculator.html','Income Tax'],['hra-calculator.html','HRA'],['tds-calculator.html','TDS'],['emi-calculator.html','EMI'],['sip-calculator.html','SIP'],['tax-quiz.html','Tax Quiz'],['accounting-games.html','Games']])
+ col('Calculators','कैलकुलेटर',[['gst-calculator.html','GST'],['gst-late-fee-calculator.html','GST Late Fee'],['income-tax-calculator.html','Income Tax'],['hra-calculator.html','HRA'],['tds-calculator.html','TDS'],['emi-calculator.html','EMI'],['sip-calculator.html','SIP']])+
  col('Reconciliation','रिकंसिलिएशन',[['gstr-2b-reconciliation.html','GSTR-2B Reco'],['gstr-1-einvoice-reconciliation.html','GSTR-1 vs e-Invoice'],['bank-reconciliation.html','Bank Reco']])+
  col('Generators','जनरेटर',[['invoice-generator.html','Invoice Generator'],['rent-receipt-generator.html','Rent Receipt'],['tally-import.html','Invoices to Tally']])+
  col('PDF Tools','PDF टूल्स',[['bank-statement-pdf-to-excel.html','Bank Statement to Excel'],['word-to-pdf.html','Word to PDF'],['pdf-to-word.html','PDF to Word'],['compress-pdf.html','Compress PDF'],['merge-pdf.html','Merge PDF']])+
- col('Company','कंपनी',[['about.html','About'],['contact.html','Contact'],['privacy-policy.html','Privacy Policy'],['terms.html','Terms']])+
+ col('Learn &amp; Company','सीखें और कंपनी',[['accounting-games.html','Accounting Games'],['tax-quiz.html','Tax Quiz'],['about.html','About'],['contact.html','Contact'],['privacy-policy.html','Privacy Policy'],['terms.html','Terms']])+
  '</div><div class="copy">© 2026 '+NAME+' · cooridorstore.in</div></div></footer>';
 function get(k,d){try{return localStorage.getItem(k)||d;}catch(e){return d;}}
 function put(k,v){try{localStorage.setItem(k,v);}catch(e){}}
