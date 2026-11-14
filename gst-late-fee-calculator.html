@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GST Late Fee & Interest Calculator – GSTR-3B and GSTR-1 (FY 2026-27) | Cooridor Store</title>
+<meta name="description" content="Free GST late fee and interest calculator for GSTR-3B and GSTR-1. Applies ₹50/₹20 per day, turnover-based maximum cap, CGST/SGST split and 18% interest on late tax payment, with full working.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<style>.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.chk{display:flex;gap:8px;align-items:center;font-size:.9rem;margin-bottom:16px}.chk input{width:auto}.warn{margin-top:12px;padding:12px 14px;border-radius:10px;background:color-mix(in srgb,#d4a017 14%,var(--sur));font-size:.88rem}</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="index.html">Home</a> › <span data-en="GST Late Fee Calculator" data-hi="GST लेट फ़ीस कैलकुलेटर">GST Late Fee Calculator</span></div>
+ <div class="ph">
+  <h1 data-en="GST Late Fee &amp; Interest Calculator" data-hi="GST लेट फ़ीस और ब्याज कैलकुलेटर">GST Late Fee &amp; Interest Calculator</h1>
+  <p data-en="Find the late fee and interest for filing GSTR-3B or GSTR-1 after the due date, with the correct cap for your turnover." data-hi="ड्यू डेट के बाद GSTR-3B या GSTR-1 भरने पर लगने वाली लेट फ़ीस और ब्याज जानिए, आपके टर्नओवर की सही सीमा के साथ।">Find the late fee and interest for filing GSTR-3B or GSTR-1 after the due date, with the correct cap for your turnover.</p>
+ </div>
+ <div class="lay">
+  <div class="card box">
+   <h3 data-en="Return details" data-hi="रिटर्न की जानकारी">Return details</h3>
+   <div class="f"><label data-en="Return" data-hi="रिटर्न">Return</label>
+    <div class="chips" id="rt"><button type="button" data-v="3b" class="on">GSTR-3B</button><button type="button" data-v="1">GSTR-1</button></div></div>
+   <label class="chk"><input type="checkbox" id="nil" onchange="calc()"> <span data-en="Nil return (no sales, no tax)" data-hi="Nil रिटर्न (कोई बिक्री या टैक्स नहीं)">Nil return (no sales, no tax)</span></label>
+   <div class="f"><label data-en="Aggregate turnover of previous year" data-hi="पिछले साल का कुल टर्नओवर">Aggregate turnover of previous year</label>
+    <select id="to" onchange="calc()"><option value="2000">Up to ₹1.5 crore</option><option value="5000">₹1.5 crore – ₹5 crore</option><option value="10000">Above ₹5 crore</option></select></div>
+   <div class="f"><label data-en="Tax period (monthly filers: auto-fills due date)" data-hi="टैक्स पीरियड (मासिक: ड्यू डेट अपने आप भरेगी)">Tax period (monthly filers: auto-fills due date)</label><input type="month" id="pm" onchange="autoDue()"></div>
+   <div class="g2">
+    <div class="f"><label data-en="Due date" data-hi="ड्यू डेट">Due date</label><input type="date" id="dd" onchange="calc()"></div>
+    <div class="f"><label data-en="Actual filing / payment date" data-hi="असल में भरने / भुगतान की तारीख़">Actual filing / payment date</label><input type="date" id="fd" onchange="calc()"></div>
+   </div>
+   <div class="f" id="lw"><label data-en="Tax paid in cash (net of ITC), ₹" data-hi="नक़द में भरा टैक्स (ITC के बाद), ₹">Tax paid in cash (net of ITC), ₹</label><input id="lb" inputmode="decimal" value="0" oninput="calc()"></div>
+   <p class="note" data-en="QRMP filers: enter the due date yourself (GSTR-3B 22nd or 24th, GSTR-1 13th of the month after the quarter). Check CBIC for any extension." data-hi="QRMP वाले: ड्यू डेट ख़ुद भरिए (GSTR-3B तिमाही के अगले महीने की 22 या 24, GSTR-1 की 13)। CBIC की कोई तारीख़ बढ़ोतरी भी देख लीजिए।">QRMP filers: enter the due date yourself (GSTR-3B 22nd or 24th, GSTR-1 13th of the month after the quarter). Check CBIC for any extension.</p>
+  </div>
+  <div class="card box">
+   <span class="lbl" data-en="Total payable" data-hi="कुल देय">Total payable</span>
+   <div class="big" id="tot">₹0</div>
+   <table class="rt">
+    <tr><td data-en="Days late" data-hi="देरी के दिन">Days late</td><td id="dl">0</td></tr>
+    <tr><td data-en="Late fee – CGST" data-hi="लेट फ़ीस – CGST">Late fee – CGST</td><td id="fc">₹0</td></tr>
+    <tr><td data-en="Late fee – SGST" data-hi="लेट फ़ीस – SGST">Late fee – SGST</td><td id="fs">₹0</td></tr>
+    <tr><td data-en="Interest @ 18% p.a." data-hi="ब्याज @ 18% सालाना">Interest @ 18% p.a.</td><td id="in">₹0</td></tr>
+    <tr class="tot"><td data-en="Total" data-hi="कुल">Total</td><td id="tt">₹0</td></tr>
+   </table>
+   <div class="work"><b data-en="How we calculated it" data-hi="हमने कैसे निकाला">How we calculated it</b><pre id="wk"></pre></div>
+   <div id="wn"></div>
+  </div>
+ </div>
+
+ <article class="art">
+  <h2>GST late fee rules for GSTR-3B and GSTR-1</h2>
+  <p>Under Section 47 of the CGST Act, a late fee is charged for every day a return is filed after its due date. The reduced rates notified in June 2021 apply to GSTR-3B and GSTR-1:</p>
+  <table>
+   <tr><th>Case</th><th>Late fee per day</th><th>Maximum late fee per return</th></tr>
+   <tr><td>Nil return</td><td>₹20 (₹10 CGST + ₹10 SGST)</td><td>₹500</td></tr>
+   <tr><td>Turnover up to ₹1.5 crore</td><td>₹50 (₹25 + ₹25)</td><td>₹2,000</td></tr>
+   <tr><td>Turnover ₹1.5 crore – ₹5 crore</td><td>₹50 (₹25 + ₹25)</td><td>₹5,000</td></tr>
+   <tr><td>Turnover above ₹5 crore</td><td>₹50 (₹25 + ₹25)</td><td>₹10,000</td></tr>
+  </table>
+  <h2>Interest on late payment of GST</h2>
+  <p>Under Section 50, interest at 18% per year is charged on tax paid late. It applies only to the part of tax paid in cash (after using input tax credit), from the day after the due date until the date of payment. Unlike the late fee, interest has no maximum limit.</p>
+  <div class="fx">Interest = Cash tax × 18% × Days late ÷ 365</div>
+  <h3>Example</h3>
+  <p>GSTR-3B for October 2026 was due on 20 November 2026 and filed on 10 December 2026, which is 20 days late. Turnover is ₹1 crore and cash tax is ₹50,000.</p>
+  <ul>
+   <li>Late fee = 20 × ₹50 = ₹1,000 (below the ₹2,000 cap), so ₹500 CGST + ₹500 SGST</li>
+   <li>Interest = ₹50,000 × 18% × 20 ÷ 365 = ₹493</li>
+   <li>Total = ₹1,493</li>
+  </ul>
+  <h2>Important points</h2>
+  <ul>
+   <li>Late fee must be paid in cash. Input tax credit cannot be used for it.</li>
+   <li>Late fee is charged per return. If both GSTR-1 and GSTR-3B are late, both attract a fee.</li>
+   <li>Returns cannot be filed after three years from their due date, so do not delay old returns.</li>
+  </ul>
+  <h2>Related tools</h2>
+  <div class="related">
+   <a class="card" href="gst-calculator.html">🧮 GST Calculator</a>
+   <a class="card" href="gstr-2b-reconciliation.html">🔄 GSTR-2B Reconciliation</a>
+   <a class="card" href="gstr-1-einvoice-reconciliation.html">🧾 GSTR-1 vs e-Invoice</a>
+  </div>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script>
+var RT='3b';
+function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
+function inr(n){return '₹'+n.toLocaleString('en-IN',{minimumFractionDigits:0,maximumFractionDigits:2});}
+function pd(s){if(!s)return null;var p=s.split('-');return new Date(+p[0],p[1]-1,+p[2]);}
+function iso(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
+function fmt(d){return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});}
+document.querySelectorAll('#rt button').forEach(function(b){b.onclick=function(){RT=b.dataset.v;document.querySelectorAll('#rt button').forEach(function(x){x.classList.toggle('on',x===b);});autoDue();};});
+function autoDue(){var v=document.getElementById('pm').value;if(v){var p=v.split('-');document.getElementById('dd').value=iso(new Date(+p[0],+p[1],RT==='3b'?20:11));}calc();}
+function calc(){
+ var nil=document.getElementById('nil').checked,cap=nil?500:+document.getElementById('to').value,per=nil?20:50;
+ document.getElementById('lw').style.display=(RT==='3b'&&!nil)?'':'none';
+ var due=pd(document.getElementById('dd').value),fil=pd(document.getElementById('fd').value),w=[],warn='';
+ if(!due||!fil){['dl','fc','fs','in','tt'].forEach(function(id){document.getElementById(id).textContent=id==='dl'?'0':'₹0';});document.getElementById('tot').textContent='₹0';
+  document.getElementById('wk').textContent=T('Enter the due date and the filing date.','ड्यू डेट और भरने की तारीख़ डालिए।');document.getElementById('wn').innerHTML='';return;}
+ var days=Math.max(0,Math.round((fil-due)/864e5)),raw=days*per,fee=Math.min(raw,cap),half=fee/2;
+ var liab=(RT==='3b'&&!nil)?(parseFloat(String(document.getElementById('lb').value).replace(/[^0-9.]/g,''))||0):0;
+ var intr=Math.round(liab*0.18*days/365),tot=fee+intr;
+ document.getElementById('dl').textContent=days;document.getElementById('fc').textContent=inr(half);document.getElementById('fs').textContent=inr(half);
+ document.getElementById('in').textContent=inr(intr);document.getElementById('tt').textContent=inr(tot);document.getElementById('tot').textContent=inr(tot);
+ w.push(T('Days late','देरी के दिन')+' = '+fmt(fil)+' − '+fmt(due)+' = '+days+' '+T('days','दिन'));
+ if(days===0)w.push(T('Filed on or before the due date. No late fee or interest.','ड्यू डेट पर या पहले भरा। कोई लेट फ़ीस या ब्याज नहीं।'));
+ else{w.push(T('Late fee','लेट फ़ीस')+' = '+days+' × ₹'+per+' = '+inr(raw));
+  w.push(T('Maximum allowed','अधिकतम सीमा')+' = '+inr(cap)+(raw>cap?T(' → cap applies',' → सीमा लागू'):''));
+  w.push(T('Late fee payable','देय लेट फ़ीस')+' = '+inr(fee)+' ('+inr(half)+' CGST + '+inr(half)+' SGST)');
+  if(RT==='3b'&&!nil)w.push(T('Interest','ब्याज')+' = '+inr(liab)+' × 18% × '+days+' ÷ 365 = '+inr(intr));
+  if(RT==='1')w.push(T('Interest: not applicable on GSTR-1 (it is charged on late tax payment in GSTR-3B).','ब्याज: GSTR-1 पर नहीं लगता (देर से टैक्स भुगतान पर GSTR-3B में लगता है)।'));
+  if(days>30)warn=T('Late fee must be paid in cash, not from ITC. File as soon as possible: interest keeps growing and has no cap.','लेट फ़ीस नक़द में भरनी होती है, ITC से नहीं। जल्द से जल्द भरिए: ब्याज बढ़ता रहता है और उसकी कोई सीमा नहीं है।');}
+ document.getElementById('wk').textContent=w.join('\n');
+ document.getElementById('wn').innerHTML=warn?'<div class="warn">⚠️ '+warn+'</div>':'';}
+document.getElementById('fd').value=iso(new Date());
+document.addEventListener('DOMContentLoaded',calc);
+document.addEventListener('langchange',calc);
+</script>
+</body>
+</html>
