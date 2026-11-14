@@ -34,12 +34,13 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
   m('compress-pdf.html','🗜️','Compress PDF','PDF छोटी करें','Reduce PDF file size','PDF का साइज़ घटाएँ')+
   m('merge-pdf.html','📑','Merge PDF','PDF जोड़ें','Combine PDFs into one','कई PDF को एक बनाएँ'))+
  dd('Learn','सीखें',
+  m('accounting-games.html','🎮','Accounting Games','अकाउंटिंग गेम्स','Refresh your mind','दिमाग़ ताज़ा कीजिए')+ 
   m('tax-quiz.html','🎯','Tax Quiz','टैक्स क्विज़','Test your GST and tax knowledge','अपना GST और टैक्स ज्ञान परखें'))+
  '<div class="tools"><div class="seg"><button type="button" id="l-en">EN</button><button type="button" id="l-hi">हिं</button></div><button type="button" class="icon-btn" id="theme" aria-label="Dark mode">🌙</button></div></nav><button type="button" class="icon-btn burger" id="burger" aria-label="Menu">☰</button></div></header>';
 var footer='<footer class="ftr"><div class="container">'+
  '<div style="margin-bottom:26px">'+brand+'<p style="margin-top:12px" data-en="Free, accurate and private tax &amp; accounting tools for India." data-hi="भारत के लिए फ्री, सटीक और सुरक्षित टैक्स और अकाउंटिंग टूल्स।">Free, accurate and private tax &amp; accounting tools for India.</p></div>'+
  '<div class="ftr-g f5">'+
- col('Calculators','कैलकुलेटर',[['gst-calculator.html','GST'],['gst-late-fee-calculator.html','GST Late Fee'],['income-tax-calculator.html','Income Tax'],['hra-calculator.html','HRA'],['tds-calculator.html','TDS'],['emi-calculator.html','EMI'],['sip-calculator.html','SIP'],['tax-quiz.html','Tax Quiz']])+
+ col('Calculators','कैलकुलेटर',[['gst-calculator.html','GST'],['gst-late-fee-calculator.html','GST Late Fee'],['income-tax-calculator.html','Income Tax'],['hra-calculator.html','HRA'],['tds-calculator.html','TDS'],['emi-calculator.html','EMI'],['sip-calculator.html','SIP'],['tax-quiz.html','Tax Quiz'],['accounting-games.html','Games']])
  col('Reconciliation','रिकंसिलिएशन',[['gstr-2b-reconciliation.html','GSTR-2B Reco'],['gstr-1-einvoice-reconciliation.html','GSTR-1 vs e-Invoice'],['bank-reconciliation.html','Bank Reco']])+
  col('Generators','जनरेटर',[['invoice-generator.html','Invoice Generator'],['rent-receipt-generator.html','Rent Receipt'],['tally-import.html','Invoices to Tally']])+
  col('PDF Tools','PDF टूल्स',[['bank-statement-pdf-to-excel.html','Bank Statement to Excel'],['word-to-pdf.html','Word to PDF'],['pdf-to-word.html','PDF to Word'],['compress-pdf.html','Compress PDF'],['merge-pdf.html','Merge PDF']])+
