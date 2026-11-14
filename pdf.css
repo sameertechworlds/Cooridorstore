@@ -1,0 +1,32 @@
+.tool{max-width:820px}
+.drop{display:block;border:2px dashed var(--line);border-radius:14px;padding:36px 20px;text-align:center;cursor:pointer;background:var(--sur);transition:.15s;margin-top:24px}
+.drop:hover,.drop.over{border-color:var(--pri);background:var(--soft)}
+.drop input{display:none}
+.drop .ic{font-size:2.2rem}
+.drop b{display:block;font-size:1.05rem;margin:6px 0 2px}
+.drop span{color:var(--mut);font-size:.9rem}
+.flist{margin-top:16px;display:grid;gap:10px}
+.fi{display:grid;grid-template-columns:auto 1fr auto auto;gap:12px;align-items:center;padding:12px 14px}
+.fi .nm{font-weight:600;word-break:break-all}
+.fi .meta{font-size:.82rem;color:var(--mut)}
+.fi .rg{padding:8px 10px;font-size:.85rem;width:150px}
+.mini{border:1px solid var(--line);background:var(--sur);color:var(--txt);width:32px;height:32px;border-radius:8px;cursor:pointer}
+.mini:hover{border-color:var(--pri)}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.bar2{height:8px;background:var(--soft);border-radius:9px;overflow:hidden;margin-top:14px;display:none}
+.bar2 i{display:block;height:100%;width:0;background:var(--acc);transition:width .2s}
+.stat{margin-top:10px;font-size:.92rem;color:var(--mut)}
+.res{margin-top:18px;padding:22px;display:none}
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.optc{display:block;border:1px solid var(--line);border-radius:10px;padding:12px;cursor:pointer;font-size:.88rem;background:var(--sur)}
+.optc input{width:auto;margin-right:6px}
+.optc b{font-size:.95rem}
+.optc span{display:block;color:var(--mut);margin-top:4px}
+.optc.on{border-color:var(--pri);background:var(--soft)}
+.chk{display:flex;gap:8px;align-items:center;font-size:.9rem;margin-top:14px}
+.chk input{width:auto}
+.prev{margin-top:14px;max-height:320px;overflow:auto;background:var(--soft);border-radius:10px;padding:14px;font-size:.85rem;white-space:pre-wrap;font-family:ui-monospace,Consolas,monospace}
+.sizes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:center}
+.sizes b{display:block;font-size:1.4rem}
+@media(max-width:640px){.fi{grid-template-columns:auto 1fr auto}.fi .rg{grid-column:1/-1;width:100%}.opts{grid-template-columns:1fr}}
