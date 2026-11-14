@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Compress PDF Online Free – Reduce PDF Size Without Upload | Cooridor Store</title>
+<meta name="description" content="Compress PDF online for free and reduce PDF file size for email, GST portal and income tax uploads. Works in your browser, no upload, no signup, no watermark.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<link rel="stylesheet" href="pdf.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="index.html">Home</a> › <span data-en="Compress PDF" data-hi="PDF छोटी करें">Compress PDF</span></div>
+ <div class="ph">
+  <h1 data-en="Compress PDF" data-hi="PDF का साइज़ छोटा करें">Compress PDF</h1>
+  <p data-en="Reduce PDF size for email and portal uploads. Your file is compressed on your own device and never uploaded." data-hi="ईमेल और पोर्टल पर अपलोड के लिए PDF छोटी कीजिए। फ़ाइल आपके अपने डिवाइस पर छोटी होती है, कहीं अपलोड नहीं होती।">Reduce PDF size for email and portal uploads. Your file is compressed on your own device and never uploaded.</p>
+ </div>
+ <div class="tool">
+  <label class="drop" id="dz"><input type="file" accept=".pdf,application/pdf">
+   <div class="ic">🗜️</div>
+   <b id="fn" data-en="Choose a PDF or drop it here" data-hi="PDF चुनिए या यहाँ छोड़िए">Choose a PDF or drop it here</b>
+   <span id="fs"></span>
+  </label>
+  <div class="opts">
+   <label class="optc"><input type="radio" name="lv" value="basic"><b data-en="Basic" data-hi="बेसिक">Basic</b><span data-en="Text stays selectable. Small saving." data-hi="टेक्स्ट सेलेक्ट होता रहेगा। थोड़ी बचत।">Text stays selectable. Small saving.</span></label>
+   <label class="optc on"><input type="radio" name="lv" value="med" checked><b data-en="Recommended" data-hi="सुझाया गया">Recommended</b><span data-en="Good quality, much smaller. Best for scans." data-hi="अच्छी क्वालिटी, काफ़ी छोटी। स्कैन के लिए सबसे अच्छा।">Good quality, much smaller. Best for scans.</span></label>
+   <label class="optc"><input type="radio" name="lv" value="low"><b data-en="Maximum" data-hi="सबसे छोटी">Maximum</b><span data-en="Smallest file, lower quality." data-hi="सबसे छोटी फ़ाइल, कम क्वालिटी।">Smallest file, lower quality.</span></label>
+  </div>
+  <p class="note" data-en="Recommended and Maximum turn each page into an image, so text can no longer be selected or searched." data-hi="Recommended और Maximum हर पेज को फ़ोटो में बदल देते हैं, इसलिए उसके बाद टेक्स्ट सेलेक्ट या सर्च नहीं होगा।">Recommended and Maximum turn each page into an image, so text can no longer be selected or searched.</p>
+  <div class="acts"><button type="button" class="btn btn-p" id="cb" onclick="compress()" data-en="Compress PDF" data-hi="PDF छोटी करें">Compress PDF</button></div>
+  <div class="bar2" id="bar"><i></i></div>
+  <div class="stat" id="st"></div>
+  <div class="card res" id="res">
+   <div class="sizes">
+    <div><span class="lbl" data-en="Original" data-hi="पहले">Original</span><b id="s1"></b></div>
+    <div><span class="lbl" data-en="Compressed" data-hi="अब">Compressed</span><b id="s2"></b></div>
+    <div><span class="lbl" data-en="Saved" data-hi="बचत">Saved</span><b id="s3" style="color:var(--acc)"></b></div>
+   </div>
+   <div class="acts" style="justify-content:center"><button type="button" class="btn btn-p" id="db" onclick="save()" data-en="⬇ Download compressed PDF" data-hi="⬇ छोटी PDF डाउनलोड करें">⬇ Download compressed PDF</button></div>
+   <p class="note" id="nt" style="text-align:center"></p>
+  </div>
+ </div>
+
+ <article class="art">
+  <h2>How to reduce PDF file size</h2>
+  <ol>
+   <li>Choose your PDF or drag it into the box.</li>
+   <li>Pick a level. <b>Recommended</b> works best for scanned documents and photos.</li>
+   <li>Press <b>Compress PDF</b> and download the smaller file.</li>
+  </ol>
+  <h2>Which level should I choose?</h2>
+  <table>
+   <tr><th>Level</th><th>Best for</th><th>Text selectable?</th></tr>
+   <tr><td>Basic</td><td>Typed documents where text must stay searchable</td><td>Yes</td></tr>
+   <tr><td>Recommended</td><td>Scanned invoices, bank statements, KYC, photos</td><td>No</td></tr>
+   <tr><td>Maximum</td><td>Meeting a strict upload size limit</td><td>No</td></tr>
+  </table>
+  <h2>Why compress PDFs?</h2>
+  <p>Many government and bank portals limit the size of uploads, and email attachments are often capped too. Large scanned PDFs can be several MB. Compressing them helps you upload replies to GST notices, income tax documents, loan papers and KYC without errors.</p>
+  <h2>FAQ</h2>
+  <h3>Is my PDF uploaded to a server?</h3>
+  <p>No. The PDF is read and compressed in your browser, so it is safe for financial and personal documents.</p>
+  <h3>Why did my file not get smaller?</h3>
+  <p>Text-only PDFs are usually already small. Try Basic, or keep the original file.</p>
+  <h2>Related tools</h2>
+  <div class="related">
+   <a class="card" href="merge-pdf.html">📑 Merge PDF</a>
+   <a class="card" href="pdf-to-word.html">📝 PDF to Word</a>
+   <a class="card" href="word-to-pdf.html">📄 Word to PDF</a>
+  </div>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="app.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+var FILE=null,OUT=null;
+function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
+function sz(b){return b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(2)+' MB';}
+function drop(id,cb){var d=document.getElementById(id),inp=d.querySelector('input');
+ inp.onchange=function(){cb(Array.from(inp.files));inp.value='';};
+ ['dragenter','dragover'].forEach(function(e){d.addEventListener(e,function(ev){ev.preventDefault();d.classList.add('over');});});
+ ['dragleave','drop'].forEach(function(e){d.addEventListener(e,function(ev){ev.preventDefault();d.classList.remove('over');});});
+ d.addEventListener('drop',function(ev){cb(Array.from(ev.dataTransfer.files));});}
+drop('dz',function(list){var f=list[0];if(!f)return;if(!/\.pdf$/i.test(f.name)&&f.type!=='application/pdf'){alert(T('Please choose a PDF file.','PDF फ़ाइल चुनिए।'));return;}
+ FILE=f;OUT=null;document.getElementById('fn').textContent=f.name;document.getElementById('fs').textContent=sz(f.size);document.getElementById('res').style.display='none';document.getElementById('st').textContent='';});
+document.querySelectorAll('.optc input').forEach(function(r){r.onchange=function(){document.querySelectorAll('.optc').forEach(function(c){c.classList.toggle('on',c.querySelector('input').checked);});};});
+async function compress(){
+ if(!FILE){alert(T('Please choose a PDF first.','पहले PDF चुनिए।'));return;}
+ var lv=document.querySelector('input[name=lv]:checked').value,btn=document.getElementById('cb'),bar=document.getElementById('bar'),st=document.getElementById('st');
+ btn.disabled=true;bar.style.display='block';bar.firstChild.style.width='0';document.getElementById('res').style.display='none';
+ try{var bytes=new Uint8Array(await FILE.arrayBuffer());
+  if(lv==='basic'){st.textContent=T('Optimising…','छोटा कर रहे हैं…');
+   var d=await PDFLib.PDFDocument.load(bytes);OUT=await d.save({useObjectStreams:true});bar.firstChild.style.width='100%';}
+  else{var q=lv==='med'?0.7:0.5,sc=lv==='med'?1.5:1.0;
+   var pdf=await pdfjsLib.getDocument({data:bytes.slice(0)}).promise,out=await PDFLib.PDFDocument.create();
+   for(var i=1;i<=pdf.numPages;i++){st.textContent=T('Compressing page ','पेज छोटा कर रहे हैं ')+i+' / '+pdf.numPages;
+    var pg=await pdf.getPage(i),v1=pg.getViewport({scale:1}),v=pg.getViewport({scale:sc}),cv=document.createElement('canvas'),cx=cv.getContext('2d');
+    cv.width=Math.ceil(v.width);cv.height=Math.ceil(v.height);cx.fillStyle='#fff';cx.fillRect(0,0,cv.width,cv.height);
+    await pg.render({canvasContext:cx,viewport:v}).promise;
+    var img=await out.embedJpg(cv.toDataURL('image/jpeg',q)),p=out.addPage([v1.width,v1.height]);
+    p.drawImage(img,{x:0,y:0,width:v1.width,height:v1.height});cv.width=cv.height=0;
+    bar.firstChild.style.width=(i/pdf.numPages*100)+'%';}
+   OUT=await out.save({useObjectStreams:true});}
+  var a=FILE.size,b=OUT.length,saved=Math.round((1-b/a)*100);
+  document.getElementById('s1').textContent=sz(a);document.getElementById('s2').textContent=sz(b);
+  document.getElementById('s3').textContent=saved>0?saved+'%':'0%';
+  document.getElementById('db').style.display=b<a?'':'none';
+  document.getElementById('nt').textContent=b<a?'':T('This PDF is already well optimised. Try another level, or keep the original file.','ये PDF पहले से छोटी है। दूसरा लेवल आज़माइए, या मूल फ़ाइल ही रखिए।');
+  document.getElementById('res').style.display='block';st.textContent='';
+  if(window.gtag)gtag('event','pdf_compress',{level:lv,saved:saved});
+ }catch(e){st.textContent=T('Could not compress. The PDF may be password-protected or damaged.','छोटी नहीं हो पाई। PDF पासवर्ड वाली या ख़राब हो सकती है।');}
+ btn.disabled=false;}
+function save(){if(!OUT)return;var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([OUT],{type:'application/pdf'}));a.download=FILE.name.replace(/\.pdf$/i,'')+'-compressed.pdf';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1500);}
+</script>
+</body>
+</html>
