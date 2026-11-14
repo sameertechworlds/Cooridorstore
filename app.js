@@ -11,7 +11,7 @@ css.textContent='.ftr .ftr-g.f5{display:grid;grid-template-columns:repeat(5,1fr)
  '.ftr-top p{max-width:460px;margin:0}'+
  '@media(max-width:860px){.ftr .ftr-g.f5{grid-template-columns:1fr 1fr}}';
 document.head.appendChild(css);
-var LOGO='<svg width="36" height="36" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0b3d91"/><path d="M27 13.5A9.5 9.5 0 1 0 27 26.5" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><path d="M17 20.5l3 3 6-6.5" fill="none" stroke="#34d399" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var LOGO='<svg width="36" height="36" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0b3d91"/><g stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M9 13h16M9 20h12M9 27h8"/></g><path d="M21 26.5l4 4 7.5-9" stroke="#34d399" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function m(h,i,en,hi,sen,shi){return '<a href="'+h+'"><b style="font-size:1.15rem;width:24px;text-align:center">'+i+'</b><div><div data-en="'+en+'" data-hi="'+hi+'">'+en+'</div><span data-en="'+sen+'" data-hi="'+shi+'">'+sen+'</span></div></a>';}
 function dd(en,hi,items){return '<div class="dd"><button type="button" data-en="'+en+' ▾" data-hi="'+hi+' ▾">'+en+' ▾</button><div class="menu">'+items+'</div></div>';}
 function col(en,hi,links){return '<div><h4 data-en="'+en+'" data-hi="'+hi+'">'+en+'</h4>'+links.map(function(l){return '<a href="'+l[0]+'">'+l[1]+'</a>';}).join('')+'</div>';}
