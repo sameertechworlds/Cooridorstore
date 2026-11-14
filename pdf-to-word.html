@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDF to Word Converter Online Free – Convert PDF to DOCX Without Upload | Cooridor Store</title>
+<meta name="description" content="Convert PDF to Word (.docx) online for free. Extract editable text from PDF letters, invoices and statements. Works in your browser, no upload, no signup.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<link rel="stylesheet" href="pdf.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="index.html">Home</a> › <span data-en="PDF to Word" data-hi="PDF से Word">PDF to Word</span></div>
+ <div class="ph">
+  <h1 data-en="PDF to Word Converter" data-hi="PDF से Word कन्वर्टर">PDF to Word Converter</h1>
+  <p data-en="Turn a PDF into an editable Word file. Conversion happens in your browser, so your document is never uploaded." data-hi="PDF को बदलने लायक़ Word फ़ाइल में बदलिए। कन्वर्ज़न आपके ब्राउज़र में होता है, इसलिए दस्तावेज़ कहीं अपलोड नहीं होता।">Turn a PDF into an editable Word file. Conversion happens in your browser, so your document is never uploaded.</p>
+ </div>
+ <div class="tool">
+  <label class="drop" id="dz"><input type="file" accept=".pdf,application/pdf">
+   <div class="ic">📝</div>
+   <b id="fn" data-en="Choose a PDF or drop it here" data-hi="PDF चुनिए या यहाँ छोड़िए">Choose a PDF or drop it here</b>
+   <span id="fs"></span>
+  </label>
+  <label class="chk"><input type="checkbox" id="kl" checked> <span data-en="Keep original line breaks (best for invoices, statements and forms)" data-hi="मूल लाइनें वैसी ही रखें (इनवॉइस, स्टेटमेंट और फ़ॉर्म के लिए सबसे अच्छा)">Keep original line breaks (best for invoices, statements and forms)</span></label>
+  <div class="acts"><button type="button" class="btn btn-p" id="cb" onclick="convert()" data-en="Convert to Word" data-hi="Word में बदलें">Convert to Word</button></div>
+  <div class="bar2" id="bar"><i></i></div>
+  <div class="stat" id="st"></div>
+  <div class="card res" id="res">
+   <b data-en="Preview of extracted text" data-hi="निकाले गए टेक्स्ट की झलक">Preview of extracted text</b>
+   <div class="prev" id="pv"></div>
+   <div class="acts"><button type="button" class="btn btn-p" onclick="save()" data-en="⬇ Download Word (.docx)" data-hi="⬇ Word (.docx) डाउनलोड करें">⬇ Download Word (.docx)</button></div>
+  </div>
+ </div>
+
+ <article class="art">
+  <h2>How to convert PDF to Word</h2>
+  <ol>
+   <li>Choose your PDF or drag it into the box.</li>
+   <li>Keep <b>original line breaks</b> on for invoices, statements and forms. Turn it off for letters and articles so lines join into paragraphs.</li>
+   <li>Press <b>Convert to Word</b>, check the preview, and download the .docx file.</li>
+  </ol>
+  <h2>What gets converted</h2>
+  <ul>
+   <li>All text, page by page, with headings in bold based on font size.</li>
+   <li>Spacing between columns is kept with tabs, so simple tables stay readable.</li>
+   <li>Images, borders and exact fonts are not copied. You get clean, editable text.</li>
+  </ul>
+  <h2>Scanned PDFs</h2>
+  <p>If your PDF is a scan or a photo, it contains pictures of text instead of real text, so nothing can be extracted. Such files need OCR (text recognition), which this tool does not do yet.</p>
+  <h2>FAQ</h2>
+  <h3>Is it safe for confidential documents?</h3>
+  <p>Yes. The PDF is read and the Word file is created inside your browser. Nothing is uploaded.</p>
+  <h3>Does it work with Hindi PDFs?</h3>
+  <p>It depends on how the PDF was made. Many Hindi PDFs use fonts that store text in a non-standard way, so the extracted Hindi may look wrong.</p>
+  <h2>Related tools</h2>
+  <div class="related">
+   <a class="card" href="word-to-pdf.html">📄 Word to PDF</a>
+   <a class="card" href="merge-pdf.html">📑 Merge PDF</a>
+   <a class="card" href="compress-pdf.html">🗜️ Compress PDF</a>
+  </div>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="app.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+var FILE=null,DOC=null;
+function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
+function sz(b){return b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(2)+' MB';}
+function xe(s){return String(s).replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function drop(id,cb){var d=document.getElementById(id),inp=d.querySelector('input');
+ inp.onchange=function(){cb(Array.from(inp.files));inp.value='';};
+ ['dragenter','dragover'].forEach(function(e){d.addEventListener(e,function(ev){ev.preventDefault();d.classList.add('over');});});
+ ['dragleave','drop'].forEach(function(e){d.addEventListener(e,function(ev){ev.preventDefault();d.classList.remove('over');});});
+ d.addEventListener('drop',function(ev){cb(Array.from(ev.dataTransfer.files));});}
+drop('dz',function(list){var f=list[0];if(!f)return;if(!/\.pdf$/i.test(f.name)&&f.type!=='application/pdf'){alert(T('Please choose a PDF file.','PDF फ़ाइल चुनिए।'));return;}
+ FILE=f;DOC=null;document.getElementById('fn').textContent=f.name;document.getElementById('fs').textContent=sz(f.size);document.getElementById('res').style.display='none';document.getElementById('st').textContent='';});
+
+/* Build lines from text items, then paragraphs */
+function pageParas(items,keep){
+ items=items.filter(function(it){return it.str&&it.str.trim()!=='';}).map(function(it){var t=it.transform;return {s:it.str,x:t[4],y:t[5],h:Math.hypot(t[2],t[3])||it.height||10,w:it.width||0};});
+ items.sort(function(a,b){return (b.y-a.y)||(a.x-b.x);});
+ var lines=[];items.forEach(function(it){var L=lines[lines.length-1];if(L&&Math.abs(L.y-it.y)<Math.max(L.h,it.h)*0.5){L.items.push(it);L.h=Math.max(L.h,it.h);}else lines.push({y:it.y,h:it.h,items:[it]});});
+ lines.forEach(function(L){L.items.sort(function(a,b){return a.x-b.x;});var txt='',prev=null;
+  L.items.forEach(function(it){if(prev){var gap=it.x-(prev.x+prev.w);if(gap>it.h*2)txt+='\t';else if(gap>it.h*0.2&&!/\s$/.test(txt)&&!/^\s/.test(it.s))txt+=' ';}txt+=it.s;prev=it;});
+  L.text=txt.replace(/ {2,}/g,' ');});
+ var paras=[],cur=null;
+ lines.forEach(function(L,i){var P=lines[i-1],gap=P?P.y-L.y:0;
+  var newPara=keep||!cur||gap>Math.max(P.h,L.h)*1.6||Math.abs(P.h-L.h)>2||/\t/.test(L.text)||/\t/.test(P.text);
+  if(keep&&P&&gap>Math.max(P.h,L.h)*1.9)paras.push({t:'',h:L.h});
+  if(newPara){cur={t:L.text,h:L.h};paras.push(cur);}
+  else{cur.t=/-$/.test(cur.t)?cur.t.slice(0,-1)+L.text:cur.t+' '+L.text;}});
+ return paras;}
+function runXml(p,med){var head=p.h>med*1.25,szv=head?Math.min(48,Math.max(24,Math.round(p.h*2))):22;
+ var rpr='<w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Mangal"/>'+(head?'<w:b/>':'')+'<w:sz w:val="'+szv+'"/></w:rPr>';
+ if(!p.t)return '<w:p/>';
+ var parts=p.t.split('\t').map(function(s){return '<w:t xml:space="preserve">'+xe(s)+'</w:t>';}).join('<w:tab/>');
+ return '<w:p><w:pPr><w:spacing w:after="'+(head?120:60)+'"/></w:pPr><w:r>'+rpr+parts+'</w:r></w:p>';}
+async function convert(){
+ if(!FILE){alert(T('Please choose a PDF first.','पहले PDF चुनिए।'));return;}
+ var keep=document.getElementById('kl').checked,btn=document.getElementById('cb'),bar=document.getElementById('bar'),st=document.getElementById('st');
+ btn.disabled=true;bar.style.display='block';bar.firstChild.style.width='0';document.getElementById('res').style.display='none';
+ try{var pdf=await pdfjsLib.getDocument({data:new Uint8Array(await FILE.arrayBuffer())}).promise,pages=[],hs=[],chars=0;
+  for(var i=1;i<=pdf.numPages;i++){st.textContent=T('Reading page ','पेज पढ़ रहे हैं ')+i+' / '+pdf.numPages;
+   var tc=await (await pdf.getPage(i)).getTextContent(),ps=pageParas(tc.items,keep);
+   ps.forEach(function(p){if(p.t){hs.push(p.h);chars+=p.t.length;}});pages.push(ps);bar.firstChild.style.width=(i/pdf.numPages*100)+'%';}
+  if(chars<20*pdf.numPages){st.textContent=T('Very little text was found. This looks like a scanned PDF, which needs OCR.','बहुत कम टेक्स्ट मिला। ये स्कैन की हुई PDF लगती है, जिसके लिए OCR चाहिए।');if(!chars){btn.disabled=false;return;}}
+  else st.textContent='';
+  hs.sort(function(a,b){return a-b;});var med=hs[Math.floor(hs.length/2)]||10,body='',prev='';
+  pages.forEach(function(ps,k){if(k)body+='<w:p><w:r><w:br w:type="page"/></w:r></w:p>';ps.forEach(function(p){body+=runXml(p,med);});
+   prev+=(k?'\n\n——— '+T('Page','पेज')+' '+(k+1)+' ———\n\n':'')+ps.map(function(p){return p.t.replace(/\t/g,'    ');}).join('\n');});
+  var docXml='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+body+'<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr></w:body></w:document>';
+  var zip=new JSZip();
+  zip.file('[Content_Types].xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>');
+  zip.file('_rels/.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>');
+  zip.file('word/document.xml',docXml);
+  DOC=await zip.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+  document.getElementById('pv').textContent=prev.length>6000?prev.slice(0,6000)+'\n…':prev;
+  document.getElementById('res').style.display='block';
+  if(window.gtag)gtag('event','pdf_to_word',{pages:pdf.numPages});
+ }catch(e){st.textContent=T('Could not convert. The PDF may be password-protected or damaged.','कन्वर्ट नहीं हो पाई। PDF पासवर्ड वाली या ख़राब हो सकती है।');}
+ btn.disabled=false;}
+function save(){if(!DOC)return;var a=document.createElement('a');a.href=URL.createObjectURL(DOC);a.download=FILE.name.replace(/\.pdf$/i,'')+'.docx';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1500);}
+</script>
+</body>
+</html>
