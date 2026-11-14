@@ -7,7 +7,8 @@ var TAG='TAX · GST · ACCOUNTS';
 var LOGO='<svg width="36" height="36" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0b3d91"/><path d="M27 13.5A9.5 9.5 0 1 0 27 26.5" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><path d="M17 20.5l3 3 6-6.5" fill="none" stroke="#34d399" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function m(h,i,en,hi,sen,shi){return '<a href="'+h+'"><b style="font-size:1.15rem;width:24px;text-align:center">'+i+'</b><div><div data-en="'+en+'" data-hi="'+hi+'">'+en+'</div><span data-en="'+sen+'" data-hi="'+shi+'">'+sen+'</span></div></a>';}
 function dd(en,hi,items){return '<div class="dd"><button type="button" data-en="'+en+' ▾" data-hi="'+hi+' ▾">'+en+' ▾</button><div class="menu">'+items+'</div></div>';}
-var brand='<a href="index.html" class="brand" style="color:var(--txt)">'+LOGO+'<div class="brand-t">'+NAME+'<small>'+TAG+'</small></div></a>';
+function col(en,hi,links){return '<div><h4 data-en="'+en+'" data-hi="'+hi+'">'+en+'</h4>'+links.map(function(l){return '<a href="'+l[0]+'">'+l[1]+'</a>';}).join('')+'</div>';}
+var brand='<a href="/" class="brand" style="color:var(--txt)">'+LOGO+'<div class="brand-t">'+NAME+'<small>'+TAG+'</small></div></a>';
 var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav" id="nav">'+
  dd('Calculators','कैलकुलेटर',
   m('gst-calculator.html','🧮','GST Calculator','GST कैलकुलेटर','Add or remove GST','GST जोड़ें या निकालें')+
@@ -29,11 +30,15 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
  dd('Learn','सीखें',
   m('tax-quiz.html','🎯','Tax Quiz','टैक्स क्विज़','Test your GST and tax knowledge','अपना GST और टैक्स ज्ञान परखें'))+
  '<div class="tools"><div class="seg"><button type="button" id="l-en">EN</button><button type="button" id="l-hi">हिं</button></div><button type="button" class="icon-btn" id="theme" aria-label="Dark mode">🌙</button></div></nav><button type="button" class="icon-btn burger" id="burger" aria-label="Menu">☰</button></div></header>';
-var footer='<footer class="ftr"><div class="container"><div class="ftr-g"><div>'+brand+'<p style="margin-top:14px" data-en="Free, accurate and private tax &amp; accounting tools for India." data-hi="भारत के लिए फ्री, सटीक और सुरक्षित टैक्स और अकाउंटिंग टूल्स।">Free, accurate and private tax &amp; accounting tools for India.</p></div>'+
- '<div><h4 data-en="Calculators" data-hi="कैलकुलेटर">Calculators</h4><a href="gst-calculator.html">GST</a><a href="income-tax-calculator.html">Income Tax</a><a href="hra-calculator.html">HRA</a><a href="tds-calculator.html">TDS</a><a href="tax-quiz.html">Tax Quiz</a></div>'+
- '<div><h4 data-en="Tools" data-hi="टूल्स">Tools</h4><a href="gstr-2b-reconciliation.html">GSTR-2B Reco</a><a href="gstr-1-einvoice-reconciliation.html">GSTR-1 vs e-Invoice</a><a href="bank-reconciliation.html">Bank Reco</a><a href="invoice-generator.html">Invoice Generator</a><a href="tally-import.html">Invoices to Tally</a><a href="word-to-pdf.html">Word to PDF</a><a href="pdf-to-word.html">PDF to Word</a><a href="compress-pdf.html">Compress PDF</a><a href="merge-pdf.html">Merge PDF</a></div>'+
- '<div><h4 data-en="Company" data-hi="कंपनी">Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a></div></div>'+
- '<div class="copy">© 2026 '+NAME+' · cooridorstore.in</div></div></footer>';
+var footer='<footer class="ftr"><div class="container">'+
+ '<div style="max-width:420px;margin-bottom:30px">'+brand+'<p style="margin-top:14px" data-en="Free, accurate and private tax &amp; accounting tools for India." data-hi="भारत के लिए फ्री, सटीक और सुरक्षित टैक्स और अकाउंटिंग टूल्स।">Free, accurate and private tax &amp; accounting tools for India.</p></div>'+
+ '<div class="ftr-g" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">'+
+ col('Calculators','कैलकुलेटर',[['gst-calculator.html','GST'],['income-tax-calculator.html','Income Tax'],['hra-calculator.html','HRA'],['tds-calculator.html','TDS'],['tax-quiz.html','Tax Quiz']])+
+ col('Reconciliation','रिकंसिलिएशन',[['gstr-2b-reconciliation.html','GSTR-2B Reco'],['gstr-1-einvoice-reconciliation.html','GSTR-1 vs e-Invoice'],['bank-reconciliation.html','Bank Reco']])+
+ col('Generators','जनरेटर',[['invoice-generator.html','Invoice Generator'],['tally-import.html','Invoices to Tally']])+
+ col('PDF Tools','PDF टूल्स',[['word-to-pdf.html','Word to PDF'],['pdf-to-word.html','PDF to Word'],['compress-pdf.html','Compress PDF'],['merge-pdf.html','Merge PDF']])+
+ col('Company','कंपनी',[['about.html','About'],['contact.html','Contact'],['privacy-policy.html','Privacy Policy'],['terms.html','Terms']])+
+ '</div><div class="copy">© 2026 '+NAME+' · cooridorstore.in</div></div></footer>';
 function get(k,d){try{return localStorage.getItem(k)||d;}catch(e){return d;}}
 function put(k,v){try{localStorage.setItem(k,v);}catch(e){}}
 document.addEventListener('DOMContentLoaded',function(){
