@@ -1,95 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cooridor Store – Free GST, Income Tax, HRA & TDS Calculators for India</title>
-<meta name="description" content="Free and accurate GST, income tax, HRA and TDS calculators with step-by-step working, plus GST invoice generator and Word to PDF. No login.">
-<link rel="stylesheet" href="style.css"><script src="app.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free GST Calculator, GSTR-2B Reconciliation, Invoice & PDF Tools for India | Cooridor Store</title>
+<meta name="description" content="Free online tax and accounting tools for India: GST calculator, income tax old vs new regime, HRA, TDS, GSTR-2B and bank reconciliation, GST invoice generator, Excel to Tally and PDF tools. No signup, nothing uploaded.">
+<link rel="stylesheet" href="style.css">
 <style>
-.hero{padding:80px 0 60px;text-align:center}
-.hero h1{font-size:3.1rem;line-height:1.15;letter-spacing:-1.2px;max-width:820px;margin:16px auto}
-.hero h1 em{font-style:normal;color:var(--pri)}
-.hero p{color:var(--mut);font-size:1.12rem;max-width:620px;margin:auto}
-.search{max-width:560px;margin:32px auto 0;position:relative}
-.search input{padding:16px 18px 16px 46px;font-size:1rem;border-radius:12px;box-shadow:var(--sh)}
-.search:before{content:"🔍";position:absolute;left:16px;top:15px}
-.trust{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:28px;color:var(--mut);font-size:.9rem}
+.hero{position:relative;padding:40px 0 30px;isolation:isolate}
+.hero:before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(var(--line) 1.2px,transparent 1.2px);background-size:22px 22px;-webkit-mask-image:linear-gradient(to bottom,#000 35%,transparent);mask-image:linear-gradient(to bottom,#000 35%,transparent)}
+.hg{display:grid;grid-template-columns:1.3fr 1fr;gap:30px;align-items:start}
+.pill{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border:1px solid var(--line);border-radius:99px;background:var(--sur);font-size:.8rem;font-weight:600;color:var(--acc)}
+.hero h1{font-size:2.5rem;line-height:1.12;letter-spacing:-1px;margin:14px 0 8px}
+.hero h1 span{color:var(--pri)}
+.lead{color:var(--mut);font-size:1.03rem;margin-bottom:22px;max-width:560px}
+.pick{font-size:.78rem;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
+.tasks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.task{display:flex;flex-direction:column;gap:6px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--sur);font-weight:600;font-size:.88rem;line-height:1.3;transition:.15s;box-shadow:var(--sh)}
+.task:hover{border-color:var(--pri);transform:translateY(-2px)}
+.task i{font-style:normal;font-size:1.4rem}
+.sbox{position:relative;margin-top:16px}
+.sbox input{padding:14px 16px 14px 44px;font-size:1rem;border-radius:12px;box-shadow:var(--sh)}
+.sbox .si{position:absolute;left:15px;top:13px;font-size:1.05rem}
+.sug{position:absolute;left:0;right:0;top:calc(100% + 6px);background:var(--sur);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh);padding:6px;display:none;z-index:30}
+.sug a{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:8px;font-size:.92rem}
+.sug a:hover,.sug a.act{background:var(--soft)}
+.sug .none{padding:10px 12px;color:var(--mut);font-size:.9rem}
+.trust{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;color:var(--mut);font-size:.88rem}
 .trust b{color:var(--acc)}
-.cat-t{font-size:1.05rem;font-weight:700;margin:34px 0 14px;display:flex;align-items:center;gap:8px}
-.tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
-.tool{padding:22px;transition:.15s;display:block}
-.tool:hover{border-color:var(--pri);transform:translateY(-3px)}
-.ti{width:44px;height:44px;border-radius:10px;background:var(--soft);display:grid;place-items:center;font-size:1.3rem;margin-bottom:12px}
-.tool h3{font-size:1.02rem}.tool p{color:var(--mut);font-size:.9rem;margin-top:4px}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-.step{padding:26px}.step b{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--pri);color:#fff;margin-bottom:12px}
-.step p{color:var(--mut);font-size:.92rem}
-details{padding:18px 22px;margin-bottom:12px}
-summary{font-weight:600;cursor:pointer}
-details p{color:var(--mut);margin-top:10px}
-@media(max-width:700px){.hero h1{font-size:2.1rem}}
+.qc{padding:22px;position:sticky;top:86px}
+.qc h2{font-size:1.05rem;display:flex;justify-content:space-between;align-items:center}
+.live{font-size:.68rem;color:var(--acc);font-weight:700;letter-spacing:1px;display:flex;align-items:center;gap:6px}
+.live:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.3}}
+.tog{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:14px 0 12px}
+.tog button{border:none;background:var(--sur);color:var(--mut);padding:10px;font:inherit;font-size:.9rem;font-weight:600;cursor:pointer}
+.tog button.on{background:var(--pri);color:#fff}
+.amt{font-size:1.35rem!important;font-weight:700;padding:13px 14px!important}
+.rates{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:12px 0 6px}
+.rates button{border:1px solid var(--line);background:var(--sur);color:var(--txt);padding:7px 12px;border-radius:8px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer}
+.rates button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.rates input{width:78px;padding:7px 10px;font-size:.85rem}
+.qt{width:100%;border-collapse:collapse;margin-top:8px}
+.qt td{padding:8px 0;border-bottom:1px dashed var(--line);font-size:.92rem}
+.qt td:last-child{text-align:right;font-weight:600}
+.qt tr.tot td{border-bottom:none;font-size:1.15rem;color:var(--pri);font-weight:800}
+.words{font-size:.8rem;color:var(--mut);margin-top:8px;font-style:italic;min-height:1.2em}
+.qa{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.qa button,.qa a{font-size:.85rem;font-weight:600;color:var(--pri);background:none;border:none;cursor:pointer;padding:0;font-family:inherit}
+.cat{padding:34px 0 4px}
+.cat h2{font-size:1.3rem;display:flex;gap:10px;align-items:center;margin-bottom:14px;letter-spacing:-.3px}
+.cg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.tc{padding:20px;display:flex;flex-direction:column;gap:4px;transition:.15s}
+.tc:hover{border-color:var(--pri);transform:translateY(-2px)}
+.tc .ti{width:44px;height:44px;border-radius:10px;background:var(--soft);display:grid;place-items:center;font-size:1.3rem;margin-bottom:8px}
+.tc b{font-size:1rem}
+.tc .d{color:var(--mut);font-size:.88rem}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.how .card{padding:22px}
+.how .n{width:32px;height:32px;border-radius:50%;background:var(--pri);color:#fff;display:grid;place-items:center;font-weight:700;margin-bottom:10px}
+.how p{color:var(--mut);font-size:.92rem}
+.faq{max-width:820px;margin:auto}
+.faq details{background:var(--sur);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:10px}
+.faq summary{font-weight:600;cursor:pointer}
+.faq p{color:var(--mut);margin-top:8px}
+@media(max-width:980px){.hg{grid-template-columns:1fr}.qc{position:static}.cg{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.tasks{grid-template-columns:1fr 1fr}.hero h1{font-size:1.85rem}.cg,.how{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div id="site-header"></div>
 
-<section class="hero container">
-  <span class="eyebrow" data-en="Trusted by Indian businesses" data-hi="भारतीय व्यापारियों का भरोसा">Trusted by Indian businesses</span>
-  <h1 data-en="Tax & accounting tools that <em>show their working</em>" data-hi="टैक्स और अकाउंटिंग टूल्स, <em>पूरी कैलकुलेशन के साथ</em>">Tax & accounting tools that <em>show their working</em></h1>
-  <p data-en="Calculate GST, income tax, HRA and TDS with a clear step-by-step breakdown. Create invoices and convert documents in seconds." data-hi="GST, इनकम टैक्स, HRA और TDS निकालिए, हर स्टेप की साफ़ कैलकुलेशन के साथ। सेकंडों में बिल बनाइए और डॉक्यूमेंट बदलिए।">Calculate GST, income tax, HRA and TDS with a clear step-by-step breakdown. Create invoices and convert documents in seconds.</p>
-  <div class="search"><input id="q" data-ph-en="Search a tool, e.g. GST, HRA, invoice…" data-ph-hi="टूल खोजें, जैसे GST, HRA, बिल…" placeholder="Search a tool, e.g. GST, HRA, invoice…"></div>
-  <div class="trust"><span><b>✓</b> <span data-en="No signup" data-hi="साइनअप नहीं">No signup</span></span><span><b>✓</b> <span data-en="Data stays on your device" data-hi="डेटा आपके डिवाइस पर">Data stays on your device</span></span><span><b>✓</b> <span data-en="Latest Indian tax rules" data-hi="नए भारतीय टैक्स नियम">Latest Indian tax rules</span></span></div>
+<section class="hero">
+ <div class="container hg">
+  <div>
+   <span class="pill" data-en="✓ Free · No signup · Nothing uploaded" data-hi="✓ फ्री · बिना साइनअप · कुछ अपलोड नहीं">✓ Free · No signup · Nothing uploaded</span>
+   <h1 data-en="Finish your GST &amp; accounts work &lt;span&gt;in seconds&lt;/span&gt;" data-hi="GST और अकाउंट्स का काम &lt;span&gt;सेकंडों में&lt;/span&gt; पूरा कीजिए">Finish your GST &amp; accounts work <span>in seconds</span></h1>
+   <p class="lead" data-en="Calculators, reconciliations, invoices and PDF tools for Indian businesses and accountants. Every result shows its working." data-hi="भारतीय बिज़नेस और अकाउंटेंट्स के लिए कैलकुलेटर, रिकंसिलिएशन, इनवॉइस और PDF टूल्स। हर नतीजे के साथ पूरी कैलकुलेशन।">Calculators, reconciliations, invoices and PDF tools for Indian businesses and accountants. Every result shows its working.</p>
+
+   <div class="pick" data-en="What do you want to do today?" data-hi="आज क्या करना है?">What do you want to do today?</div>
+   <div class="tasks">
+    <a class="task" href="gst-calculator.html"><i>🧮</i><span data-en="Calculate GST" data-hi="GST निकालें">Calculate GST</span></a>
+    <a class="task" href="income-tax-calculator.html"><i>📊</i><span data-en="Old vs new tax regime" data-hi="पुरानी बनाम नई रिजीम">Old vs new tax regime</span></a>
+    <a class="task" href="gstr-2b-reconciliation.html"><i>🔄</i><span data-en="Match GSTR-2B" data-hi="GSTR-2B मिलान">Match GSTR-2B</span></a>
+    <a class="task" href="bank-reconciliation.html"><i>🏦</i><span data-en="Bank reconciliation" data-hi="बैंक मिलान">Bank reconciliation</span></a>
+    <a class="task" href="invoice-generator.html"><i>🧾</i><span data-en="Make a GST invoice" data-hi="GST बिल बनाएँ">Make a GST invoice</span></a>
+    <a class="task" href="tally-import.html"><i>📥</i><span data-en="Excel to Tally" data-hi="Excel से Tally">Excel to Tally</span></a>
+    <a class="task" href="compress-pdf.html"><i>🗜️</i><span data-en="Compress a PDF" data-hi="PDF छोटी करें">Compress a PDF</span></a>
+    <a class="task" href="merge-pdf.html"><i>📑</i><span data-en="Merge PDFs" data-hi="PDF जोड़ें">Merge PDFs</span></a>
+   </div>
+
+   <div class="sbox">
+    <span class="si">🔍</span>
+    <input id="q" autocomplete="off" data-ph-en="Search a tool… e.g. 2B, HRA, Tally, PDF" data-ph-hi="टूल खोजें… जैसे 2B, HRA, Tally, PDF" placeholder="Search a tool… e.g. 2B, HRA, Tally, PDF">
+    <div class="sug" id="sug"></div>
+   </div>
+   <div class="trust">
+    <span><b>✓</b> <span data-en="Latest Indian tax rules" data-hi="ताज़ा भारतीय टैक्स नियम">Latest Indian tax rules</span></span>
+    <span><b>✓</b> <span data-en="Files stay on your device" data-hi="फ़ाइलें आपके डिवाइस पर ही">Files stay on your device</span></span>
+    <span><b>✓</b> <span data-en="English &amp; हिंदी" data-hi="English और हिंदी">English &amp; हिंदी</span></span>
+   </div>
+  </div>
+
+  <div class="card qc">
+   <h2><span data-en="Quick GST" data-hi="झटपट GST">Quick GST</span><span class="live">LIVE</span></h2>
+   <div class="tog">
+    <button type="button" id="mAdd" class="on" onclick="setMode('add')" data-en="Add GST" data-hi="GST जोड़ें">Add GST</button>
+    <button type="button" id="mRem" onclick="setMode('rem')" data-en="Remove GST" data-hi="GST निकालें">Remove GST</button>
+   </div>
+   <input id="qa" class="amt" inputmode="decimal" value="10000" aria-label="Amount">
+   <div class="rates" id="rates">
+    <button type="button" data-r="3">3%</button><button type="button" data-r="5">5%</button><button type="button" data-r="18" class="on">18%</button><button type="button" data-r="40">40%</button>
+    <input id="rc" inputmode="decimal" data-ph-en="Other %" data-ph-hi="दूसरा %" placeholder="Other %">
+   </div>
+   <table class="qt">
+    <tr><td data-en="Taxable value" data-hi="टैक्सेबल रकम">Taxable value</td><td id="o1"></td></tr>
+    <tr><td><span data-en="GST" data-hi="GST">GST</span> (<span id="or"></span>)</td><td id="o2"></td></tr>
+    <tr><td data-en="CGST + SGST (same state)" data-hi="CGST + SGST (उसी राज्य में)">CGST + SGST (same state)</td><td id="o3"></td></tr>
+    <tr><td data-en="or IGST (other state)" data-hi="या IGST (दूसरे राज्य में)">or IGST (other state)</td><td id="o4"></td></tr>
+    <tr class="tot"><td data-en="Total" data-hi="कुल">Total</td><td id="o5"></td></tr>
+   </table>
+   <div class="words" id="ow"></div>
+   <div class="qa">
+    <button type="button" onclick="copyRes()" id="cp" data-en="📋 Copy result" data-hi="📋 नतीजा कॉपी करें">📋 Copy result</button>
+    <a href="gst-calculator.html" data-en="Full working &amp; examples →" data-hi="पूरी कैलकुलेशन और उदाहरण →">Full working &amp; examples →</a>
+   </div>
+  </div>
+ </div>
 </section>
 
-<section class="container" id="tools">
-  <div class="cat-t">🔄 <span data-en="Reconciliation" data-hi="रिकंसिलिएशन">Reconciliation</span></div>
-  <div class="tg">
-    <a class="card tool" href="gstr-2b-reconciliation.html" data-k="gstr 2b 2a reconciliation itc purchase reco"><div class="ti">🔄</div><h3 data-en="GSTR-2B Reconciliation" data-hi="GSTR-2B रिकंसिलिएशन">GSTR-2B Reconciliation</h3><p data-en="Match GSTR-2B with your purchase register in seconds." data-hi="सेकंडों में GSTR-2B को परचेज़ रजिस्टर से मिलाएँ।">Match GSTR-2B with your purchase register in seconds.</p></a>
-    <a class="card tool" href="bank-reconciliation.html" data-k="bank reconciliation brs statement ledger"><div class="ti">🏦</div><h3 data-en="Bank Reconciliation" data-hi="बैंक रिकंसिलिएशन">Bank Reconciliation</h3><p data-en="Auto-match bank statement with ledger and get BRS." data-hi="बैंक स्टेटमेंट को लेजर से मिलाएँ और BRS पाएँ।">Auto-match bank statement with ledger and get BRS.</p></a>
-    <a class="card tool" href="tally-import.html" data-k="tally import excel invoice voucher xml"><div class="ti">📥</div><h3 data-en="Invoices to Tally" data-hi="इनवॉइस से Tally">Invoices to Tally</h3><p data-en="Convert invoice Excel into a Tally import file." data-hi="इनवॉइस Excel को Tally इम्पोर्ट फ़ाइल में बदलें।">Convert invoice Excel into a Tally import file.</p></a>
-    <a class="card tool" href="gstr-1-einvoice-reconciliation.html" data-k="gstr 1 gstr1 e-invoice einvoice irn sales reconciliation"><div class="ti">🧾</div><h3 data-en="GSTR-1 vs e-Invoice" data-hi="GSTR-1 बनाम ई-इनवॉइस">GSTR-1 vs e-Invoice</h3><p data-en="Find missing e-invoices and mismatches with your sales register." data-hi="सेल्स रजिस्टर से छूटे ई-इनवॉइस और फ़र्क खोजें।">Find missing e-invoices and mismatches with your sales register.</p></a>
+<main class="container">
+ <section class="cat" id="calculators">
+  <h2>🧮 <span data-en="Tax Calculators" data-hi="टैक्स कैलकुलेटर">Tax Calculators</span></h2>
+  <div class="cg">
+   <a class="card tc" href="gst-calculator.html"><span class="ti">🧮</span><b data-en="GST Calculator" data-hi="GST कैलकुलेटर">GST Calculator</b><span class="d" data-en="Inclusive &amp; exclusive GST with full working." data-hi="GST जोड़ना-निकालना, पूरी कैलकुलेशन के साथ।">Inclusive &amp; exclusive GST with full working.</span></a>
+   <a class="card tc" href="income-tax-calculator.html"><span class="ti">📊</span><b data-en="Income Tax Calculator" data-hi="इनकम टैक्स कैलकुलेटर">Income Tax Calculator</b><span class="d" data-en="Compare old and new regime slab by slab." data-hi="पुरानी और नई रिजीम की स्लैब-वार तुलना।">Compare old and new regime slab by slab.</span></a>
+   <a class="card tc" href="hra-calculator.html"><span class="ti">🏠</span><b data-en="HRA Calculator" data-hi="HRA कैलकुलेटर">HRA Calculator</b><span class="d" data-en="Find exempt and taxable HRA." data-hi="छूट वाला और टैक्सेबल HRA जानिए।">Find exempt and taxable HRA.</span></a>
+   <a class="card tc" href="tds-calculator.html"><span class="ti">✂️</span><b data-en="TDS Calculator" data-hi="TDS कैलकुलेटर">TDS Calculator</b><span class="d" data-en="TDS by section with threshold check." data-hi="सेक्शन के हिसाब से TDS, लिमिट जाँच के साथ।">TDS by section with threshold check.</span></a>
   </div>
-  <div class="cat-t">🧮 <span data-en="Tax Calculators" data-hi="टैक्स कैलकुलेटर">Tax Calculators</span></div>
-  <div class="tg">
-    <a class="card tool" href="gst-calculator.html" data-k="gst tax cgst sgst igst"><div class="ti">🧮</div><h3 data-en="GST Calculator" data-hi="GST कैलकुलेटर">GST Calculator</h3><p data-en="Inclusive & exclusive GST with full working." data-hi="पूरी कैलकुलेशन के साथ GST जोड़ें या निकालें।">Inclusive & exclusive GST with full working.</p></a>
-    <a class="card tool" href="income-tax-calculator.html" data-k="income tax regime salary"><div class="ti">📊</div><h3 data-en="Income Tax Calculator" data-hi="इनकम टैक्स कैलकुलेटर">Income Tax Calculator</h3><p data-en="Compare old and new regime slab by slab." data-hi="स्लैब के हिसाब से दोनों रिजीम की तुलना।">Compare old and new regime slab by slab.</p></a>
-    <a class="card tool" href="hra-calculator.html" data-k="hra rent house"><div class="ti">🏠</div><h3 data-en="HRA Calculator" data-hi="HRA कैलकुलेटर">HRA Calculator</h3><p data-en="Find exempt and taxable HRA." data-hi="टैक्स-फ़्री और टैक्सेबल HRA जानिए।">Find exempt and taxable HRA.</p></a>
-    <a class="card tool" href="tds-calculator.html" data-k="tds deduction section"><div class="ti">✂️</div><h3 data-en="TDS Calculator" data-hi="TDS कैलकुलेटर">TDS Calculator</h3><p data-en="TDS by section with threshold check." data-hi="सेक्शन और लिमिट के हिसाब से TDS।">TDS by section with threshold check.</p></a>
-  </div>
-    <div class="cat-t">🧾 <span data-en="Generators" data-hi="जनरेटर">Generators</span></div>
-  <div class="tg">
-    <a class="card tool" href="invoice-generator.html" data-k="invoice bill generator gst party"><div class="ti">🧾</div><h3 data-en="GST Invoice Generator" data-hi="GST इनवॉइस जनरेटर">GST Invoice Generator</h3><p data-en="Party details, items, tax & PDF download." data-hi="पार्टी डिटेल, आइटम, टैक्स और PDF।">Party details, items, tax & PDF download.</p></a>
-    <a class="card tool" href="tally-import.html" data-k="tally import excel invoice voucher xml"><div class="ti">📥</div><h3 data-en="Invoices to Tally" data-hi="इनवॉइस से Tally">Invoices to Tally</h3><p data-en="Convert invoice Excel into a Tally import file." data-hi="इनवॉइस Excel को Tally इम्पोर्ट फ़ाइल में बदलें।">Convert invoice Excel into a Tally import file.</p></a>
-  </div>
-  <div class="cat-t">📄 <span data-en="PDF Tools" data-hi="PDF टूल्स">PDF Tools</span></div>
-  <div class="tg">
-    <a class="card tool" href="word-to-pdf.html" data-k="word pdf docx convert"><div class="ti">📄</div><h3 data-en="Word to PDF" data-hi="Word से PDF">Word to PDF</h3><p data-en="Convert .docx privately in your browser." data-hi="ब्राउज़र में ही .docx को PDF बनाइए।">Convert .docx privately in your browser.</p></a>
-    <a class="card tool" href="pdf-to-word.html" data-k="pdf word docx convert editable"><div class="ti">📝</div><h3 data-en="PDF to Word" data-hi="PDF से Word">PDF to Word</h3><p data-en="Editable Word file from any PDF." data-hi="किसी भी PDF से बदलने लायक़ Word फ़ाइल।">Editable Word file from any PDF.</p></a>
-    <a class="card tool" href="compress-pdf.html" data-k="compress pdf reduce size small"><div class="ti">🗜️</div><h3 data-en="Compress PDF" data-hi="PDF छोटी करें">Compress PDF</h3><p data-en="Reduce PDF size for email and uploads." data-hi="ईमेल और अपलोड के लिए PDF छोटी करें।">Reduce PDF size for email and uploads.</p></a>
-    <a class="card tool" href="merge-pdf.html" data-k="merge pdf combine join"><div class="ti">📑</div><h3 data-en="Merge PDF" data-hi="PDF जोड़ें">Merge PDF</h3><p data-en="Combine many PDFs into one file." data-hi="कई PDF को एक फ़ाइल में जोड़ें।">Combine many PDFs into one file.</p></a>
-  </div>
-</section>
+ </section>
 
-<section class="sec container">
-  <div class="sec-h"><span class="eyebrow" data-en="How it works" data-hi="कैसे काम करता है">How it works</span><h2 data-en="Three steps. Zero confusion." data-hi="तीन स्टेप, कोई उलझन नहीं।">Three steps. Zero confusion.</h2></div>
-  <div class="steps">
-    <div class="card step"><b>1</b><h3 data-en="Pick a tool" data-hi="टूल चुनिए">Pick a tool</h3><p data-en="Choose from the menu or search above." data-hi="मेन्यू से चुनिए या ऊपर खोजिए।">Choose from the menu or search above.</p></div>
-    <div class="card step"><b>2</b><h3 data-en="Enter details" data-hi="डिटेल डालिए">Enter details</h3><p data-en="Simple fields, Indian formats." data-hi="आसान फ़ील्ड, भारतीय फ़ॉर्मेट।">Simple fields, Indian formats.</p></div>
-    <div class="card step"><b>3</b><h3 data-en="See the working" data-hi="कैलकुलेशन देखिए">See the working</h3><p data-en="Get the answer with every step explained." data-hi="हर स्टेप समझाकर जवाब पाइए।">Get the answer with every step explained.</p></div>
+ <section class="cat" id="reconciliation">
+  <h2>🔄 <span data-en="Reconciliation" data-hi="रिकंसिलिएशन">Reconciliation</span></h2>
+  <div class="cg">
+   <a class="card tc" href="gstr-2b-reconciliation.html"><span class="ti">🔄</span><b data-en="GSTR-2B Reconciliation" data-hi="GSTR-2B रिकंसिलिएशन">GSTR-2B Reconciliation</b><span class="d" data-en="Match GSTR-2B with your purchase register." data-hi="GSTR-2B को परचेज़ रजिस्टर से मिलाइए।">Match GSTR-2B with your purchase register.</span></a>
+   <a class="card tc" href="gstr-1-einvoice-reconciliation.html"><span class="ti">🧾</span><b data-en="GSTR-1 vs e-Invoice" data-hi="GSTR-1 बनाम ई-इनवॉइस">GSTR-1 vs e-Invoice</b><span class="d" data-en="Find missing e-invoices and mismatches." data-hi="छूटे ई-इनवॉइस और फ़र्क खोजिए।">Find missing e-invoices and mismatches.</span></a>
+   <a class="card tc" href="bank-reconciliation.html"><span class="ti">🏦</span><b data-en="Bank Reconciliation" data-hi="बैंक रिकंसिलिएशन">Bank Reconciliation</b><span class="d" data-en="Auto-match statement with ledger and get BRS." data-hi="स्टेटमेंट और लेजर का अपने आप मिलान, साथ में BRS।">Auto-match statement with ledger and get BRS.</span></a>
   </div>
-</section>
+ </section>
 
-<section class="sec container" style="padding-top:0;max-width:820px">
+ <section class="cat" id="generators">
+  <h2>🧾 <span data-en="Generators" data-hi="जनरेटर">Generators</span></h2>
+  <div class="cg">
+   <a class="card tc" href="invoice-generator.html"><span class="ti">🧾</span><b data-en="GST Invoice Generator" data-hi="GST इनवॉइस जनरेटर">GST Invoice Generator</b><span class="d" data-en="Party details, items, tax and PDF download." data-hi="पार्टी, आइटम, टैक्स और PDF डाउनलोड।">Party details, items, tax and PDF download.</span></a>
+   <a class="card tc" href="tally-import.html"><span class="ti">📥</span><b data-en="Invoices to Tally" data-hi="इनवॉइस से Tally">Invoices to Tally</b><span class="d" data-en="Convert invoice Excel into a Tally import file." data-hi="इनवॉइस की Excel को Tally इम्पोर्ट फ़ाइल में बदलिए।">Convert invoice Excel into a Tally import file.</span></a>
+  </div>
+ </section>
+
+ <section class="cat" id="pdf">
+  <h2>📄 <span data-en="PDF Tools" data-hi="PDF टूल्स">PDF Tools</span></h2>
+  <div class="cg">
+   <a class="card tc" href="word-to-pdf.html"><span class="ti">📄</span><b data-en="Word to PDF" data-hi="Word से PDF">Word to PDF</b><span class="d" data-en="Convert .docx privately in your browser." data-hi=".docx को ब्राउज़र में ही PDF बनाइए।">Convert .docx privately in your browser.</span></a>
+   <a class="card tc" href="pdf-to-word.html"><span class="ti">📝</span><b data-en="PDF to Word" data-hi="PDF से Word">PDF to Word</b><span class="d" data-en="Editable Word file from any PDF." data-hi="किसी भी PDF से बदलने लायक़ Word फ़ाइल।">Editable Word file from any PDF.</span></a>
+   <a class="card tc" href="compress-pdf.html"><span class="ti">🗜️</span><b data-en="Compress PDF" data-hi="PDF छोटी करें">Compress PDF</b><span class="d" data-en="Reduce PDF size for email and uploads." data-hi="ईमेल और अपलोड के लिए PDF छोटी कीजिए।">Reduce PDF size for email and uploads.</span></a>
+   <a class="card tc" href="merge-pdf.html"><span class="ti">📑</span><b data-en="Merge PDF" data-hi="PDF जोड़ें">Merge PDF</b><span class="d" data-en="Combine many PDFs into one file." data-hi="कई PDF को एक फ़ाइल में जोड़िए।">Combine many PDFs into one file.</span></a>
+  </div>
+ </section>
+
+ <section class="cat" id="learn">
+  <h2>🎯 <span data-en="Learn" data-hi="सीखें">Learn</span></h2>
+  <div class="cg">
+   <a class="card tc" href="tax-quiz.html"><span class="ti">🎯</span><b data-en="GST &amp; Tax Quiz" data-hi="GST और टैक्स क्विज़">GST &amp; Tax Quiz</b><span class="d" data-en="10 quick questions. Challenge your friends." data-hi="10 छोटे सवाल। दोस्तों को चुनौती दीजिए।">10 quick questions. Challenge your friends.</span></a>
+  </div>
+ </section>
+
+ <section class="sec">
+  <div class="sec-h"><span class="eyebrow" data-en="How it works" data-hi="कैसे काम करता है">How it works</span><h2 data-en="Three steps. No signup." data-hi="तीन स्टेप। कोई साइनअप नहीं।">Three steps. No signup.</h2></div>
+  <div class="how">
+   <div class="card"><div class="n">1</div><b data-en="Pick a tool" data-hi="टूल चुनिए">Pick a tool</b><p data-en="Choose a task above or search for it." data-hi="ऊपर से काम चुनिए या खोजिए।">Choose a task above or search for it.</p></div>
+   <div class="card"><div class="n">2</div><b data-en="Enter or upload" data-hi="भरिए या फ़ाइल डालिए">Enter or upload</b><p data-en="Type the numbers or choose your Excel or PDF. It stays on your device." data-hi="नंबर भरिए या Excel/PDF चुनिए। सब आपके डिवाइस पर ही रहता है।">Type the numbers or choose your Excel or PDF. It stays on your device.</p></div>
+   <div class="card"><div class="n">3</div><b data-en="Get the result" data-hi="नतीजा पाइए">Get the result</b><p data-en="See the full working and download Excel, PDF, Word or Tally files." data-hi="पूरी कैलकुलेशन देखिए और Excel, PDF, Word या Tally फ़ाइल डाउनलोड कीजिए।">See the full working and download Excel, PDF, Word or Tally files.</p></div>
+  </div>
+ </section>
+
+ <section class="sec" style="padding-top:10px">
   <div class="sec-h"><h2 data-en="Frequently asked questions" data-hi="अक्सर पूछे जाने वाले सवाल">Frequently asked questions</h2></div>
-  <details class="card"><summary data-en="Are these tools really free?" data-hi="क्या ये टूल्स सच में फ्री हैं?">Are these tools really free?</summary><p data-en="Yes. Every tool is free with no signup." data-hi="हाँ, हर टूल फ्री है और साइनअप की ज़रूरत नहीं।">Yes. Every tool is free with no signup.</p></details>
-  <details class="card"><summary data-en="Is my data safe?" data-hi="क्या मेरा डेटा सुरक्षित है?">Is my data safe?</summary><p data-en="All calculations run in your browser. Nothing is uploaded to our servers." data-hi="सारी कैलकुलेशन आपके ब्राउज़र में होती है। कुछ भी हमारे सर्वर पर नहीं जाता।">All calculations run in your browser. Nothing is uploaded to our servers.</p></details>
-  <details class="card"><summary data-en="Can I use the results for filing?" data-hi="क्या नतीजे फ़ाइलिंग में इस्तेमाल कर सकते हैं?">Can I use the results for filing?</summary><p data-en="Results are for guidance. Please verify with a tax professional before filing." data-hi="नतीजे मार्गदर्शन के लिए हैं। फ़ाइलिंग से पहले किसी टैक्स प्रोफ़ेशनल से जाँच लें।">Results are for guidance. Please verify with a tax professional before filing.</p></details>
-</section>
+  <div class="faq">
+   <details><summary>Are these tools really free?</summary><p>Yes. All calculators, reconciliation tools, the invoice generator, Excel to Tally and PDF tools are free to use, with no signup and no watermark.</p></details>
+   <details><summary>Are my files uploaded anywhere?</summary><p>No. Excel, PDF and Word files are processed inside your browser and never leave your device. This makes the tools safe for client and bank data.</p></details>
+   <details><summary>Are the tax rules up to date?</summary><p>We follow the latest GST rates and income tax rules for India. Tax law changes often, so please confirm important decisions with a qualified professional.</p></details>
+   <details><summary>Can I use the tools on my phone?</summary><p>Yes. The calculators work on any phone. File tools work best on a laptop or desktop for large files.</p></details>
+  </div>
+ </section>
+</main>
 
 <div id="site-footer"></div>
+<script src="app.js"></script>
 <script>
-document.getElementById('q').addEventListener('input',function(){var v=this.value.toLowerCase();
-document.querySelectorAll('.tool').forEach(function(t){t.style.display=(t.dataset.k+' '+t.textContent.toLowerCase()).indexOf(v)>-1?'':'none'})});
+/* ---------- Quick GST ---------- */
+var MODE='add',RATE=18;
+function inr(n){return '₹'+n.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+var ONES=['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'],TENS=['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+function two(n){return n<20?ONES[n]:TENS[Math.floor(n/10)]+(n%10?' '+ONES[n%10]:'');}
+function three(n){return (n>=100?ONES[Math.floor(n/100)]+' Hundred'+(n%100?' ':''):'')+(n%100?two(n%100):'');}
+function words(n){if(!n)return 'Zero';var s='',cr=Math.floor(n/1e7);n%=1e7;var lk=Math.floor(n/1e5);n%=1e5;var th=Math.floor(n/1e3);n%=1e3;
+ if(cr)s+=words(cr)+' Crore ';if(lk)s+=two(lk)+' Lakh ';if(th)s+=two(th)+' Thousand ';if(n)s+=three(n);return s.trim();}
+function inWords(x){var r=Math.floor(x),p=Math.round((x-r)*100);if(p===100){r++;p=0;}return 'Rupees '+words(r)+(p?' and '+two(p)+' Paise':'')+' Only';}
+function setMode(m){MODE=m;document.getElementById('mAdd').className=m==='add'?'on':'';document.getElementById('mRem').className=m==='rem'?'on':'';calc();}
+function calc(){var a=parseFloat(String(document.getElementById('qa').value).replace(/[^0-9.]/g,''))||0,base,gst,tot;
+ if(MODE==='add'){base=a;gst=a*RATE/100;tot=a+gst;}else{tot=a;base=a*100/(100+RATE);gst=a-base;}
+ base=Math.round(base*100)/100;gst=Math.round(gst*100)/100;tot=Math.round(tot*100)/100;var half=Math.round(gst/2*100)/100;
+ document.getElementById('o1').textContent=inr(base);document.getElementById('or').textContent=RATE+'%';document.getElementById('o2').textContent=inr(gst);
+ document.getElementById('o3').textContent=inr(half)+' + '+inr(half);document.getElementById('o4').textContent=inr(gst);document.getElementById('o5').textContent=inr(tot);
+ document.getElementById('ow').textContent=a?inWords(tot):'';}
+document.getElementById('qa').addEventListener('input',calc);
+document.querySelectorAll('#rates button').forEach(function(b){b.onclick=function(){RATE=+b.dataset.r;document.getElementById('rc').value='';document.querySelectorAll('#rates button').forEach(function(x){x.classList.toggle('on',x===b);});calc();};});
+document.getElementById('rc').addEventListener('input',function(){var v=parseFloat(this.value);if(v>=0&&v<=100){RATE=v;document.querySelectorAll('#rates button').forEach(function(x){x.classList.remove('on');});calc();}});
+function copyRes(){var t=(MODE==='add'?'Taxable ':'Taxable ')+document.getElementById('o1').textContent+' | GST '+RATE+'% '+document.getElementById('o2').textContent+' | Total '+document.getElementById('o5').textContent+'\n'+document.getElementById('ow').textContent;
+ var b=document.getElementById('cp');(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){var o=b.innerHTML;b.innerHTML='✓ Copied';setTimeout(function(){b.innerHTML=o;},1500);}).catch(function(){prompt('Copy:',t);});}
+calc();
+
+/* ---------- Smart search ---------- */
+var TOOLS=[
+ ['gst-calculator.html','🧮','GST Calculator','GST कैलकुलेटर','gst tax add remove inclusive exclusive cgst sgst igst'],
+ ['income-tax-calculator.html','📊','Income Tax Calculator','इनकम टैक्स कैलकुलेटर','income tax itr regime old new slab salary'],
+ ['hra-calculator.html','🏠','HRA Calculator','HRA कैलकुलेटर','hra rent house allowance'],
+ ['tds-calculator.html','✂️','TDS Calculator','TDS कैलकुलेटर','tds 194 deduction section'],
+ ['gstr-2b-reconciliation.html','🔄','GSTR-2B Reconciliation','GSTR-2B रिकंसिलिएशन','2b gstr2b itc purchase reco reconciliation match'],
+ ['gstr-1-einvoice-reconciliation.html','🧾','GSTR-1 vs e-Invoice','GSTR-1 बनाम ई-इनवॉइस','gstr1 einvoice e-invoice irn sales reco missing'],
+ ['bank-reconciliation.html','🏦','Bank Reconciliation','बैंक रिकंसिलिएशन','bank brs statement ledger reco reconciliation'],
+ ['invoice-generator.html','🧾','GST Invoice Generator','GST इनवॉइस जनरेटर','invoice bill generator receipt tax invoice'],
+ ['tally-import.html','📥','Invoices to Tally','इनवॉइस से Tally','tally xml import excel voucher'],
+ ['word-to-pdf.html','📄','Word to PDF','Word से PDF','word docx doc to pdf convert'],
+ ['pdf-to-word.html','📝','PDF to Word','PDF से Word','pdf to word docx convert edit'],
+ ['compress-pdf.html','🗜️','Compress PDF','PDF छोटी करें','compress reduce size pdf small'],
+ ['merge-pdf.html','📑','Merge PDF','PDF जोड़ें','merge combine join pdf'],
+ ['tax-quiz.html','🎯','Tax Quiz','टैक्स क्विज़','quiz game test learn']];
+var SI=0,RES=[];
+function hi(){return document.documentElement.lang==='hi';}
+function search(){var q=document.getElementById('q').value.trim().toLowerCase(),box=document.getElementById('sug');
+ if(!q){box.style.display='none';return;}
+ RES=TOOLS.filter(function(t){var hay=(t[2]+' '+t[3]+' '+t[4]).toLowerCase();return q.split(/\s+/).every(function(w){return hay.indexOf(w)>-1;});});SI=0;
+ box.innerHTML=RES.length?RES.map(function(t,i){return '<a href="'+t[0]+'" class="'+(i===0?'act':'')+'"><span>'+t[1]+'</span>'+(hi()?t[3]:t[2])+'</a>';}).join(''):'<div class="none">'+(hi()?'कोई टूल नहीं मिला':'No tool found')+'</div>';
+ box.style.display='block';}
+var qi=document.getElementById('q');
+qi.addEventListener('input',search);qi.addEventListener('focus',search);
+qi.addEventListener('keydown',function(e){var links=document.querySelectorAll('#sug a');if(!links.length)return;
+ if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();SI=(SI+(e.key==='ArrowDown'?1:-1)+links.length)%links.length;links.forEach(function(l,i){l.classList.toggle('act',i===SI);});}
+ if(e.key==='Enter'){e.preventDefault();location.href=links[SI].getAttribute('href');}});
+document.addEventListener('click',function(e){if(!e.target.closest('.sbox'))document.getElementById('sug').style.display='none';});
+document.addEventListener('langchange',function(){if(qi.value)search();});
 </script>
 </body>
 </html>
