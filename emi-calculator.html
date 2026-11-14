@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EMI Calculator – Home, Car & Personal Loan EMI with Schedule | Cooridor Store</title>
+<meta name="description" content="Free EMI calculator for home loan, car loan and personal loan. See monthly EMI, total interest, yearly and monthly amortization schedule with full formula working. Download schedule in Excel.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<style>
+.rg{display:flex;gap:10px;align-items:center}
+.rg input[type=range]{flex:1;padding:0;accent-color:var(--pri)}
+.rg input:not([type=range]){width:140px}
+.pbar{height:12px;border-radius:9px;background:var(--acc);overflow:hidden;margin:14px 0 6px}
+.pbar i{display:block;height:100%;background:var(--pri)}
+.leg{display:flex;gap:16px;font-size:.82rem;color:var(--mut)}
+.leg b{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
+.sch{margin-top:26px;padding:22px}
+.tw{overflow:auto;max-height:460px;border:1px solid var(--line);border-radius:10px;margin-top:12px}
+.tw table{width:100%;border-collapse:collapse;font-size:.88rem}
+.tw th,.tw td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.tw th:first-child,.tw td:first-child{text-align:left}
+.tw th{position:sticky;top:0;background:var(--soft)}
+.acts{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="index.html">Home</a> › <span data-en="EMI Calculator" data-hi="EMI कैलकुलेटर">EMI Calculator</span></div>
+ <div class="ph">
+  <h1 data-en="EMI Calculator" data-hi="EMI कैलकुलेटर">EMI Calculator</h1>
+  <p data-en="Work out the monthly EMI for a home, car or personal loan, with total interest and a full repayment schedule." data-hi="होम, कार या पर्सनल लोन की मासिक EMI निकालिए, कुल ब्याज और पूरे भुगतान शेड्यूल के साथ।">Work out the monthly EMI for a home, car or personal loan, with total interest and a full repayment schedule.</p>
+ </div>
+ <div class="lay">
+  <div class="card box">
+   <div class="f"><label data-en="Loan amount, ₹" data-hi="लोन की रकम, ₹">Loan amount, ₹</label><div class="rg"><input type="range" id="paR" min="10000" max="20000000" step="10000"><input id="pa" inputmode="decimal" value="1000000"></div></div>
+   <div class="f"><label data-en="Interest rate, % per year" data-hi="ब्याज दर, % सालाना">Interest rate, % per year</label><div class="rg"><input type="range" id="irR" min="1" max="30" step="0.05"><input id="ir" inputmode="decimal" value="9"></div></div>
+   <div class="f"><label data-en="Loan tenure" data-hi="लोन की अवधि">Loan tenure</label>
+    <div class="rg"><input type="range" id="tnR" min="1" max="30" step="1"><input id="tn" inputmode="numeric" value="20"></div>
+    <div class="chips" id="un" style="margin-top:8px"><button type="button" data-u="y" class="on" data-en="Years" data-hi="साल">Years</button><button type="button" data-u="m" data-en="Months" data-hi="महीने">Months</button></div></div>
+  </div>
+  <div class="card box">
+   <span class="lbl" data-en="Monthly EMI" data-hi="मासिक EMI">Monthly EMI</span>
+   <div class="big" id="emi">₹0</div>
+   <div class="pbar"><i id="pb"></i></div>
+   <div class="leg"><span><b style="background:var(--pri)"></b><span data-en="Principal" data-hi="मूलधन">Principal</span></span><span><b style="background:var(--acc)"></b><span data-en="Interest" data-hi="ब्याज">Interest</span></span></div>
+   <table class="rt">
+    <tr><td data-en="Principal" data-hi="मूलधन">Principal</td><td id="o1"></td></tr>
+    <tr><td data-en="Total interest" data-hi="कुल ब्याज">Total interest</td><td id="o2"></td></tr>
+    <tr class="tot"><td data-en="Total payment" data-hi="कुल भुगतान">Total payment</td><td id="o3"></td></tr>
+   </table>
+   <div class="work"><b data-en="How we calculated it" data-hi="हमने कैसे निकाला">How we calculated it</b><pre id="wk"></pre></div>
+  </div>
+ </div>
+ <div class="card sch">
+  <div class="acts"><h3 style="font-size:1.05rem" data-en="Repayment schedule" data-hi="भुगतान शेड्यूल">Repayment schedule</h3>
+   <div class="chips" id="vw"><button type="button" data-v="y" class="on" data-en="Yearly" data-hi="साल-वार">Yearly</button><button type="button" data-v="m" data-en="Monthly" data-hi="महीने-वार">Monthly</button><button type="button" onclick="csv()" data-en="⬇ Excel (CSV)" data-hi="⬇ Excel (CSV)">⬇ Excel (CSV)</button></div></div>
+  <div class="tw" id="tb"></div>
+ </div>
+
+ <article class="art">
+  <h2>What is EMI?</h2>
+  <p>EMI (Equated Monthly Instalment) is the fixed amount you pay the bank every month until your loan is repaid. Each EMI has two parts: interest on the outstanding balance and repayment of principal. In the early years most of the EMI goes towards interest; later, most goes towards principal.</p>
+  <h2>EMI formula</h2>
+  <div class="fx">EMI = P × r × (1 + r)<sup>n</sup> ÷ [(1 + r)<sup>n</sup> − 1]</div>
+  <p>Here P is the loan amount, r is the monthly interest rate (annual rate ÷ 12 ÷ 100) and n is the number of monthly instalments.</p>
+  <h3>Example</h3>
+  <p>A home loan of ₹10,00,000 at 9% for 20 years: r = 9 ÷ 12 ÷ 100 = 0.0075 and n = 240. The EMI comes to about ₹8,997. Over 20 years you pay about ₹21.59 lakh, of which about ₹11.59 lakh is interest.</p>
+  <h2>How to reduce your total interest</h2>
+  <ul>
+   <li>Choose a shorter tenure if the EMI is affordable. The EMI rises a little but the total interest falls a lot.</li>
+   <li>Make part-prepayments, especially in the early years when interest is highest.</li>
+   <li>Compare rates across banks and ask for a rate cut when your credit score improves.</li>
+  </ul>
+  <h2>Related tools</h2>
+  <div class="related">
+   <a class="card" href="sip-calculator.html">📈 SIP Calculator</a>
+   <a class="card" href="income-tax-calculator.html">📊 Income Tax Calculator</a>
+   <a class="card" href="gst-calculator.html">🧮 GST Calculator</a>
+  </div>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script>
+var UNIT='y',VIEW='y',ROWS=[];
+function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
+function inr(n){return '₹'+Math.round(n).toLocaleString('en-IN');}
+function num(id){return parseFloat(String(document.getElementById(id).value).replace(/[^0-9.]/g,''))||0;}
+function link(a){var r=document.getElementById(a+'R'),i=document.getElementById(a);r.value=num(a);r.oninput=function(){i.value=r.value;calc();};i.oninput=function(){r.value=num(a);calc();};}
+['pa','ir','tn'].forEach(link);
+document.querySelectorAll('#un button').forEach(function(b){b.onclick=function(){var t=num('tn');UNIT=b.dataset.u;document.querySelectorAll('#un button').forEach(function(x){x.classList.toggle('on',x===b);});
+ var r=document.getElementById('tnR');if(UNIT==='m'){r.max=360;document.getElementById('tn').value=Math.round(t*12);}else{r.max=30;document.getElementById('tn').value=Math.max(1,Math.round(t/12));}r.value=num('tn');calc();};});
+document.querySelectorAll('#vw button[data-v]').forEach(function(b){b.onclick=function(){VIEW=b.dataset.v;document.querySelectorAll('#vw button[data-v]').forEach(function(x){x.classList.toggle('on',x===b);});table();};});
+function calc(){var P=num('pa'),R=num('ir'),t=num('tn'),n=Math.round(UNIT==='y'?t*12:t);
+ if(!P||!n){['emi','o1','o2','o3'].forEach(function(id){document.getElementById(id).textContent='₹0';});document.getElementById('wk').textContent='';document.getElementById('tb').innerHTML='';return;}
+ var r=R/1200,f=Math.pow(1+r,n),emi=r?P*r*f/(f-1):P/n,tot=emi*n,int=tot-P,bal=P;ROWS=[];
+ for(var m=1;m<=n;m++){var i=bal*r,p=emi-i;if(m===n)p=bal;bal=Math.max(0,bal-p);ROWS.push({m:m,i:i,p:p,b:bal});}
+ document.getElementById('emi').textContent=inr(emi);document.getElementById('o1').textContent=inr(P);document.getElementById('o2').textContent=inr(int);document.getElementById('o3').textContent=inr(tot);
+ document.getElementById('pb').style.width=(P/tot*100)+'%';
+ document.getElementById('wk').textContent=
+  'P = '+inr(P)+'\nr = '+R+' ÷ 12 ÷ 100 = '+r.toFixed(6)+'\nn = '+n+' '+T('months','महीने')+
+  (r?'\n(1 + r)^n = '+f.toFixed(4)+'\nEMI = P × r × (1+r)^n ÷ ((1+r)^n − 1)\n    = '+inr(P)+' × '+r.toFixed(6)+' × '+f.toFixed(4)+' ÷ '+(f-1).toFixed(4)+'\n    = '+inr(emi):'\nEMI = P ÷ n = '+inr(emi))+
+  '\n'+T('Total payment','कुल भुगतान')+' = '+inr(emi)+' × '+n+' = '+inr(tot)+'\n'+T('Total interest','कुल ब्याज')+' = '+inr(tot)+' − '+inr(P)+' = '+inr(int);
+ table();}
+function table(){var h,rows=[];
+ if(VIEW==='y'){h=[T('Year','साल'),T('Principal paid','चुकाया मूलधन'),T('Interest paid','चुकाया ब्याज'),T('Balance','बचा लोन')];
+  ROWS.forEach(function(x){var y=Math.ceil(x.m/12)-1;if(!rows[y])rows[y]=[y+1,0,0,0];rows[y][1]+=x.p;rows[y][2]+=x.i;rows[y][3]=x.b;});}
+ else{h=[T('Month','महीना'),T('Principal','मूलधन'),T('Interest','ब्याज'),T('Balance','बचा लोन')];rows=ROWS.map(function(x){return [x.m,x.p,x.i,x.b];});}
+ document.getElementById('tb').innerHTML='<table><tr>'+h.map(function(c){return '<th>'+c+'</th>';}).join('')+'</tr>'+rows.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+inr(r[1])+'</td><td>'+inr(r[2])+'</td><td>'+inr(r[3])+'</td></tr>';}).join('')+'</table>';}
+function csv(){if(!ROWS.length)return;var s='Month,Principal,Interest,Balance\n'+ROWS.map(function(x){return [x.m,x.p.toFixed(2),x.i.toFixed(2),x.b.toFixed(2)].join(',');}).join('\n');
+ var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([s],{type:'text/csv'}));a.download='emi-schedule.csv';document.body.appendChild(a);a.click();a.remove();}
+calc();
+document.addEventListener('langchange',calc);
+</script>
+</body>
+</html>
