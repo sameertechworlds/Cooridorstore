@@ -2,7 +2,7 @@
 (function(){
 /* ===== नाम यहीं बदलिए ===== */
 var NAME='Cooridor Store';
-var TAG='TAX · GST · ACCOUNTS';
+var TAG='ACCOUNTS · TAX · PDF';
 /* ========================== */
 var css=document.createElement('style');css.textContent='.ftr-g.f5{grid-template-columns:repeat(5,1fr)}@media(max-width:860px){.ftr-g.f5{grid-template-columns:1fr 1fr}}';document.head.appendChild(css);
 var LOGO='<svg width="36" height="36" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0b3d91"/><path d="M27 13.5A9.5 9.5 0 1 0 27 26.5" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><path d="M17 20.5l3 3 6-6.5" fill="none" stroke="#34d399" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
