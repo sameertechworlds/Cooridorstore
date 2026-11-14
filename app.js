@@ -17,17 +17,21 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
  dd('Reconciliation','रिकंसिलिएशन',
   m('gstr-2b-reconciliation.html','🔄','GSTR-2B Reconciliation','GSTR-2B रिकंसिलिएशन','Purchase register vs 2B','परचेज़ रजिस्टर बनाम 2B')+
   m('gstr-1-einvoice-reconciliation.html','🧾','GSTR-1 vs e-Invoice','GSTR-1 बनाम ई-इनवॉइस','Find missing e-invoices','छूटे ई-इनवॉइस खोजें')+
-  m('bank-reconciliation.html','🏦','Bank Reconciliation','बैंक रिकंसिलिएशन','Statement vs ledger, BRS','स्टेटमेंट बनाम लेजर, BRS')+
-  m('tally-import.html','📥','Invoices to Tally','इनवॉइस से Tally','Excel to Tally XML','Excel से Tally XML'))+
+  m('bank-reconciliation.html','🏦','Bank Reconciliation','बैंक रिकंसिलिएशन','Statement vs ledger, BRS','स्टेटमेंट बनाम लेजर, BRS'))+
  dd('Generators','जनरेटर',
   m('invoice-generator.html','🧾','GST Invoice Generator','GST इनवॉइस जनरेटर','Create and print invoices','इनवॉइस बनाएँ और प्रिंट करें')+
-  m('word-to-pdf.html','📄','Word to PDF','Word से PDF','Convert .docx to PDF','.docx को PDF में बदलें'))+
+  m('tally-import.html','📥','Invoices to Tally','इनवॉइस से Tally','Excel to Tally XML','Excel से Tally XML'))+
+ dd('PDF Tools','PDF टूल्स',
+  m('word-to-pdf.html','📄','Word to PDF','Word से PDF','Convert .docx to PDF','.docx को PDF में बदलें')+
+  m('pdf-to-word.html','📝','PDF to Word','PDF से Word','Editable .docx from PDF','PDF से बदलने लायक़ .docx')+
+  m('compress-pdf.html','🗜️','Compress PDF','PDF छोटी करें','Reduce PDF file size','PDF का साइज़ घटाएँ')+
+  m('merge-pdf.html','📑','Merge PDF','PDF जोड़ें','Combine PDFs into one','कई PDF को एक बनाएँ'))+
  dd('Learn','सीखें',
   m('tax-quiz.html','🎯','Tax Quiz','टैक्स क्विज़','Test your GST and tax knowledge','अपना GST और टैक्स ज्ञान परखें'))+
  '<div class="tools"><div class="seg"><button type="button" id="l-en">EN</button><button type="button" id="l-hi">हिं</button></div><button type="button" class="icon-btn" id="theme" aria-label="Dark mode">🌙</button></div></nav><button type="button" class="icon-btn burger" id="burger" aria-label="Menu">☰</button></div></header>';
 var footer='<footer class="ftr"><div class="container"><div class="ftr-g"><div>'+brand+'<p style="margin-top:14px" data-en="Free, accurate and private tax &amp; accounting tools for India." data-hi="भारत के लिए फ्री, सटीक और सुरक्षित टैक्स और अकाउंटिंग टूल्स।">Free, accurate and private tax &amp; accounting tools for India.</p></div>'+
- '<div><h4 data-en="Calculators" data-hi="कैलकुलेटर">Calculators</h4><a href="gst-calculator.html">GST</a><a href="income-tax-calculator.html">Income Tax</a><a href="hra-calculator.html">HRA</a><a href="tds-calculator.html">TDS</a></div>'+
- '<div><h4 data-en="Tools" data-hi="टूल्स">Tools</h4><a href="gstr-2b-reconciliation.html">GSTR-2B Reco</a><a href="gstr-1-einvoice-reconciliation.html">GSTR-1 vs e-Invoice</a><a href="bank-reconciliation.html">Bank Reco</a><a href="tally-import.html">Invoices to Tally</a><a href="invoice-generator.html">Invoice Generator</a><a href="word-to-pdf.html">Word to PDF</a><a href="tax-quiz.html">Tax Quiz</a></div>'+
+ '<div><h4 data-en="Calculators" data-hi="कैलकुलेटर">Calculators</h4><a href="gst-calculator.html">GST</a><a href="income-tax-calculator.html">Income Tax</a><a href="hra-calculator.html">HRA</a><a href="tds-calculator.html">TDS</a><a href="tax-quiz.html">Tax Quiz</a></div>'+
+ '<div><h4 data-en="Tools" data-hi="टूल्स">Tools</h4><a href="gstr-2b-reconciliation.html">GSTR-2B Reco</a><a href="gstr-1-einvoice-reconciliation.html">GSTR-1 vs e-Invoice</a><a href="bank-reconciliation.html">Bank Reco</a><a href="invoice-generator.html">Invoice Generator</a><a href="tally-import.html">Invoices to Tally</a><a href="word-to-pdf.html">Word to PDF</a><a href="pdf-to-word.html">PDF to Word</a><a href="compress-pdf.html">Compress PDF</a><a href="merge-pdf.html">Merge PDF</a></div>'+
  '<div><h4 data-en="Company" data-hi="कंपनी">Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a></div></div>'+
  '<div class="copy">© 2026 '+NAME+' · cooridorstore.in</div></div></footer>';
 function get(k,d){try{return localStorage.getItem(k)||d;}catch(e){return d;}}
