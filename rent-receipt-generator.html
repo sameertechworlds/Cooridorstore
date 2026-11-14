@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rent Receipt Generator for HRA – Free Monthly Rent Receipts PDF | Cooridor Store</title>
+<meta name="description" content="Free online rent receipt generator for HRA claim. Create monthly rent receipts with landlord PAN, revenue stamp, amount in words and signature. Print or save as PDF. No signup.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<style>
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.warn{margin-top:12px;padding:12px 14px;border-radius:10px;background:color-mix(in srgb,#d4a017 14%,var(--sur));font-size:.88rem}
+.sum{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.sum div{padding:12px;border-radius:10px;background:var(--soft)}
+.sum b{display:block;font-size:1.15rem}
+#print{display:grid;gap:16px;margin-top:22px}
+.rc{background:#fff;color:#111;border:1.5px solid #0b3d91;border-radius:8px;padding:22px 26px;font-family:Inter,Arial,sans-serif;break-inside:avoid;page-break-inside:avoid}
+.rc .top{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #d5dbe6;padding-bottom:8px;margin-bottom:12px}
+.rc h4{font-size:1.15rem;letter-spacing:2px;color:#0b3d91}
+.rc .no{font-size:.8rem;color:#555}
+.rc p{font-size:.92rem;line-height:1.75}
+.rc .amt{font-weight:700}
+.rc .bot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:20px;gap:12px}
+.rc .stamp{width:72px;height:80px;border:1px dashed #888;font-size:.62rem;color:#666;display:grid;place-items:center;text-align:center;padding:4px}
+.rc .sig{text-align:center;font-size:.82rem;min-width:200px}
+.rc .sig img{max-height:48px;max-width:180px;display:block;margin:0 auto 4px}
+.rc .line{border-top:1px solid #333;padding-top:4px}
+@media print{
+ body *{visibility:hidden}
+ #print,#print *{visibility:visible}
+ #print{position:absolute;left:0;top:0;width:100%;margin:0;gap:14mm}
+ .rc{border-radius:0}
+ .rc:nth-child(2n){page-break-after:always;break-after:page}
+ @page{size:A4;margin:14mm}
+}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="index.html">Home</a> › <span data-en="Rent Receipt Generator" data-hi="किराया रसीद जनरेटर">Rent Receipt Generator</span></div>
+ <div class="ph">
+  <h1 data-en="Rent Receipt Generator for HRA" data-hi="HRA के लिए किराया रसीद जनरेटर">Rent Receipt Generator for HRA</h1>
+  <p data-en="Make monthly rent receipts for your HRA claim in a minute. Print them or save as PDF, then get them signed by your landlord." data-hi="HRA क्लेम के लिए हर महीने की किराया रसीद एक मिनट में बनाइए। प्रिंट कीजिए या PDF सेव कीजिए, फिर मकान मालिक से साइन करवाइए।">Make monthly rent receipts for your HRA claim in a minute. Print them or save as PDF, then get them signed by your landlord.</p>
+ </div>
+ <div class="lay">
+  <div class="card box">
+   <h3 data-en="Receipt details" data-hi="रसीद की जानकारी">Receipt details</h3>
+   <div class="f"><label data-en="Tenant name (you)" data-hi="किरायेदार का नाम (आप)">Tenant name (you)</label><input id="tn"></div>
+   <div class="f"><label data-en="Landlord name" data-hi="मकान मालिक का नाम">Landlord name</label><input id="ln"></div>
+   <div class="f"><label data-en="Landlord PAN (needed if yearly rent is over ₹1 lakh)" data-hi="मकान मालिक का PAN (सालाना किराया ₹1 लाख से ज़्यादा हो तो ज़रूरी)">Landlord PAN (needed if yearly rent is over ₹1 lakh)</label><input id="lp" maxlength="10" style="text-transform:uppercase"></div>
+   <div class="f"><label data-en="Rented property address" data-hi="किराये के मकान का पता">Rented property address</label><input id="ad"></div>
+   <div class="g2">
+    <div class="f"><label data-en="Monthly rent, ₹" data-hi="मासिक किराया, ₹">Monthly rent, ₹</label><input id="rn" inputmode="decimal"></div>
+    <div class="f"><label data-en="Paid by" data-hi="भुगतान का तरीका">Paid by</label><select id="pm"><option>Cash</option><option>UPI</option><option>Bank transfer</option><option>Cheque</option></select></div>
+    <div class="f"><label data-en="From month" data-hi="शुरू का महीना">From month</label><input type="month" id="fm"></div>
+    <div class="f"><label data-en="To month" data-hi="आख़िरी महीना">To month</label><input type="month" id="tm"></div>
+   </div>
+   <div class="f"><label data-en="Landlord signature image (optional)" data-hi="मकान मालिक के साइन की फ़ोटो (वैकल्पिक)">Landlord signature image (optional)</label><input type="file" id="sg" accept="image/*"></div>
+   <div class="acts">
+    <button type="button" class="btn btn-p" onclick="make()" data-en="Generate receipts" data-hi="रसीदें बनाएँ">Generate receipts</button>
+    <button type="button" class="btn btn-o" id="pb" onclick="window.print()" disabled data-en="🖨 Print / Save as PDF" data-hi="🖨 प्रिंट / PDF सेव करें">🖨 Print / Save as PDF</button>
+   </div>
+   <p class="note" data-en="To save as PDF, choose 'Save as PDF' as the printer. Your details are saved only in this browser." data-hi="PDF सेव करने के लिए प्रिंटर में 'Save as PDF' चुनिए। आपकी जानकारी सिर्फ़ इसी ब्राउज़र में सेव रहती है।">To save as PDF, choose 'Save as PDF' as the printer. Your details are saved only in this browser.</p>
+  </div>
+  <div class="card box">
+   <h3 data-en="Summary" data-hi="सारांश">Summary</h3>
+   <div class="sum"><div><span class="lbl" data-en="Receipts" data-hi="रसीदें">Receipts</span><b id="sn">0</b></div><div><span class="lbl" data-en="Monthly rent" data-hi="मासिक किराया">Monthly rent</span><b id="sm">₹0</b></div><div><span class="lbl" data-en="Total rent" data-hi="कुल किराया">Total rent</span><b id="st">₹0</b></div></div>
+   <div id="wn"></div>
+   <p class="note" data-en="Fill the details and press Generate. The receipts appear below." data-hi="जानकारी भरकर Generate दबाइए। रसीदें नीचे दिखेंगी।">Fill the details and press Generate. The receipts appear below.</p>
+  </div>
+ </div>
+ <div id="print"></div>
+
+ <article class="art">
+  <h2>Why you need rent receipts</h2>
+  <p>Salaried employees who live in a rented house can claim House Rent Allowance (HRA) exemption under the old tax regime. Employers usually ask for rent receipts as proof before giving the exemption in your salary TDS. Use our <a href="hra-calculator.html" style="color:var(--pri)">HRA calculator</a> to see how much of your HRA is tax-free.</p>
+  <h2>Rules to remember</h2>
+  <ul>
+   <li><b>Landlord PAN:</b> if the rent you pay in a year is more than ₹1,00,000, your employer will ask for your landlord's PAN.</li>
+   <li><b>Revenue stamp:</b> when rent above ₹5,000 is paid in cash, the receipt should carry a ₹1 revenue stamp signed across by the landlord.</li>
+   <li><b>New tax regime:</b> HRA exemption is not available under the new regime, so receipts are useful only if you choose the old regime.</li>
+   <li><b>Keep proof of payment:</b> paying rent by bank transfer or UPI gives stronger proof than cash.</li>
+  </ul>
+  <h2>How to use this rent receipt generator</h2>
+  <ol>
+   <li>Fill your name, your landlord's name and PAN, the address and the monthly rent.</li>
+   <li>Pick the first and last month. One receipt is made for each month.</li>
+   <li>Press Generate, then Print or Save as PDF. Two receipts fit on each A4 page.</li>
+   <li>Get each receipt signed by your landlord (and stamped for cash rent above ₹5,000), then submit to your employer.</li>
+  </ol>
+  <h2>Related tools</h2>
+  <div class="related">
+   <a class="card" href="hra-calculator.html">🏠 HRA Calculator</a>
+   <a class="card" href="income-tax-calculator.html">📊 Income Tax Calculator</a>
+   <a class="card" href="invoice-generator.html">🧾 GST Invoice Generator</a>
+  </div>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script>
+var SIG='',F=['tn','ln','lp','ad','rn','pm','fm','tm'];
+function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function inr(n){return '₹'+n.toLocaleString('en-IN',{minimumFractionDigits:0,maximumFractionDigits:2});}
+var ONES=['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'],TENS=['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+function two(n){return n<20?ONES[n]:TENS[Math.floor(n/10)]+(n%10?' '+ONES[n%10]:'');}
+function three(n){return (n>=100?ONES[Math.floor(n/100)]+' Hundred'+(n%100?' ':''):'')+(n%100?two(n%100):'');}
+function words(n){if(!n)return 'Zero';var s='',cr=Math.floor(n/1e7);n%=1e7;var lk=Math.floor(n/1e5);n%=1e5;var th=Math.floor(n/1e3);n%=1e3;if(cr)s+=words(cr)+' Crore ';if(lk)s+=two(lk)+' Lakh ';if(th)s+=two(th)+' Thousand ';if(n)s+=three(n);return s.trim();}
+function inWords(x){var r=Math.floor(x),p=Math.round((x-r)*100);return 'Rupees '+words(r)+(p?' and '+two(p)+' Paise':'')+' Only';}
+function save(){var o={};F.forEach(function(k){o[k]=document.getElementById(k).value;});try{localStorage.setItem('rent_rcpt',JSON.stringify(o));if(SIG)localStorage.setItem('rent_sig',SIG);}catch(e){}}
+function load(){try{var o=JSON.parse(localStorage.getItem('rent_rcpt')||'{}');F.forEach(function(k){if(o[k])document.getElementById(k).value=o[k];});SIG=localStorage.getItem('rent_sig')||'';}catch(e){}
+ if(!document.getElementById('fm').value){var d=new Date(),y=d.getMonth()<3?d.getFullYear()-1:d.getFullYear();document.getElementById('fm').value=y+'-04';document.getElementById('tm').value=(y+1)+'-03';}}
+document.getElementById('sg').onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(e){SIG=e.target.result;};r.readAsDataURL(f);};
+function make(){
+ var v={};F.forEach(function(k){v[k]=document.getElementById(k).value.trim();});v.lp=v.lp.toUpperCase();
+ var rent=parseFloat(v.rn.replace(/[^0-9.]/g,''))||0;
+ if(!v.tn||!v.ln||!v.ad||!rent||!v.fm||!v.tm){alert(T('Please fill tenant, landlord, address, rent and months.','किरायेदार, मकान मालिक, पता, किराया और महीने भरिए।'));return;}
+ if(v.lp&&!/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(v.lp)){alert(T('Landlord PAN looks wrong. It should be like ABCDE1234F.','मकान मालिक का PAN ग़लत लग रहा है। ये ABCDE1234F जैसा होना चाहिए।'));return;}
+ var a=v.fm.split('-'),b=v.tm.split('-'),y=+a[0],m=+a[1]-1,ey=+b[0],em=+b[1]-1,list=[];
+ while((y<ey||(y===ey&&m<=em))&&list.length<24){list.push(new Date(y,m,1));m++;if(m>11){m=0;y++;}}
+ if(!list.length){alert(T('"To month" must be after "From month".','"आख़िरी महीना" शुरू वाले के बाद होना चाहिए।'));return;}
+ save();
+ var cash=v.pm==='Cash',stamp=cash&&rent>5000,total=rent*list.length,html='';
+ list.forEach(function(d,i){var mon=d.toLocaleDateString('en-IN',{month:'long',year:'numeric'}),last=new Date(d.getFullYear(),d.getMonth()+1,0).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+  html+='<div class="rc"><div class="top"><h4>RENT RECEIPT</h4><span class="no">No. '+(i+1)+' &nbsp;·&nbsp; Date: '+last+'</span></div>'+
+  '<p>Received with thanks from <b>'+esc(v.tn)+'</b> a sum of <span class="amt">'+inr(rent)+'</span> ('+inWords(rent)+') by <b>'+esc(v.pm)+'</b> towards rent of the property at <b>'+esc(v.ad)+'</b> for the month of <b>'+mon+'</b>.</p>'+
+  '<div class="bot"><div style="font-size:.85rem">Landlord: <b>'+esc(v.ln)+'</b>'+(v.lp?'<br>PAN: <b>'+esc(v.lp)+'</b>':'')+'</div>'+
+  (stamp?'<div class="stamp">Affix ₹1 revenue stamp</div>':'')+
+  '<div class="sig">'+(SIG?'<img src="'+SIG+'" alt="">':'<div style="height:44px"></div>')+'<div class="line">Signature of Landlord</div></div></div></div>';});
+ document.getElementById('print').innerHTML=html;document.getElementById('pb').disabled=false;
+ document.getElementById('sn').textContent=list.length;document.getElementById('sm').textContent=inr(rent);document.getElementById('st').textContent=inr(total);
+ var w=[];var yearly=rent*12;
+ if(yearly>100000&&!v.lp)w.push(T('Yearly rent is above ₹1 lakh. Your employer will ask for the landlord\'s PAN.','सालाना किराया ₹1 लाख से ज़्यादा है। आपका एम्प्लॉयर मकान मालिक का PAN माँगेगा।'));
+ if(stamp)w.push(T('Cash rent above ₹5,000: a ₹1 revenue stamp box is added. Ask the landlord to sign across it.','₹5,000 से ज़्यादा कैश किराया: ₹1 रेवेन्यू स्टैम्प का बॉक्स जोड़ा गया है। मकान मालिक उस पर साइन करें।'));
+ document.getElementById('wn').innerHTML=w.map(function(x){return '<div class="warn">⚠️ '+x+'</div>';}).join('');
+ document.getElementById('print').scrollIntoView({behavior:'smooth'});
+ if(window.gtag)gtag('event','rent_receipts',{months:list.length});}
+load();
+</script>
+</body>
+</html>
