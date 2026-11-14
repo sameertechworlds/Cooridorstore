@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Accounting Games Online – Debit Credit, Journal Entry, GST Math & Memory | Cooridor Store</title>
+<meta name="description" content="Free accounting games to refresh your mind and sharpen your basics: Debit or Credit speed game, journal entry quiz, GST speed math and a memory match of tax terms. Play in your browser.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<style>
+.gpick{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+.gc{padding:20px;cursor:pointer;transition:.15s;text-align:left;border:1px solid var(--line);font:inherit;color:var(--txt);background:var(--sur)}
+.gc:hover,.gc.on{border-color:var(--pri);transform:translateY(-2px)}
+.gc .e{font-size:2rem}
+.gc b{display:block;font-size:1.02rem;margin:8px 0 4px}
+.gc span{display:block;color:var(--mut);font-size:.86rem}
+.gc small{display:block;margin-top:10px;font-size:.78rem;color:var(--acc);font-weight:700}
+#arena{margin-top:20px;padding:28px;min-height:360px}
+.gtop{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--mut);font-size:.9rem;margin-bottom:10px}
+.gtop b{color:var(--txt)}
+.tbar{height:6px;background:var(--soft);border-radius:9px;overflow:hidden;margin-bottom:22px}
+.tbar i{display:block;height:100%;background:var(--acc);transition:width 1s linear}
+.q{font-size:1.45rem;font-weight:700;text-align:center;margin:20px auto 26px;max-width:640px;line-height:1.35;letter-spacing:-.3px}
+.dcb{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:560px;margin:auto}
+.dcb button{padding:22px;border-radius:14px;border:none;font:inherit;font-size:1.2rem;font-weight:800;color:#fff;cursor:pointer;transition:.1s}
+.dcb button:active{transform:scale(.97)}
+.dcb .dr{background:var(--pri)}.dcb .cr{background:var(--acc)}
+.dcb small{display:block;font-size:.72rem;font-weight:600;opacity:.85}
+.fb{min-height:46px;text-align:center;margin-top:18px;font-size:.95rem}
+.fb.ok{color:var(--acc);font-weight:600}.fb.no{color:#e5484d;font-weight:600}
+.opts{display:grid;gap:10px;max-width:640px;margin:auto}
+.opt{text-align:left;padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:var(--sur);color:var(--txt);font:inherit;font-weight:500;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--pri)}
+.opt.ok{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,var(--sur))}
+.opt.bad{border-color:#e5484d;background:color-mix(in srgb,#e5484d 10%,var(--sur))}
+.g4{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:560px;margin:auto}
+.g4 .opt{text-align:center;font-size:1.1rem;font-weight:700;padding:16px}
+.exp{max-width:640px;margin:16px auto 0;padding:14px 16px;border-radius:10px;background:var(--soft);font-size:.93rem}
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:620px;margin:auto}
+.mc{aspect-ratio:4/3;border-radius:12px;border:1px solid var(--line);background:var(--pri);color:#fff;font:inherit;font-size:.82rem;font-weight:700;cursor:pointer;padding:8px;display:grid;place-items:center;text-align:center;transition:.2s}
+.mc.open{background:var(--sur);color:var(--txt);border-color:var(--pri)}
+.mc.done{background:color-mix(in srgb,var(--acc) 14%,var(--sur));color:var(--txt);border-color:var(--acc);cursor:default}
+.res{text-align:center;padding:20px 0}
+.res .big{font-size:3.2rem;margin:6px 0}
+.ra{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.center{text-align:center}
+@media(max-width:900px){.gpick{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.q{font-size:1.2rem}.mc{font-size:.7rem}.gpick{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="index.html">Home</a> › <span data-en="Accounting Games" data-hi="अकाउंटिंग गेम्स">Accounting Games</span></div>
+ <div class="ph">
+  <h1 data-en="Accounting Games" data-hi="अकाउंटिंग गेम्स">Accounting Games</h1>
+  <p data-en="Take a short break, refresh your mind and sharpen your accounting basics at the same time." data-hi="एक छोटा ब्रेक लीजिए, दिमाग़ ताज़ा कीजिए, और साथ-साथ अकाउंटिंग की बुनियाद भी पक्की कीजिए।">Take a short break, refresh your mind and sharpen your accounting basics at the same time.</p>
+ </div>
+ <div class="gpick" id="pick"></div>
+ <div class="card" id="arena"></div>
+
+ <article class="art">
+  <h2>Learn accounting the fun way</h2>
+  <p>These free accounting games turn the basics into quick challenges. They are useful for commerce students, accounts staff, and anyone who wants a short, useful break from work.</p>
+  <h2>The games</h2>
+  <ul>
+   <li><b>Debit or Credit:</b> a 60-second speed game on the golden rules of accounting. Assets and expenses increase on the debit side; liabilities, capital and income increase on the credit side.</li>
+   <li><b>Journal Entry:</b> pick the correct journal entry for everyday transactions such as rent, credit sales, purchases with GST, contra entries and depreciation.</li>
+   <li><b>GST Speed Math:</b> add GST, find GST and extract GST from inclusive amounts against the clock. Remember: GST inside an inclusive amount = Total × Rate ÷ (100 + Rate).</li>
+   <li><b>Memory Match:</b> a relaxing card game that pairs tax short forms like ITC, TDS and IRN with their full forms.</li>
+  </ul>
+  <h2>Quick rules to remember</h2>
+  <table>
+   <tr><th>Account type</th><th>Increase</th><th>Decrease</th></tr>
+   <tr><td>Assets (cash, bank, debtors, machinery)</td><td>Debit</td><td>Credit</td></tr>
+   <tr><td>Expenses and losses</td><td>Debit</td><td>Credit</td></tr>
+   <tr><td>Liabilities (creditors, loans)</td><td>Credit</td><td>Debit</td></tr>
+   <tr><td>Capital</td><td>Credit</td><td>Debit</td></tr>
+   <tr><td>Income and gains</td><td>Credit</td><td>Debit</td></tr>
+  </table>
+  <h2>Related</h2>
+  <div class="related">
+   <a class="card" href="tax-quiz.html">🎯 GST &amp; Tax Quiz</a>
+   <a class="card" href="gst-calculator.html">🧮 GST Calculator</a>
+   <a class="card" href="tally-import.html">📥 Invoices to Tally</a>
+  </div>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script>
+function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function inr(n){return '₹'+(Math.round(n*100)/100).toLocaleString('en-IN',{maximumFractionDigits:2});}
+function getB(id){try{return +localStorage.getItem('g_best_'+id)||0;}catch(e){return 0;}}
+function setB(id,v,lower){var b=getB(id);if(!b||(lower?v<b:v>b)){try{localStorage.setItem('g_best_'+id,v);}catch(e){}return v;}return b;}
+var A=document.getElementById('arena'),TM=null,KEY=null,CUR=null;
+function stop(){clearInterval(TM);KEY=null;}
+document.addEventListener('keydown',function(e){if(KEY)KEY(e);});
+function timer(sec,tick,end){clearInterval(TM);var left=sec;tick(left);TM=setInterval(function(){left--;tick(left);if(left<=0){clearInterval(TM);end();}},1000);}
+
+/* ---------- Data ---------- */
+var DC=[
+ ['Cash account increases','D','Cash is an asset. Asset ↑ = Debit.'],
+ ['Bank balance decreases','C','Bank is an asset. Asset ↓ = Credit.'],
+ ['Rent expense incurred','D','Expense ↑ = Debit.'],
+ ['Sales revenue earned','C','Income ↑ = Credit.'],
+ ['Owner brings in capital','C','Capital ↑ = Credit.'],
+ ['Creditors (payables) increase','C','Liability ↑ = Credit.'],
+ ['Debtors (receivables) increase','D','Debtors are an asset. Asset ↑ = Debit.'],
+ ['Bank loan taken – loan account','C','Loan is a liability. Liability ↑ = Credit.'],
+ ['Loan repaid – loan account','D','Liability ↓ = Debit.'],
+ ['Machinery purchased – machinery account','D','Asset ↑ = Debit.'],
+ ['Owner withdraws cash – drawings account','D','Drawings reduce capital, so Debit.'],
+ ['Interest received','C','Income ↑ = Credit.'],
+ ['Salary paid – salary account','D','Expense ↑ = Debit.'],
+ ['Depreciation charged – depreciation account','D','Depreciation is an expense. Debit.'],
+ ['Input GST (ITC) on purchases','D','ITC is an asset (receivable from govt). Debit.'],
+ ['Output GST on sales','C','Output GST is a liability. Credit.'],
+ ['Discount received','C','Income ↑ = Credit.'],
+ ['Discount allowed','D','Expense / loss ↑ = Debit.'],
+ ['Bad debts written off – bad debts account','D','Loss ↑ = Debit.'],
+ ['Purchase returns','C','Purchases reduce, so Credit.'],
+ ['Sales returns','D','Sales reduce, so Debit.'],
+ ['Prepaid insurance recorded','D','Prepaid expense is an asset. Debit.'],
+ ['Outstanding salary recorded – liability','C','Liability ↑ = Credit.'],
+ ['Commission earned','C','Income ↑ = Credit.'],
+ ['TDS deducted on contractor payment – TDS payable','C','TDS payable is a liability. Credit.'],
+ ['Electricity bill – expense account','D','Expense ↑ = Debit.'],
+ ['Customer pays you – debtor account','C','Debtor (asset) ↓ = Credit.'],
+ ['You pay a supplier – creditor account','D','Creditor (liability) ↓ = Debit.']];
+var JE=[
+ ['Paid rent ₹10,000 in cash',['Rent A/c Dr — To Cash A/c','Cash A/c Dr — To Rent A/c','Rent A/c Dr — To Bank A/c','Landlord A/c Dr — To Cash A/c'],'Rent is an expense (Dr) and cash goes out (Cr).'],
+ ['Sold goods on credit to Ravi for ₹25,000',['Ravi A/c Dr — To Sales A/c','Sales A/c Dr — To Ravi A/c','Cash A/c Dr — To Sales A/c','Ravi A/c Dr — To Purchases A/c'],'Ravi becomes a debtor (Dr); sales income (Cr).'],
+ ['Bought furniture by cheque',['Furniture A/c Dr — To Bank A/c','Bank A/c Dr — To Furniture A/c','Purchases A/c Dr — To Bank A/c','Furniture A/c Dr — To Cash A/c'],'Furniture is an asset (Dr); paid from bank (Cr). It is not "Purchases", which is only for goods for resale.'],
+ ['Owner started business with ₹1,00,000 cash',['Cash A/c Dr — To Capital A/c','Capital A/c Dr — To Cash A/c','Cash A/c Dr — To Sales A/c','Drawings A/c Dr — To Cash A/c'],'Cash comes in (Dr); owner\'s capital rises (Cr).'],
+ ['Received ₹5,000 from debtor Mohan into bank',['Bank A/c Dr — To Mohan A/c','Mohan A/c Dr — To Bank A/c','Cash A/c Dr — To Mohan A/c','Bank A/c Dr — To Sales A/c'],'Bank rises (Dr); Mohan owes less (Cr).'],
+ ['Withdrew ₹20,000 cash from bank for office use',['Cash A/c Dr — To Bank A/c','Bank A/c Dr — To Cash A/c','Drawings A/c Dr — To Bank A/c','Cash A/c Dr — To Capital A/c'],'A contra entry: cash rises (Dr), bank falls (Cr).'],
+ ['Owner took goods for personal use',['Drawings A/c Dr — To Purchases A/c','Purchases A/c Dr — To Drawings A/c','Drawings A/c Dr — To Sales A/c','Capital A/c Dr — To Cash A/c'],'Drawings (Dr); goods leave stock, so Purchases is credited.'],
+ ['Salary of ₹30,000 is outstanding at year end',['Salary A/c Dr — To Outstanding Salary A/c','Outstanding Salary A/c Dr — To Salary A/c','Salary A/c Dr — To Cash A/c','Salary A/c Dr — To Bank A/c'],'Expense is booked (Dr) and a liability created (Cr).'],
+ ['Charged depreciation on machinery',['Depreciation A/c Dr — To Machinery A/c','Machinery A/c Dr — To Depreciation A/c','Depreciation A/c Dr — To Cash A/c','Machinery A/c Dr — To Bank A/c'],'Depreciation expense (Dr); machinery value falls (Cr).'],
+ ['Bought goods ₹10,000 + 18% GST on credit from Shyam (same state)',['Purchases Dr + Input CGST & SGST Dr — To Shyam A/c','Purchases A/c Dr — To Shyam A/c (₹11,800)','Shyam A/c Dr — To Purchases + Output GST','Purchases Dr + Output CGST & SGST Dr — To Shyam A/c'],'Purchases ₹10,000 and Input CGST ₹900 + SGST ₹900 are debited; Shyam is credited ₹11,800.'],
+ ['Deposited cash into bank',['Bank A/c Dr — To Cash A/c','Cash A/c Dr — To Bank A/c','Bank A/c Dr — To Capital A/c','Bank A/c Dr — To Sales A/c'],'Contra entry: bank rises (Dr), cash falls (Cr).'],
+ ['Paid ₹50,000 to supplier Gupta by NEFT',['Gupta A/c Dr — To Bank A/c','Bank A/c Dr — To Gupta A/c','Purchases A/c Dr — To Bank A/c','Gupta A/c Dr — To Cash A/c'],'Creditor Gupta reduces (Dr); bank falls (Cr).']];
+var MEM=[['ITC','Input Tax Credit'],['TDS','Tax Deducted at Source'],['TCS','Tax Collected at Source'],['IRN','Invoice Reference Number'],['HSN','Harmonized System of Nomenclature'],['BRS','Bank Reconciliation Statement'],['PAN','Permanent Account Number'],['GSTIN','GST Identification Number']];
+var GAMES=[
+ {id:'dc',e:'⚡',en:'Debit or Credit?',hi:'Debit या Credit?',den:'60-second speed round on the golden rules.',dhi:'गोल्डन रूल्स पर 60 सेकंड का तेज़ राउंड।',run:dc,unit:'pts'},
+ {id:'je',e:'📒',en:'Journal Entry',hi:'जर्नल एंट्री',den:'Pick the right entry for 10 transactions.',dhi:'10 लेन-देन की सही एंट्री चुनिए।',run:je,unit:'/10'},
+ {id:'gst',e:'🧮',en:'GST Speed Math',hi:'GST स्पीड मैथ',den:'Solve GST sums in 45 seconds.',dhi:'45 सेकंड में GST के सवाल हल कीजिए।',run:gst,unit:'pts'},
+ {id:'mem',e:'🧠',en:'Memory Match',hi:'मेमोरी मैच',den:'Relax and match tax terms with full forms.',dhi:'आराम से टैक्स शब्दों को उनके पूरे नाम से मिलाइए।',run:mem,unit:'moves',lower:1}];
+
+/* ---------- Picker & result ---------- */
+function pick(){document.getElementById('pick').innerHTML=GAMES.map(function(g){var b=getB(g.id);
+ return '<button type="button" class="card gc'+(CUR===g.id?' on':'')+'" onclick="start(\''+g.id+'\')"><div class="e">'+g.e+'</div><b>'+T(g.en,g.hi)+'</b><span>'+T(g.den,g.dhi)+'</span><small>'+(b?T('Best: ','बेस्ट: ')+b+' '+(g.unit==='/10'?'/ 10':g.unit==='moves'?T('moves','चालें'):T('pts','अंक')):'&nbsp;')+'</small></button>';}).join('');}
+function start(id){stop();CUR=id;pick();var g=GAMES.filter(function(x){return x.id===id;})[0];g.run();A.scrollIntoView({behavior:'smooth',block:'start'});}
+function result(id,score,line){var g=GAMES.filter(function(x){return x.id===id;})[0],b=setB(id,score,g.lower);stop();pick();
+ var txt=T('I scored ','मैंने ')+score+(g.unit==='/10'?'/10':g.unit==='moves'?' '+T('moves','चालों'):' '+T('points','अंक'))+T(' in "'+g.en+'" on ',' में "'+g.hi+'" जीता, ')+location.host+T('. Can you beat me? ','। क्या आप मुझे हरा सकते हैं? ')+location.href;
+ A.innerHTML='<div class="res"><div class="lbl">'+T(g.en,g.hi)+'</div><div class="big">'+score+(g.unit==='/10'?' / 10':'')+'</div><p>'+line+'</p><p class="lbl">'+T('Your best','आपका बेस्ट')+': '+b+'</p><div class="ra"><button type="button" class="btn btn-p" onclick="start(\''+id+'\')">↻ '+T('Play again','फिर से खेलें')+'</button><a class="btn btn-o" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(txt)+'">💬 '+T('Challenge on WhatsApp','WhatsApp पर चुनौती दें')+'</a></div></div>';
+ if(window.gtag)gtag('event','game_end',{game:id,score:score});}
+function intro(){A.innerHTML='<div class="res"><div style="font-size:3rem">🎮</div><h2>'+T('Pick a game above to start','शुरू करने के लिए ऊपर से कोई गेम चुनिए')+'</h2><p class="lbl">'+T('Each game takes 1–2 minutes.','हर गेम 1-2 मिनट का है।')+'</p></div>';}
+
+/* ---------- 1. Debit or Credit ---------- */
+function dc(){var items=shuffle(DC.slice()),i=0,score=0,streak=0,top=0,lock=false,q,SEC=60;
+ A.innerHTML='<div class="gtop"><span>⏱ <b id="tl">'+SEC+'</b>s</span><span>'+T('Score','स्कोर')+': <b id="sc">0</b></span><span>🔥 '+T('Streak','लगातार')+': <b id="sk">0</b></span></div><div class="tbar"><i id="tb" style="width:100%"></i></div>'+
+  '<div class="q" id="q"></div><div class="dcb"><button type="button" class="dr" onclick="ans(\'D\')">DEBIT<small>← '+T('key','की')+'</small></button><button type="button" class="cr" onclick="ans(\'C\')">CREDIT<small>'+T('key','की')+' →</small></button></div><div class="fb" id="fb"></div>';
+ function next(){q=items[i%items.length];i++;if(i%items.length===0)shuffle(items);document.getElementById('q').textContent=q[0];lock=false;}
+ window.ans=function(s){if(lock)return;lock=true;var ok=s===q[1],fb=document.getElementById('fb');
+  if(ok){score++;streak++;top=Math.max(top,streak);fb.className='fb ok';fb.textContent='✓ '+q[2];}else{streak=0;fb.className='fb no';fb.textContent='✗ '+(q[1]==='D'?'DEBIT. ':'CREDIT. ')+q[2];}
+  document.getElementById('sc').textContent=score;document.getElementById('sk').textContent=streak;setTimeout(next,ok?350:1100);};
+ KEY=function(e){if(e.key==='ArrowLeft'){e.preventDefault();window.ans('D');}if(e.key==='ArrowRight'){e.preventDefault();window.ans('C');}};
+ next();
+ timer(SEC,function(l){document.getElementById('tl').textContent=l;document.getElementById('tb').style.width=(l/SEC*100)+'%';},function(){result('dc',score,T('Longest streak: ','सबसे लंबी लगातार: ')+top);});}
+
+/* ---------- 2. Journal entry ---------- */
+function je(){var qs=shuffle(JE.slice()).slice(0,10),i=0,score=0;
+ function show(){var q=qs[i],opts=shuffle(q[1].map(function(o,k){return {t:o,ok:k===0};}));
+  A.innerHTML='<div class="gtop"><span>'+T('Question','सवाल')+' <b>'+(i+1)+'</b> / 10</span><span>'+T('Score','स्कोर')+': <b>'+score+'</b></span></div><div class="tbar"><i style="width:'+(i*10)+'%"></i></div>'+
+   '<div class="q">'+q[0]+'</div><div class="opts">'+opts.map(function(o,k){return '<button type="button" class="opt" data-ok="'+(o.ok?1:0)+'">'+o.t+'</button>';}).join('')+'</div><div id="ex"></div>';
+  A.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){var ok=b.dataset.ok==='1';if(ok)score++;
+   A.querySelectorAll('.opt').forEach(function(x){x.disabled=true;if(x.dataset.ok==='1')x.classList.add('ok');else if(x===b)x.classList.add('bad');});
+   document.getElementById('ex').innerHTML='<div class="exp"><b>'+(ok?'✓ '+T('Correct!','सही!'):'✗ '+T('Not quite.','सही नहीं।'))+'</b> '+q[2]+'</div><div class="center" style="margin-top:14px"><button type="button" class="btn btn-p" id="nx">'+(i<9?T('Next →','अगला →'):T('See result →','नतीजा देखें →'))+'</button></div>';
+   document.getElementById('nx').onclick=function(){i++;if(i<10)show();else result('je',score,score>=8?T('Accounting pro! 🏆','अकाउंटिंग प्रो! 🏆'):score>=5?T('Good work! 👏','बढ़िया! 👏'):T('Keep practising! 📘','अभ्यास जारी रखिए! 📘'));};};});}
+ show();}
+
+/* ---------- 3. GST speed math ---------- */
+function gst(){var score=0,SEC=45,R=[5,12,18,28],q;
+ A.innerHTML='<div class="gtop"><span>⏱ <b id="tl">'+SEC+'</b>s</span><span>'+T('Score','स्कोर')+': <b id="sc">0</b></span></div><div class="tbar"><i id="tb" style="width:100%"></i></div><div class="q" id="q"></div><div class="g4" id="op"></div><div class="fb" id="fb"></div>';
+ function gen(){var r=R[Math.floor(Math.random()*R.length)],base=(Math.floor(Math.random()*40)+1)*250,t=Math.floor(Math.random()*3),ans,wr=[],txt;
+  var tot=base*(1+r/100),g=base*r/100;
+  if(t===0){txt='₹'+base.toLocaleString('en-IN')+' + '+r+'% GST = ?';ans=tot;wr=[base*(1+R[(R.indexOf(r)+1)%4]/100),base+r*10,tot+base*0.01];}
+  else if(t===1){txt=T('GST @ ','GST @ ')+r+'% '+T('on','पर')+' ₹'+base.toLocaleString('en-IN')+' = ?';ans=g;wr=[base*R[(R.indexOf(r)+1)%4]/100,g/2,g*1.1];}
+  else{txt='₹'+(Math.round(tot*100)/100).toLocaleString('en-IN')+' '+T('includes','में शामिल')+' '+r+'% GST. GST = ?';ans=g;wr=[tot*r/100,g/2,tot-base*0.9];}
+  var all=[ans];wr.forEach(function(w){w=Math.round(w*100)/100;if(all.every(function(a){return Math.abs(a-w)>0.009;})&&w>0)all.push(w);});
+  while(all.length<4){var w=Math.round(ans*(0.8+Math.random()*0.5)*100)/100;if(all.every(function(a){return Math.abs(a-w)>0.009;}))all.push(w);}
+  q={ans:ans,txt:txt,t:t,r:r};
+  document.getElementById('q').textContent=txt;
+  document.getElementById('op').innerHTML=shuffle(all).map(function(v){return '<button type="button" class="opt" data-v="'+v+'">'+inr(v)+'</button>';}).join('');
+  document.querySelectorAll('#op .opt').forEach(function(b){b.onclick=function(){var ok=Math.abs(+b.dataset.v-q.ans)<0.01,fb=document.getElementById('fb');
+   if(ok){score++;fb.className='fb ok';fb.textContent='✓ '+inr(q.ans);}else{fb.className='fb no';fb.textContent='✗ '+inr(q.ans)+(q.t===2?' — '+T('use Total × '+q.r+' ÷ '+(100+q.r),'Total × '+q.r+' ÷ '+(100+q.r)+' लगाइए'):'');}
+   document.getElementById('sc').textContent=score;setTimeout(gen,ok?250:1200);};});}
+ gen();
+ timer(SEC,function(l){document.getElementById('tl').textContent=l;document.getElementById('tb').style.width=(l/SEC*100)+'%';},function(){result('gst',score,T('Tip: GST inside an inclusive amount = Total × Rate ÷ (100 + Rate).','टिप: शामिल रकम में GST = Total × Rate ÷ (100 + Rate)।'));});}
+
+/* ---------- 4. Memory match ---------- */
+function mem(){var cards=[],open=[],moves=0,done=0,t0=Date.now(),busy=false;
+ MEM.forEach(function(p,k){cards.push({k:k,t:p[0]});cards.push({k:k,t:p[1]});});shuffle(cards);
+ A.innerHTML='<div class="gtop"><span>'+T('Moves','चालें')+': <b id="mv">0</b></span><span>'+T('Pairs','जोड़े')+': <b id="pr">0</b> / '+MEM.length+'</span><span>⏱ <b id="tl">0</b>s</span></div><div class="tbar"><i id="tb" style="width:0"></i></div><div class="mem">'+cards.map(function(c,i){return '<button type="button" class="mc" data-i="'+i+'">?</button>';}).join('')+'</div>';
+ TM=setInterval(function(){document.getElementById('tl').textContent=Math.round((Date.now()-t0)/1000);},1000);
+ A.querySelectorAll('.mc').forEach(function(b){b.onclick=function(){var c=cards[+b.dataset.i];if(busy||b.classList.contains('open')||b.classList.contains('done'))return;
+  b.classList.add('open');b.textContent=c.t;open.push(b);
+  if(open.length===2){moves++;document.getElementById('mv').textContent=moves;var a=cards[+open[0].dataset.i],d=cards[+open[1].dataset.i];
+   if(a.k===d.k){open.forEach(function(x){x.classList.remove('open');x.classList.add('done');});open=[];done++;document.getElementById('pr').textContent=done;document.getElementById('tb').style.width=(done/MEM.length*100)+'%';
+    if(done===MEM.length){var s=Math.round((Date.now()-t0)/1000);setTimeout(function(){result('mem',moves,T('Finished in ','पूरा किया ')+s+T(' seconds. Fewer moves is better.',' सेकंड में। कम चालें = बेहतर।'));},500);}}
+   else{busy=true;setTimeout(function(){open.forEach(function(x){x.classList.remove('open');x.textContent='?';});open=[];busy=false;},800);}}};});}
+
+pick();intro();
+document.addEventListener('langchange',function(){pick();if(!CUR)intro();});
+</script>
+</body>
+</html>
