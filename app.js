@@ -1,3 +1,4 @@
+(function(){var l=document.createElement('link');l.rel='icon';l.type='image/svg+xml';l.href='/favicon.svg';document.head.appendChild(l);})();
 (function(){var id='G-BXNLHN3GQX';var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+id;document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config',id);})();
 (function(){
 /* ===== नाम यहीं बदलिए ===== */
