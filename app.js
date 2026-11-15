@@ -10,11 +10,16 @@ css.textContent='.ftr .ftr-g.f5{display:grid;grid-template-columns:repeat(5,1fr)
  '.ftr a.brand{display:inline-flex;align-items:center;gap:10px;padding:0}'+
  '.ftr-top{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:30px;padding-bottom:24px;border-bottom:1px solid var(--line)}'+
  '.ftr-top p{max-width:460px;margin:0}'+
- '@media(max-width:860px){.ftr .ftr-g.f5{grid-template-columns:1fr 1fr}}';
+ '@media(min-width:861px){'+
+  '.dd .menu{max-height:calc(100vh - 100px);overflow-y:auto;overscroll-behavior:contain}'+
+  '.dd .menu.wide{columns:2;column-gap:4px;width:min(580px,92vw)}'+
+  '.dd .menu.wide a{break-inside:avoid}'+
+ '}'+
+ '@media(max-width:860px){.ftr .ftr-g.f5{grid-template-columns:1fr 1fr}.dd .menu.wide{columns:1;width:auto}}';
 document.head.appendChild(css);
 var LOGO='<svg width="36" height="36" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0b3d91"/><g stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M9 13h16M9 20h12M9 27h8"/></g><path d="M21 26.5l4 4 7.5-9" stroke="#34d399" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function m(h,i,en,hi,sen,shi){return '<a href="'+h+'"><b style="font-size:1.15rem;width:24px;text-align:center">'+i+'</b><div><div data-en="'+en+'" data-hi="'+hi+'">'+en+'</div><span data-en="'+sen+'" data-hi="'+shi+'">'+sen+'</span></div></a>';}
-function dd(en,hi,items){return '<div class="dd"><button type="button" data-en="'+en+' ▾" data-hi="'+hi+' ▾">'+en+' ▾</button><div class="menu">'+items+'</div></div>';}
+function dd(en,hi,items,wide){return '<div class="dd"><button type="button" data-en="'+en+' ▾" data-hi="'+hi+' ▾">'+en+' ▾</button><div class="menu'+(wide?' wide':'')+'">'+items+'</div></div>';}
 function col(en,hi,links){return '<div><h4 data-en="'+en+'" data-hi="'+hi+'">'+en+'</h4>'+links.map(function(l){return '<a href="'+l[0]+'">'+l[1]+'</a>';}).join('')+'</div>';}
 var brand='<a href="/" class="brand" style="color:var(--txt)">'+LOGO+'<div class="brand-t">'+NAME+'<small>'+TAG+'</small></div></a>';
 var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav" id="nav">'+
@@ -25,11 +30,10 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
   m('hra-calculator.html','🏠','HRA Calculator','HRA कैलकुलेटर','Exempt and taxable HRA','छूट और टैक्सेबल HRA')+
   m('tds-calculator.html','✂️','TDS Calculator','TDS कैलकुलेटर','TDS by section','सेक्शन के हिसाब से TDS')+
   m('80gg-calculator.html','🏠','80GG Calculator','80GG कैलकुलेटर','Rent deduction without HRA','बिना HRA किराये पर छूट')+
-   ['gratuity-calculator.html','Gratuity'],
-    m('in-hand-salary-calculator.html','💰','In-hand Salary','इन-हैंड सैलरी','CTC to take-home pay','CTC से हाथ में सैलरी')+
-    m('gratuity-calculator.html','🎁','Gratuity','ग्रेच्युटी','Gratuity on leaving a job','नौकरी छोड़ने पर ग्रेच्युटी')+
-    m('emi-calculator.html','🏦','EMI Calculator','EMI कैलकुलेटर','Loan EMI and schedule','लोन EMI और शेड्यूल')+
-  m('sip-calculator.html','📈','SIP Calculator','SIP कैलकुलेटर','SIP returns with step-up','step-up के साथ SIP रिटर्न'))+
+  m('in-hand-salary-calculator.html','💰','In-hand Salary','इन-हैंड सैलरी','CTC to take-home pay','CTC से हाथ में सैलरी')+
+  m('gratuity-calculator.html','🎁','Gratuity','ग्रेच्युटी','Gratuity on leaving a job','नौकरी छोड़ने पर ग्रेच्युटी')+
+  m('emi-calculator.html','🏦','EMI Calculator','EMI कैलकुलेटर','Loan EMI and schedule','लोन EMI और शेड्यूल')+
+  m('sip-calculator.html','📈','SIP Calculator','SIP कैलकुलेटर','SIP returns with step-up','step-up के साथ SIP रिटर्न'),true)+
  dd('Reconciliation','रिकंसिलिएशन',
   m('gstr-2b-reconciliation.html','🔄','GSTR-2B Reconciliation','GSTR-2B रिकंसिलिएशन','Purchase register vs 2B','परचेज़ रजिस्टर बनाम 2B')+
   m('gstr-1-einvoice-reconciliation.html','🧾','GSTR-1 vs e-Invoice','GSTR-1 बनाम ई-इनवॉइस','Find missing e-invoices','छूटे ई-इनवॉइस खोजें')+
@@ -51,7 +55,7 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
 var footer='<footer class="ftr"><div class="container">'+
  '<div class="ftr-top">'+brand+'<p data-en="Free tax, accounting, finance and PDF tools for India. No signup, nothing uploaded." data-hi="भारत के लिए फ्री टैक्स, अकाउंटिंग, फ़ाइनेंस और PDF टूल्स। बिना साइनअप, कुछ अपलोड नहीं।">Free tax, accounting, finance and PDF tools for India. No signup, nothing uploaded.</p></div>'+
  '<div class="ftr-g f5">'+
- col('Calculators','कैलकुलेटर',[['gst-calculator.html','GST'],['gst-late-fee-calculator.html','GST Late Fee'],['income-tax-calculator.html','Income Tax'],['hra-calculator.html','HRA'],['tds-calculator.html','TDS'],['emi-calculator.html','EMI'],['80gg-calculator.html','80GG'],['sip-calculator.html','SIP']])+
+ col('Calculators','कैलकुलेटर',[['gst-calculator.html','GST'],['gst-late-fee-calculator.html','GST Late Fee'],['income-tax-calculator.html','Income Tax'],['hra-calculator.html','HRA'],['tds-calculator.html','TDS'],['80gg-calculator.html','80GG'],['in-hand-salary-calculator.html','In-hand Salary'],['gratuity-calculator.html','Gratuity'],['emi-calculator.html','EMI'],['sip-calculator.html','SIP']])+
  col('Reconciliation','रिकंसिलिएशन',[['gstr-2b-reconciliation.html','GSTR-2B Reco'],['gstr-1-einvoice-reconciliation.html','GSTR-1 vs e-Invoice'],['bank-reconciliation.html','Bank Reco']])+
  col('Generators','जनरेटर',[['invoice-generator.html','Invoice Generator'],['rent-receipt-generator.html','Rent Receipt'],['tally-import.html','Invoices to Tally']])+
  col('PDF Tools','PDF टूल्स',[['bank-statement-pdf-to-excel.html','Bank Statement to Excel'],['word-to-pdf.html','Word to PDF'],['pdf-to-word.html','PDF to Word'],['compress-pdf.html','Compress PDF'],['merge-pdf.html','Merge PDF']])+
@@ -64,6 +68,7 @@ document.addEventListener('DOMContentLoaded',function(){
  if(h)h.outerHTML=header; if(f)f.outerHTML=footer;
  document.title=document.title.replace(/Cooridor Store/g,NAME);
  document.querySelectorAll('.dd>button').forEach(function(b){b.onclick=function(e){e.stopPropagation();var p=b.parentNode,o=p.classList.contains('open');document.querySelectorAll('.dd').forEach(function(d){d.classList.remove('open')});if(!o)p.classList.add('open');}});
+ document.querySelectorAll('.dd .menu').forEach(function(mn){mn.addEventListener('click',function(e){e.stopPropagation();});});
  document.addEventListener('click',function(){document.querySelectorAll('.dd').forEach(function(d){d.classList.remove('open')})});
  var bg=document.getElementById('burger');if(bg)bg.onclick=function(){document.getElementById('nav').classList.toggle('show')};
  document.getElementById('l-en').onclick=function(){setLang('en')};
