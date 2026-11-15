@@ -1,0 +1,33 @@
+# Cooridor Store
+
+> Free online GST, income tax, salary, accounting and PDF tools for India. Every calculator shows its full working. Files are processed in the browser and never uploaded. Available in English and Hindi.
+
+## Tax and salary calculators
+- [GST Calculator](https://www.cooridorstore.in/gst-calculator): Add or remove GST with CGST, SGST and IGST split.
+- [Income Tax Calculator](https://www.cooridorstore.in/income-tax-calculator): Old vs new regime for FY 2026-27, slab by slab.
+- [In-hand Salary Calculator](https://www.cooridorstore.in/in-hand-salary-calculator): CTC to monthly take-home after PF, professional tax and TDS.
+- [Gratuity Calculator](https://www.cooridorstore.in/gratuity-calculator): 15/26 formula, 5-year rule and ₹20 lakh tax-free limit.
+- [HRA Calculator](https://www.cooridorstore.in/hra-calculator): Exempt and taxable HRA.
+- [80GG Calculator](https://www.cooridorstore.in/80gg-calculator): Rent deduction for people without HRA.
+- [TDS Calculator](https://www.cooridorstore.in/tds-calculator): TDS by section with threshold check.
+- [GST Late Fee Calculator](https://www.cooridorstore.in/gst-late-fee-calculator): Late fee and 18% interest for GSTR-3B and GSTR-1.
+- [EMI Calculator](https://www.cooridorstore.in/emi-calculator): Loan EMI and full schedule.
+- [SIP Calculator](https://www.cooridorstore.in/sip-calculator): SIP returns with yearly step-up.
+
+## Reconciliation
+- [GSTR-2B Reconciliation](https://www.cooridorstore.in/gstr-2b-reconciliation): Match GSTR-2B with the purchase register.
+- [GSTR-1 vs e-Invoice](https://www.cooridorstore.in/gstr-1-einvoice-reconciliation): Find missing e-invoices and mismatches.
+- [Bank Reconciliation](https://www.cooridorstore.in/bank-reconciliation): Match bank statement with ledger and prepare BRS.
+
+## Generators
+- [GST Invoice Generator](https://www.cooridorstore.in/invoice-generator): Create and print GST invoices.
+- [QR Code Generator](https://www.cooridorstore.in/qr-code-generator): UPI payment, link, WhatsApp and WiFi QR codes.
+- [Rent Receipt Generator](https://www.cooridorstore.in/rent-receipt-generator): Monthly rent receipts for HRA.
+- [Invoices to Tally](https://www.cooridorstore.in/tally-import): Convert invoice Excel to Tally XML.
+
+## PDF tools
+- [Bank Statement to Excel](https://www.cooridorstore.in/bank-statement-pdf-to-excel): Convert PDF bank statements to Excel.
+- [Word to PDF](https://www.cooridorstore.in/word-to-pdf), [PDF to Word](https://www.cooridorstore.in/pdf-to-word), [Compress PDF](https://www.cooridorstore.in/compress-pdf), [Merge PDF](https://www.cooridorstore.in/merge-pdf)
+
+## About
+- [About](https://www.cooridorstore.in/about) · [Contact](https://www.cooridorstore.in/contact) · [Privacy Policy](https://www.cooridorstore.in/privacy-policy)
