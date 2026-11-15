@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free QR Code Generator: UPI, Link, WhatsApp & WiFi</title>
+<meta name="description" content="Free QR code generator for India. Make UPI payment QR codes with amount, plus link, WhatsApp and WiFi QR codes. Download PNG instantly, no signup needed.">
+<link rel="canonical" href="https://www.cooridorstore.in/qr-code-generator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cooridor Store">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Free QR Code Generator: UPI, Link, WhatsApp & WiFi">
+<meta property="og:description" content="Make a UPI payment QR with amount, or a link, WhatsApp or WiFi QR code. Download PNG free, no sign-up.">
+<meta property="og:url" content="https://www.cooridorstore.in/qr-code-generator.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Free QR Code Generator: UPI, Link, WhatsApp & WiFi">
+<meta name="twitter:description" content="Make a UPI payment QR with amount, or a link, WhatsApp or WiFi QR code. Download PNG free.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<style>
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:600px){.g2{grid-template-columns:1fr}}
+.qrwrap{display:grid;place-items:center;min-height:260px;padding:16px;background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+.qrwrap canvas{max-width:100%;height:auto;display:block}
+.qmsg{color:var(--mut);font-size:.92rem;text-align:center}
+.qbtn{display:inline-block;padding:12px 18px;border:none;border-radius:10px;background:var(--pri);color:#fff;font:inherit;font-weight:700;cursor:pointer;width:100%}
+.qbtn:disabled{opacity:.45;cursor:not-allowed}
+.raw{font-size:.75rem;color:var(--mut);word-break:break-all;margin-top:10px}
+input[type=color]{height:44px;padding:4px;cursor:pointer}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How do I make a UPI QR code?","acceptedAnswer":{"@type":"Answer","text":"Choose UPI, enter your UPI ID and name, add an amount if you want a fixed payment, and download the PNG. Customers can scan it with any UPI app."}},
+{"@type":"Question","name":"Is a UPI QR code made here safe?","acceptedAnswer":{"@type":"Answer","text":"Yes. Money goes only to the UPI ID you enter, and the QR is created inside your browser. Always check the UPI ID before printing or sharing it."}},
+{"@type":"Question","name":"Can I set a fixed amount in the UPI QR code?","acceptedAnswer":{"@type":"Answer","text":"Yes. Enter the amount and it fills in automatically when scanned. Leave it blank if the customer should type the amount."}},
+{"@type":"Question","name":"Which apps can scan this UPI QR code?","acceptedAnswer":{"@type":"Answer","text":"Any UPI app, including Google Pay, PhonePe, Paytm and BHIM, as well as bank UPI apps."}},
+{"@type":"Question","name":"Do these QR codes expire?","acceptedAnswer":{"@type":"Answer","text":"No. They are static QR codes and work as long as the UPI ID, link, phone number or WiFi details stay the same."}},
+{"@type":"Question","name":"Can I print the QR code on invoices or a shop counter?","acceptedAnswer":{"@type":"Answer","text":"Yes. Download the PNG in large size for printing. Keep enough white space around the code and test-scan the printout."}},
+{"@type":"Question","name":"How do I make a WhatsApp QR code?","acceptedAnswer":{"@type":"Answer","text":"Choose WhatsApp, enter the mobile number and an optional message. Scanning it opens a WhatsApp chat with that number."}},
+{"@type":"Question","name":"How does a WiFi QR code work?","acceptedAnswer":{"@type":"Answer","text":"Enter the network name, password and security type. Scanning it with a phone camera connects to the WiFi without typing the password."}},
+{"@type":"Question","name":"Is this QR code generator free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is free, unlimited and has no watermark or signup."}},
+{"@type":"Question","name":"Is my data stored anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. The QR code is made inside your browser and nothing you type is sent to any server."}}
+]}
+</script>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="/">Home</a> › <span data-en="QR Code Generator" data-hi="QR कोड जनरेटर">QR Code Generator</span></div>
+ <div class="ph">
+  <h1 data-en="QR Code Generator" data-hi="QR कोड जनरेटर">QR Code Generator</h1>
+  <p data-en="Make a UPI payment QR with amount, or a QR code for a link, WhatsApp chat or WiFi. Download it as PNG for free." data-hi="रकम के साथ UPI पेमेंट QR बनाइए, या लिंक, WhatsApp चैट या WiFi का QR कोड। PNG में फ्री डाउनलोड कीजिए।">Make a UPI payment QR with amount, or a QR code for a link, WhatsApp chat or WiFi. Download it as PNG for free.</p>
+ </div>
+ <div class="lay">
+  <div class="card box">
+   <div class="f"><label data-en="QR type" data-hi="QR का प्रकार">QR type</label>
+    <div class="chips" id="tp"><button type="button" data-v="upi" class="on">UPI</button><button type="button" data-v="url" data-en="Link / Text" data-hi="लिंक / टेक्स्ट">Link / Text</button><button type="button" data-v="wa">WhatsApp</button><button type="button" data-v="wifi">WiFi</button></div></div>
+
+   <div id="g-upi">
+    <div class="f"><label data-en="UPI ID" data-hi="UPI ID">UPI ID</label><input id="pa" autocomplete="off" placeholder="yourname@okaxis"></div>
+    <div class="f"><label data-en="Name (shown to payer)" data-hi="नाम (पेमेंट करने वाले को दिखेगा)">Name (shown to payer)</label><input id="pn" placeholder="Sharma Traders"></div>
+    <div class="g2">
+     <div class="f"><label data-en="Amount, ₹ (optional)" data-hi="रकम, ₹ (ज़रूरी नहीं)">Amount, ₹ (optional)</label><input id="am" inputmode="decimal" placeholder="0"></div>
+     <div class="f"><label data-en="Note (optional)" data-hi="नोट (ज़रूरी नहीं)">Note (optional)</label><input id="tn" placeholder="Invoice 101"></div>
+    </div>
+   </div>
+
+   <div id="g-url" style="display:none">
+    <div class="f"><label data-en="Link or text" data-hi="लिंक या टेक्स्ट">Link or text</label><input id="url" placeholder="https://www.cooridorstore.in"></div>
+   </div>
+
+   <div id="g-wa" style="display:none">
+    <div class="f"><label data-en="WhatsApp number" data-hi="WhatsApp नंबर">WhatsApp number</label><input id="wn" inputmode="tel" placeholder="98XXXXXXXX"></div>
+    <div class="f"><label data-en="Message (optional)" data-hi="मैसेज (ज़रूरी नहीं)">Message (optional)</label><input id="wt" placeholder="Hello, I want to know about..."></div>
+   </div>
+
+   <div id="g-wifi" style="display:none">
+    <div class="f"><label data-en="WiFi name (SSID)" data-hi="WiFi का नाम (SSID)">WiFi name (SSID)</label><input id="ss" autocomplete="off"></div>
+    <div class="g2">
+     <div class="f"><label data-en="Password" data-hi="पासवर्ड">Password</label><input id="wp" autocomplete="off"></div>
+     <div class="f"><label data-en="Security" data-hi="सुरक्षा">Security</label><select id="se"><option value="WPA">WPA / WPA2</option><option value="WEP">WEP</option><option value="nopass">No password</option></select></div>
+    </div>
+   </div>
+
+   <div class="g2">
+    <div class="f"><label data-en="Size" data-hi="साइज़">Size</label><select id="sz"><option value="256">Small (256 px)</option><option value="512" selected>Medium (512 px)</option><option value="1024">Large, for print (1024 px)</option></select></div>
+    <div class="f"><label data-en="QR colour" data-hi="QR का रंग">QR colour</label><input type="color" id="cl" value="#000000"></div>
+   </div>
+   <div class="f"><label data-en="Text under QR (optional)" data-hi="QR के नीचे टेक्स्ट (ज़रूरी नहीं)">Text under QR (optional)</label><input id="lb" data-ph-en="Auto: name and UPI ID" data-ph-hi="अपने आप: नाम और UPI ID" placeholder="Auto: name and UPI ID"></div>
+  </div>
+
+  <div class="card box">
+   <span class="lbl" data-en="Your QR code" data-hi="आपका QR कोड">Your QR code</span>
+   <div class="qrwrap"><canvas id="out" style="display:none"></canvas><div class="qmsg" id="msg"></div></div>
+   <button type="button" class="qbtn" id="dl" disabled data-en="⬇ Download PNG" data-hi="⬇ PNG डाउनलोड करें">⬇ Download PNG</button>
+   <div class="raw" id="raw"></div>
+   <p class="note" data-en="Always test-scan the QR with your phone before printing or sharing it." data-hi="प्रिंट या शेयर करने से पहले QR को अपने फ़ोन से एक बार स्कैन करके ज़रूर जाँचिए।">Always test-scan the QR with your phone before printing or sharing it.</p>
+   <div id="tmp" style="display:none"></div>
+  </div>
+ </div>
+
+ <article class="art">
+  <h2>How to make a UPI payment QR code</h2>
+  <p>Choose UPI, type your UPI ID (for example name@okaxis or 98XXXXXXXX@ybl) and the name you want the payer to see. Add an amount if every payment is the same, such as a fixed fee, or leave it blank so the customer types the amount. Download the PNG and print it for your shop counter, or add it to your invoices so clients can pay instantly.</p>
+  <h2>Uses for business and accounting</h2>
+  <ul>
+   <li><b>Invoices:</b> add a UPI QR with the exact invoice amount and number in the note, so payments are easy to match in your books.</li>
+   <li><b>Shop counter:</b> print a large QR with your name and UPI ID under it.</li>
+   <li><b>Visiting card or poster:</b> use a WhatsApp or website QR so customers can reach you in one scan.</li>
+   <li><b>Office WiFi:</b> let visitors connect without sharing the password aloud.</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <h3>1. How do I make a UPI QR code?</h3>
+  <p>Choose UPI, enter your UPI ID and name, add an amount if you want a fixed payment, and download the PNG. Customers can scan it with any UPI app.</p>
+  <h3>2. Is a UPI QR code made here safe?</h3>
+  <p>Yes. Money goes only to the UPI ID you enter, and the QR is created inside your browser. Always check the UPI ID before printing or sharing it.</p>
+  <h3>3. Can I set a fixed amount in the UPI QR code?</h3>
+  <p>Yes. Enter the amount and it fills in automatically when scanned. Leave it blank if the customer should type the amount.</p>
+  <h3>4. Which apps can scan this UPI QR code?</h3>
+  <p>Any UPI app, including Google Pay, PhonePe, Paytm and BHIM, as well as bank UPI apps.</p>
+  <h3>5. Do these QR codes expire?</h3>
+  <p>No. They are static QR codes and work as long as the UPI ID, link, phone number or WiFi details stay the same.</p>
+  <h3>6. Can I print the QR code on invoices or a shop counter?</h3>
+  <p>Yes. Download the PNG in large size for printing. Keep enough white space around the code and test-scan the printout.</p>
+  <h3>7. How do I make a WhatsApp QR code?</h3>
+  <p>Choose WhatsApp, enter the mobile number and an optional message. Scanning it opens a WhatsApp chat with that number.</p>
+  <h3>8. How does a WiFi QR code work?</h3>
+  <p>Enter the network name, password and security type. Scanning it with a phone camera connects to the WiFi without typing the password.</p>
+  <h3>9. Is this QR code generator free?</h3>
+  <p>Yes. It is free, unlimited and has no watermark or signup.</p>
+  <h3>10. Is my data stored anywhere?</h3>
+  <p>No. The QR code is made inside your browser and nothing you type is sent to any server.</p>
+
+  <h2>Related tools</h2>
+  <div class="related">
+   <a class="card" href="invoice-generator.html">🧾 GST Invoice Generator</a>
+   <a class="card" href="rent-receipt-generator.html">🏘️ Rent Receipt Generator</a>
+   <a class="card" href="gst-calculator.html">🧮 GST Calculator</a>
+  </div>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+var TYPE='upi';
+function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
+function v(id){return document.getElementById(id).value.trim();}
+function show(){['upi','url','wa','wifi'].forEach(function(t){document.getElementById('g-'+t).style.display=t===TYPE?'':'none';});}
+document.querySelectorAll('#tp button').forEach(function(b){b.onclick=function(){TYPE=b.dataset.v;document.querySelectorAll('#tp button').forEach(function(x){x.classList.toggle('on',x===b);});show();render();};});
+function data(){
+ if(TYPE==='upi'){
+  var pa=v('pa');
+  if(!pa)return {err:T('Enter your UPI ID to make the QR code.','QR बनाने के लिए अपनी UPI ID डालिए।')};
+  if(!/^[a-zA-Z0-9.\-_]{2,256}@[a-zA-Z]{2,64}$/.test(pa))return {err:T('This UPI ID does not look right. Example: name@okaxis','UPI ID सही नहीं लग रही। जैसे: name@okaxis')};
+  var s='upi://pay?pa='+pa,pn=v('pn'),am=parseFloat(v('am').replace(/[^0-9.]/g,'')),tn=v('tn');
+  if(pn)s+='&pn='+encodeURIComponent(pn);
+  if(am>0)s+='&am='+am.toFixed(2);
+  s+='&cu=INR';
+  if(tn)s+='&tn='+encodeURIComponent(tn);
+  return {s:s,lab:(pn?pn+' · ':'')+pa+(am>0?' · ₹'+am.toLocaleString('en-IN'):'')};
+ }
+ if(TYPE==='url'){var u=v('url');if(!u)return {err:T('Enter a link or text.','लिंक या टेक्स्ट डालिए।')};return {s:u,lab:''};}
+ if(TYPE==='wa'){
+  var n=v('wn').replace(/\D/g,'');if(n.length===10)n='91'+n;
+  if(n.length<11)return {err:T('Enter a 10-digit mobile number.','10 अंकों का मोबाइल नंबर डालिए।')};
+  var t=v('wt');return {s:'https://wa.me/'+n+(t?'?text='+encodeURIComponent(t):''),lab:'WhatsApp +'+n};
+ }
+ var ss=v('ss');if(!ss)return {err:T('Enter the WiFi name.','WiFi का नाम डालिए।')};
+ var esc=function(x){return x.replace(/([\\;,:"])/g,'\\$1');},sec=document.getElementById('se').value;
+ return {s:'WIFI:T:'+sec+';S:'+esc(ss)+';'+(sec==='nopass'?'':'P:'+esc(v('wp'))+';')+';',lab:'WiFi: '+ss};
+}
+function fail(t){var out=document.getElementById('out');out.style.display='none';document.getElementById('msg').textContent=t;document.getElementById('dl').disabled=true;document.getElementById('raw').textContent='';}
+function render(){
+ if(typeof QRCode==='undefined'){fail(T('Loading…','लोड हो रहा है…'));return;}
+ var d=data();if(d.err){fail(d.err);return;}
+ var size=parseInt(document.getElementById('sz').value,10),col=document.getElementById('cl').value,tmp=document.getElementById('tmp');
+ tmp.innerHTML='';
+ try{new QRCode(tmp,{text:d.s,width:size,height:size,colorDark:col,colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});}
+ catch(e){fail(T('This text is too long for a QR code. Please shorten it.','यह टेक्स्ट QR के लिए बहुत लंबा है। छोटा कीजिए।'));return;}
+ var src=tmp.querySelector('canvas');if(!src){fail(T('Your browser could not draw the QR code.','आपका ब्राउज़र QR नहीं बना पाया।'));return;}
+ var lab=v('lb')||d.lab,pad=Math.round(size*0.08),lh=lab?Math.round(size*0.1):0,out=document.getElementById('out'),c=out.getContext('2d');
+ out.width=size+pad*2;out.height=size+pad*2+lh;
+ c.fillStyle='#ffffff';c.fillRect(0,0,out.width,out.height);
+ c.imageSmoothingEnabled=false;c.drawImage(src,pad,pad,size,size);
+ if(lab){c.fillStyle=col;c.textAlign='center';c.textBaseline='middle';c.font='600 '+Math.round(size*0.045)+'px Inter, Arial, sans-serif';c.fillText(lab,out.width/2,size+pad+lh*0.45,out.width-pad*2);}
+ out.style.display='block';document.getElementById('msg').textContent='';
+ document.getElementById('dl').disabled=false;
+ document.getElementById('raw').textContent=(TYPE==='wifi'?'WIFI:T:'+document.getElementById('se').value+';S:'+v('ss')+';…':d.s);
+}
+document.getElementById('dl').onclick=function(){var a=document.createElement('a');a.download='qr-code-'+TYPE+'.png';a.href=document.getElementById('out').toDataURL('image/png');document.body.appendChild(a);a.click();a.remove();};
+['pa','pn','am','tn','url','wn','wt','ss','wp','lb'].forEach(function(id){document.getElementById(id).addEventListener('input',render);});
+['se','sz','cl'].forEach(function(id){document.getElementById(id).addEventListener('change',render);});
+document.getElementById('cl').addEventListener('input',render);
+document.addEventListener('langchange',render);
+window.addEventListener('load',render);
+</script>
+</body>
+</html>
