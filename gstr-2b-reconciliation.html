@@ -2,9 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GSTR-2B Reconciliation Tool Free – Match Purchase Register with GSTR-2B in Excel | Cooridor Store</title>
-<meta name="description" content="Free online GSTR-2B reconciliation tool. Upload GSTR-2B Excel and your purchase register to find matched, mismatched and missing invoices, and claim the right ITC. No upload to server.">
-<meta name="keywords" content="GSTR-2B reconciliation, GSTR 2B reconciliation excel, ITC reconciliation, purchase register vs GSTR-2B, GSTR-2A reconciliation, input tax credit reconciliation tool, GST reconciliation online free">
+<title>GSTR-2B Reconciliation Tool: Match 2B with Purchases</title>
+<meta name="description" content="Free GSTR-2B reconciliation tool. Match GSTR-2B with your purchase register by GSTIN and invoice number, find missing ITC and download the report in Excel.">
+<link rel="canonical" href="https://www.cooridorstore.in/gstr-2b-reconciliation.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cooridor Store">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="GSTR-2B Reconciliation Tool: Match 2B with Purchases">
+<meta property="og:description" content="Match GSTR-2B with your purchase register, find missing ITC and download an Excel report. Free, files stay on your device.">
+<meta property="og:url" content="https://www.cooridorstore.in/gstr-2b-reconciliation.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GSTR-2B Reconciliation Tool: Match 2B with Purchases">
+<meta name="twitter:description" content="Match GSTR-2B with your purchase register, find missing ITC and download an Excel report.">
+  <meta name="keywords" content="GSTR-2B reconciliation, GSTR 2B reconciliation excel, ITC reconciliation, purchase register vs GSTR-2B, GSTR-2A reconciliation, input tax credit reconciliation tool, GST reconciliation online free">
 <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="calc.css"><script src="app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
@@ -32,6 +42,20 @@
 @media(max-width:860px){.up,.kpis{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.up,.kpis{grid-template-columns:1fr}}
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is GSTR-2B?","acceptedAnswer":{"@type":"Answer","text":"GSTR-2B is a monthly statement of input tax credit prepared by the GST portal from invoices your suppliers report in GSTR-1 or IFF. It does not change once generated."}},
+{"@type":"Question","name":"Why should I reconcile GSTR-2B with my purchase register?","acceptedAnswer":{"@type":"Answer","text":"ITC can be claimed in GSTR-3B only for invoices that appear in GSTR-2B. Monthly reconciliation helps avoid excess ITC claims, interest and notices."}},
+{"@type":"Question","name":"How do I download GSTR-2B in Excel?","acceptedAnswer":{"@type":"Answer","text":"On the GST portal, go to Services, Returns, Returns Dashboard. Select the year and month, open GSTR-2B and click Download Excel."}},
+{"@type":"Question","name":"How does this tool match invoices?","acceptedAnswer":{"@type":"Answer","text":"It compares supplier GSTIN, invoice number and tax amounts in both files and marks each invoice as matched, mismatched, missing in 2B or missing in books."}},
+{"@type":"Question","name":"What if an invoice is in my books but not in GSTR-2B?","acceptedAnswer":{"@type":"Answer","text":"The supplier has usually not filed or reported that invoice. Follow up with the supplier and do not claim the ITC until it appears in GSTR-2B."}},
+{"@type":"Question","name":"What if an invoice is in GSTR-2B but not in my books?","acceptedAnswer":{"@type":"Answer","text":"Check whether it is a genuine purchase that was not recorded. If not, ask the supplier, as they may have used your GSTIN by mistake."}},
+{"@type":"Question","name":"What is the difference between GSTR-2A and GSTR-2B?","acceptedAnswer":{"@type":"Answer","text":"GSTR-2A is dynamic and keeps updating. GSTR-2B is fixed for each month and is the basis for claiming ITC in GSTR-3B."}},
+{"@type":"Question","name":"When is GSTR-2B generated?","acceptedAnswer":{"@type":"Answer","text":"On the 14th of the following month. With the Invoice Management System, you can accept or reject invoices and get GSTR-2B computed again before filing GSTR-3B."}},
+{"@type":"Question","name":"How often should I reconcile GSTR-2B?","acceptedAnswer":{"@type":"Answer","text":"Every month, before filing GSTR-3B, so missing invoices are caught early."}},
+{"@type":"Question","name":"Are my files safe with this tool?","acceptedAnswer":{"@type":"Answer","text":"Yes. Both Excel files are processed inside your browser and never leave your computer."}}
+]}
+</script>
 </head>
 <body>
 <div id="site-header"></div>
@@ -82,14 +106,27 @@
     <h2>How does the matching work?</h2>
     <p>Invoices are matched on supplier GSTIN and invoice number. The tool cleans invoice numbers by removing spaces, slashes, hyphens and leading zeros, so "INV/001" and "inv-1" are treated as the same bill. Differences within your tolerance (default ₹1) count as matched.</p>
     <div class="fx">Matched: same GSTIN + invoice, difference ≤ tolerance<br>Mismatch: same GSTIN + invoice, difference > tolerance<br>In books only: ITC at risk, follow up with supplier<br>In 2B only: possibly unrecorded purchase</div>
-    <h2>Frequently asked questions</h2>
-    <h3>What is the difference between GSTR-2A and GSTR-2B?</h3>
-    <p>GSTR-2A is dynamic and keeps changing as suppliers file returns. GSTR-2B is static for each month and is the basis for claiming ITC in GSTR-3B.</p>
-    <h3>Can I use this for GSTR-2A reconciliation?</h3>
-    <p>Yes. Upload the GSTR-2A Excel in place of 2B; the matching works the same way.</p>
-    <h3>Is my data safe?</h3>
-    <p>Yes. Files are read inside your browser. Nothing is uploaded to any server.</p>
-    <h2>Related tools</h2>
+        <h2>Frequently asked questions</h2>
+    <h3>1. What is GSTR-2B?</h3>
+    <p>GSTR-2B is a monthly statement of input tax credit (ITC) prepared by the GST portal from the invoices your suppliers report in GSTR-1 or IFF. Unlike GSTR-2A, it does not change once generated.</p>
+    <h3>2. Why should I reconcile GSTR-2B with my purchase register?</h3>
+    <p>ITC can be claimed in GSTR-3B only for invoices that appear in GSTR-2B. Reconciling every month helps you avoid excess ITC claims, interest and notices, and shows which suppliers have not reported your invoices.</p>
+    <h3>3. How do I download GSTR-2B in Excel?</h3>
+    <p>On the GST portal, go to Services, Returns, Returns Dashboard. Select the financial year and month, open GSTR-2B and click Download Excel.</p>
+    <h3>4. How does this tool match invoices?</h3>
+    <p>It compares the supplier GSTIN, invoice number and tax amounts in both files, then marks each invoice as matched, mismatched, missing in 2B or missing in books. You can download the full result in Excel.</p>
+    <h3>5. What if an invoice is in my books but not in GSTR-2B?</h3>
+    <p>The supplier has usually not filed or reported that invoice. Follow up with the supplier and do not claim the ITC until it appears in GSTR-2B.</p>
+    <h3>6. What if an invoice is in GSTR-2B but not in my books?</h3>
+    <p>Check whether it is a genuine purchase that was not recorded. If it is, enter it in your books. If not, ask the supplier, as they may have used your GSTIN by mistake.</p>
+    <h3>7. What is the difference between GSTR-2A and GSTR-2B?</h3>
+    <p>GSTR-2A is dynamic and keeps updating whenever suppliers file. GSTR-2B is fixed for each month, so it is the basis for claiming ITC in GSTR-3B.</p>
+    <h3>8. When is GSTR-2B generated?</h3>
+    <p>It is generated on the 14th of the following month. With the Invoice Management System (IMS), you can accept or reject invoices and get GSTR-2B computed again before filing GSTR-3B.</p>
+    <h3>9. How often should I reconcile GSTR-2B?</h3>
+    <p>Every month, before filing GSTR-3B. Monthly reconciliation catches missing invoices early, while there is still time to ask suppliers to correct them.</p>
+    <h3>10. Are my files safe with this tool?</h3>
+    <p>Yes. Both Excel files are processed inside your browser and never leave your computer, so client data stays private.</p>
     <div class="related"><a class="card" href="bank-reconciliation.html">🏦 Bank Reconciliation</a><a class="card" href="gst-calculator.html">🧮 GST Calculator</a><a class="card" href="invoice-generator.html">🧾 Invoice Generator</a></div>
     <p class="note">Results are for guidance only. Please verify before filing GSTR-3B.</p>
   </article>
