@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gratuity Calculator 2026: Formula, Tax & Eligibility</title>
+<meta name="description" content="Free gratuity calculator for India. Find gratuity on leaving a job with the 15/26 formula, 5-year rule, ₹20 lakh tax-free limit and new labour code rules.">
+<link rel="canonical" href="https://www.cooridorstore.in/gratuity-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cooridor Store">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Gratuity Calculator 2026: Formula, Tax & Eligibility">
+<meta property="og:description" content="Find how much gratuity you will get on leaving your job, and how much of it is tax-free. Free, no sign-up.">
+<meta property="og:url" content="https://www.cooridorstore.in/gratuity-calculator.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gratuity Calculator 2026: Formula, Tax & Eligibility">
+<meta name="twitter:description" content="Find how much gratuity you will get on leaving your job, and how much of it is tax-free.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<style>.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:600px){.g2{grid-template-columns:1fr}}.msg{margin:8px 0 4px;font-size:.9rem;font-weight:600}.msg.ok{color:var(--acc)}.msg.no{color:#dc2626}</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How is gratuity calculated?","acceptedAnswer":{"@type":"Answer","text":"For employees covered by the Payment of Gratuity Act: Gratuity = last drawn basic + DA × 15 ÷ 26 × years of service. A part year of more than six months counts as a full year."}},
+{"@type":"Question","name":"What is the gratuity for ₹50,000 salary and 10 years of service?","acceptedAnswer":{"@type":"Answer","text":"₹50,000 × 15 ÷ 26 × 10 = ₹2,88,462."}},
+{"@type":"Question","name":"Who is eligible for gratuity?","acceptedAnswer":{"@type":"Answer","text":"Employees with at least 5 years of continuous service. There is no minimum in case of death or disablement, and fixed-term employees become eligible after 1 year under the new labour codes."}},
+{"@type":"Question","name":"Is 4 years and 240 days counted as 5 years for gratuity?","acceptedAnswer":{"@type":"Answer","text":"Several courts have accepted 4 years and 240 days of work in the fifth year as 5 years of continuous service, but employers' practice varies."}},
+{"@type":"Question","name":"Why is gratuity calculated as 15/26?","acceptedAnswer":{"@type":"Answer","text":"The law gives 15 days' wages for every year of service, and a month is taken as 26 working days."}},
+{"@type":"Question","name":"Is gratuity taxable?","acceptedAnswer":{"@type":"Answer","text":"For private employees, gratuity up to ₹20 lakh in a lifetime is tax-free and the rest is taxed as salary. Gratuity of government employees is fully tax-free."}},
+{"@type":"Question","name":"What is the maximum gratuity?","acceptedAnswer":{"@type":"Answer","text":"The legal limit is ₹20 lakh. An employer may pay more, but the amount above ₹20 lakh is taxable."}},
+{"@type":"Question","name":"Which salary is used for gratuity?","acceptedAnswer":{"@type":"Answer","text":"The last drawn basic salary plus dearness allowance. Under the new labour codes, if basic and DA are less than 50% of total pay, the excess allowances are added to wages."}},
+{"@type":"Question","name":"How are months of service counted?","acceptedAnswer":{"@type":"Answer","text":"Under the Act, more than six months is rounded up to a full year, so 7 years 7 months counts as 8 years. If the employer is not covered, only completed years are counted."}},
+{"@type":"Question","name":"When must the employer pay gratuity?","acceptedAnswer":{"@type":"Answer","text":"Within 30 days of it becoming payable. If paid late, the employer must also pay simple interest."}}
+]}
+</script>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="/">Home</a> › <span data-en="Gratuity Calculator" data-hi="ग्रेच्युटी कैलकुलेटर">Gratuity Calculator</span></div>
+ <div class="ph">
+  <h1 data-en="Gratuity Calculator" data-hi="ग्रेच्युटी कैलकुलेटर">Gratuity Calculator</h1>
+  <p data-en="Find how much gratuity you will get when you leave your job, and how much of it is tax-free." data-hi="जानिए नौकरी छोड़ने पर कितनी ग्रेच्युटी मिलेगी और उसमें से कितनी टैक्स-फ़्री है।">Find how much gratuity you will get when you leave your job, and how much of it is tax-free.</p>
+ </div>
+ <div class="lay">
+  <div class="card box">
+   <div class="f"><label data-en="Last drawn monthly basic + DA, ₹" data-hi="आख़िरी मासिक बेसिक + DA, ₹">Last drawn monthly basic + DA, ₹</label><input id="sal" inputmode="decimal" value="50000"></div>
+   <div class="g2">
+    <div class="f"><label data-en="Years of service" data-hi="नौकरी के साल">Years of service</label><input id="yr" inputmode="numeric" value="10"></div>
+    <div class="f"><label data-en="Extra months (0–11)" data-hi="अतिरिक्त महीने (0–11)">Extra months (0–11)</label><input id="mo" inputmode="numeric" value="7"></div>
+   </div>
+   <div class="f"><label data-en="Is your employer covered by the Gratuity Act?" data-hi="क्या आपकी कंपनी ग्रेच्युटी एक्ट में आती है?">Is your employer covered by the Gratuity Act?</label>
+    <div class="chips" id="cv"><button type="button" data-v="1" class="on" data-en="Yes (10+ employees)" data-hi="हाँ (10+ कर्मचारी)">Yes (10+ employees)</button><button type="button" data-v="0" data-en="No" data-hi="नहीं">No</button></div></div>
+   <div class="f"><label data-en="Reason for leaving" data-hi="नौकरी छोड़ने का कारण">Reason for leaving</label>
+    <select id="rs"><option value="r">Resignation or retirement</option><option value="d">Death or disablement</option><option value="f">Fixed-term contract ended</option></select></div>
+  </div>
+  <div class="card box">
+   <span class="lbl" data-en="Gratuity payable" data-hi="मिलने वाली ग्रेच्युटी">Gratuity payable</span>
+   <div class="big" id="gv">₹0</div>
+   <div class="msg" id="el"></div>
+   <table class="rt" id="tb"></table>
+   <div class="work"><b data-en="How we calculated it" data-hi="हमने कैसे निकाला">How we calculated it</b><pre id="wk"></pre></div>
+   <p class="note" data-en="Estimate only. Government employees follow separate service rules, and their gratuity is fully tax-free." data-hi="यह सिर्फ़ अंदाज़ा है। सरकारी कर्मचारियों के अलग नियम हैं और उनकी ग्रेच्युटी पूरी टैक्स-फ़्री है।">Estimate only. Government employees follow separate service rules, and their gratuity is fully tax-free.</p>
+  </div>
+ </div>
+
+ <article class="art">
+  <h2>Gratuity formula</h2>
+  <div class="fx">Gratuity = Last basic + DA × 15 ÷ 26 × Years of service</div>
+  <p>This formula applies when the employer is covered by the Payment of Gratuity Act, which generally means it has 10 or more employees. A part year of more than six months counts as a full year. If the employer is not covered, the formula is average salary of the last 10 months × 15 ÷ 30 × completed years.</p>
+  <h2>Example</h2>
+  <p>Basic + DA of ₹50,000 and service of 10 years 7 months. Since 7 months is more than six, service counts as 11 years. Gratuity = 50,000 × 15 ÷ 26 × 11 = ₹3,17,308. This is below ₹20 lakh, so it is fully tax-free.</p>
+
+  <h2>Frequently asked questions</h2>
+  <h3>1. How is gratuity calculated?</h3>
+  <p>For employees covered by the Gratuity Act: last drawn basic + DA × 15 ÷ 26 × years of service. A part year of more than six months counts as a full year.</p>
+  <h3>2. What is the gratuity for ₹50,000 salary and 10 years of service?</h3>
+  <p>₹50,000 × 15 ÷ 26 × 10 = ₹2,88,462.</p>
+  <h3>3. Who is eligible for gratuity?</h3>
+  <p>Employees with at least 5 years of continuous service. There is no minimum in case of death or disablement, and fixed-term employees become eligible after 1 year under the new labour codes.</p>
+  <h3>4. Is 4 years and 240 days counted as 5 years?</h3>
+  <p>Several courts have accepted 4 years and 240 days of work in the fifth year as 5 years of continuous service, but employers' practice varies.</p>
+  <h3>5. Why is gratuity calculated as 15/26?</h3>
+  <p>The law gives 15 days' wages for every year of service, and a month is taken as 26 working days.</p>
+  <h3>6. Is gratuity taxable?</h3>
+  <p>For private employees, gratuity up to ₹20 lakh in a lifetime is tax-free and the rest is taxed as salary. Gratuity of government employees is fully tax-free.</p>
+  <h3>7. What is the maximum gratuity?</h3>
+  <p>The legal limit is ₹20 lakh. An employer may pay more, but the amount above ₹20 lakh is taxable.</p>
+  <h3>8. Which salary is used for gratuity?</h3>
+  <p>The last drawn basic salary plus dearness allowance. Under the new labour codes, if basic and DA are less than 50% of total pay, the excess allowances are added to wages, which raises gratuity.</p>
+  <h3>9. How are months of service counted?</h3>
+  <p>Under the Act, more than six months is rounded up to a full year, so 7 years 7 months counts as 8 years. If the employer is not covered, only completed years count.</p>
+  <h3>10. When must the employer pay gratuity?</h3>
+  <p>Within 30 days of it becoming payable. If paid late, the employer must also pay simple interest.</p>
+
+  <h2>Related tools</h2>
+  <div class="related">
+   <a class="card" href="in-hand-salary-calculator.html">💰 In-hand Salary Calculator</a>
+   <a class="card" href="income-tax-calculator.html">📊 Income Tax Calculator</a>
+   <a class="card" href="hra-calculator.html">🏠 HRA Calculator</a>
+  </div>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script>
+var COV='1';
+function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
+function inr(n){return '₹'+Math.round(n).toLocaleString('en-IN');}
+function num(id){return parseFloat(String(document.getElementById(id).value).replace(/[^0-9.]/g,''))||0;}
+document.querySelectorAll('#cv button').forEach(function(b){b.onclick=function(){COV=b.dataset.v;document.querySelectorAll('#cv button').forEach(function(x){x.classList.toggle('on',x===b);});calc();};});
+['sal','yr','mo'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+document.getElementById('rs').addEventListener('change',calc);
+function calc(){
+ var s=num('sal'),y=Math.floor(num('yr')),m=Math.min(11,Math.floor(num('mo'))),rs=document.getElementById('rs').value;
+ var total=y+m/12,yrs,gr,f;
+ if(COV==='1'){yrs=y+(m>6?1:0);gr=s*15/26*yrs;f=inr(s)+' × 15 ÷ 26 × '+yrs;}
+ else{yrs=y;gr=s*15/30*yrs;f=inr(s)+' × 15 ÷ 30 × '+yrs;}
+ var ok=rs==='d'?true:rs==='f'?total>=1:total>=5;
+ var el=document.getElementById('el');
+ el.className='msg '+(ok?'ok':'no');
+ el.textContent=ok?T('✓ Eligible for gratuity','✓ ग्रेच्युटी के लिए योग्य'):(rs==='f'?T('✗ Not eligible yet: fixed-term employees need 1 year of service','✗ अभी योग्य नहीं: फ़िक्स्ड-टर्म में 1 साल की नौकरी ज़रूरी'):T('✗ Not eligible yet: 5 years of continuous service needed','✗ अभी योग्य नहीं: 5 साल की लगातार नौकरी ज़रूरी'));
+ var pay=ok?gr:0,ex=Math.min(pay,2000000),tx=pay-ex;
+ document.getElementById('gv').textContent=inr(pay);
+ document.getElementById('tb').innerHTML=
+  '<tr><td>'+T('Service counted','गिनी गई सर्विस')+'</td><td>'+yrs+' '+T('years','साल')+'</td></tr>'+
+  '<tr><td>'+T('Tax-free (up to ₹20 lakh)','टैक्स-फ़्री (₹20 लाख तक)')+'</td><td>'+inr(ex)+'</td></tr>'+
+  '<tr><td>'+T('Taxable','टैक्सेबल')+'</td><td>'+inr(tx)+'</td></tr>'+
+  '<tr class="tot"><td>'+T('Gratuity','ग्रेच्युटी')+'</td><td>'+inr(pay)+'</td></tr>';
+ document.getElementById('wk').textContent=
+  T('Service','सर्विस')+' = '+y+' '+T('years','साल')+' '+m+' '+T('months','महीने')+'\n'+
+  (COV==='1'?(m>6?T('More than 6 months → rounded up to ','6 महीने से ज़्यादा → पूरा साल, ')+yrs+T(' years',' साल'):T('6 months or less → not counted','6 महीने या कम → नहीं गिना')):T('Not covered → only completed years count','एक्ट में नहीं → सिर्फ़ पूरे साल गिने'))+'\n\n'+
+  T('Gratuity','ग्रेच्युटी')+' = '+f+' = '+inr(gr)+'\n'+
+  (ok?'':T('Not eligible → payable ₹0','योग्य नहीं → ₹0')+'\n')+
+  T('Tax-free','टैक्स-फ़्री')+' = '+T('lower of ','कम वाला: ')+inr(pay)+T(' and ₹20,00,000',' और ₹20,00,000')+' = '+inr(ex);}
+calc();
+document.addEventListener('langchange',calc);
+</script>
+</body>
+</html>
