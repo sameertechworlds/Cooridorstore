@@ -24,7 +24,8 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
   m('hra-calculator.html','🏠','HRA Calculator','HRA कैलकुलेटर','Exempt and taxable HRA','छूट और टैक्सेबल HRA')+
   m('tds-calculator.html','✂️','TDS Calculator','TDS कैलकुलेटर','TDS by section','सेक्शन के हिसाब से TDS')+
   m('80gg-calculator.html','🏠','80GG Calculator','80GG कैलकुलेटर','Rent deduction without HRA','बिना HRA किराये पर छूट')+
-  m('emi-calculator.html','🏦','EMI Calculator','EMI कैलकुलेटर','Loan EMI and schedule','लोन EMI और शेड्यूल')+
+   m('in-hand-salary-calculator.html','💰','In-hand Salary','इन-हैंड सैलरी','CTC to take-home pay','CTC से हाथ में सैलरी')+
+   m('emi-calculator.html','🏦','EMI Calculator','EMI कैलकुलेटर','Loan EMI and schedule','लोन EMI और शेड्यूल')+
   m('sip-calculator.html','📈','SIP Calculator','SIP कैलकुलेटर','SIP returns with step-up','step-up के साथ SIP रिटर्न'))+
  dd('Reconciliation','रिकंसिलिएशन',
   m('gstr-2b-reconciliation.html','🔄','GSTR-2B Reconciliation','GSTR-2B रिकंसिलिएशन','Purchase register vs 2B','परचेज़ रजिस्टर बनाम 2B')+
