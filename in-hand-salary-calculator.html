@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>In-hand Salary Calculator FY 2026-27 – CTC to Take-home Salary | Cooridor Store</title>
+<meta name="description" content="Free in-hand salary calculator for FY 2026-27. Convert CTC to monthly take-home salary after PF, gratuity, professional tax and income tax under new or old regime, with full working.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<style>.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:600px){.g2{grid-template-columns:1fr}}</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How is in-hand salary calculated from CTC?","acceptedAnswer":{"@type":"Answer","text":"In-hand salary = CTC − employer PF − gratuity − employee PF − professional tax − income tax (TDS)."}},
+{"@type":"Question","name":"Is salary up to ₹12.75 lakh tax-free in the new regime?","acceptedAnswer":{"@type":"Answer","text":"Yes for most salaried people. After the ₹75,000 standard deduction, taxable income up to ₹12 lakh gets a full rebate, so tax is nil."}},
+{"@type":"Question","name":"How much PF is deducted from salary?","acceptedAnswer":{"@type":"Answer","text":"Usually 12% of basic salary from the employee, and another 12% from the employer as part of CTC. Many employers cap PF at a basic of ₹15,000 a month, which is ₹1,800 a month."}}
+]}
+</script>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="index.html">Home</a> › <span data-en="In-hand Salary Calculator" data-hi="इन-हैंड सैलरी कैलकुलेटर">In-hand Salary Calculator</span></div>
+ <div class="ph">
+  <h1 data-en="In-hand Salary Calculator" data-hi="इन-हैंड सैलरी कैलकुलेटर">In-hand Salary Calculator</h1>
+  <p data-en="Enter your CTC and see how much salary actually reaches your bank every month, after PF, professional tax and income tax." data-hi="अपना CTC डालिए और देखिए कि PF, प्रोफ़ेशनल टैक्स और इनकम टैक्स कटकर हर महीने बैंक में कितनी सैलरी आएगी।">Enter your CTC and see how much salary actually reaches your bank every month, after PF, professional tax and income tax.</p>
+ </div>
+ <div class="lay">
+  <div class="card box">
+   <div class="f"><label data-en="Annual CTC, ₹" data-hi="सालाना CTC, ₹">Annual CTC, ₹</label><input id="ctc" inputmode="decimal" value="1200000"></div>
+   <div class="g2">
+    <div class="f"><label data-en="Basic salary, % of CTC" data-hi="बेसिक सैलरी, CTC का %">Basic salary, % of CTC</label><input id="bp" inputmode="decimal" value="50"></div>
+    <div class="f"><label data-en="Professional tax, ₹ per year" data-hi="प्रोफ़ेशनल टैक्स, ₹ सालाना">Professional tax, ₹ per year</label><input id="pt" inputmode="decimal" value="2400"></div>
+   </div>
+   <div class="f"><label data-en="Provident Fund (PF)" data-hi="प्रोविडेंट फ़ंड (PF)">Provident Fund (PF)</label>
+    <select id="pf"><option value="cap">12% of basic, capped at ₹15,000 basic (₹1,800/month)</option><option value="full">12% of full basic</option><option value="none">No PF</option></select></div>
+   <div class="f"><label data-en="Gratuity included in CTC?" data-hi="क्या CTC में ग्रेच्युटी शामिल है?">Gratuity included in CTC?</label>
+    <select id="gr"><option value="1">Yes (4.81% of basic)</option><option value="0">No</option></select></div>
+   <div class="f"><label data-en="Tax regime" data-hi="टैक्स रिजीम">Tax regime</label>
+    <div class="chips" id="rg"><button type="button" data-v="new" class="on">New</button><button type="button" data-v="old">Old</button></div></div>
+   <div class="f" id="odw" style="display:none"><label data-en="Old regime deductions (80C incl. your PF, 80D, HRA etc.), ₹" data-hi="पुरानी रिजीम की छूटें (80C आपके PF सहित, 80D, HRA आदि), ₹">Old regime deductions (80C incl. your PF, 80D, HRA etc.), ₹</label><input id="od" inputmode="decimal" value="150000"></div>
+  </div>
+  <div class="card box">
+   <span class="lbl" data-en="Monthly in-hand salary" data-hi="मासिक इन-हैंड सैलरी">Monthly in-hand salary</span>
+   <div class="big" id="ih">₹0</div>
+   <table class="rt" id="tb"></table>
+   <div class="work"><b data-en="How we calculated it" data-hi="हमने कैसे निकाला">How we calculated it</b><pre id="wk"></pre></div>
+   <p class="note" data-en="Estimate for FY 2026-27. Actual pay depends on your salary structure, state and declarations." data-hi="FY 2026-27 का अंदाज़ा। असली सैलरी आपके स्ट्रक्चर, राज्य और डिक्लेरेशन पर निर्भर करती है।">Estimate for FY 2026-27. Actual pay depends on your salary structure, state and declarations.</p>
+  </div>
+ </div>
+
+ <article class="art">
+  <h2>CTC vs gross salary vs in-hand salary</h2>
+  <ul>
+   <li><b>CTC (cost to company):</b> everything the employer spends on you, including employer PF and gratuity.</li>
+   <li><b>Gross salary:</b> CTC minus employer PF and gratuity. This is what appears as earnings on your payslip.</li>
+   <li><b>In-hand (take-home) salary:</b> gross salary minus your PF, professional tax and income tax (TDS).</li>
+  </ul>
+  <div class="fx">In-hand = CTC − employer PF − gratuity − employee PF − professional tax − income tax</div>
+  <h2>Example: ₹12 lakh CTC</h2>
+  <p>With 50% basic, PF capped at ₹1,800 a month and gratuity in CTC: employer PF is ₹21,600 and gratuity ₹28,860, so gross salary is ₹11,49,540. In the new regime, taxable income after the ₹75,000 standard deduction is ₹10,74,540, which is under ₹12 lakh, so income tax is nil. After your PF of ₹21,600 and professional tax of ₹2,400, the in-hand salary is about ₹93,795 a month.</p>
+  <h2>New regime tax slabs (FY 2026-27)</h2>
+  <table>
+   <tr><th>Taxable income</th><th>Rate</th></tr>
+   <tr><td>Up to ₹4 lakh</td><td>Nil</td></tr><tr><td>₹4–8 lakh</td><td>5%</td></tr><tr><td>₹8–12 lakh</td><td>10%</td></tr>
+   <tr><td>₹12–16 lakh</td><td>15%</td></tr><tr><td>₹16–20 lakh</td><td>20%</td></tr><tr><td>₹20–24 lakh</td><td>25%</td></tr><tr><td>Above ₹24 lakh</td><td>30%</td></tr>
+  </table>
+  <p>Salaried people get a ₹75,000 standard deduction, and taxable income up to ₹12 lakh is tax-free because of the rebate. A 4% cess is added to the tax.</p>
+  <h2>Frequently asked questions</h2>
+  <h3>How can I increase my in-hand salary?</h3>
+  <p>Ask for PF on the capped basic of ₹15,000 instead of full basic, and compare regimes. In the old regime, claim HRA, 80C and 80D properly.</p>
+  <h3>Why is professional tax deducted?</h3>
+  <p>It is a state tax on employment, up to ₹2,500 a year. Some states, like Delhi, do not charge it.</p>
+  <h2>Related tools</h2>
+  <div class="related">
+   <a class="card" href="income-tax-calculator.html">📊 Income Tax Calculator</a>
+   <a class="card" href="hra-calculator.html">🏠 HRA Calculator</a>
+   <a class="card" href="80gg-calculator.html">🏠 80GG Calculator</a>
+  </div>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script>
+var REG='new';
+function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
+function inr(n){return '₹'+Math.round(n).toLocaleString('en-IN');}
+function num(id){return parseFloat(String(document.getElementById(id).value).replace(/[^0-9.]/g,''))||0;}
+function slab(t,S){var tax=0,prev=0;for(var i=0;i<S.length;i++){if(t>prev)tax+=(Math.min(t,S[i][0])-prev)*S[i][1]/100;prev=S[i][0];}return tax;}
+var NEW=[[400000,0],[800000,5],[1200000,10],[1600000,15],[2000000,20],[2400000,25],[1e15,30]],OLD=[[250000,0],[500000,5],[1000000,20],[1e15,30]];
+document.querySelectorAll('#rg button').forEach(function(b){b.onclick=function(){REG=b.dataset.v;document.querySelectorAll('#rg button').forEach(function(x){x.classList.toggle('on',x===b);});document.getElementById('odw').style.display=REG==='old'?'':'none';calc();};});
+['ctc','bp','pt','od'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});
+['pf','gr'].forEach(function(id){document.getElementById(id).addEventListener('change',calc);});
+function calc(){
+ var ctc=num('ctc'),basic=ctc*num('bp')/100,pfm=document.getElementById('pf').value,pt=num('pt');
+ var pfBase=pfm==='none'?0:pfm==='cap'?Math.min(basic,180000):basic,epf=pfBase*0.12,grat=document.getElementById('gr').value==='1'?basic*0.0481:0;
+ var gross=Math.max(0,ctc-epf-grat),taxable,tax,w;
+ if(REG==='new'){taxable=Math.max(0,gross-75000);tax=slab(taxable,NEW);if(taxable<=1200000)tax=0;else tax=Math.min(tax,taxable-1200000);}
+ else{taxable=Math.max(0,gross-50000-pt-num('od'));tax=slab(taxable,OLD);if(taxable<=500000)tax=0;}
+ var cess=tax*0.04,tt=tax+cess,inh=gross-epf-pt-tt;
+ document.getElementById('ih').textContent=inr(inh/12);
+ document.getElementById('tb').innerHTML=
+  '<tr><td>'+T('Gross salary (yearly)','ग्रॉस सैलरी (सालाना)')+'</td><td>'+inr(gross)+'</td></tr>'+
+  '<tr><td>'+T('Employee PF','आपका PF')+'</td><td>− '+inr(epf)+'</td></tr>'+
+  '<tr><td>'+T('Professional tax','प्रोफ़ेशनल टैक्स')+'</td><td>− '+inr(pt)+'</td></tr>'+
+  '<tr><td>'+T('Income tax + cess','इनकम टैक्स + सेस')+'</td><td>− '+inr(tt)+'</td></tr>'+
+  '<tr class="tot"><td>'+T('In-hand (yearly)','इन-हैंड (सालाना)')+'</td><td>'+inr(inh)+'</td></tr>';
+ w='Basic = '+inr(ctc)+' × '+num('bp')+'% = '+inr(basic)+'\n'+
+  T('Employer PF','एम्प्लॉयर PF')+' = 12% × '+inr(pfBase)+' = '+inr(epf)+'\n'+
+  T('Gratuity','ग्रेच्युटी')+' = '+inr(grat)+'\n'+
+  T('Gross','ग्रॉस')+' = '+inr(ctc)+' − '+inr(epf)+' − '+inr(grat)+' = '+inr(gross)+'\n\n'+
+  (REG==='new'?T('Taxable','टैक्सेबल')+' = '+inr(gross)+' − 75,000 = '+inr(taxable)+(taxable<=1200000?'\n'+T('Up to ₹12 lakh → rebate, tax = ₹0','₹12 लाख तक → रिबेट, टैक्स = ₹0'):''):
+   T('Taxable','टैक्सेबल')+' = '+inr(gross)+' − 50,000 − '+inr(pt)+' − '+inr(num('od'))+' = '+inr(taxable))+'\n'+
+  T('Tax','टैक्स')+' = '+inr(tax)+' + 4% '+T('cess','सेस')+' '+inr(cess)+' = '+inr(tt)+'\n\n'+
+  T('In-hand','इन-हैंड')+' = '+inr(gross)+' − '+inr(epf)+' − '+inr(pt)+' − '+inr(tt)+' = '+inr(inh)+'\n'+
+  T('Monthly','मासिक')+' = '+inr(inh)+' ÷ 12 = '+inr(inh/12);
+ document.getElementById('wk').textContent=w;}
+calc();
+document.addEventListener('langchange',calc);
+</script>
+</body>
+</html>
