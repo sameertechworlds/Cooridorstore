@@ -1,0 +1,88 @@
+/* ===== Cooridor Store – homepage UI upgrade (only styles, no logic) ===== */
+:root{--g1:#2563eb;--g2:#10b981;--glow:rgba(37,99,235,.18);--cardbg:rgba(255,255,255,.78);--ring:rgba(37,99,235,.35)}
+[data-theme="dark"]{--glow:rgba(96,165,250,.16);--cardbg:rgba(17,24,39,.72);--ring:rgba(96,165,250,.45)}
+
+/* soft colour glow behind the page */
+body{background-image:radial-gradient(900px 500px at 8% -10%,var(--glow),transparent 60%),radial-gradient(700px 420px at 100% 0%,rgba(16,185,129,.12),transparent 60%);background-repeat:no-repeat;background-attachment:fixed}
+
+/* glassy sticky header */
+.hdr{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(12px);-webkit-backdrop-filter:saturate(160%) blur(12px);background:color-mix(in srgb,var(--sur) 78%,transparent)!important;border-bottom:1px solid var(--line)}
+.nav>a.nav-link,.dd>button{transition:background .15s,color .15s}
+
+/* hero */
+.hero{padding:56px 0 40px!important}
+.hero h1{font-size:3rem!important;letter-spacing:-1.6px!important;line-height:1.06!important}
+.hero h1 span{background:linear-gradient(90deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;color:transparent!important}
+.pill{box-shadow:0 1px 0 rgba(0,0,0,.02),0 4px 14px rgba(16,185,129,.12);backdrop-filter:blur(6px)}
+.pill:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--g2);box-shadow:0 0 0 0 rgba(16,185,129,.6);animation:hpulse 1.8s infinite}
+@keyframes hpulse{70%{box-shadow:0 0 0 8px rgba(16,185,129,0)}100%{box-shadow:0 0 0 0 rgba(16,185,129,0)}}
+.lead{font-size:1.08rem!important;line-height:1.65}
+
+/* quick task tiles */
+.tasks{gap:12px!important}
+.task{position:relative;padding:16px!important;border-radius:16px!important;background:var(--cardbg)!important;backdrop-filter:blur(8px);transition:transform .18s,box-shadow .18s,border-color .18s!important;overflow:hidden}
+.task i{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(37,99,235,.12),rgba(16,185,129,.12));font-size:1.25rem!important}
+.task:hover{transform:translateY(-4px)!important;box-shadow:0 12px 28px -10px var(--ring)!important;border-color:var(--ring)!important}
+.task:after{content:"→";position:absolute;right:14px;bottom:12px;color:var(--pri);font-weight:700;opacity:0;transform:translateX(-6px);transition:.18s}
+.task:hover:after{opacity:1;transform:none}
+
+/* search */
+.sbox input{padding:16px 18px 16px 48px!important;border-radius:14px!important;background:var(--cardbg)!important;transition:box-shadow .15s,border-color .15s}
+.sbox input:focus{outline:none;border-color:var(--pri)!important;box-shadow:0 0 0 4px var(--glow)!important}
+.sbox .si{top:15px!important;left:17px!important}
+.trust>span{display:inline-flex;gap:6px;align-items:center;padding:6px 12px;border:1px solid var(--line);border-radius:99px;background:var(--cardbg)}
+
+/* stats strip (optional HTML block) */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+.stats div{padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--cardbg);backdrop-filter:blur(8px)}
+.stats b{display:block;font-size:1.45rem;letter-spacing:-.5px;background:linear-gradient(90deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stats span{font-size:.8rem;color:var(--mut);font-weight:600}
+
+/* Quick GST card */
+.qc{border-radius:20px!important;background:var(--cardbg)!important;backdrop-filter:blur(12px);box-shadow:0 24px 60px -24px var(--ring),0 2px 6px rgba(0,0,0,.04)!important;overflow:hidden;position:relative}
+.qc:before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--g1),var(--g2))}
+.tog{border-radius:12px!important;padding:4px;background:var(--soft);border:none!important;gap:4px}
+.tog button{border-radius:9px!important;background:transparent}
+.tog button.on{background:linear-gradient(135deg,var(--g1),#1d4ed8)!important;box-shadow:0 6px 14px -6px var(--ring)}
+.amt{border-radius:14px!important;font-size:1.6rem!important}
+.amt:focus{outline:none;border-color:var(--pri)!important;box-shadow:0 0 0 4px var(--glow)}
+.rates button{border-radius:10px!important;transition:.15s}
+.rates button:hover{border-color:var(--pri)}
+.rates button.on{background:linear-gradient(135deg,var(--g1),#1d4ed8)!important}
+.qt tr.tot td{padding-top:14px!important}
+.qt tr.tot td:last-child{font-size:1.45rem!important;background:linear-gradient(90deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;color:transparent!important}
+.qa button,.qa a{padding:8px 12px!important;border-radius:9px;background:var(--soft)!important}
+
+/* category sections */
+.cat{padding:44px 0 6px!important}
+.cat h2{font-size:1.45rem!important;letter-spacing:-.5px!important}
+.cat h2:after{content:"";flex:1;height:1px;margin-left:12px;background:linear-gradient(90deg,var(--line),transparent)}
+.cg{gap:16px!important}
+.tc{position:relative;border-radius:18px!important;padding:22px!important;background:var(--cardbg)!important;backdrop-filter:blur(8px);transition:transform .18s,box-shadow .18s,border-color .18s!important;overflow:hidden}
+.tc:before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .18s;pointer-events:none}
+.tc:hover{transform:translateY(-4px)!important;box-shadow:0 18px 36px -16px var(--ring)!important;border-color:transparent!important}
+.tc:hover:before{opacity:1}
+.tc .ti{width:48px!important;height:48px!important;border-radius:14px!important;background:linear-gradient(135deg,rgba(37,99,235,.14),rgba(16,185,129,.14))!important;transition:transform .2s}
+.tc:hover .ti{transform:scale(1.08) rotate(-4deg)}
+.tc b{font-size:1.04rem!important}
+.tc:after{content:"Open →";margin-top:10px;font-size:.82rem;font-weight:700;color:var(--pri);opacity:.0;transform:translateY(4px);transition:.18s}
+.tc:hover:after{opacity:1;transform:none}
+
+/* how it works */
+.how .card{border-radius:18px!important;background:var(--cardbg)!important;position:relative}
+.how .n{width:40px!important;height:40px!important;border-radius:12px!important;background:linear-gradient(135deg,var(--g1),var(--g2))!important;box-shadow:0 8px 18px -8px var(--ring)}
+
+/* FAQ */
+.faq details{border-radius:14px!important;background:var(--cardbg)!important;transition:border-color .15s,box-shadow .15s}
+.faq details[open]{border-color:var(--ring)!important;box-shadow:0 10px 26px -18px var(--ring)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--soft);color:var(--pri);font-weight:700;transition:transform .2s}
+.faq details[open] summary:after{transform:rotate(45deg)}
+
+/* scroll reveal */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.pill:before{animation:none}}
+
+@media(max-width:600px){.hero{padding:30px 0 24px!important}.hero h1{font-size:2.05rem!important}.stats{grid-template-columns:1fr 1fr}.tc:after{display:none}}
