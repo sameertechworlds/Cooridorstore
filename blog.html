@@ -1,1 +1,79 @@
-  ['claim-gst-tcs-amazon-flipkart-meesho.html','E-commerce','How to claim GST TCS deducted by Amazon, Flipkart and Meesho','0.5% TCS rate, a worked example, step-by-step claim on the GST portal and the accounting entries.'],
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blog: GST, Income Tax & Accounting Guides | Cooridor Store</title>
+<meta name="description" content="Simple guides on GST, income tax, TDS, salary, reconciliation and e-commerce accounting for Indian businesses and accountants, with worked examples and tools.">
+<link rel="canonical" href="https://www.cooridorstore.in/blog">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cooridor Store">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Blog: GST, Income Tax & Accounting Guides | Cooridor Store">
+<meta property="og:description" content="Simple guides on GST, income tax, TDS, salary, reconciliation and e-commerce accounting for India, with worked examples.">
+<meta property="og:url" content="https://www.cooridorstore.in/blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Blog: GST, Income Tax & Accounting Guides | Cooridor Store">
+<meta name="twitter:description" content="Simple guides on GST, income tax, TDS, salary, reconciliation and e-commerce accounting for India.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<style>
+.bf{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 18px}
+.bf button{border:1px solid var(--line);background:var(--sur);color:var(--txt);padding:7px 14px;border-radius:99px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer}
+.bf button.on{background:var(--pri);border-color:var(--pri);color:#fff}
+.bg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:30px}
+.bp{display:flex;flex-direction:column;gap:8px;padding:20px;transition:.15s}
+.bp:hover{border-color:var(--pri);transform:translateY(-2px)}
+.bp .tg{align-self:flex-start;font-size:.72rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--pri);background:var(--soft);padding:3px 9px;border-radius:99px}
+.bp h2{font-size:1.05rem;margin:0;line-height:1.35}
+.bp p{color:var(--mut);font-size:.9rem;margin:0;flex:1}
+.bp .rm{font-size:.85rem;font-weight:600;color:var(--pri)}
+@media(max-width:900px){.bg{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.bg{grid-template-columns:1fr}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Blog","name":"Cooridor Store Blog","url":"https://www.cooridorstore.in/blog","description":"Guides on GST, income tax, TDS, salary, reconciliation and e-commerce accounting for India.","inLanguage":"en-IN","publisher":{"@type":"Organization","name":"Cooridor Store","url":"https://www.cooridorstore.in/"}}
+</script>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="/">Home</a> › <span data-en="Blog" data-hi="ब्लॉग">Blog</span></div>
+ <div class="ph">
+  <h1 data-en="Blog &amp; Guides" data-hi="ब्लॉग और गाइड">Blog &amp; Guides</h1>
+  <p data-en="Plain-language guides on GST, income tax, salary, reconciliation and e-commerce accounting, each with a worked example and a free tool to try." data-hi="GST, इनकम टैक्स, सैलरी, रिकंसिलिएशन और ई-कॉमर्स अकाउंटिंग पर आसान भाषा में गाइड, हर एक में उदाहरण और फ्री टूल के साथ।">Plain-language guides on GST, income tax, salary, reconciliation and e-commerce accounting, each with a worked example and a free tool to try.</p>
+ </div>
+ <div class="bf" id="bf"></div>
+ <div class="bg" id="bg"></div>
+ <p class="note">By the Cooridor Store team · New guides are added every week.</p>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script>
+/* नया लेख जोड़ना हो तो इस लिस्ट में सबसे ऊपर एक लाइन जोड़िए: [लिंक, टैग, शीर्षक, छोटा विवरण] */
+var POSTS=[
+ ['claim-gst-tcs-amazon-flipkart-meesho.html','E-commerce','How to claim GST TCS deducted by Amazon, Flipkart and Meesho','0.5% TCS rate, a worked example, step-by-step claim on the GST portal and the accounting entries.'],
+ ['ecommerce-reconciliation.html','E-commerce','How to reconcile Amazon, Flipkart and Meesho payments with your books','Match orders with your sales register, payouts with the bank, and fees and 0.5% GST TCS with your ledgers.'],
+ ['gstr-2b-reconciliation.html','GST','GSTR-2B reconciliation: claim only the ITC you are allowed','Why Section 16(2)(aa) makes GSTR-2B matching essential, and how to match it with your purchase register.'],
+ ['gst-calculator.html','GST','How to add or remove GST from an amount','The formulas for GST-inclusive and exclusive prices, with the CGST, SGST and IGST split.'],
+ ['gst-late-fee-calculator.html','GST','GST late fee and 18% interest for GSTR-3B and GSTR-1','Per-day late fee, the turnover-based cap and how interest is worked out on late tax.'],
+ ['income-tax-calculator.html','Income tax','Old vs new tax regime for FY 2026-27','Slab rates, the ₹12 lakh rebate, marginal relief and which regime saves more.'],
+ ['in-hand-salary-calculator.html','Salary','From CTC to in-hand salary: what gets deducted','Employer PF, gratuity, employee PF, professional tax and TDS, with a ₹12 lakh CTC example.'],
+ ['gratuity-calculator.html','Salary','Gratuity formula, the 5-year rule and tax','The 15/26 formula, how months are counted and the ₹20 lakh tax-free limit.'],
+ ['hra-calculator.html','Income tax','HRA exemption explained','The three limits that decide how much of your HRA is tax-free.'],
+ ['80gg-calculator.html','Income tax','Rent deduction without HRA','How the 80GG deduction works for people who pay rent but get no HRA.'],
+ ['tds-calculator.html','TDS','TDS rates and thresholds by section','Which section applies to a payment and when TDS must be deducted.'],
+ ['bank-reconciliation.html','Accounting','How to prepare a bank reconciliation statement','Why the bank and ledger balances differ, and how to match them step by step.'],
+ ['tally-import.html','Tally','Import invoices from Excel into Tally','Turn an invoice sheet into a Tally XML file and import vouchers in minutes.']
+];
+var FLT='';
+function draw(){
+ var tags=['All'].concat(POSTS.map(function(p){return p[1];}).filter(function(t,i,a){return a.indexOf(t)===i;}));
+ document.getElementById('bf').innerHTML=tags.map(function(t){var v=t==='All'?'':t;return '<button type="button" data-t="'+v+'"'+(FLT===v?' class="on"':'')+'>'+t+'</button>';}).join('');
+ document.querySelectorAll('#bf button').forEach(function(b){b.onclick=function(){FLT=b.dataset.t;draw();};});
+ document.getElementById('bg').innerHTML=POSTS.filter(function(p){return !FLT||p[1]===FLT;}).map(function(p){return '<a class="card bp" href="'+p[0]+'"><span class="tg">'+p[1]+'</span><h2>'+p[2]+'</h2><p>'+p[3]+'</p><span class="rm">Read guide →</span></a>';}).join('');
+}
+draw();
+</script>
+</body>
+</html>
