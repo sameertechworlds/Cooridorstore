@@ -24,6 +24,7 @@
 <meta name="twitter:title" content="Free GST, Tax & PDF Tools for India | Cooridor Store">
 <meta name="twitter:description" content="GST, income tax, TDS, HRA and EMI calculators, reconciliation, invoice generator and PDF tools. Free, no sign-up.">
 <link rel="stylesheet" href="style.css">
+ <link rel="stylesheet" href="home.css">
 <style>
 .hero{position:relative;padding:40px 0 30px;isolation:isolate}
 .hero:before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(var(--line) 1.2px,transparent 1.2px);background-size:22px 22px;-webkit-mask-image:linear-gradient(to bottom,#000 35%,transparent);mask-image:linear-gradient(to bottom,#000 35%,transparent)}
@@ -132,6 +133,12 @@
     <span><b>✓</b> <span data-en="Latest Indian tax rules" data-hi="ताज़ा भारतीय टैक्स नियम">Latest Indian tax rules</span></span>
     <span><b>✓</b> <span data-en="Files stay on your device" data-hi="फ़ाइलें आपके डिवाइस पर ही">Files stay on your device</span></span>
     <span><b>✓</b> <span data-en="English &amp; हिंदी" data-hi="English और हिंदी">English &amp; हिंदी</span></span>
+   </div>
+      <div class="stats">
+    <div><b>25+</b><span data-en="Free tools" data-hi="फ्री टूल्स">Free tools</span></div>
+    <div><b>₹0</b><span data-en="No signup, no fee" data-hi="न साइनअप, न फ़ीस">No signup, no fee</span></div>
+    <div><b>100%</b><span data-en="Runs in your browser" data-hi="ब्राउज़र में ही चलता है">Runs in your browser</span></div>
+    <div><b>EN · हिं</b><span data-en="Two languages" data-hi="दो भाषाएँ">Two languages</span></div>
    </div>
   </div>
 
@@ -340,6 +347,12 @@ qi.addEventListener('keydown',function(e){var links=document.querySelectorAll('#
  if(e.key==='Enter'){e.preventDefault();location.href=links[SI].getAttribute('href');}});
 document.addEventListener('click',function(e){if(!e.target.closest('.sbox'))document.getElementById('sug').style.display='none';});
 document.addEventListener('langchange',function(){if(qi.value)search();});
+</script>
+ <script>
+(function(){var els=document.querySelectorAll('.cat,.sec');if(!('IntersectionObserver' in window))return;
+els.forEach(function(e){e.classList.add('rv');});
+var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{threshold:.08});
+els.forEach(function(e){io.observe(e);});})();
 </script>
 </body>
 </html>
