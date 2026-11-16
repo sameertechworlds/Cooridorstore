@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>E-commerce Reconciliation Tool: Amazon, Flipkart, Meesho</title>
+<meta name="description" content="Free e-commerce reconciliation for Amazon, Flipkart, Meesho, Myntra and JioMart. Match orders with books, payouts with bank, and fees and GST TCS in one report.">
+<link rel="canonical" href="https://www.cooridorstore.in/ecommerce-reconciliation">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cooridor Store">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="E-commerce Reconciliation Tool: Amazon, Flipkart, Meesho">
+<meta property="og:description" content="Free e-commerce reconciliation for Amazon, Flipkart, Meesho, Myntra and JioMart. Match orders with books, payouts with bank, and fees and GST TCS in one report.">
+<meta property="og:url" content="https://www.cooridorstore.in/ecommerce-reconciliation">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="E-commerce Reconciliation Tool: Amazon, Flipkart, Meesho">
+<meta name="twitter:description" content="Free e-commerce reconciliation for Amazon, Flipkart, Meesho, Myntra and JioMart. Match orders with books, payouts with bank, and fees and GST TCS in one report.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<link rel="stylesheet" href="ecom.css">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is e-commerce reconciliation?", "acceptedAnswer": {"@type": "Answer", "text": "It is matching what a marketplace reports with what is in your books: orders against your sales register, payouts against your bank statement, and fees and TCS against your ledgers. Any difference shows sales you missed, money not received or fees booked wrongly."}}, {"@type": "Question", "name": "Which platforms does this tool support?", "acceptedAnswer": {"@type": "Answer", "text": "Amazon, Flipkart, Meesho, Myntra and JioMart have their own pages, and any other marketplace or your own website works too. Just write the platform name in the Platform column of the template."}}, {"@type": "Question", "name": "Can I reconcile all marketplaces together?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Put all platforms in one template with a Platform column. The summary shows platform sales, books sales, fees, TCS, payouts and bank receipts for each platform side by side."}}, {"@type": "Question", "name": "Do I have to use the template?", "acceptedAnswer": {"@type": "Answer", "text": "No. You can upload the reports exactly as downloaded from the marketplace. The tool finds the header row and columns automatically, and you can change any column it picked."}}, {"@type": "Question", "name": "Why does platform sales not match my books?", "acceptedAnswer": {"@type": "Answer", "text": "Common reasons are invoices not recorded, returns without credit notes, different invoice or order numbers, or wrong amounts. The Orders vs books tab lists each of these."}}, {"@type": "Question", "name": "How is the payout to the bank checked?", "acceptedAnswer": {"@type": "Answer", "text": "Settlement lines are grouped by UTR, or by payout date when there is no UTR. Each group total is matched with a bank credit of the same amount within a few days, preferring credits whose narration has the platform name or UTR."}}, {"@type": "Question", "name": "What is the GST TCS rate on e-commerce sales?", "acceptedAnswer": {"@type": "Answer", "text": "0.5% of the net taxable value under Section 52 of the CGST Act, since 10 July 2024. The TCS tab compares expected TCS, TCS in the settlement and GSTR-8 report, and TCS in your books."}}, {"@type": "Question", "name": "What TDS do marketplaces deduct?", "acceptedAnswer": {"@type": "Answer", "text": "Income tax TDS at 0.1% of gross sales (earlier Section 194-O). The TCS & TDS tab shows it against your books."}}, {"@type": "Question", "name": "Can I download the result?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Download Excel gives a summary sheet plus separate sheets for orders vs books, payments vs orders, payouts vs bank, fees and TCS."}}, {"@type": "Question", "name": "Is my data uploaded anywhere?", "acceptedAnswer": {"@type": "Answer", "text": "No. Files are read inside your browser and never leave your computer."}}]}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "WebApplication", "name": "E-commerce Reconciliation Tool", "url": "https://www.cooridorstore.in/ecommerce-reconciliation", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (runs in the browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "datePublished": "2026-11-16", "dateModified": "2026-11-16", "inLanguage": ["en-IN", "hi-IN"], "publisher": {"@type": "Organization", "name": "Cooridor Store", "url": "https://www.cooridorstore.in/"}}
+</script>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="/">Home</a> › <span data-en="E-commerce Reconciliation" data-hi="ई-कॉमर्स रिकंसिलिएशन">E-commerce Reconciliation</span></div>
+ <div class="ph">
+  <h1 data-en="E-commerce Reconciliation" data-hi="ई-कॉमर्स रिकंसिलिएशन">E-commerce Reconciliation</h1>
+  <p data-en="See the difference between your books and every marketplace in one place: sales, payouts, fees and GST TCS for Amazon, Flipkart, Meesho, Myntra, JioMart and others." data-hi="आपकी books और हर मार्केटप्लेस का फ़र्क एक जगह देखिए: Amazon, Flipkart, Meesho, Myntra, JioMart और बाकी की सेल्स, पेआउट, फ़ीस और GST TCS।">See the difference between your books and every marketplace in one place: sales, payouts, fees and GST TCS for Amazon, Flipkart, Meesho, Myntra, JioMart and others.</p>
+ </div>
+<nav class="ez-plats" aria-label="Platforms"><a href="ecommerce-reconciliation.html" class="on">All platforms<small>Top-level summary</small></a><a href="amazon-reconciliation.html">🛒 Amazon<small>Orders · payouts · TCS</small></a><a href="flipkart-reconciliation.html">🛍️ Flipkart<small>Orders · payouts · TCS</small></a><a href="meesho-reconciliation.html">🧵 Meesho<small>Orders · payouts · TCS</small></a><a href="myntra-reconciliation.html">👗 Myntra<small>Orders · payouts · TCS</small></a><a href="jiomart-reconciliation.html">🏪 JioMart<small>Orders · payouts · TCS</small></a></nav>
+ <div class="card ez-box">
+  <div class="ez-step" data-en="Step 1 · Get your data ready" data-hi="स्टेप 1 · डेटा तैयार कीजिए">Step 1 · Get your data ready</div>
+  <div class="ez-actions">
+   <button type="button" class="ez-btn" id="ez-dl" data-en="⬇ Download Excel template" data-hi="⬇ Excel टेम्पलेट डाउनलोड करें">⬇ Download Excel template</button>
+   <button type="button" class="ez-btn" id="ez-sample" data-en="▶ Try with sample data" data-hi="▶ सैंपल डेटा से आज़माएँ">▶ Try with sample data</button>
+   <label class="ez-btn p"><input type="file" id="ez-tpl-file" accept=".xlsx,.xls"><span data-en="⬆ Upload filled template" data-hi="⬆ भरा हुआ टेम्पलेट अपलोड करें">⬆ Upload filled template</span></label>
+  </div>
+  <p class="ez-or" data-en="Or upload each report as you downloaded it. Columns are detected automatically, and you can change them." data-hi="या हर रिपोर्ट जैसी डाउनलोड की वैसी ही डालिए। कॉलम अपने आप पहचाने जाते हैं, और आप बदल भी सकते हैं।">Or upload each report as you downloaded it. Columns are detected automatically, and you can change them.</p>
+  <div class="ez-up" id="ez-up"></div>
+  <div class="ez-step" style="margin-top:18px" data-en="Step 2 · Settings" data-hi="स्टेप 2 · सेटिंग">Step 2 · Settings</div>
+  <div class="ez-set">
+   <label><span data-en="Tolerance, ₹" data-hi="छूट (टॉलरेंस), ₹">Tolerance, ₹</span><input id="ez-tol" inputmode="decimal" value="1"></label>
+   <label><span data-en="GST TCS rate, %" data-hi="GST TCS दर, %">GST TCS rate, %</span><input id="ez-tcs" inputmode="decimal" value="0.5"></label>
+   <label><span data-en="Income tax TDS rate, %" data-hi="इनकम टैक्स TDS दर, %">Income tax TDS rate, %</span><input id="ez-tds" inputmode="decimal" value="0.1"></label>
+   <label><span data-en="Bank date window, days" data-hi="बैंक तारीख़ की सीमा, दिन">Bank date window, days</span><input id="ez-win" inputmode="numeric" value="7"></label>
+  </div>
+  <button type="button" class="ez-btn p big" id="ez-run" data-en="Reconcile now →" data-hi="अभी मिलान करें →">Reconcile now →</button>
+  <p class="ez-note" data-en="🔒 Files are read in your browser and never uploaded." data-hi="🔒 फ़ाइलें आपके ब्राउज़र में ही पढ़ी जाती हैं, कहीं अपलोड नहीं होतीं।">🔒 Files are read in your browser and never uploaded.</p>
+ </div>
+ <section class="ez-out" id="ez-out" hidden>
+  <div class="ez-head"><h2 data-en="Reconciliation result" data-hi="मिलान का नतीजा">Reconciliation result</h2><button type="button" class="ez-btn p" id="ez-xlsx" data-en="⬇ Download Excel report" data-hi="⬇ Excel रिपोर्ट डाउनलोड करें">⬇ Download Excel report</button></div>
+  <div id="ez-res"></div>
+ </section>
+ <article class="art">
+  <h2>What this tool checks</h2>
+  <div class="ez-flow">
+   <div><b>1. Orders vs books</b>Every order matched with your sales register by order ID or invoice number.</div>
+   <div><b>2. Payments vs orders</b>Which orders are paid, pending or paid at a different value.</div>
+   <div><b>3. Payouts vs bank</b>Each payout matched to a bank credit by UTR, amount and date.</div>
+   <div><b>4. Fees vs books</b>Commission, shipping, other fees and GST on fees against your ledgers.</div>
+   <div><b>5. TCS &amp; TDS</b>Expected 0.5% TCS and 0.1% TDS against the platform report and your books.</div>
+  </div>
+  <p>Use this page to reconcile all your marketplaces together. Fill the template with a Platform column, or upload each platform's reports separately. The summary table then shows, for every platform, sales on the platform against sales in your books, payments still pending, total fees, TCS, payouts expected and money actually traced in your bank. For platform-specific help on which report to download, open the Amazon, Flipkart, Meesho, Myntra or JioMart page above.</p>
+  <h2>The six sheets in the template</h2>
+  <table>
+   <tr><th>Sheet</th><th>What to put</th><th>Needed?</th></tr>
+   <tr><td>1_Platform_Orders</td><td>Platform, order ID, invoice no, date, Sale or Return, taxable value, GST, invoice value</td><td>Yes</td></tr>
+   <tr><td>2_Books_Sales</td><td>Sales register from Tally or your software: voucher no, order ID if you record it, date and amounts</td><td>Yes</td></tr>
+   <tr><td>3_Settlement</td><td>Order-wise payment report: order value, commission, shipping, other charges, GST on fees, TCS, TDS, refund, net settlement, UTR</td><td>For payout checks</td></tr>
+   <tr><td>4_Bank</td><td>Bank statement credits with date, narration and amount</td><td>For bank checks</td></tr>
+   <tr><td>5_Platform_TCS</td><td>TCS from GSTR-8, GSTR-2A or the platform's TCS report</td><td>Optional</td></tr>
+   <tr><td>6_Books_Fees_TCS</td><td>Closing balances of commission, shipping, other fees, input GST on fees, TCS and TDS receivable ledgers</td><td>Optional</td></tr>
+  </table>
+  <h2>How net payout is calculated</h2>
+  <div class="fx">Net payout = Sale value − commission − shipping − other fees − GST on fees − TCS − TDS − refunds</div>
+  <p>The waterfall in the result shows each of these steps for all your platforms together, and the amount actually traced in the bank.</p>
+  <h2>Frequently asked questions</h2>
+  <h3>1. What is e-commerce reconciliation?</h3>
+  <p>It is matching what a marketplace reports with what is in your books: orders against your sales register, payouts against your bank statement, and fees and TCS against your ledgers. Any difference shows sales you missed, money not received or fees booked wrongly.</p>
+  <h3>2. Which platforms does this tool support?</h3>
+  <p>Amazon, Flipkart, Meesho, Myntra and JioMart have their own pages, and any other marketplace or your own website works too. Just write the platform name in the Platform column of the template.</p>
+  <h3>3. Can I reconcile all marketplaces together?</h3>
+  <p>Yes. Put all platforms in one template with a Platform column. The summary shows platform sales, books sales, fees, TCS, payouts and bank receipts for each platform side by side.</p>
+  <h3>4. Do I have to use the template?</h3>
+  <p>No. You can upload the reports exactly as downloaded from the marketplace. The tool finds the header row and columns automatically, and you can change any column it picked.</p>
+  <h3>5. Why does platform sales not match my books?</h3>
+  <p>Common reasons are invoices not recorded, returns without credit notes, different invoice or order numbers, or wrong amounts. The Orders vs books tab lists each of these.</p>
+  <h3>6. How is the payout to the bank checked?</h3>
+  <p>Settlement lines are grouped by UTR, or by payout date when there is no UTR. Each group total is matched with a bank credit of the same amount within a few days, preferring credits whose narration has the platform name or UTR.</p>
+  <h3>7. What is the GST TCS rate on e-commerce sales?</h3>
+  <p>0.5% of the net taxable value under Section 52 of the CGST Act, since 10 July 2024. The TCS tab compares expected TCS, TCS in the settlement and GSTR-8 report, and TCS in your books.</p>
+  <h3>8. What TDS do marketplaces deduct?</h3>
+  <p>Income tax TDS at 0.1% of gross sales (earlier Section 194-O). The TCS &amp; TDS tab shows it against your books.</p>
+  <h3>9. Can I download the result?</h3>
+  <p>Yes. Download Excel gives a summary sheet plus separate sheets for orders vs books, payments vs orders, payouts vs bank, fees and TCS.</p>
+  <h3>10. Is my data uploaded anywhere?</h3>
+  <p>No. Files are read inside your browser and never leave your computer.</p>
+  <h2>Official sources</h2>
+  <ul>
+   <li>GST TCS by e-commerce operators (Section 52, GSTR-8): <a href="https://cbic-gst.gov.in/" rel="noopener" target="_blank">CBIC GST</a> and the <a href="https://www.gst.gov.in/" rel="noopener" target="_blank">GST Portal</a></li>
+   <li>Income tax TDS on e-commerce sales: <a href="https://incometaxindia.gov.in/" rel="noopener" target="_blank">Income Tax Department</a></li>
+  </ul>
+  <blockquote style="margin:14px 0;padding:12px 16px;border-left:4px solid var(--pri);background:var(--soft);border-radius:8px"><p style="margin:0">Every e-commerce operator “shall collect an amount calculated at such rate not exceeding one per cent.”</p><cite style="font-size:.85rem;color:var(--mut)">— Section 52(1), CGST Act, 2017 (<a href="https://cbic-gst.gov.in/" rel="noopener" target="_blank">CBIC</a>). The notified rate is now 0.5%.</cite></blockquote>
+  <p class="note">By the Cooridor Store team · Last updated: <time datetime="2026-11-16">16 November 2026</time>. Results are for guidance; please verify with your accountant before filing.</p>
+  <h2>Related tools</h2>
+  <div class="related">
+   <a class="card" href="amazon-reconciliation.html">🛒 Amazon Reconciliation</a>
+   <a class="card" href="flipkart-reconciliation.html">🛍️ Flipkart Reconciliation</a>
+   <a class="card" href="meesho-reconciliation.html">🧵 Meesho Reconciliation</a>
+   <a class="card" href="myntra-reconciliation.html">👗 Myntra Reconciliation</a>
+   <a class="card" href="jiomart-reconciliation.html">🏪 JioMart Reconciliation</a>
+   <a class="card" href="gstr-2b-reconciliation.html">🔄 GSTR-2B Reconciliation</a>
+  </div>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>window.ECOM={platform:'ALL'};</script>
+<script src="ecom-reco.js"></script>
+</body>
+</html>

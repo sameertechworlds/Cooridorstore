@@ -35,13 +35,19 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
   m('emi-calculator.html','🏦','EMI Calculator','EMI कैलकुलेटर','Loan EMI and schedule','लोन EMI और शेड्यूल')+
   m('sip-calculator.html','📈','SIP Calculator','SIP कैलकुलेटर','SIP returns with step-up','step-up के साथ SIP रिटर्न'),true)+
  dd('Reconciliation','रिकंसिलिएशन',
+  m('ecommerce-reconciliation.html','🛒','E-commerce Reco','ई-कॉमर्स रिको','All marketplaces vs books','सभी मार्केटप्लेस बनाम books')+
+  m('amazon-reconciliation.html','🛒','Amazon Reco','Amazon रिको','Orders, payouts, fees, TCS','ऑर्डर, पेआउट, फ़ीस, TCS')+
+  m('flipkart-reconciliation.html','🛍️','Flipkart Reco','Flipkart रिको','Orders, payouts, fees, TCS','ऑर्डर, पेआउट, फ़ीस, TCS')+
+  m('meesho-reconciliation.html','🧵','Meesho Reco','Meesho रिको','Orders, payouts, fees, TCS','ऑर्डर, पेआउट, फ़ीस, TCS')+
+  m('myntra-reconciliation.html','👗','Myntra Reco','Myntra रिको','Orders, payouts, fees, TCS','ऑर्डर, पेआउट, फ़ीस, TCS')+
+  m('jiomart-reconciliation.html','🏪','JioMart Reco','JioMart रिको','Orders, payouts, fees, TCS','ऑर्डर, पेआउट, फ़ीस, TCS')+
   m('gstr-2b-reconciliation.html','🔄','GSTR-2B Reconciliation','GSTR-2B रिकंसिलिएशन','Purchase register vs 2B','परचेज़ रजिस्टर बनाम 2B')+
   m('gstr-1-einvoice-reconciliation.html','🧾','GSTR-1 vs e-Invoice','GSTR-1 बनाम ई-इनवॉइस','Find missing e-invoices','छूटे ई-इनवॉइस खोजें')+
-  m('bank-reconciliation.html','🏦','Bank Reconciliation','बैंक रिकंसिलिएशन','Statement vs ledger, BRS','स्टेटमेंट बनाम लेजर, BRS'))+
+  m('bank-reconciliation.html','🏦','Bank Reconciliation','बैंक रिकंसिलिएशन','Statement vs ledger, BRS','स्टेटमेंट बनाम लेजर, BRS'),true)+
  dd('Generators','जनरेटर',
   m('invoice-generator.html','🧾','GST Invoice Generator','GST इनवॉइस जनरेटर','Create and print invoices','इनवॉइस बनाएँ और प्रिंट करें')+
-    m('qr-code-generator.html','🔳','QR Code Generator','QR कोड जनरेटर','UPI, link, WhatsApp, WiFi','UPI, लिंक, WhatsApp, WiFi')+
-    m('rent-receipt-generator.html','🏘️','Rent Receipt Generator','किराया रसीद जनरेटर','Monthly receipts for HRA','HRA के लिए मासिक रसीदें')+
+  m('qr-code-generator.html','🔳','QR Code Generator','QR कोड जनरेटर','UPI, link, WhatsApp, WiFi','UPI, लिंक, WhatsApp, WiFi')+
+  m('rent-receipt-generator.html','🏘️','Rent Receipt Generator','किराया रसीद जनरेटर','Monthly receipts for HRA','HRA के लिए मासिक रसीदें')+
   m('tally-import.html','📥','Invoices to Tally','इनवॉइस से Tally','Excel to Tally XML','Excel से Tally XML'))+
  dd('PDF Tools','PDF टूल्स',
   m('bank-statement-pdf-to-excel.html','🏦','Bank Statement to Excel','बैंक स्टेटमेंट से Excel','PDF statement to Excel','PDF स्टेटमेंट को Excel में')+
@@ -57,7 +63,7 @@ var footer='<footer class="ftr"><div class="container">'+
  '<div class="ftr-top">'+brand+'<p data-en="Free tax, accounting, finance and PDF tools for India. No signup, nothing uploaded." data-hi="भारत के लिए फ्री टैक्स, अकाउंटिंग, फ़ाइनेंस और PDF टूल्स। बिना साइनअप, कुछ अपलोड नहीं।">Free tax, accounting, finance and PDF tools for India. No signup, nothing uploaded.</p></div>'+
  '<div class="ftr-g f5">'+
  col('Calculators','कैलकुलेटर',[['gst-calculator.html','GST'],['gst-late-fee-calculator.html','GST Late Fee'],['income-tax-calculator.html','Income Tax'],['hra-calculator.html','HRA'],['tds-calculator.html','TDS'],['80gg-calculator.html','80GG'],['in-hand-salary-calculator.html','In-hand Salary'],['gratuity-calculator.html','Gratuity'],['emi-calculator.html','EMI'],['sip-calculator.html','SIP']])+
- col('Reconciliation','रिकंसिलिएशन',[['gstr-2b-reconciliation.html','GSTR-2B Reco'],['gstr-1-einvoice-reconciliation.html','GSTR-1 vs e-Invoice'],['bank-reconciliation.html','Bank Reco']])+
+ col('Reconciliation','रिकंसिलिएशन',[['ecommerce-reconciliation.html','E-commerce Reco'],['amazon-reconciliation.html','Amazon Reco'],['flipkart-reconciliation.html','Flipkart Reco'],['meesho-reconciliation.html','Meesho Reco'],['myntra-reconciliation.html','Myntra Reco'],['jiomart-reconciliation.html','JioMart Reco'],['gstr-2b-reconciliation.html','GSTR-2B Reco'],['gstr-1-einvoice-reconciliation.html','GSTR-1 vs e-Invoice'],['bank-reconciliation.html','Bank Reco']])+
  col('Generators','जनरेटर',[['invoice-generator.html','Invoice Generator'],['qr-code-generator.html','QR Code Generator'],['rent-receipt-generator.html','Rent Receipt'],['tally-import.html','Invoices to Tally']])+
  col('PDF Tools','PDF टूल्स',[['bank-statement-pdf-to-excel.html','Bank Statement to Excel'],['word-to-pdf.html','Word to PDF'],['pdf-to-word.html','PDF to Word'],['compress-pdf.html','Compress PDF'],['merge-pdf.html','Merge PDF']])+
  col('Learn &amp; Company','सीखें और कंपनी',[['accounting-games.html','Accounting Games'],['tax-quiz.html','Tax Quiz'],['about.html','About'],['contact.html','Contact'],['privacy-policy.html','Privacy Policy'],['terms.html','Terms']])+
