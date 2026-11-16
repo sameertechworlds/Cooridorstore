@@ -98,7 +98,7 @@ var chits=P.map(function(d,i){
  [front,back,edge].forEach(function(m){m.castShadow=true;m.userData.idx=i;flip.add(m);});
  outer.position.set(0,TOPY+0.01+i*0.015,0);
  return {outer:outer,flip:flip,fm:fm,bm:bm,bc:bc,bt:btx,open:false};});
-function spot(i){return U[i].clone().multiplyScalar(SPOTR).setY(TOPY+0.01);}
+function spotPos(i){return U[i].clone().multiplyScalar(SPOTR).setY(TOPY+0.01);}
 function spotRot(i){return i===0?Math.atan2(U[i].x,U[i].z):Math.atan2(-U[i].x,-U[i].z);}
 /* tweens, timing */
 var tweens=[];
@@ -167,7 +167,7 @@ async function playRound(t){
  await tw(1100,function(k){chits.forEach(function(c,i){c.outer.rotation.y=c.r0+Math.sin(k*PI*6+i)*0.7;c.outer.position.x=Math.sin(k*PI*8+i*1.7)*0.15*(1-k);c.outer.position.z=Math.cos(k*PI*7+i)*0.12*(1-k);});});
  clearInterval(bp);chk(t);
  msg('Dealing the chits…');
- for(var i=0;i<4;i++){(function(i){var c=chits[i],p0=c.outer.position.clone(),p1=spot(i),r0=c.outer.rotation.y,r1=spotRot(i)+PI*2;beep(440+i*60,.08,'triangle');
+ for(var i=0;i<4;i++){(function(i){var c=chits[i],p0=c.outer.position.clone(),p1=spotPos(i),r0=c.outer.rotation.y,r1=spotRot(i)+PI*2;beep(440+i*60,.08,'triangle');
   tw(520,function(k){c.outer.position.lerpVectors(p0,p1,k);c.outer.position.y+=Math.sin(PI*k)*0.6;c.outer.rotation.y=r0+(r1-r0)*k;});})(i);
   await wait(300,t);}
  await wait(500,t);
