@@ -4,35 +4,80 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Raja Mantri Chor Sipahi Game Online – Play Free</title>
-<meta name="description" content="Play Raja Mantri Chor Sipahi online free. The classic Indian chit game with 4 players: pick your chit, catch the Chor as Mantri and win the most points.">
+<meta name="description" content="Play Raja Mantri Chor Sipahi online free on a virtual table with 4 players. Watch chits being dealt, catch the Chor as Mantri and track scores in a notebook.">
 <link rel="canonical" href="https://www.cooridorstore.in/raja-mantri-chor-sipahi">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cooridor Store">
 <meta property="og:title" content="Raja Mantri Chor Sipahi Game Online – Play Free">
-<meta property="og:description" content="The classic Indian chit game. Catch the Chor and win!">
+<meta property="og:description" content="The classic Indian chit game on a virtual table. Catch the Chor and win!">
 <meta property="og:url" content="https://www.cooridorstore.in/raja-mantri-chor-sipahi">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
-.rg{max-width:900px;margin:0 auto}
-.board{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0}
-.pl{text-align:center}
-.pl .nm{font-weight:700;margin-bottom:6px}
-.pl .pt{font-size:.85rem;color:var(--mut);margin-top:6px}
-.chit{height:150px;perspective:800px;cursor:default}
-.chit .in{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
-.chit.open .in{transform:rotateY(180deg)}
-.chit .f,.chit .b{position:absolute;inset:0;border-radius:14px;display:grid;place-items:center;backface-visibility:hidden;box-shadow:var(--sh)}
-.chit .f{background:repeating-linear-gradient(45deg,#0b3d91,#0b3d91 10px,#123f9c 10px,#123f9c 20px);color:#fff;font-size:2rem}
-.chit .b{background:var(--sur);border:2px solid var(--line);transform:rotateY(180deg);flex-direction:column;font-weight:800}
-.chit .b i{font-style:normal;font-size:2.4rem}
-.chit.pick{cursor:pointer;animation:glow 1s infinite alternate}
-@keyframes glow{to{box-shadow:0 0 0 4px #34d399;border-radius:14px}}
-.msg{min-height:56px;text-align:center;font-size:1.1rem;font-weight:600;padding:12px;border-radius:12px;background:var(--soft)}
-.ctl{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:16px 0}
-.gb{padding:12px 22px;border:none;border-radius:10px;background:var(--pri);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.rg{max-width:820px;margin:0 auto}
+.top{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;margin:14px 0}
+.gb{padding:11px 20px;border:none;border-radius:10px;background:var(--pri);color:#fff;font:inherit;font-weight:700;cursor:pointer}
 .gb.s{background:var(--sur);color:var(--txt);border:1px solid var(--line)}
-.sc{width:100%;border-collapse:collapse;margin-top:10px}
-.sc th,.sc td{padding:8px;border-bottom:1px solid var(--line);text-align:center}
-.win{font-size:1.6rem;text-align:center;margin:10px 0}
-@media(max-width:600px){.board{grid-template-columns:1fr 1fr}.chit{height:120px}}
+.top select{padding:9px;border-radius:8px;border:1px solid var(--line);font:inherit}
+.stage{position:relative;width:100%;aspect-ratio:1/.82;border-radius:22px;overflow:hidden;user-select:none;
+ background:radial-gradient(circle at 50% 45%,#2b4a75 0,#162a46 55%,#0c1a2e 100%);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.stage:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 40px,transparent 40px 80px)}
+.tbl{position:absolute;left:50%;top:51%;width:48%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
+ background:radial-gradient(circle at 38% 32%,#b5683a,#7a3b14 62%,#4d230a);box-shadow:0 0 0 12px #3a1a06,0 0 0 14px #5c2d0e,0 26px 50px rgba(0,0,0,.6)}
+.tbl:after{content:"";position:absolute;inset:9%;border-radius:50%;border:2px dashed rgba(255,230,180,.25)}
+.seat{position:absolute;width:22%;transform:translate(-50%,-50%);text-align:center;z-index:4}
+.chair{width:62%;aspect-ratio:1;margin:0 auto;border-radius:34% 34% 22% 22%;display:grid;place-items:center;
+ background:linear-gradient(160deg,#a0522d,#5c2e0d);box-shadow:inset 0 -7px 0 rgba(0,0,0,.35),0 8px 16px rgba(0,0,0,.4)}
+.face{font-size:clamp(26px,6.4vw,54px);line-height:1;transition:transform .25s}
+.face.pop{transform:scale(1.3)}
+.nm{color:#fff;font-weight:800;font-size:clamp(11px,1.9vw,16px);margin-top:4px;text-shadow:0 1px 2px #000}
+.ps{color:#fde68a;font-weight:700;font-size:clamp(10px,1.7vw,14px)}
+.me .chair{box-shadow:inset 0 -7px 0 rgba(0,0,0,.35),0 0 0 3px #34d399,0 8px 16px rgba(0,0,0,.4)}
+.bub{position:absolute;bottom:104%;left:50%;transform:translateX(-50%) scale(0);transform-origin:bottom center;background:#fff;color:#111;
+ padding:6px 11px;border-radius:14px;font-weight:700;font-size:clamp(10px,1.8vw,15px);white-space:nowrap;transition:transform .22s;z-index:9;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+.bub:after{content:"";position:absolute;top:100%;left:50%;margin-left:-7px;border:7px solid transparent;border-top-color:#fff}
+.bub.on{transform:translateX(-50%) scale(1)}
+.s2 .bub{bottom:auto;top:104%;transform-origin:top center}
+.s2 .bub:after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:#fff}
+.ch{position:absolute;width:10.5%;aspect-ratio:3/4;left:50%;top:51%;transform:translate(-50%,-50%);z-index:3;perspective:600px;
+ transition:left .55s cubic-bezier(.2,.8,.3,1),top .55s cubic-bezier(.2,.8,.3,1)}
+.ch .in{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.ch.open .in{transform:rotateY(180deg)}
+.ch .f,.ch .b{position:absolute;inset:0;border-radius:6px;backface-visibility:hidden;display:grid;place-items:center}
+.ch .f{background:#fff8dc;border:1px solid #d9c98f;box-shadow:2px 4px 8px rgba(0,0,0,.45);
+ background-image:linear-gradient(90deg,transparent 47%,rgba(160,130,60,.35) 50%,transparent 53%),linear-gradient(transparent 47%,rgba(160,130,60,.25) 50%,transparent 53%);
+ font-family:Caveat,cursive;font-size:clamp(16px,3vw,28px);color:#8a6d1f}
+.ch .b{transform:rotateY(180deg);background:#fffef4;border:1px solid #d9c98f;box-shadow:2px 4px 8px rgba(0,0,0,.45);flex-direction:column;align-content:center;
+ font-family:Caveat,cursive;font-weight:700;font-size:clamp(12px,2.2vw,20px);color:#1e3a8a}
+.ch .b i{font-style:normal;font-size:clamp(18px,3.6vw,32px)}
+.ch.shuf{animation:shuf .18s infinite alternate}
+@keyframes shuf{from{margin-left:-6px;rotate:-10deg}to{margin-left:6px;rotate:10deg}}
+.ch.pick{cursor:pointer;animation:pick .7s infinite alternate}
+@keyframes pick{to{scale:1.15;filter:drop-shadow(0 0 10px #34d399)}}
+.fing{position:absolute;z-index:8;font-size:clamp(28px,5.6vw,48px);display:none;transition:left .75s ease,top .75s ease;filter:drop-shadow(0 3px 4px rgba(0,0,0,.5))}
+.fl{position:absolute;z-index:9;transform:translate(-50%,-50%);font-weight:900;font-size:clamp(14px,2.6vw,22px);color:#fde047;text-shadow:0 2px 3px #000;animation:up 1.6s forwards;pointer-events:none}
+@keyframes up{to{transform:translate(-50%,-260%);opacity:0}}
+.cf{position:absolute;top:-6%;z-index:10;font-size:clamp(14px,2.6vw,24px);animation:fall linear forwards;pointer-events:none}
+@keyframes fall{to{top:108%;rotate:540deg}}
+.msg{margin:14px auto 0;text-align:center;font-weight:700;font-size:1.05rem;padding:12px;border-radius:12px;background:var(--soft);min-height:50px}
+.ctl{text-align:center;margin:12px 0}
+.nb{position:relative;margin:24px auto;padding:56px 22px 26px 78px;background:#fffef6;border-radius:6px 14px 14px 6px;
+ background-image:repeating-linear-gradient(transparent 0 33px,#c9dcf3 33px 34px);background-position:0 22px;
+ box-shadow:0 10px 26px rgba(0,0,0,.18),inset 14px 0 18px -14px rgba(0,0,0,.25);font-family:Caveat,cursive;color:#1e3a8a;font-size:23px;line-height:34px}
+.nb:before{content:"";position:absolute;left:60px;top:0;bottom:0;width:2px;background:#f87171}
+.nb:after{content:"";position:absolute;left:18px;top:30px;bottom:30px;width:16px;background:radial-gradient(circle,#d9d4c4 6px,transparent 7px) 0 0/16px 68px repeat-y}
+.nb h3{position:absolute;top:10px;left:78px;margin:0;font-size:30px;color:#b91c1c;font-family:Caveat,cursive}
+.nb table{width:100%;border-collapse:collapse}
+.nb th{color:#b91c1c;font-weight:700;height:34px}
+.nb td{text-align:center;height:34px;padding:0 4px}
+.nb th:first-child,.nb td:first-child{text-align:left}
+.nb small{font-size:16px;color:#64748b}
+.nb .cz{color:#dc2626;text-decoration:line-through}
+.nb tr.tot td{font-weight:700;font-size:26px;border-top:2px solid #1e3a8a}
+.nb .wn{color:#059669}
+@media(max-width:600px){.nb{padding-left:58px;font-size:19px}.nb:before{left:44px}.nb:after{left:12px}.nb h3{left:58px}}
 </style>
 </head>
 <body>
@@ -40,71 +85,122 @@
 <main class="container page rg">
  <div class="crumb"><a href="/">Home</a> › <a href="accounting-games.html">Games</a> › Raja Mantri Chor Sipahi</div>
  <h1>👑 Raja Mantri Chor Sipahi</h1>
- <p>Classic Indian chit game with 4 players: you and 3 friends. Raja 1000, Mantri 800, Sipahi 500, Chor 0. If you are the Mantri, find the Chor!</p>
- <div class="ctl">
+ <p>The classic Indian chit game on a virtual table. Four players, four chits: Raja 1000, Mantri 800, Sipahi 500, Chor 0. When you are the Mantri, catch the Chor!</p>
+ <div class="top">
   <label>Rounds <select id="rn"><option>5</option><option selected>7</option><option>10</option></select></label>
   <button class="gb" id="start">▶ New game</button>
   <button class="gb s" id="snd">🔊 Sound on</button>
  </div>
- <div class="msg" id="msg">Press New game to start.</div>
- <div class="board" id="board"></div>
+ <div class="stage" id="stage"><div class="tbl"></div></div>
+ <div class="msg" id="msg">Press New game to deal the chits.</div>
  <div class="ctl"><button class="gb" id="next" hidden>Next round →</button></div>
- <div id="res"></div>
- <h2>Scoreboard</h2>
- <table class="sc" id="sc"></table>
+ <div class="nb"><h3>Score Notebook</h3><table id="sc"></table></div>
  <article class="art">
-  <h2>How to play</h2>
-  <p>Four chits are shuffled and each player gets one. The Raja reveals himself and orders the Mantri to find the Chor. The Mantri must guess which of the remaining two players is the Chor. If the guess is right, the Mantri keeps 800 points and the Chor gets 0. If wrong, the Mantri and Chor swap points. The Raja always gets 1000 and the Sipahi 500. After all rounds, the highest score wins.</p>
+  <h2>How to play Raja Mantri Chor Sipahi</h2>
+  <p>Four chits are shuffled and dealt, one to each player. The Raja announces himself and orders the Mantri to find the Chor. The Mantri points at one of the other two players. If the guess is right, the Mantri keeps 800 points and the Chor gets 0. If wrong, the Chor takes the Mantri's 800 points. The Raja always gets 1000 and the Sipahi 500. After the last round, the player with the highest total wins.</p>
  </article>
 </main>
 <div id="site-footer"></div>
 <script src="app.js"></script>
 <script>
-var NAMES=['You','Ramu','Sita','Golu'],ROLES=[{n:'Raja',e:'👑',p:1000},{n:'Mantri',e:'🧑‍💼',p:800},{n:'Sipahi',e:'💂',p:500},{n:'Chor',e:'🦹',p:0}];
-var score,round,total,deal,sound=true,ac;
+var P=[{n:'You',f:'🧑'},{n:'Ramu',f:'👨🏽'},{n:'Sita',f:'👩🏽'},{n:'Golu',f:'🧒🏽'}];
+var SEAT=[[50,89],[10,52],[50,13],[90,52]],SPOT=[[50,69],[30,51],[50,33],[70,51]];
+var R=[{n:'Raja',e:'👑',p:1000,s:'R'},{n:'Mantri',e:'🧑‍💼',p:800,s:'M'},{n:'Sipahi',e:'💂',p:500,s:'S'},{n:'Chor',e:'🦹',p:0,s:'C'}];
+var score,hist,round,total,deal,tok=0,sound=true,ac;
+var st=document.getElementById('stage');
 function $(i){return document.getElementById(i);}
-function beep(f,d){if(!sound)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();var o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;o.connect(g);g.connect(ac.destination);g.gain.setValueAtTime(.15,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.start();o.stop(ac.currentTime+d);}catch(e){}}
+function beep(f,d,t){if(!sound)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();var o=ac.createOscillator(),g=ac.createGain();o.type=t||'sine';o.frequency.value=f;o.connect(g);g.connect(ac.destination);g.gain.setValueAtTime(.14,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.start();o.stop(ac.currentTime+d);}catch(e){}}
 function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
-function draw(){
- $('board').innerHTML=NAMES.map(function(n,i){return '<div class="pl"><div class="nm">'+(i?'🙂 ':'⭐ ')+n+'</div><div class="chit" id="c'+i+'"><div class="in"><div class="f">?</div><div class="b"><i>'+ROLES[deal[i]].e+'</i>'+ROLES[deal[i]].n+'</div></div></div><div class="pt" id="p'+i+'">'+score[i]+' pts</div></div>';}).join('');
+/* build table */
+P.forEach(function(p,i){
+ var s=document.createElement('div');s.className='seat s'+i+(i===0?' me':'');s.style.left=SEAT[i][0]+'%';s.style.top=SEAT[i][1]+'%';
+ s.innerHTML='<div class="bub" id="b'+i+'"></div><div class="chair"><span class="face" id="fa'+i+'">'+p.f+'</span></div><div class="nm">'+p.n+'</div><div class="ps" id="ps'+i+'">0</div>';
+ st.appendChild(s);
+ var c=document.createElement('div');c.className='ch';c.id='c'+i;c.innerHTML='<div class="in"><div class="f">?</div><div class="b"></div></div>';st.appendChild(c);
+});
+var fing=document.createElement('div');fing.className='fing';fing.textContent='👉';st.appendChild(fing);
+function wait(ms,t){return new Promise(function(res,rej){setTimeout(function(){t===tok?res():rej('stop');},ms);});}
+var bt={};
+function say(i,txt,ms){var b=$('b'+i);b.textContent=txt;b.classList.add('on');clearTimeout(bt[i]);bt[i]=setTimeout(function(){b.classList.remove('on');},ms||1800);}
+function face(i,e){var f=$('fa'+i);f.textContent=e;f.classList.add('pop');setTimeout(function(){f.classList.remove('pop');},260);}
+function flip(i){$('c'+i).classList.add('open');beep(620,.12,'triangle');}
+function float(i,txt){var d=document.createElement('div');d.className='fl';d.textContent=txt;d.style.left=SEAT[i][0]+'%';d.style.top=(SEAT[i][1]-8)+'%';st.appendChild(d);setTimeout(function(){d.remove();},1700);}
+function confetti(n){for(var k=0;k<n;k++){var d=document.createElement('div');d.className='cf';d.textContent=['🎉','✨','🎊','⭐','💛'][k%5];d.style.left=Math.random()*100+'%';d.style.animationDuration=(1.6+Math.random()*1.4)+'s';d.style.animationDelay=Math.random()*.5+'s';st.appendChild(d);setTimeout(function(x){return function(){x.remove();};}(d),3600);}}
+function point(from,to){
+ var r=st.getBoundingClientRect(),sx=SEAT[from][0],sy=SEAT[from][1],tx=SPOT[to][0],ty=SPOT[to][1];
+ var ang=Math.atan2((ty-sy)*r.height,(tx-sx)*r.width);
+ fing.style.transition='none';fing.style.left=sx+'%';fing.style.top=sy+'%';
+ fing.style.transform='translate(-50%,-50%) rotate('+ang+'rad)';fing.style.display='block';
+ void fing.offsetWidth;fing.style.transition='';
+ fing.style.left=(sx+(tx-sx)*.72)+'%';fing.style.top=(sy+(ty-sy)*.72)+'%';beep(300,.25,'square');
 }
-function open(i){$('c'+i).classList.add('open');beep(500+i*120,.15);}
-function table(){
- $('sc').innerHTML='<tr><th>Player</th><th>Score</th></tr>'+NAMES.map(function(n,i){return '<tr><td>'+n+'</td><td>'+score[i]+'</td></tr>';}).join('');
+function notebook(final){
+ var h='<tr><th>Round</th>'+P.map(function(p){return '<th>'+p.n+'</th>';}).join('')+'</tr>';
+ hist.forEach(function(r,k){h+='<tr><td>'+(k+1)+'</td>'+r.map(function(c){return '<td'+(c.cz?' class="cz"':'')+'>'+c.p+' <small>'+c.s+'</small></td>';}).join('')+'</tr>';});
+ var mx=Math.max.apply(null,score);
+ h+='<tr class="tot"><td>Total</td>'+score.map(function(s){return '<td'+(final&&s===mx?' class="wn"':'')+'>'+s+(final&&s===mx?' 🏆':'')+'</td>';}).join('')+'</tr>';
+ $('sc').innerHTML=h;
 }
-function start(){score=[0,0,0,0];round=0;total=+$('rn').value;$('res').innerHTML='';table();nextRound();}
-function nextRound(){
- round++;$('next').hidden=true;
- deal=shuffle([0,1,2,3]);draw();
- setTimeout(function(){open(0);$('msg').textContent='Round '+round+'/'+total+': you got '+ROLES[deal[0]].e+' '+ROLES[deal[0]].n;},400);
- var raja=deal.indexOf(0),mantri=deal.indexOf(1);
- setTimeout(function(){if(raja)open(raja);$('msg').textContent='👑 '+NAMES[raja]+' is Raja: "Mantri, find the Chor!"';},1600);
- setTimeout(function(){
-  if(mantri)open(mantri);
-  var sus=[0,1,2,3].filter(function(i){return i!==raja&&i!==mantri;});
-  if(mantri===0){
-   $('msg').textContent='🧑‍💼 You are Mantri! Tap the card you think is the Chor.';
-   sus.forEach(function(i){var c=$('c'+i);c.classList.add('pick');c.onclick=function(){sus.forEach(function(j){$('c'+j).classList.remove('pick');$('c'+j).onclick=null;});finish(i,sus);};});
-  }else{
-   $('msg').textContent='🧑‍💼 '+NAMES[mantri]+' is thinking… 🤔';
-   setTimeout(function(){finish(sus[Math.floor(Math.random()*2)],sus);},1500);
-  }
- },2900);
+async function playRound(t){
+ $('next').hidden=true;fing.style.display='none';
+ P.forEach(function(p,i){face(i,p.f);var c=$('c'+i);c.classList.remove('open','pick');c.onclick=null;c.style.left='50%';c.style.top='51%';});
+ deal=shuffle([0,1,2,3]);
+ P.forEach(function(p,i){$('c'+i).querySelector('.b').innerHTML='<i>'+R[deal[i]].e+'</i>'+R[deal[i]].n;});
+ $('msg').textContent='Round '+round+' of '+total+': shuffling the chits…';
+ await wait(450,t);
+ P.forEach(function(p,i){var c=$('c'+i);c.style.animationDelay=(i*.05)+'s';c.classList.add('shuf');});
+ for(var k=0;k<5;k++){beep(180+k*40,.06,'square');await wait(180,t);}
+ P.forEach(function(p,i){$('c'+i).classList.remove('shuf');});
+ $('msg').textContent='Dealing…';
+ for(var i=0;i<4;i++){var c=$('c'+i);c.style.zIndex=4+i;c.style.left=SPOT[i][0]+'%';c.style.top=SPOT[i][1]+'%';beep(440+i*60,.08,'triangle');await wait(330,t);}
+ await wait(350,t);flip(0);$('msg').textContent='You got '+R[deal[0]].e+' '+R[deal[0]].n+'!';
+ await wait(1100,t);
+ var raja=deal.indexOf(0),mantri=deal.indexOf(1),chor=deal.indexOf(3),sip=deal.indexOf(2);
+ if(raja)flip(raja);face(raja,'😎');say(raja,'Main Raja hoon! 👑',1500);$('msg').textContent=P[raja].n+' is the Raja 👑';
+ await wait(1600,t);
+ say(raja,'Mantri, chor ko pakdo! 🫵',1600);beep(523,.12);await wait(150,t);beep(659,.15);
+ await wait(1600,t);
+ if(mantri)flip(mantri);say(mantri,'Main Mantri hoon 🧑‍💼',1400);$('msg').textContent=P[mantri].n+' is the Mantri. Who is the Chor?';
+ await wait(1500,t);
+ var sus=[0,1,2,3].filter(function(x){return x!==raja&&x!==mantri;}),guess;
+ if(mantri===0){
+  $('msg').textContent='🧑‍💼 You are the Mantri! Tap the chit of the player you think is the Chor.';
+  guess=await new Promise(function(res,rej){sus.forEach(function(x){var c=$('c'+x);c.classList.add('pick');c.onclick=function(){sus.forEach(function(y){$('c'+y).classList.remove('pick');$('c'+y).onclick=null;});t===tok?res(x):rej('stop');};});});
+ }else{
+  face(mantri,'🤔');say(mantri,'Hmm… kaun hai chor? 🤔',2000);
+  sus.forEach(function(x){face(x,x===chor?'😬':'🙂');});
+  await wait(2100,t);guess=sus[Math.floor(Math.random()*2)];
+ }
+ point(mantri,guess);await wait(800,t);
+ say(mantri,(guess===0?'Tum':P[guess].n)+' chor hai! 👉',1600);
+ await wait(1400,t);
+ sus.forEach(flip);await wait(500,t);
+ var ok=guess===chor;
+ if(ok){face(mantri,'😄');say(mantri,'Pakad liya! 😄',2200);face(chor,'😭');say(chor,'Arre yaar! 😭',2200);face(sip,'😎');face(raja,'👏');
+  beep(784,.15);setTimeout(function(){beep(988,.15);},150);setTimeout(function(){beep(1319,.3);},300);confetti(18);
+  $('msg').textContent='🎉 Caught! '+P[chor].n+' was the Chor. Mantri keeps 800.';}
+ else{face(mantri,'🤦');say(mantri,'Galti ho gayi! 🤦',2200);face(chor,'😂');say(chor,'Bach gaya! 😂',2200);face(sip,'😅');face(raja,'😤');
+  beep(330,.2,'sawtooth');setTimeout(function(){beep(220,.4,'sawtooth');},200);
+  $('msg').textContent='😅 Wrong guess! '+P[chor].n+' was the Chor and takes the 800 points.';}
+ var pts=deal.map(function(r){return R[r].p;});if(!ok){pts[mantri]=0;pts[chor]=800;}
+ hist.push(pts.map(function(p,i){return {p:p,s:R[deal[i]].s,cz:i===chor&&ok};}));
+ pts.forEach(function(p,i){score[i]+=p;$('ps'+i).textContent=score[i];float(i,'+'+p);});
+ notebook(false);
+ await wait(1200,t);fing.style.display='none';
+ if(round<total){$('next').hidden=false;}
+ else{
+  var mx=Math.max.apply(null,score),w=[];score.forEach(function(s,i){if(s===mx)w.push(i);});
+  P.forEach(function(p,i){face(i,w.indexOf(i)>-1?'🥳':'🙂');});
+  w.forEach(function(i){say(i,'Main jeet gaya! 🏆',4000);});
+  notebook(true);confetti(40);beep(523,.15);setTimeout(function(){beep(659,.15);},150);setTimeout(function(){beep(784,.15);},300);setTimeout(function(){beep(1047,.4);},450);
+  $('msg').textContent='🏆 '+(w.indexOf(0)>-1?'You win':w.map(function(i){return P[i].n;}).join(' & ')+' wins')+' with '+mx+' points! Press New game to play again.';
+ }
 }
-function finish(guess,sus){
- var mantri=deal.indexOf(1),chor=deal.indexOf(3),ok=guess===chor;
- sus.forEach(open);
- var pts=[0,0,0,0];deal.forEach(function(r,i){pts[i]=ROLES[r].p;});
- if(!ok){pts[mantri]=0;pts[chor]=800;}
- pts.forEach(function(p,i){score[i]+=p;$('p'+i).textContent=score[i]+' pts (+'+p+')';});
- $('msg').textContent=ok?'🎉 Caught! '+NAMES[chor]+' was the Chor. Mantri keeps 800.':'😅 Wrong! '+NAMES[chor]+' was the Chor and takes 800 points.';
- ok?(beep(880,.2),setTimeout(function(){beep(1100,.3);},200)):beep(200,.4);
- table();
- if(round<total)$('next').hidden=false;
- else{var mx=Math.max.apply(null,score),w=NAMES.filter(function(n,i){return score[i]===mx;});$('res').innerHTML='<div class="win">🏆 '+(w.indexOf('You')>-1?'You win!':w.join(' & ')+' wins!')+' ('+mx+' pts)</div>';}
-}
-$('start').onclick=start;$('next').onclick=nextRound;
+function go(){round++;var t=tok;playRound(t).catch(function(){});}
+$('start').onclick=function(){tok++;score=[0,0,0,0];hist=[];round=0;total=+$('rn').value;P.forEach(function(p,i){$('ps'+i).textContent='0';});notebook(false);go();};
+$('next').onclick=go;
 $('snd').onclick=function(){sound=!sound;this.textContent=sound?'🔊 Sound on':'🔇 Sound off';};
+score=[0,0,0,0];hist=[];notebook(false);
 </script>
 </body>
 </html>
