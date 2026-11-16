@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Raja Mantri Chor Sipahi Game Online – Play Free</title>
+<meta name="description" content="Play Raja Mantri Chor Sipahi online free. The classic Indian chit game with 4 players: pick your chit, catch the Chor as Mantri and win the most points.">
+<link rel="canonical" href="https://www.cooridorstore.in/raja-mantri-chor-sipahi">
+<meta property="og:title" content="Raja Mantri Chor Sipahi Game Online – Play Free">
+<meta property="og:description" content="The classic Indian chit game. Catch the Chor and win!">
+<meta property="og:url" content="https://www.cooridorstore.in/raja-mantri-chor-sipahi">
+<link rel="stylesheet" href="style.css">
+<style>
+.rg{max-width:900px;margin:0 auto}
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0}
+.pl{text-align:center}
+.pl .nm{font-weight:700;margin-bottom:6px}
+.pl .pt{font-size:.85rem;color:var(--mut);margin-top:6px}
+.chit{height:150px;perspective:800px;cursor:default}
+.chit .in{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.chit.open .in{transform:rotateY(180deg)}
+.chit .f,.chit .b{position:absolute;inset:0;border-radius:14px;display:grid;place-items:center;backface-visibility:hidden;box-shadow:var(--sh)}
+.chit .f{background:repeating-linear-gradient(45deg,#0b3d91,#0b3d91 10px,#123f9c 10px,#123f9c 20px);color:#fff;font-size:2rem}
+.chit .b{background:var(--sur);border:2px solid var(--line);transform:rotateY(180deg);flex-direction:column;font-weight:800}
+.chit .b i{font-style:normal;font-size:2.4rem}
+.chit.pick{cursor:pointer;animation:glow 1s infinite alternate}
+@keyframes glow{to{box-shadow:0 0 0 4px #34d399;border-radius:14px}}
+.msg{min-height:56px;text-align:center;font-size:1.1rem;font-weight:600;padding:12px;border-radius:12px;background:var(--soft)}
+.ctl{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+.gb{padding:12px 22px;border:none;border-radius:10px;background:var(--pri);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.gb.s{background:var(--sur);color:var(--txt);border:1px solid var(--line)}
+.sc{width:100%;border-collapse:collapse;margin-top:10px}
+.sc th,.sc td{padding:8px;border-bottom:1px solid var(--line);text-align:center}
+.win{font-size:1.6rem;text-align:center;margin:10px 0}
+@media(max-width:600px){.board{grid-template-columns:1fr 1fr}.chit{height:120px}}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page rg">
+ <div class="crumb"><a href="/">Home</a> › <a href="accounting-games.html">Games</a> › Raja Mantri Chor Sipahi</div>
+ <h1>👑 Raja Mantri Chor Sipahi</h1>
+ <p>Classic Indian chit game with 4 players: you and 3 friends. Raja 1000, Mantri 800, Sipahi 500, Chor 0. If you are the Mantri, find the Chor!</p>
+ <div class="ctl">
+  <label>Rounds <select id="rn"><option>5</option><option selected>7</option><option>10</option></select></label>
+  <button class="gb" id="start">▶ New game</button>
+  <button class="gb s" id="snd">🔊 Sound on</button>
+ </div>
+ <div class="msg" id="msg">Press New game to start.</div>
+ <div class="board" id="board"></div>
+ <div class="ctl"><button class="gb" id="next" hidden>Next round →</button></div>
+ <div id="res"></div>
+ <h2>Scoreboard</h2>
+ <table class="sc" id="sc"></table>
+ <article class="art">
+  <h2>How to play</h2>
+  <p>Four chits are shuffled and each player gets one. The Raja reveals himself and orders the Mantri to find the Chor. The Mantri must guess which of the remaining two players is the Chor. If the guess is right, the Mantri keeps 800 points and the Chor gets 0. If wrong, the Mantri and Chor swap points. The Raja always gets 1000 and the Sipahi 500. After all rounds, the highest score wins.</p>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script>
+var NAMES=['You','Ramu','Sita','Golu'],ROLES=[{n:'Raja',e:'👑',p:1000},{n:'Mantri',e:'🧑‍💼',p:800},{n:'Sipahi',e:'💂',p:500},{n:'Chor',e:'🦹',p:0}];
+var score,round,total,deal,sound=true,ac;
+function $(i){return document.getElementById(i);}
+function beep(f,d){if(!sound)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();var o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;o.connect(g);g.connect(ac.destination);g.gain.setValueAtTime(.15,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.start();o.stop(ac.currentTime+d);}catch(e){}}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function draw(){
+ $('board').innerHTML=NAMES.map(function(n,i){return '<div class="pl"><div class="nm">'+(i?'🙂 ':'⭐ ')+n+'</div><div class="chit" id="c'+i+'"><div class="in"><div class="f">?</div><div class="b"><i>'+ROLES[deal[i]].e+'</i>'+ROLES[deal[i]].n+'</div></div></div><div class="pt" id="p'+i+'">'+score[i]+' pts</div></div>';}).join('');
+}
+function open(i){$('c'+i).classList.add('open');beep(500+i*120,.15);}
+function table(){
+ $('sc').innerHTML='<tr><th>Player</th><th>Score</th></tr>'+NAMES.map(function(n,i){return '<tr><td>'+n+'</td><td>'+score[i]+'</td></tr>';}).join('');
+}
+function start(){score=[0,0,0,0];round=0;total=+$('rn').value;$('res').innerHTML='';table();nextRound();}
+function nextRound(){
+ round++;$('next').hidden=true;
+ deal=shuffle([0,1,2,3]);draw();
+ setTimeout(function(){open(0);$('msg').textContent='Round '+round+'/'+total+': you got '+ROLES[deal[0]].e+' '+ROLES[deal[0]].n;},400);
+ var raja=deal.indexOf(0),mantri=deal.indexOf(1);
+ setTimeout(function(){if(raja)open(raja);$('msg').textContent='👑 '+NAMES[raja]+' is Raja: "Mantri, find the Chor!"';},1600);
+ setTimeout(function(){
+  if(mantri)open(mantri);
+  var sus=[0,1,2,3].filter(function(i){return i!==raja&&i!==mantri;});
+  if(mantri===0){
+   $('msg').textContent='🧑‍💼 You are Mantri! Tap the card you think is the Chor.';
+   sus.forEach(function(i){var c=$('c'+i);c.classList.add('pick');c.onclick=function(){sus.forEach(function(j){$('c'+j).classList.remove('pick');$('c'+j).onclick=null;});finish(i,sus);};});
+  }else{
+   $('msg').textContent='🧑‍💼 '+NAMES[mantri]+' is thinking… 🤔';
+   setTimeout(function(){finish(sus[Math.floor(Math.random()*2)],sus);},1500);
+  }
+ },2900);
+}
+function finish(guess,sus){
+ var mantri=deal.indexOf(1),chor=deal.indexOf(3),ok=guess===chor;
+ sus.forEach(open);
+ var pts=[0,0,0,0];deal.forEach(function(r,i){pts[i]=ROLES[r].p;});
+ if(!ok){pts[mantri]=0;pts[chor]=800;}
+ pts.forEach(function(p,i){score[i]+=p;$('p'+i).textContent=score[i]+' pts (+'+p+')';});
+ $('msg').textContent=ok?'🎉 Caught! '+NAMES[chor]+' was the Chor. Mantri keeps 800.':'😅 Wrong! '+NAMES[chor]+' was the Chor and takes 800 points.';
+ ok?(beep(880,.2),setTimeout(function(){beep(1100,.3);},200)):beep(200,.4);
+ table();
+ if(round<total)$('next').hidden=false;
+ else{var mx=Math.max.apply(null,score),w=NAMES.filter(function(n,i){return score[i]===mx;});$('res').innerHTML='<div class="win">🏆 '+(w.indexOf('You')>-1?'You win!':w.join(' & ')+' wins!')+' ('+mx+' pts)</div>';}
+}
+$('start').onclick=start;$('next').onclick=nextRound;
+$('snd').onclick=function(){sound=!sound;this.textContent=sound?'🔊 Sound on':'🔇 Sound off';};
+</script>
+</body>
+</html>
