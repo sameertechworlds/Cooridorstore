@@ -96,12 +96,13 @@ window.setLang=function(l){put('lang',l);document.documentElement.lang=l;
 (function(){
 function ready(f){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',f);else f();}
 ready(function(){
- var ph=document.querySelector('.ph')||document.querySelector('article.post');
+ var home=document.querySelector('.hero .lead');
+ var ph=document.querySelector('.ph')||document.querySelector('article.post')||(home&&home.parentNode);
  if(!ph||document.getElementById('shr'))return;
  var can=document.querySelector('link[rel=canonical]');
  var url=can?can.href:location.href.split('#')[0];
  var h1=ph.querySelector('h1');
- var title=(h1?h1.textContent.trim():document.title)+(ph.matches('article')?'':' – free tool');
+  var title=home&&!document.querySelector('.ph')?'Cooridor Store: free GST, tax and accounting tools':(h1?h1.textContent.trim():document.title)+(ph.matches('article')?'':' – free tool');
  var text=title+': '+url;
  var e=encodeURIComponent;
  var L={
@@ -130,8 +131,9 @@ ready(function(){
  box.innerHTML='<button type="button" class="shr-b" id="shr-o">'+ic+'<span class="shr-t"></span></button>'+
   '<a class="shr-b shr-wa" href="'+L.wa[1]+'" target="_blank" rel="noopener" data-m="wa">'+wa+'WhatsApp</a>'+
   '<div class="shr-m" id="shr-m">'+items+'</div>';
- var meta=ph.querySelector('.meta');
+ var meta=ph.querySelector('.meta')||ph.querySelector('.lead');
  if(meta)meta.insertAdjacentElement('afterend',box);else ph.appendChild(box);
+ if(home&&!document.querySelector('.ph'))box.style.margin='-6px 0 24px';
  function hi(){return document.documentElement.lang==='hi';}
  function labels(){box.querySelector('.shr-t').textContent=hi()?'शेयर करें':'Share';box.querySelector('.shr-cp').textContent=hi()?'लिंक कॉपी करें':'Copy link';}
  labels();document.addEventListener('langchange',labels);
