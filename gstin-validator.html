@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GSTIN Validator: Check GST Number, State & PAN Free</title>
+<meta name="description" content="Free GSTIN validator. Check if a GST number is valid with the checksum, see its state and PAN, and verify hundreds of GSTINs at once from Excel or a list.">
+<link rel="canonical" href="https://www.cooridorstore.in/gstin-validator">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cooridor Store">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="GSTIN Validator: Check GST Number, State & PAN Free">
+<meta property="og:description" content="Check if a GST number is valid, see its state and PAN, and verify many GSTINs at once from Excel. Free, no sign-up.">
+<meta property="og:url" content="https://www.cooridorstore.in/gstin-validator">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GSTIN Validator: Check GST Number, State & PAN Free">
+<meta name="twitter:description" content="Check if a GST number is valid, see its state and PAN, and verify many GSTINs at once from Excel.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<style>
+.gv-in{display:flex;gap:10px;flex-wrap:wrap}
+.gv-in input{flex:1;min-width:220px;font-size:1.25rem!important;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 16px!important;font-family:ui-monospace,Consolas,monospace}
+.gv-btn{padding:12px 20px;border:1px solid var(--line);border-radius:10px;background:var(--sur);color:var(--txt);font:inherit;font-weight:700;cursor:pointer}
+.gv-btn.p{background:var(--pri);border-color:var(--pri);color:#fff}
+.gv-btn input{display:none}
+.gv-res{margin-top:16px;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:none}
+.gv-res.on{display:block}
+.gv-hd{padding:14px 18px;font-weight:800;font-size:1.05rem;display:flex;gap:10px;align-items:center}
+.gv-hd.ok{background:#d1fae5;color:#065f46}.gv-hd.bad{background:#fee2e2;color:#991b1b}
+[data-theme="dark"] .gv-hd.ok{background:#064e3b;color:#a7f3d0}[data-theme="dark"] .gv-hd.bad{background:#7f1d1d;color:#fecaca}
+.gv-chars{display:flex;flex-wrap:wrap;gap:4px;padding:14px 18px 4px}
+.gv-chars span{display:inline-flex;flex-direction:column;align-items:center;min-width:30px;padding:6px 4px;border-radius:8px;font-family:ui-monospace,Consolas,monospace;font-weight:800;font-size:1.05rem}
+.gv-chars small{font-size:.58rem;font-weight:600;opacity:.75;margin-top:2px;font-family:Inter,Arial,sans-serif}
+.c-st{background:#dbeafe;color:#1e3a8a}.c-pan{background:#fef3c7;color:#92400e}.c-en{background:#ede9fe;color:#5b21b6}.c-z{background:#e5e7eb;color:#374151}.c-ck{background:#d1fae5;color:#065f46}.c-x{background:#fee2e2!important;color:#991b1b!important;outline:2px solid #ef4444}
+[data-theme="dark"] .gv-chars span{filter:brightness(.85)}
+.gv-tb{width:100%;border-collapse:collapse}
+.gv-tb td{padding:9px 18px;border-top:1px solid var(--line);font-size:.92rem}
+.gv-tb td:first-child{color:var(--mut);width:42%}
+.gv-tb td:last-child{font-weight:600}
+.gv-note{padding:12px 18px;border-top:1px solid var(--line);font-size:.85rem;color:var(--mut)}
+.gv-note a{color:var(--pri);font-weight:600}
+.gv-bulk textarea{width:100%;min-height:140px;font-family:ui-monospace,Consolas,monospace;font-size:.9rem;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--sur);color:var(--txt);resize:vertical}
+.gv-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.gv-sum div{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--sur)}
+.gv-sum span{display:block;font-size:.78rem;color:var(--mut);font-weight:600}.gv-sum b{font-size:1.3rem}
+.gv-tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;max-height:480px}
+.gv-bt{width:100%;border-collapse:collapse;font-size:.85rem;white-space:nowrap}
+.gv-bt th{position:sticky;top:0;background:var(--soft);text-align:left;padding:8px 10px}
+.gv-bt td{padding:7px 10px;border-top:1px solid var(--line)}
+.gv-bt td.m{font-family:ui-monospace,Consolas,monospace;font-weight:700}
+.pl{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.74rem;font-weight:700}
+.pl.g{background:#d1fae5;color:#065f46}.pl.r{background:#fee2e2;color:#991b1b}.pl.a{background:#fef3c7;color:#92400e}
+.gv-fl{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
+.gv-fl button{border:1px solid var(--line);background:var(--sur);color:var(--txt);padding:6px 12px;border-radius:99px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
+.gv-fl button.on{border-color:var(--pri);color:var(--pri)}
+@media(max-width:600px){.gv-sum{grid-template-columns:1fr 1fr}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is the format of a GSTIN?","acceptedAnswer":{"@type":"Answer","text":"A GSTIN has 15 characters: a 2-digit state code, the 10-character PAN of the business, 1 entity number for registrations under the same PAN in a state, the letter Z by default, and 1 check character."}},
+{"@type":"Question","name":"How do I check if a GST number is valid?","acceptedAnswer":{"@type":"Answer","text":"Type or paste the GSTIN in the box above. The tool checks the length, the state code, the PAN structure and the last check character, which is calculated from the first 14 characters."}},
+{"@type":"Question","name":"Does this tool confirm that the GSTIN is active?","acceptedAnswer":{"@type":"Answer","text":"No. It checks whether the number is correctly formed. To see the legal name, status and return filing, use Search Taxpayer on the GST portal."}},
+{"@type":"Question","name":"What is the GSTIN check digit?","acceptedAnswer":{"@type":"Answer","text":"The 15th character is a checksum worked out from the first 14 characters. If any character is typed wrongly, the checksum usually stops matching, so most typing mistakes are caught."}},
+{"@type":"Question","name":"How do I find the PAN from a GSTIN?","acceptedAnswer":{"@type":"Answer","text":"Characters 3 to 12 of a regular GSTIN are the PAN of the business. The tool shows it, along with the type of entity from the 4th character of the PAN."}},
+{"@type":"Question","name":"What does the 13th character of a GSTIN mean?","acceptedAnswer":{"@type":"Answer","text":"It is the entity number. It is 1 for the first registration under a PAN in a state, 2 for the second, and so on."}},
+{"@type":"Question","name":"Why is Z the 14th character in a GSTIN?","acceptedAnswer":{"@type":"Answer","text":"Z is the default letter for regular taxpayers. Some special registrations, such as those of tax deductors, use a different letter."}},
+{"@type":"Question","name":"Can I check many GSTINs at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. Paste a list or upload an Excel or CSV file. The tool finds every GSTIN in the file, checks each one, marks duplicates and lets you download the result in Excel."}},
+{"@type":"Question","name":"Why should I validate GSTINs of suppliers and customers?","acceptedAnswer":{"@type":"Answer","text":"A wrong GSTIN on an invoice means your customer cannot claim input tax credit, and a wrong supplier GSTIN in your books breaks GSTR-2B matching. Checking before filing GSTR-1 avoids amendments and disputes."}},
+{"@type":"Question","name":"Is my data safe?","acceptedAnswer":{"@type":"Answer","text":"Yes. All checks run inside your browser. GSTINs and files are never sent to any server."}}
+]}
+</script>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="/">Home</a> › <span data-en="GSTIN Validator" data-hi="GSTIN वैलिडेटर">GSTIN Validator</span></div>
+ <div class="ph">
+  <h1 data-en="GSTIN Validator" data-hi="GSTIN वैलिडेटर">GSTIN Validator</h1>
+  <p data-en="Check if a GST number is correctly formed, and see its state, PAN and entity type. Verify one GSTIN or a whole list from Excel." data-hi="जाँचिए कि GST नंबर सही बना है या नहीं, और उसका राज्य, PAN और इकाई का प्रकार देखिए। एक GSTIN या Excel की पूरी लिस्ट एक साथ जाँचिए।">Check if a GST number is correctly formed, and see its state, PAN and entity type. Verify one GSTIN or a whole list from Excel.</p>
+ </div>
+
+ <div class="card box" style="padding:22px;margin-bottom:18px">
+  <label for="g1" style="font-weight:700;display:block;margin-bottom:8px" data-en="Enter a GSTIN" data-hi="GSTIN डालिए">Enter a GSTIN</label>
+  <div class="gv-in">
+   <input id="g1" maxlength="20" autocomplete="off" spellcheck="false" placeholder="27AAPFU0939F1ZV">
+   <button type="button" class="gv-btn" id="gx" data-en="Try example" data-hi="उदाहरण देखें">Try example</button>
+  </div>
+  <div class="gv-res" id="r1"></div>
+ </div>
+
+ <div class="card box gv-bulk" style="padding:22px">
+  <b style="display:block;margin-bottom:8px" data-en="Check many GSTINs at once" data-hi="एक साथ कई GSTIN जाँचें">Check many GSTINs at once</b>
+  <textarea id="gl" spellcheck="false" data-ph-en="Paste GSTINs here, one per line or copied from Excel…" data-ph-hi="यहाँ GSTIN पेस्ट कीजिए, हर लाइन में एक या Excel से कॉपी करके…" placeholder="Paste GSTINs here, one per line or copied from Excel…"></textarea>
+  <div class="gv-in" style="margin-top:10px">
+   <button type="button" class="gv-btn p" id="gb" data-en="Check list" data-hi="लिस्ट जाँचें">Check list</button>
+   <label class="gv-btn"><input type="file" id="gf" accept=".xlsx,.xls,.csv,.txt"><span data-en="⬆ Upload Excel / CSV" data-hi="⬆ Excel / CSV डालें">⬆ Upload Excel / CSV</span></label>
+   <button type="button" class="gv-btn" id="gd" disabled data-en="⬇ Download result" data-hi="⬇ नतीजा डाउनलोड करें">⬇ Download result</button>
+  </div>
+  <div id="bo"></div>
+  <p class="note" data-en="🔒 Checks run in your browser. Nothing is uploaded." data-hi="🔒 जाँच आपके ब्राउज़र में ही होती है। कुछ भी अपलोड नहीं होता।">🔒 Checks run in your browser. Nothing is uploaded.</p>
+ </div>
+
+ <article class="art">
+  <h2>GSTIN format explained</h2>
+  <p>Every GST Identification Number (GSTIN) has 15 characters. Taking <b>27AAPFU0939F1ZV</b> as an example:</p>
+  <table>
+   <tr><th>Characters</th><th>Example</th><th>Meaning</th></tr>
+   <tr><td>1–2</td><td>27</td><td>State code (27 = Maharashtra)</td></tr>
+   <tr><td>3–12</td><td>AAPFU0939F</td><td>PAN of the business</td></tr>
+   <tr><td>13</td><td>1</td><td>Entity number for this PAN in the state</td></tr>
+   <tr><td>14</td><td>Z</td><td>Default letter for regular taxpayers</td></tr>
+   <tr><td>15</td><td>V</td><td>Check character, worked out from the first 14</td></tr>
+  </table>
+  <h2>What this tool checks</h2>
+  <ul>
+   <li><b>Length and characters:</b> exactly 15 letters and digits, with common mistakes such as spaces removed.</li>
+   <li><b>State code:</b> one of the valid GST state and union territory codes.</li>
+   <li><b>PAN structure:</b> five letters, four digits and one letter, plus the entity type from the 4th character.</li>
+   <li><b>Check character:</b> recalculated from the first 14 characters. If it does not match, the tool shows what it should be, which usually points to a typing mistake.</li>
+  </ul>
+  <p>A correctly formed GSTIN is not proof that the registration is active. Before claiming input tax credit or making a large payment, confirm the legal name and status on the GST portal using <a href="https://services.gst.gov.in/services/searchtp" rel="noopener" target="_blank">Search Taxpayer</a>.</p>
+  <h2>PAN entity types (4th character of the PAN)</h2>
+  <table>
+   <tr><th>Letter</th><th>Entity</th><th>Letter</th><th>Entity</th></tr>
+   <tr><td>P</td><td>Individual</td><td>C</td><td>Company</td></tr>
+   <tr><td>H</td><td>Hindu Undivided Family</td><td>F</td><td>Firm or LLP</td></tr>
+   <tr><td>A</td><td>Association of Persons</td><td>T</td><td>Trust</td></tr>
+   <tr><td>B</td><td>Body of Individuals</td><td>L</td><td>Local authority</td></tr>
+   <tr><td>J</td><td>Artificial juridical person</td><td>G</td><td>Government</td></tr>
+  </table>
+  <h2>GST state codes</h2>
+  <div id="sc"></div>
+
+  <h2>Frequently asked questions</h2>
+  <h3>1. What is the format of a GSTIN?</h3>
+  <p>A GSTIN has 15 characters: a 2-digit state code, the 10-character PAN of the business, 1 entity number for registrations under the same PAN in a state, the letter Z by default, and 1 check character.</p>
+  <h3>2. How do I check if a GST number is valid?</h3>
+  <p>Type or paste the GSTIN in the box above. The tool checks the length, the state code, the PAN structure and the last check character, which is calculated from the first 14 characters.</p>
+  <h3>3. Does this tool confirm that the GSTIN is active?</h3>
+  <p>No. It checks whether the number is correctly formed. To see the legal name, status and return filing, use Search Taxpayer on the GST portal.</p>
+  <h3>4. What is the GSTIN check digit?</h3>
+  <p>The 15th character is a checksum worked out from the first 14 characters. If any character is typed wrongly, the checksum usually stops matching, so most typing mistakes are caught.</p>
+  <h3>5. How do I find the PAN from a GSTIN?</h3>
+  <p>Characters 3 to 12 of a regular GSTIN are the PAN of the business. The tool shows it, along with the type of entity from the 4th character of the PAN.</p>
+  <h3>6. What does the 13th character of a GSTIN mean?</h3>
+  <p>It is the entity number. It is 1 for the first registration under a PAN in a state, 2 for the second, and so on.</p>
+  <h3>7. Why is Z the 14th character in a GSTIN?</h3>
+  <p>Z is the default letter for regular taxpayers. Some special registrations, such as those of tax deductors, use a different letter.</p>
+  <h3>8. Can I check many GSTINs at once?</h3>
+  <p>Yes. Paste a list or upload an Excel or CSV file. The tool finds every GSTIN in the file, checks each one, marks duplicates and lets you download the result in Excel.</p>
+  <h3>9. Why should I validate GSTINs of suppliers and customers?</h3>
+  <p>A wrong GSTIN on an invoice means your customer cannot claim input tax credit, and a wrong supplier GSTIN in your books breaks GSTR-2B matching. Checking before filing GSTR-1 avoids amendments and disputes.</p>
+  <h3>10. Is my data safe?</h3>
+  <p>Yes. All checks run inside your browser. GSTINs and files are never sent to any server.</p>
+
+  <h2>Official sources</h2>
+  <ul>
+   <li><a href="https://services.gst.gov.in/services/searchtp" rel="noopener" target="_blank">GST Portal – Search Taxpayer</a> to confirm name and registration status</li>
+   <li><a href="https://www.gst.gov.in/" rel="noopener" target="_blank">GST Portal</a> and <a href="https://cbic-gst.gov.in/" rel="noopener" target="_blank">CBIC GST</a> for registration rules</li>
+  </ul>
+  <p class="note">By the Cooridor Store team · Last updated: <time datetime="2026-11-17">17 November 2026</time></p>
+
+  <h2>Related tools</h2>
+  <div class="related">
+   <a class="card" href="gstr-2b-reconciliation.html">🔄 GSTR-2B Reconciliation</a>
+   <a class="card" href="invoice-generator.html">🧾 GST Invoice Generator</a>
+   <a class="card" href="gst-calculator.html">🧮 GST Calculator</a>
+  </div>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+(function(){
+var CH='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var ST={'01':'Jammu and Kashmir','02':'Himachal Pradesh','03':'Punjab','04':'Chandigarh','05':'Uttarakhand','06':'Haryana','07':'Delhi','08':'Rajasthan','09':'Uttar Pradesh','10':'Bihar','11':'Sikkim','12':'Arunachal Pradesh','13':'Nagaland','14':'Manipur','15':'Mizoram','16':'Tripura','17':'Meghalaya','18':'Assam','19':'West Bengal','20':'Jharkhand','21':'Odisha','22':'Chhattisgarh','23':'Madhya Pradesh','24':'Gujarat','25':'Daman and Diu (old code)','26':'Dadra and Nagar Haveli and Daman and Diu','27':'Maharashtra','28':'Andhra Pradesh (old code)','29':'Karnataka','30':'Goa','31':'Lakshadweep','32':'Kerala','33':'Tamil Nadu','34':'Puducherry','35':'Andaman and Nicobar Islands','36':'Telangana','37':'Andhra Pradesh','38':'Ladakh','97':'Other Territory','99':'Centre Jurisdiction'};
+var EN={P:'Individual',C:'Company',H:'Hindu Undivided Family',F:'Firm or LLP',A:'Association of Persons',T:'Trust',B:'Body of Individuals',L:'Local authority',J:'Artificial juridical person',G:'Government'};
+function $(i){return document.getElementById(i);}
+function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
+function clean(s){return String(s||'').toUpperCase().replace(/[\s\-\.\/]/g,'');}
+function checkChar(g){var s=0;for(var i=0;i<14;i++){var v=CH.indexOf(g[i]);if(v<0)return null;var p=v*(i%2?2:1);s+=Math.floor(p/36)+p%36;}return CH[(36-s%36)%36];}
+function check(raw){
+ var g=clean(raw),r={input:String(raw||'').trim(),g:g,ok:false,errors:[],state:'',pan:'',entity:'',num:'',kind:'',expected:''};
+ if(!g){r.errors.push(T('Empty','खाली'));return r;}
+ if(/[^A-Z0-9]/.test(g))r.errors.push(T('Contains characters other than letters and digits','अक्षर और अंकों के अलावा कुछ और है'));
+ if(g.length!==15){r.errors.push(T('Must be 15 characters, found ','15 अक्षर होने चाहिए, मिले ')+g.length);return r;}
+ var sc=g.slice(0,2);r.state=ST[sc]||'';
+ if(!r.state)r.errors.push(T('Invalid state code ','गलत राज्य कोड ')+sc);
+ var mid=g.slice(2,12);
+ if(/^[A-Z]{5}\d{4}[A-Z]$/.test(mid)){r.kind=T('Regular taxpayer (PAN based)','नियमित करदाता (PAN आधारित)');r.pan=mid;r.entity=EN[mid[3]]||T('Other (','अन्य (')+mid[3]+')';}
+ else if(/^[A-Z]{4}\d{5}[A-Z]$/.test(mid)&&g[13]==='D'){r.kind=T('Tax deductor (TAN based)','टैक्स डिडक्टर (TAN आधारित)');r.pan='—';r.entity='TAN '+mid;}
+ else if(sc==='99'||sc==='97'){r.kind=T('Special registration (UIN / OIDAR / non-resident)','विशेष रजिस्ट्रेशन (UIN / OIDAR / अनिवासी)');}
+ else r.errors.push(T('Characters 3–12 are not a valid PAN','3–12 अक्षर सही PAN नहीं हैं'));
+ r.num=g[12];
+ if(!/[1-9A-Z]/.test(g[12]))r.errors.push(T('13th character (entity number) cannot be 0','13वाँ अक्षर (इकाई संख्या) 0 नहीं हो सकता'));
+ var c=checkChar(g);r.expected=c||'';
+ if(c&&c!==g[14])r.errors.push(T('Check character should be ','चेक अक्षर होना चाहिए ')+c+T(', not ',', न कि ')+g[14]+T(' (likely a typo)',' (शायद टाइपिंग गलती)'));
+ r.ok=!r.errors.length;
+ return r;
+}
+/* single */
+function single(){
+ var v=$('g1').value,box=$('r1');
+ if(!clean(v)){box.classList.remove('on');return;}
+ var r=check(v),g=r.g;
+ var chars='';
+ if(g.length===15){for(var i=0;i<15;i++){var cls=i<2?'c-st':i<12?'c-pan':i===12?'c-en':i===13?'c-z':'c-ck',sm=i<2?T('State','राज्य'):i<12?'PAN':i===12?T('Entity','इकाई'):i===13?'Z':T('Check','चेक');
+  if((i<2&&!r.state)||(i===14&&r.expected&&r.expected!==g[14]))cls+=' c-x';chars+='<span class="'+cls+'">'+g[i]+'<small>'+sm+'</small></span>';}}
+ var rows=[[T('GSTIN','GSTIN'),g],[T('State','राज्य'),r.state?r.state+' ('+g.slice(0,2)+')':'—']];
+ if(r.kind)rows.push([T('Type','प्रकार'),r.kind]);
+ if(r.pan)rows.push(['PAN',r.pan]);
+ if(r.entity)rows.push([T('Entity type','इकाई का प्रकार'),r.entity]);
+ if(g.length===15)rows.push([T('Registration number for this PAN in the state','इस राज्य में इस PAN का रजिस्ट्रेशन नंबर'),r.num]);
+ if(g.length===15&&r.expected)rows.push([T('Check character','चेक अक्षर'),g[14]+(r.expected===g[14]?' ✓':' ✗ ('+T('should be ','होना चाहिए ')+r.expected+')')]);
+ box.innerHTML='<div class="gv-hd '+(r.ok?'ok':'bad')+'">'+(r.ok?'✓ '+T('Valid GSTIN format','GSTIN का फ़ॉर्मेट सही है'):'✗ '+T('Invalid GSTIN','गलत GSTIN'))+'</div>'+
+  (chars?'<div class="gv-chars">'+chars+'</div>':'')+
+  (r.errors.length?'<div class="gv-note" style="color:#b91c1c">'+r.errors.map(function(e){return '• '+e;}).join('<br>')+'</div>':'')+
+  '<table class="gv-tb">'+rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>'+x[1]+'</td></tr>';}).join('')+'</table>'+
+  '<div class="gv-note">'+T('Format check only. Confirm the legal name and active status on the ','सिर्फ़ फ़ॉर्मेट की जाँच। कानूनी नाम और चालू स्थिति ')+'<a href="https://services.gst.gov.in/services/searchtp" target="_blank" rel="noopener">GST portal → Search Taxpayer</a>'+T('.',' पर देखिए।')+'</div>';
+ box.classList.add('on');
+}
+$('g1').addEventListener('input',single);
+$('gx').onclick=function(){$('g1').value='27AAPFU0939F1ZV';single();};
+/* bulk */
+var LAST=[],FLT='';
+function extract(text){
+ var out=[];
+ String(text).split(/\r?\n/).forEach(function(line){
+  var toks=line.toUpperCase().match(/\b\d{2}[A-Z0-9]{13}\b/g);
+  if(toks)toks.forEach(function(t){out.push(t);});
+  else{var c=clean(line);if(c&&c.length>=10&&c.length<=17&&/^\d/.test(c))out.push(line.trim());}
+ });
+ return out;
+}
+function runBulk(list){
+ var cnt={},rows=list.map(function(x){var r=check(x);cnt[r.g]=(cnt[r.g]||0)+1;return r;});
+ rows.forEach(function(r){r.dup=cnt[r.g]>1;});
+ LAST=rows;FLT='';drawBulk();$('gd').disabled=!rows.length;
+}
+function drawBulk(){
+ var rows=LAST,ok=rows.filter(function(r){return r.ok;}).length,dup=rows.filter(function(r){return r.dup;}).length;
+ if(!rows.length){$('bo').innerHTML='<p class="note">'+T('No GSTINs found.','कोई GSTIN नहीं मिला।')+'</p>';return;}
+ var shown=rows.filter(function(r){return !FLT||(FLT==='ok'?r.ok:FLT==='bad'?!r.ok:r.dup);});
+ $('bo').innerHTML='<div class="gv-sum"><div><span>'+T('Checked','जाँचे गए')+'</span><b>'+rows.length+'</b></div><div><span>'+T('Valid','सही')+'</span><b style="color:#059669">'+ok+'</b></div><div><span>'+T('Invalid','गलत')+'</span><b style="color:#dc2626">'+(rows.length-ok)+'</b></div><div><span>'+T('Duplicates','डुप्लिकेट')+'</span><b style="color:#b45309">'+dup+'</b></div></div>'+
+  '<div class="gv-fl">'+[['',T('All','सभी')],['ok',T('Valid','सही')],['bad',T('Invalid','गलत')],['dup',T('Duplicates','डुप्लिकेट')]].map(function(f){return '<button type="button" data-f="'+f[0]+'"'+(FLT===f[0]?' class="on"':'')+'>'+f[1]+'</button>';}).join('')+'</div>'+
+  '<div class="gv-tw"><table class="gv-bt"><tr><th>#</th><th>GSTIN</th><th>'+T('Status','स्थिति')+'</th><th>'+T('State','राज्य')+'</th><th>PAN</th><th>'+T('Entity type','इकाई')+'</th><th>'+T('Problem','समस्या')+'</th></tr>'+
+  shown.slice(0,1000).map(function(r){return '<tr><td>'+(rows.indexOf(r)+1)+'</td><td class="m">'+(r.g||r.input)+'</td><td><span class="pl '+(r.ok?'g':'r')+'">'+(r.ok?T('Valid','सही'):T('Invalid','गलत'))+'</span>'+(r.dup?' <span class="pl a">'+T('Duplicate','डुप्लिकेट')+'</span>':'')+'</td><td>'+(r.state||'—')+'</td><td>'+(r.pan||'—')+'</td><td>'+(r.entity||'—')+'</td><td>'+r.errors.join('; ')+'</td></tr>';}).join('')+'</table></div>';
+ $('bo').querySelectorAll('.gv-fl button').forEach(function(b){b.onclick=function(){FLT=b.dataset.f;drawBulk();};});
+}
+$('gb').onclick=function(){runBulk(extract($('gl').value));};
+$('gf').addEventListener('change',function(){
+ var f=this.files[0];if(!f)return;var fr=new FileReader();
+ fr.onload=function(){
+  var text='';
+  if(/\.(csv|txt)$/i.test(f.name))text=new TextDecoder().decode(new Uint8Array(fr.result));
+  else if(window.XLSX){try{var wb=XLSX.read(new Uint8Array(fr.result),{type:'array'});wb.SheetNames.forEach(function(n){XLSX.utils.sheet_to_json(wb.Sheets[n],{header:1,defval:''}).forEach(function(row){row.forEach(function(c){text+=String(c)+'\n';});});});}catch(e){alert(T('Could not read this file.','यह फ़ाइल नहीं पढ़ी जा सकी।'));return;}}
+  else{alert(T('Excel reader is still loading. Try again in a moment.','Excel रीडर लोड हो रहा है, थोड़ी देर में दोबारा कोशिश कीजिए।'));return;}
+  var list=extract(text).filter(function(x){return /^\d{2}[A-Z0-9]{13}$/.test(clean(x));});
+  $('gl').value=list.join('\n');runBulk(list);
+ };
+ fr.readAsArrayBuffer(f);
+});
+$('gd').onclick=function(){
+ if(!LAST.length||!window.XLSX)return;
+ var a=[['GSTIN','Status','Duplicate','State code','State','PAN','Entity type','Problem']].concat(LAST.map(function(r){return [r.g||r.input,r.ok?'Valid':'Invalid',r.dup?'Yes':'',r.g.slice(0,2),r.state,r.pan,r.entity,r.errors.join('; ')];}));
+ var ws=XLSX.utils.aoa_to_sheet(a);ws['!cols']=[{wch:18},{wch:9},{wch:10},{wch:10},{wch:26},{wch:12},{wch:24},{wch:50}];
+ var wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'GSTIN check');XLSX.writeFile(wb,'gstin-validation.xlsx');
+};
+/* state code table */
+var keys=Object.keys(ST),half=Math.ceil(keys.length/2),h='<table><tr><th>Code</th><th>State / UT</th><th>Code</th><th>State / UT</th></tr>';
+for(var i=0;i<half;i++){var a=keys[i],b=keys[i+half];h+='<tr><td>'+a+'</td><td>'+ST[a]+'</td><td>'+(b||'')+'</td><td>'+(b?ST[b]:'')+'</td></tr>';}
+$('sc').innerHTML=h+'</table>';
+document.addEventListener('langchange',function(){single();if(LAST.length){LAST=LAST.map(function(r){var x=check(r.input);x.dup=r.dup;return x;});drawBulk();}});
+})();
+</script>
+</body>
+</html>
