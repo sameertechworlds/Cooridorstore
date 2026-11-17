@@ -91,3 +91,64 @@ window.setLang=function(l){put('lang',l);document.documentElement.lang=l;
  var a=document.getElementById('l-en'),b=document.getElementById('l-hi');if(a){a.className=l==='en'?'on':'';b.className=l==='hi'?'on':'';}
  document.dispatchEvent(new Event('langchange'));};
 })();
+/* ===== Share button on every tool page ===== */
+(function(){
+function ready(f){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',f);else f();}
+ready(function(){
+ var ph=document.querySelector('.ph')||document.querySelector('article.post');
+ if(!ph||document.getElementById('shr'))return;
+ var can=document.querySelector('link[rel=canonical]');
+ var url=can?can.href:location.href.split('#')[0];
+ var h1=ph.querySelector('h1');
+ var title=(h1?h1.textContent.trim():document.title)+(ph.matches('article')?'':' – free tool');
+ var text=title+': '+url;
+ var e=encodeURIComponent;
+ var L={
+  wa:['WhatsApp','https://wa.me/?text='+e(text),'#25d366','<path d="M12 2a10 10 0 0 0-8.7 15l-1.3 5 5.1-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1a17 17 0 0 1-1.7-.6 13.4 13.4 0 0 1-5.2-4.6c-.4-.6-1-1.6-1-2.6 0-1.1.6-1.6.8-1.8.2-.3.5-.3.6-.3h.5c.2 0 .4 0 .6.4l.8 2c.1.2.1.3 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.7 1.1 1.4 1.8 1 .9 1.8 1.1 2.1 1.3.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.6-.1 1.2Z"/>'],
+  tg:['Telegram','https://t.me/share/url?url='+e(url)+'&text='+e(title),'#229ed9','<path d="M21.9 4.6 18.7 19.7c-.2 1-.9 1.3-1.7.8l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.9 8.9-8c.4-.3-.1-.5-.6-.2L6.4 13.5l-4.7-1.5c-1-.3-1-1 .2-1.5L20.4 3.4c.9-.3 1.6.2 1.5 1.2Z"/>'],
+  fb:['Facebook','https://www.facebook.com/sharer/sharer.php?u='+e(url),'#1877f2','<path d="M14 8V6.3c0-.8.2-1.3 1.4-1.3H17V2.1C16.6 2 15.6 2 14.4 2 12 2 10.4 3.5 10.4 6.1V8H8v3.2h2.4V22H14V11.2h2.7L17 8h-3Z"/>'],
+  x:['X','https://twitter.com/intent/tweet?url='+e(url)+'&text='+e(title),'#111111','<path d="M17.7 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8L17.7 3Zm-1.1 16.2h1.7L7.5 4.7H5.7l10.9 14.5Z"/>'],
+  li:['LinkedIn','https://www.linkedin.com/sharing/share-offsite/?url='+e(url),'#0a66c2','<path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm6.5 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4V9.5Z"/>'],
+  em:['Email','mailto:?subject='+e(title)+'&body='+e(text),'#64748b','<path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm9 7.6L4 7.3V17h16V7.3l-8 5.3Zm0-2.4L19.3 7H4.7l7.3 3.2Z"/>']
+ };
+ var css=document.createElement('style');
+ css.textContent='.shr{position:relative;display:inline-flex;gap:8px;align-items:center;margin-top:12px}'+
+ '.shr-b{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border:1px solid var(--line);border-radius:99px;background:var(--sur);color:var(--txt);font:inherit;font-size:.9rem;font-weight:600;cursor:pointer;transition:.15s}'+
+ '.shr-b:hover{border-color:var(--pri);color:var(--pri)}.shr-b svg{width:17px;height:17px}'+
+ '.shr-wa{background:#25d366;border-color:#25d366;color:#fff}.shr-wa:hover{color:#fff;filter:brightness(.95)}'+
+ '.shr-m{position:absolute;top:calc(100% + 8px);left:0;z-index:60;min-width:230px;padding:8px;border:1px solid var(--line);border-radius:14px;background:var(--sur);box-shadow:0 18px 40px -12px rgba(0,0,0,.3);display:none}'+
+ '.shr-m.on{display:block}.shr-m a,.shr-m button{display:flex;width:100%;align-items:center;gap:10px;padding:9px 10px;border:none;border-radius:9px;background:none;color:var(--txt);font:inherit;font-size:.9rem;cursor:pointer;text-align:left}'+
+ '.shr-m a:hover,.shr-m button:hover{background:var(--soft)}.shr-m i{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:none}.shr-m i svg{width:16px;height:16px;fill:#fff}';
+ document.head.appendChild(css);
+ var box=document.createElement('div');box.className='shr';box.id='shr';
+ var ic='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>';
+ var wa='<svg viewBox="0 0 24 24" fill="currentColor">'+L.wa[3]+'</svg>';
+ var items='';
+ for(var k in L)items+='<a href="'+L[k][1]+'" target="_blank" rel="noopener" data-m="'+k+'"><i style="background:'+L[k][2]+'"><svg viewBox="0 0 24 24">'+L[k][3]+'</svg></i>'+L[k][0]+'</a>';
+ items+='<button type="button" data-m="copy"><i style="background:var(--pri)"><svg viewBox="0 0 24 24"><path d="M8 3h11a2 2 0 0 1 2 2v11h-2V5H8V3Zm-3 4h11a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Zm0 2v11h11V9H5Z"/></svg></i><span class="shr-cp"></span></button>';
+ box.innerHTML='<button type="button" class="shr-b" id="shr-o">'+ic+'<span class="shr-t"></span></button>'+
+  '<a class="shr-b shr-wa" href="'+L.wa[1]+'" target="_blank" rel="noopener" data-m="wa">'+wa+'WhatsApp</a>'+
+  '<div class="shr-m" id="shr-m">'+items+'</div>';
+ var meta=ph.querySelector('.meta');
+ if(meta)meta.insertAdjacentElement('afterend',box);else ph.appendChild(box);
+ function hi(){return document.documentElement.lang==='hi';}
+ function labels(){box.querySelector('.shr-t').textContent=hi()?'शेयर करें':'Share';box.querySelector('.shr-cp').textContent=hi()?'लिंक कॉपी करें':'Copy link';}
+ labels();document.addEventListener('langchange',labels);
+ function track(m){try{if(window.gtag)gtag('event','share',{method:m,content_type:'tool',item_id:location.pathname});}catch(x){}}
+ var menu=box.querySelector('#shr-m');
+ box.querySelector('#shr-o').addEventListener('click',function(ev){
+  ev.stopPropagation();
+  if(navigator.share&&matchMedia('(pointer:coarse)').matches){navigator.share({title:title,text:title,url:url}).then(function(){track('native');}).catch(function(){});return;}
+  menu.classList.toggle('on');
+ });
+ box.querySelectorAll('[data-m]').forEach(function(a){a.addEventListener('click',function(){
+  var m=a.getAttribute('data-m');track(m);
+  if(m==='copy'){var s=a.querySelector('.shr-cp');
+   var done=function(){s.textContent=hi()?'✓ कॉपी हो गया':'✓ Copied';setTimeout(labels,1600);};
+   if(navigator.clipboard)navigator.clipboard.writeText(url).then(done,function(){prompt('Copy link:',url);});else prompt('Copy link:',url);}
+  else menu.classList.remove('on');
+ });});
+ document.addEventListener('click',function(ev){if(!box.contains(ev.target))menu.classList.remove('on');});
+ document.addEventListener('keydown',function(ev){if(ev.key==='Escape')menu.classList.remove('on');});
+});
+})();
