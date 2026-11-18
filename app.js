@@ -155,3 +155,14 @@ ready(function(){
  document.addEventListener('keydown',function(ev){if(ev.key==='Escape')menu.classList.remove('on');});
 });
 })();
+/* ===== Clean links: remove .html from internal links ===== */
+(function(){
+function fix(){document.querySelectorAll('a[href$=".html"]').forEach(function(a){
+ var h=a.getAttribute('href');
+ if(/^(https?:)?\/\//.test(h)&&h.indexOf('cooridorstore.in')<0)return;
+ var n=h.replace(/(^|\/)index\.html$/,'$1').replace(/\.html$/,'');
+ a.setAttribute('href',n||'/');
+});}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fix);else fix();
+setTimeout(fix,1500);
+})();
