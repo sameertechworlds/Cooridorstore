@@ -21,7 +21,7 @@
 .px-file{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--sur);font-size:.88rem}
 .px-file .st{font-weight:700;white-space:nowrap}.st.ok{color:#059669}.st.bad{color:#dc2626}.st.wait{color:var(--mut)}
 .px-file button{border:none;background:none;color:var(--mut);cursor:pointer;font-size:1rem}
-.px-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:4px 0 16px}
+.px-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 16px}
 .px-tabs button{padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--sur);color:var(--txt);font:inherit;text-align:left;cursor:pointer}
 .px-tabs button b{display:block;font-size:.98rem;margin-bottom:2px}.px-tabs button span{font-size:.82rem;color:var(--mut)}
 .px-tabs button.on{border-color:var(--pri);background:var(--soft);box-shadow:0 0 0 2px var(--pri) inset}
@@ -100,6 +100,7 @@
   <div class="px-step" data-en="Step 2 · What do you want?" data-hi="स्टेप 2 · क्या चाहिए?">Step 2 · What do you want?</div>
   <div class="px-tabs">
    <button type="button" id="mT" class="on"><b data-en="📊 Full tables" data-hi="📊 पूरी टेबल">📊 Full tables</b><span data-en="All rows and columns, e.g. statements, registers, ledgers" data-hi="सारी लाइनें और कॉलम, जैसे स्टेटमेंट, रजिस्टर, लेजर">All rows and columns, e.g. statements, registers, ledgers</span></button>
+   <button type="button" id="mI"><b data-en="🧾 Invoice items" data-hi="🧾 इनवॉइस आइटम">🧾 Invoice items</b><span data-en="Each invoice, then its items with taxable, GST and total, then the next invoice" data-hi="हर इनवॉइस, फिर उसके आइटम टैक्सेबल, GST और टोटल के साथ, फिर अगला इनवॉइस">Each invoice, then its items with taxable, GST and total, then the next invoice</span></button>
    <button type="button" id="mF"><b data-en="🎯 Pick fields (your format)" data-hi="🎯 चुनी जानकारी (आपका फ़ॉर्मेट)">🎯 Pick fields (your format)</b><span data-en="One row per PDF with only the details you choose, e.g. invoices" data-hi="हर PDF की एक लाइन, सिर्फ़ चुनी जानकारी के साथ, जैसे इनवॉइस">One row per PDF with only the details you choose, e.g. invoices</span></button>
   </div>
 
@@ -112,11 +113,25 @@
    </div>
   </div>
 
+  <div id="iOpts" hidden>
+   <div class="px-opts">
+    <label><input type="radio" name="lay" value="g" checked><span data-en="Grouped: invoice, its items, invoice total" data-hi="ग्रुप: इनवॉइस, उसके आइटम, इनवॉइस टोटल">Grouped: invoice, its items, invoice total</span></label>
+    <label><input type="radio" name="lay" value="f"><span data-en="Flat: invoice no on every item row (for pivots)" data-hi="फ़्लैट: हर आइटम लाइन पर इनवॉइस नंबर (पिवट के लिए)">Flat: invoice no on every item row (for pivots)</span></label>
+   </div>
+   <p style="font-size:.82rem;color:var(--mut);margin:0" data-en="Works with GST invoices, Tally invoices and purchase orders. The Check column compares the items with the invoice's own total." data-hi="GST इनवॉइस, Tally इनवॉइस और परचेज़ ऑर्डर पर काम करता है। Check कॉलम आइटम के जोड़ को इनवॉइस के अपने टोटल से मिलाता है।">Works with GST invoices, Tally invoices and purchase orders. The Check column compares the items with the invoice's own total.</p>
+  </div>
+
   <div id="fOpts" hidden>
+   <div class="px-msg" style="margin-top:0">
+    <b data-en="Have your own Excel format?" data-hi="आपका अपना Excel फ़ॉर्मेट है?">Have your own Excel format?</b>
+    <span data-en=" Upload it. The tool reads its column names, fills them from every PDF and gives back the same Excel." data-hi=" उसे अपलोड कीजिए। टूल उसके कॉलम के नाम पढ़ेगा, हर PDF से भरेगा और वही Excel वापस देगा।"> Upload it. The tool reads its column names, fills them from every PDF and gives back the same Excel.</span>
+    <div class="px-row" style="margin-top:8px"><label class="px-btn sm p"><input type="file" id="tplF" accept=".xlsx,.xls,.csv" style="display:none"><span data-en="⬆ Upload my Excel format" data-hi="⬆ मेरा Excel फ़ॉर्मेट अपलोड करें">⬆ Upload my Excel format</span></label><span id="tplMsg" style="font-size:.84rem"></span></div>
+   </div>
    <div class="px-row" style="margin-bottom:10px">
     <span style="font-weight:700;font-size:.88rem" data-en="Preset:" data-hi="तैयार सेट:">Preset:</span>
     <button type="button" class="px-btn sm" data-pre="gst">GST invoice</button>
     <button type="button" class="px-btn sm" data-pre="pur">Purchase bill</button>
+    <button type="button" class="px-btn sm" data-pre="items" data-en="Items (one row per item)" data-hi="आइटम (हर आइटम की एक लाइन)">Items (one row per item)</button>
     <button type="button" class="px-btn sm" data-pre="blank" data-en="Start blank" data-hi="ख़ाली से शुरू">Start blank</button>
    </div>
    <div class="px-fld"><span class="px-fh" data-en="Column name" data-hi="कॉलम नाम">Column name</span><span class="px-fh" data-en="Look for label (comma = or)" data-hi="ये लेबल ढूँढें (कॉमा = या)">Look for label (comma = or)</span><span class="px-fh" data-en="Type" data-hi="प्रकार">Type</span><span class="px-fh" data-en="Nth" data-hi="कौन सा">Nth</span><span></span></div>
@@ -182,6 +197,10 @@
   <p>Every office wants its Excel in a particular layout. With <b>Your format</b> you keep only the columns you need, in your order and with your column names. Save the format once, and the next time you convert similar PDFs it is applied automatically by matching column names.</p>
   <p>With <b>Pick fields</b>, you list the details you want, such as Invoice No, Invoice Date, Seller GSTIN, Buyer GSTIN, Taxable Value, IGST and Grand Total. The tool looks for each label in every PDF and takes the value next to it or just below it. Fields of type GSTIN, PAN, date or amount are checked, so a wrong value is not picked up by mistake. Drop 100 invoices and get one clean Excel row per invoice.</p>
 
+  <h2>Invoices to Excel, item by item</h2>
+  <p>Choose <b>Invoice items</b> and drop all your invoices together. The Excel shows the first invoice number with its date and GSTINs, then every item of that invoice with HSN, quantity, rate, taxable value, GST % and GST amount, then an invoice total row, and then the next invoice. The <b>Check</b> column adds up the items and compares them with the total printed on the invoice, so you can see at once if anything is missing. Pick <b>Flat</b> layout to repeat the invoice number on every item row for pivot tables.</p>
+  <h2>Use your own Excel format</h2>
+  <p>In <b>Pick fields</b>, click <b>Upload my Excel format</b> and choose an Excel file that has only your column names, such as Sr No, Bill No, Bill Date, Supplier GSTIN, Description, HSN, Qty, Rate, Taxable Value, GST Amount and Total. The tool reads the names, works out what each column needs, and after conversion gives back the same Excel filled with data from every PDF.</p>
   <h2>Frequently asked questions</h2>
   <h3>1. How accurate is this PDF to Excel converter?</h3>
   <p>For digital PDFs, the text and numbers are copied exactly as they are stored in the PDF, not retyped or guessed, so every character matches. The tool also rebuilds rows and columns, and shows totals of number columns so you can check them against the PDF before downloading.</p>
@@ -233,7 +252,11 @@ function norm(items){
   var s=it.str.replace(/\s+/g,' ');if(!s.trim())return;
   var t=it.transform||[1,0,0,1,0,0],h=Math.abs(it.height)||Math.hypot(t[2],t[3])||Math.abs(t[3])||10;
   var x0=t[4],w=Math.abs(it.width)||s.length*h*0.5;
-  out.push({s:s,x0:x0,x1:x0+w,y:t[5],h:h});
+  var toks=s.trim().split(/ +/);
+  if(toks.length>=2&&toks.every(function(k){return isNum(k);})){
+   var cw=w/s.length,pos=0;
+   toks.forEach(function(k){var at=s.indexOf(k,pos);pos=at+k.length;out.push({s:k,x0:x0+at*cw,x1:x0+(at+k.length)*cw,y:t[5],h:h});});
+  }else out.push({s:s,x0:x0,x1:x0+w,y:t[5],h:h});
  });
  return out;
 }
@@ -251,7 +274,7 @@ function lines(items){
   var segs=[],cur=null;
   ln.items.forEach(function(o){
    var gap=cur?o.x0-cur.x1:1e9,lim=Math.max(1.5,Math.min(cur?cur.h:o.h,o.h)*0.55);
-   if(cur&&gap<=lim){var sp=gap>Math.min(cur.h,o.h)*0.12&&!/\s$/.test(cur.s)&&!/^\s/.test(o.s);cur.s+=(sp?' ':'')+o.s;cur.x1=Math.max(cur.x1,o.x1);}
+   if(cur&&gap<=lim&&!(gap>0.3&&isNum(cur.s)&&isNum(o.s))){var sp=gap>Math.min(cur.h,o.h)*0.12&&!/\s$/.test(cur.s)&&!/^\s/.test(o.s);cur.s+=(sp?' ':'')+o.s;cur.x1=Math.max(cur.x1,o.x1);}
    else{cur={s:o.s,x0:o.x0,x1:o.x1,h:o.h};segs.push(cur);}
   });
   segs.forEach(function(g){g.s=g.s.replace(/\s+/g,' ').trim();});
@@ -268,7 +291,7 @@ function columns(allLines){
  multi.forEach(function(l){l.segs.forEach(function(g){minX=Math.min(minX,g.x0);maxX=Math.max(maxX,g.x1);});});
  var W=Math.ceil(maxX-minX)+2,cov=new Float32Array(W);
  multi.forEach(function(l){l.segs.forEach(function(g){for(var x=Math.floor(g.x0-minX);x<=Math.ceil(g.x1-minX)&&x<W;x++)cov[x]++;});});
- var thr=Math.max(0,multi.length*0.04),cuts=[],inGap=false,gs=0,minGap=2.5;
+ var thr=Math.max(0,multi.length*0.04),cuts=[],inGap=false,gs=0,minGap=1.2;
  for(var x=0;x<W;x++){
   var empty=cov[x]<=thr;
   if(empty&&!inGap){inGap=true;gs=x;}
@@ -362,8 +385,9 @@ function field(L,def){
   for(var i=0;i<L.length;i++){var src=type==='gstin'||type==='pan'?L[i].text.toUpperCase():L[i].text,g=new RegExp(TYPES[type].source,'g'+(type==='amount'?'i':'')),m;while((m=g.exec(src))){if(found.indexOf(m[0])<0)found.push(m[0]);}}
   var v=found[n-1]||'';return type==='amount'&&v?toNum(v):v;
  }
- for(var i2=0;i2<L.length;i2++){
-  var ln=L[i2];
+ var order=[];for(var q=0;q<L.length;q++)order.push(def.last?L.length-1-q:q);
+ for(var oi=0;oi<order.length;oi++){
+  var i2=order[oi],ln=L[i2];
   for(var s=0;s<ln.segs.length;s++){
    var seg=ln.segs[s],low=seg.s.toLowerCase();
    for(var k=0;k<labels.length;k++){
@@ -380,26 +404,132 @@ function field(L,def){
  return '';
 }
 function fields(pagesLines,defs){var L=flat(pagesLines);return defs.map(function(d){return field(L,d);});}
+/* 7. invoice line items */
+var HK=[
+ ['sr',/^(s\.?\s*no\.?|sr\.?(\s*no\.?)?|sl\.?(\s*no\.?)?|#|no\.?)$/i],
+ ['hsn',/hsn|sac/i],
+ ['gstpct',/%|(gst|tax|igst)\s*rate|rate\s*of\s*tax/i],
+ ['cgst',/cgst/i],['sgst',/sgst|utgst/i],['igst',/igst/i],
+ ['tax',/tax\s*amount|gst\s*amount|gst\s*amt|total\s*tax|\btax\b|\bgst\b/i],
+ ['taxable',/taxable|assessable|before\s*tax|value\s*of\s*supply/i],
+ ['disc',/disc/i],
+ ['qty',/\bqty\b|quantity|\bnos\.?\b|\bpcs\b/i],
+ ['unit',/^(unit|uom|per)$/i],
+ ['rate',/rate|price|mrp/i],
+ ['total',/total|amount|\bamt\b|value|net/i],
+ ['desc',/desc|particular|item|product|goods|service|name|article/i]
+];
+var START_KW=[/desc|particular|item|product|goods|article/i,/qty|quantity/i,/rate|price/i,/amount|total|value|taxable/i,/hsn|sac/i];
+var END_RE=/^(sub\s*total|total|grand\s*total|taxable\s*value|amount\s*chargeable|amount\s*in\s*words|in\s*words|rupees|bank\s*details|declaration|terms|for\s+[a-z])/i;
+var CHG_RE=/^(output\s*|input\s*)?(cgst|sgst|utgst|igst|gst|cess|round(ed)?\s*off|less|add|discount|freight|shipping|packing|tcs)\b/i;
+var STD=[0,0.1,0.25,1,1.5,3,5,6,7.5,9,12,14,18,28,40];
+function lineText(l){return l.segs.map(function(g){return g.s;}).join(' ');}
+function numVal(v){if(typeof v==='number')return v;if(v==null||v==='')return null;var t=String(v).replace(/(nos|pcs|kg|ltr|units?|%)\.?/ig,'').trim();return isNum(t)?toNum(t):null;}
+function items(pagesLines,inv){
+ inv=inv||{};
+ var L=flat(pagesLines),hi=-1;
+ for(var i=0;i<L.length;i++){var t=lineText(L[i]),hits=START_KW.filter(function(r){return r.test(t);}).length;if(hits>=3&&L[i].segs.length>=3&&!L[i].segs.some(function(g){return isNum(g.s);})){hi=i;break;}}
+ if(hi<0)return {found:false,rows:[]};
+ var hdr=[L[hi]],j=hi+1;
+ while(j<L.length&&hdr.length<3&&!L[j].segs.some(function(g){return isNum(g.s);})&&L[j].page===L[hi].page&&L[hi].y-L[j].y<L[hi].h*3&&L[j].segs.length>=2){hdr.push(L[j]);j++;}
+ var body=[],htext=hdr.map(lineText).join('|');
+ for(;j<L.length;j++){
+  var ln=L[j],first=ln.segs[0].s,txt=lineText(ln);
+  if(lineText(ln)===lineText(hdr[0]))continue;
+  var isItemRow=ln.segs.some(function(g){return isNum(g.s);})&&/^\d{1,3}\.?$/.test(first);
+  if(!isItemRow&&ln.segs.some(function(g){return END_RE.test(g.s);}))break;
+  body.push(ln);
+ }
+ if(!body.length)return {found:false,rows:[]};
+ var cuts=columns(hdr.concat(body)),nc=cuts.length+1,head=new Array(nc).fill('');
+ hdr.forEach(function(l){l.segs.forEach(function(g){var c=colOf((g.x0+g.x1)/2,cuts);head[c]=head[c]?head[c]+' '+g.s:g.s;});});
+ var map={},used={};
+ head.forEach(function(h,c){if(!h)return;for(var k=0;k<HK.length;k++){var key=HK[k][0];if(HK[k][1].test(h.trim())&&(!used[key]||key==='desc')){if(!used[key]){map[c]=key;used[key]=1;}break;}}});
+ if(!used.desc){var best=-1,bl=0;for(var c=0;c<nc;c++){if(map[c])continue;var len=0;body.forEach(function(l){l.segs.forEach(function(g){if(colOf((g.x0+g.x1)/2,cuts)===c&&!isNum(g.s))len+=g.s.length;});});if(len>bl){bl=len;best=c;}}if(best>=0){map[best]='desc';used.desc=1;}}
+ var rows=[],charges=[];
+ body.forEach(function(l){
+  var cells=new Array(nc).fill('');
+  l.segs.forEach(function(g){var c=colOf((g.x0+g.x1)/2,cuts);cells[c]=cells[c]?cells[c]+' '+g.s:g.s;});
+  var r={raw:cells};Object.keys(map).forEach(function(c){r[map[c]]=cells[c];});
+  var hasN=cells.some(function(v,c){return v&&map[c]!=='desc'&&map[c]!=='hsn'&&map[c]!=='sr'&&numVal(v)!==null;});
+  var d=String(r.desc||'').trim();
+  if(!hasN){var prev=rows[rows.length-1];if(prev&&d){prev.desc=(prev.desc?prev.desc+' ':'')+d;}return;}
+  if(CHG_RE.test(d)&&!numVal(r.qty)){charges.push(r);return;}
+  rows.push(r);
+ });
+ var out=rows.map(function(r){
+  var o={desc:String(r.desc||'').trim(),hsn:String(r.hsn||'').trim(),qty:numVal(r.qty),unit:String(r.unit||'').trim(),rate:numVal(r.rate),disc:numVal(r.disc),taxable:numVal(r.taxable),gstpct:numVal(r.gstpct),cgst:numVal(r.cgst),sgst:numVal(r.sgst),igst:numVal(r.igst),tax:numVal(r.tax),total:numVal(r.total)};
+  if(o.qty==null&&r.qty){var m=String(r.qty).match(/[\d,.]+/);if(m)o.qty=toNum(m[0]);}
+  return o;});
+ /* decide what the plain Amount column means */
+ var hasTaxCols=used.cgst||used.sgst||used.igst||used.tax;
+ if(!used.taxable&&used.total){
+  var S=out.reduce(function(a,o){return a+(o.total||0);},0);
+  var invTx=numVal(inv.taxable),invTot=numVal(inv.total);
+  var asTaxable=(invTx!=null&&Math.abs(S-invTx)<=1)||(!hasTaxCols&&(invTot==null||Math.abs(S-invTot)>1));
+  if(asTaxable)out.forEach(function(o){o.taxable=o.total;o.total=null;});
+ }
+ out.forEach(function(o){
+  if(o.taxable==null&&o.qty!=null&&o.rate!=null)o.taxable=Math.round(o.qty*o.rate*100)/100-(o.disc||0);
+  var tx=[o.cgst,o.sgst,o.igst].filter(function(v){return v!=null;});
+  if(o.tax==null&&tx.length)o.tax=Math.round(tx.reduce(function(a,b){return a+b;},0)*100)/100;
+  if(o.taxable==null&&o.total!=null&&o.tax!=null)o.taxable=Math.round((o.total-o.tax)*100)/100;
+ });
+ /* GST % from invoice when not on items */
+ var sumTx=out.reduce(function(a,o){return a+(o.taxable||0);},0),invTax=0,ct=0;
+ ['cgst','sgst','igst'].forEach(function(k){var v=numVal(inv[k]);if(v!=null){invTax+=v;ct++;}});
+ if(!ct){charges.forEach(function(c){var v=numVal(c.total)!=null?numVal(c.total):numVal(c.taxable);if(v!=null&&/gst|cess/i.test(c.desc||'')){invTax+=v;ct++;}});}
+ var invPct=null;
+ if(ct&&sumTx>0){var p=invTax/sumTx*100;STD.forEach(function(s){if(Math.abs(p-s)<0.15)invPct=s;});}
+ out.forEach(function(o){
+  if(o.gstpct==null&&o.taxable&&o.tax!=null){var p2=o.tax/o.taxable*100;STD.forEach(function(s){if(Math.abs(p2-s)<0.15)o.gstpct=s;});}
+  if(o.gstpct==null&&invPct!=null)o.gstpct=invPct;
+  if(o.tax==null&&o.gstpct!=null&&o.taxable!=null)o.tax=Math.round(o.taxable*o.gstpct)/100;
+  if(o.total==null&&o.taxable!=null)o.total=Math.round((o.taxable+(o.tax||0))*100)/100;
+ });
+ return {found:out.length>0,rows:out,header:head,charges:charges.map(function(c){return String(c.desc||'').trim();})};
+}
+function invoice(pagesLines){
+ var defs=[{labels:'invoice no,invoice number,inv no,bill no,po no,po number,order no,voucher no',type:'number'},{labels:'invoice date,inv date,bill date,dated,date',type:'date'},{labels:'',type:'gstin',nth:1},{labels:'',type:'gstin',nth:2},{labels:'taxable value,taxable amount,assessable value',type:'amount',last:1},{labels:'cgst',type:'amount',last:1},{labels:'sgst,utgst',type:'amount',last:1},{labels:'igst',type:'amount',last:1},{labels:'grand total,invoice total,total amount,amount payable,net amount,total',type:'amount',last:1}];
+ var v=fields(pagesLines,defs),inv={no:v[0],date:v[1],seller:v[2],buyer:v[3],taxable:v[4],cgst:v[5],sgst:v[6],igst:v[7],total:v[8]};
+ var it=items(pagesLines,inv);
+ var sTx=0,sTot=0,sTax=0;it.rows.forEach(function(o){sTx+=o.taxable||0;sTot+=o.total||0;sTax+=o.tax||0;});
+ sTx=Math.round(sTx*100)/100;sTot=Math.round(sTot*100)/100;sTax=Math.round(sTax*100)/100;
+ var invTx=numVal(inv.taxable),invTot=numVal(inv.total);
+ if(invTx==null||invTx===''){inv.taxable=sTx||'';}
+ var check='';
+ if(it.found){
+  var d1=invTx!=null?Math.round((sTx-invTx)*100)/100:null,d2=invTot!=null?Math.round((sTot-invTot)*100)/100:null;
+  if((d1==null||Math.abs(d1)<=1)&&(d2==null||Math.abs(d2)<=1))check='OK';
+  else check='Diff '+(d1!=null&&Math.abs(d1)>1?'taxable '+d1:'')+(d2!=null&&Math.abs(d2)>1?' total '+d2:'');
+ }
+ return {inv:inv,items:it.rows,found:it.found,sum:{taxable:sTx,tax:sTax,total:sTot},check:check};
+}
+
 function hasText(pagesLines){var n=0;pagesLines.forEach(function(pl){pl.forEach(function(l){n+=l.segs.length;});});return n>0;}
-return {lines:lines,columns:columns,table:table,fields:fields,isNum:isNum,toNum:toNum,hasText:hasText,flat:flat};
+return {lines:lines,columns:columns,table:table,fields:fields,items:items,invoice:invoice,numVal:numVal,isNum:isNum,toNum:toNum,hasText:hasText,flat:flat};
 })();
 if(typeof module!=='undefined')module.exports=PX;
+
 
 (function(){
 var $=function(i){return document.getElementById(i);};
 function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function nk(s){return String(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');}
-var FILES=[],MODE='t',COLS=[],CUR=0,OUT=null;
+var FILES=[],MODE='t',COLS=[],CUR=0,OUT=null,TPL=null,DEFS=[];
 var PRE={
  gst:[['Invoice No','invoice no,invoice number,inv no,bill no','number',1],['Invoice Date','invoice date,inv date,dated,date','date',1],['Seller GSTIN','','gstin',1],['Buyer GSTIN','','gstin',2],['Taxable Value','taxable value,taxable amount,sub total,subtotal','amount',1],['CGST','cgst','amount',1],['SGST','sgst,utgst','amount',1],['IGST','igst','amount',1],['Total','grand total,invoice total,total amount,net amount,total','amount',1]],
  pur:[['Supplier','sold by,supplier,from','text',1],['Supplier GSTIN','','gstin',1],['Bill No','invoice no,bill no,invoice number','number',1],['Bill Date','invoice date,bill date,date','date',1],['Taxable Value','taxable value,taxable amount,sub total','amount',1],['GST Amount','total tax,gst amount,tax amount','amount',1],['Total','grand total,total amount,net amount,total','amount',1]],
+ items:[['Invoice No','invoice no,invoice number,inv no,bill no,po no','number',1],['Date','invoice date,bill date,dated,date','date',1],['Supplier GSTIN','','gstin',1],['Item','','item_desc',1],['HSN','','item_hsn',1],['Qty','','item_qty',1],['Rate','','item_rate',1],['Taxable Value','','item_taxable',1],['GST %','','item_gstpct',1],['GST Amount','','item_tax',1],['Total','','item_total',1]],
  blank:[['','','text',1]]
 };
+var ICOLS=[['no','Invoice No'],['date','Date'],['seller','Seller GSTIN'],['buyer','Buyer GSTIN'],['desc','Item'],['hsn','HSN'],['qty','Qty'],['unit','Unit'],['rate','Rate'],['taxable','Taxable Value'],['gstpct','GST %'],['tax','GST Amount'],['total','Total'],['check','Check']];
+var INVK={no:1,date:1,seller:1,buyer:1,check:1};
 /* ---------- files ---------- */
 function lib(cb){var n=0;(function w(){if(window.pdfjsLib){pdfjsLib.GlobalWorkerOptions.workerSrc=pdfjsLib.GlobalWorkerOptions.workerSrc||'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';cb();}else if(n++<100)setTimeout(w,100);else alert(T('PDF reader could not load. Check your internet and refresh.','PDF रीडर लोड नहीं हुआ। इंटरनेट जाँचकर पेज रिफ़्रेश कीजिए।'));})();}
 function addFiles(list){
- Array.prototype.forEach.call(list,function(f){if(/\.pdf$/i.test(f.name)||f.type==='application/pdf')FILES.push({file:f,name:f.name,status:'wait',pages:null});});
+ Array.prototype.forEach.call(list,function(f){if(/\.pdf$/i.test(f.name)||f.type==='application/pdf')FILES.push({file:f,name:f.name,status:'wait',pages:null,edits:{}});});
  drawFiles();readAll();
 }
 function drawFiles(){
@@ -422,7 +552,7 @@ function readAll(){
     var P=[],i=1;f.np=doc.numPages;
     (function next(){
      if(i>doc.numPages){f.pages=P;f.status=PX.hasText(P)?'ok':'scan';done();return;}
-     doc.getPage(i).then(function(pg){return pg.getTextContent();}).then(function(tc){P.push(PX.lines(tc.items));var done1=FILES.filter(function(x){return x.status!=='wait';}).length;$('prog').firstChild.style.width=Math.round((done1+i/doc.numPages)/FILES.length*100)+'%';i++;next();}).catch(function(e){f.status='err';f.err=String(e.message||e).slice(0,60);done();});
+     doc.getPage(i).then(function(pg){return pg.getTextContent();}).then(function(tc){P.push(PX.lines(tc.items));var d1=FILES.filter(function(x){return x.status!=='wait';}).length;$('prog').firstChild.style.width=Math.round((d1+i/doc.numPages)/FILES.length*100)+'%';i++;next();}).catch(function(e){f.status='err';f.err=String(e.message||e).slice(0,60);done();});
     })();
    }).catch(function(e){if(f.status==='wait'){f.status='err';f.err=/password/i.test(e&&e.name||'')?T('Password needed','पासवर्ड चाहिए'):T('Could not read','पढ़ी नहीं जा सकी');}done();});
   };
@@ -435,59 +565,161 @@ $('fi').addEventListener('change',function(){addFiles(this.files);this.value='';
 ['dragenter','dragover'].forEach(function(ev){dz.addEventListener(ev,function(e){e.preventDefault();dz.classList.add('over');});});
 ['dragleave','drop'].forEach(function(ev){dz.addEventListener(ev,function(e){e.preventDefault();dz.classList.remove('over');});});
 dz.addEventListener('drop',function(e){if(e.dataTransfer&&e.dataTransfer.files)addFiles(e.dataTransfer.files);});
-/* ---------- mode & fields ---------- */
-function setMode(m){MODE=m;$('mT').classList.toggle('on',m==='t');$('mF').classList.toggle('on',m==='f');$('tOpts').hidden=m!=='t';$('fOpts').hidden=m!=='f';$('out').hidden=true;loadSaved();}
-$('mT').onclick=function(){setMode('t');};$('mF').onclick=function(){setMode('f');};
-var TYPES=[['text','Text'],['number','Number / ID'],['date','Date'],['amount','Amount'],['gstin','GSTIN'],['pan','PAN']];
+/* ---------- modes ---------- */
+function setMode(m){MODE=m;['T','I','F'].forEach(function(k){$('m'+k).classList.toggle('on',m===k.toLowerCase());});$('tOpts').hidden=m!=='t';$('iOpts').hidden=m!=='i';$('fOpts').hidden=m!=='f';$('out').hidden=true;OUT=null;loadSaved();}
+$('mT').onclick=function(){setMode('t');};$('mI').onclick=function(){setMode('i');};$('mF').onclick=function(){setMode('f');};
+document.querySelectorAll('input[name=lay]').forEach(function(r){r.onchange=function(){if(OUT)render();};});
+/* ---------- fields editor ---------- */
+var TYPES=[['serial','Serial no. (1, 2, 3…)'],['text','Text'],['number','Number / ID'],['date','Date'],['amount','Amount'],['gstin','GSTIN'],['pan','PAN'],['item_desc','Item: name'],['item_hsn','Item: HSN'],['item_qty','Item: qty'],['item_unit','Item: unit'],['item_rate','Item: rate'],['item_taxable','Item: taxable'],['item_gstpct','Item: GST %'],['item_tax','Item: GST amount'],['item_cgst','Item: CGST'],['item_sgst','Item: SGST'],['item_igst','Item: IGST'],['item_total','Item: total']];
 function fldRow(f){var d=document.createElement('div');d.className='px-fld';
  d.innerHTML='<input class="fn" value="'+esc(f[0])+'" placeholder="Invoice No"><input class="fl" value="'+esc(f[1])+'" placeholder="invoice no, bill no"><select class="ft">'+TYPES.map(function(t){return '<option value="'+t[0]+'"'+(t[0]===f[2]?' selected':'')+'>'+t[1]+'</option>';}).join('')+'</select><input class="fnth" type="number" min="1" value="'+(f[3]||1)+'"><button type="button" title="Remove">✕</button>';
+ if(f[4]!=null)d.dataset.ci=f[4];
  d.querySelector('button').onclick=function(){d.remove();};$('flds').appendChild(d);}
 function setFields(list){$('flds').innerHTML='';list.forEach(fldRow);}
-function getFields(){return Array.prototype.map.call($('flds').children,function(d){return [d.querySelector('.fn').value.trim(),d.querySelector('.fl').value.trim(),d.querySelector('.ft').value,+d.querySelector('.fnth').value||1];}).filter(function(f){return f[0]||f[1];});}
-document.querySelectorAll('[data-pre]').forEach(function(b){b.onclick=function(){setFields(PRE[b.dataset.pre]);};});
+function getFields(){return Array.prototype.map.call($('flds').children,function(d){return [d.querySelector('.fn').value.trim(),d.querySelector('.fl').value.trim(),d.querySelector('.ft').value,+d.querySelector('.fnth').value||1,d.dataset.ci!=null?+d.dataset.ci:null];}).filter(function(f){return f[0]||f[1]||/^item_|gstin|pan|serial/.test(f[2]);});}
+document.querySelectorAll('[data-pre]').forEach(function(b){b.onclick=function(){TPL=null;$('tplMsg').textContent='';setFields(PRE[b.dataset.pre]);};});
 $('addF').onclick=function(){fldRow(['','','text',1]);};
 setFields(PRE.gst);
+/* ---------- your own Excel format ---------- */
+var SYN=[
+ [/^(s\.?\s*no|sr|sl|serial|#)/,['','serial',1]],
+ [/(buyer|customer|recipient|receiver|bill\s*to|ship\s*to).*(gstin|gst\s*no)|(gstin|gst\s*no).*(buyer|customer|recipient|receiver)/,['','gstin',2]],
+ [/gstin|gst\s*no|gst\s*number/,['','gstin',1]],
+ [/\bpan\b/,['','pan',1]],
+ [/(invoice|inv|bill|voucher|document|doc|po|order)\s*(no|num|number|#)/,['invoice no,invoice number,inv no,bill no,voucher no,po no,order no','number',1]],
+ [/date/,['invoice date,inv date,bill date,dated,date','date',1]],
+ [/hsn|sac/,['','item_hsn',1]],
+ [/desc|particular|item|product|goods|material|article/,['','item_desc',1]],
+ [/\bqty\b|quantity/,['','item_qty',1]],
+ [/^(unit|uom)$/,['','item_unit',1]],
+ [/rate\s*of\s*tax|gst\s*%|tax\s*%|gst\s*rate|tax\s*rate/,['','item_gstpct',1]],
+ [/rate|price|mrp/,['','item_rate',1]],
+ [/taxable|assessable/,['taxable value,taxable amount,assessable value,sub total','amount',1]],
+ [/cgst/,['cgst','amount',1]],[/sgst|utgst/,['sgst,utgst','amount',1]],[/igst/,['igst','amount',1]],
+ [/cess/,['cess','amount',1]],
+ [/(gst|tax)\s*(amount|amt|value)|total\s*tax/,['total tax,gst amount,tax amount','amount',1]],
+ [/invoice\s*(value|total|amount)|grand\s*total|bill\s*amount|net\s*payable/,['grand total,invoice total,total amount,amount payable,net amount,total','amount',1]],
+ [/total|amount|value|net/,['grand total,total amount,net amount,total','amount',1]],
+ [/supplier|vendor|seller|party|sold\s*by|customer|buyer/,[null,'text',1]]
+];
+var ITEMIZE={taxable:'item_taxable',cgst:'item_cgst',sgst:'item_sgst',igst:'item_igst',tax:'item_tax',total:'item_total'};
+function guess(h){
+ var x=String(h).toLowerCase().trim();
+ for(var i=0;i<SYN.length;i++){if(SYN[i][0].test(x)){var r=SYN[i][1];if(!r)return null;return [h,r[0]==null?h:r[0],r[1],r[2]];}}
+ return [h,h,'text',1];
+}
+$('tplF').addEventListener('change',function(){
+ var f=this.files[0];if(!f)return;this.value='';
+ if(!window.XLSX){alert(T('Excel reader is still loading. Try again.','Excel रीडर लोड हो रहा है, दोबारा कोशिश कीजिए।'));return;}
+ var fr=new FileReader();
+ fr.onload=function(){
+  var wb;try{wb=XLSX.read(new Uint8Array(fr.result),{type:'array'});}catch(e){alert(T('Could not read this Excel file.','यह Excel फ़ाइल नहीं पढ़ी जा सकी।'));return;}
+  var sn=wb.SheetNames[0],ws=wb.Sheets[sn],aoa=XLSX.utils.sheet_to_json(ws,{header:1,defval:''}),hr=-1;
+  for(var r=0;r<Math.min(aoa.length,15);r++){if(aoa[r].filter(function(c){return String(c).trim();}).length>=2){hr=r;break;}}
+  if(hr<0){alert(T('No column names found in the first rows of this Excel.','इस Excel की शुरुआती लाइनों में कॉलम के नाम नहीं मिले।'));return;}
+  var heads=[];aoa[hr].forEach(function(c,ci){if(String(c).trim())heads.push({name:String(c).trim(),ci:ci});});
+  var defs=heads.map(function(h){var g=guess(h.name);return g?{d:g,ci:h.ci}:{d:[h.name,'','text',1],ci:h.ci};});
+  var itemLevel=defs.some(function(x){return /^item_/.test(x.d[2]);});
+  if(itemLevel)defs.forEach(function(x){if(x.d[2]!=='amount')return;var h=x.d[0].toLowerCase();if(/invoice|grand|bill\s*amount|net\s*payable/.test(h))return;var k=/taxable|assessable/.test(h)?'taxable':/cgst/.test(h)?'cgst':/sgst|utgst/.test(h)?'sgst':/igst/.test(h)?'igst':/tax|gst/.test(h)?'tax':'total';x.d=[x.d[0],'',ITEMIZE[k],1];});
+  var last=hr;for(var r2=hr+1;r2<aoa.length;r2++){if(aoa[r2].some(function(c){return String(c).trim();}))last=r2;}
+  TPL={wb:wb,sn:sn,hr:hr,start:last+1,cols:defs.map(function(x){return x.ci;}),name:f.name.replace(/\.(xlsx|xls|csv)$/i,'')};
+  setFields(defs.map(function(x){return x.d.concat([x.ci]);}));
+  $('tplMsg').innerHTML='✓ '+esc(f.name)+': '+defs.length+' '+T('columns read. Check the guesses below, then Convert.','कॉलम पढ़े गए। नीचे का अंदाज़ा जाँचकर Convert दबाइए।');
+ };
+ fr.readAsArrayBuffer(f);
+});
 /* ---------- saved formats ---------- */
 function store(){try{return JSON.parse(localStorage.getItem('px_formats')||'{}');}catch(e){return {};}}
 function storeSet(o){try{localStorage.setItem('px_formats',JSON.stringify(o));}catch(e){}}
 function loadSaved(){var o=store(),s=$('svSel');s.innerHTML='<option value="">—</option>'+Object.keys(o).filter(function(k){return o[k].mode===MODE;}).map(function(k){return '<option>'+esc(k)+'</option>';}).join('');}
 $('svBtn').onclick=function(){var n=$('svName').value.trim()||$('svSel').value;if(!n){alert(T('Type a name for this format.','फ़ॉर्मेट का नाम लिखिए।'));return;}
- var o=store();o[n]=MODE==='f'?{mode:'f',fields:getFields()}:{mode:'t',cols:COLS.map(function(c){return {k:c.k,name:c.name,keep:c.keep};}),xFile:$('xFile').checked,xPage:$('xPage').checked};
+ var o=store();o[n]=MODE==='f'?{mode:'f',fields:getFields()}:{mode:MODE,cols:COLS.map(function(c){return {k:c.k,name:c.name,keep:c.keep};}),xFile:$('xFile').checked,xPage:$('xPage').checked};
  storeSet(o);loadSaved();$('svSel').value=n;$('svName').value='';alert(T('Format saved in this browser.','फ़ॉर्मेट इस ब्राउज़र में सेव हो गया।'));};
 $('svDel').onclick=function(){var n=$('svSel').value;if(!n)return;var o=store();delete o[n];storeSet(o);loadSaved();};
-$('svSel').onchange=function(){var o=store()[this.value];if(!o)return;if(o.mode==='f')setFields(o.fields);else if(OUT){applyCols(o);render();}};
+$('svSel').onchange=function(){var o=store()[this.value];if(!o)return;if(o.mode==='f'){TPL=null;setFields(o.fields);}else if(OUT){applyCols(o);render();}};
 function applyCols(o){
  if(!o||!o.cols)return;var pos={};o.cols.forEach(function(c,i){pos[c.k]={i:i,c:c};});
- COLS.forEach(function(c){var m=pos[c.k];if(m){c.name=m.c.name;c.keep=m.c.keep;c.ord=m.i;}else{c.keep=false;c.ord=1e3+COLS.indexOf(c);}});
+ COLS.forEach(function(c,ix){var m=pos[c.k];if(m){c.name=m.c.name;c.keep=m.c.keep;c.ord=m.i;}else{c.keep=false;c.ord=1e3+ix;}});
  COLS.sort(function(a,b){return a.ord-b.ord;});
  if('xFile' in o)$('xFile').checked=o.xFile;if('xPage' in o)$('xPage').checked=o.xPage;
 }
 /* ---------- convert ---------- */
 $('go').onclick=function(){
  var ok=FILES.filter(function(f){return f.status==='ok';});
+ ok.forEach(function(f){f.edits={};});
  if(MODE==='t'){
   var opt={dropRepeats:$('oRep').checked,mergeWrapped:$('oWrap').checked,numbers:$('oNum').checked},seen={};COLS=[];
   ok.forEach(function(f){f.tab=PX.table(f.pages,opt);f.tab.header.forEach(function(h){var k=nk(h)||h;if(!seen[k]){seen[k]=1;COLS.push({k:k,name:h,keep:true});}});});
-  var sv=store()[$('svSel').value];if(sv&&sv.mode==='t')applyCols(sv);
-  $('colWrap').style.display='';
+ }else if(MODE==='i'){
+  ok.forEach(function(f){f.inv=PX.invoice(f.pages);});
+  COLS=ICOLS.map(function(c){return {k:c[0],name:c[1],keep:c[0]!=='unit'};});
  }else{
-  var defs=getFields();if(!defs.length){alert(T('Add at least one field.','कम से कम एक फ़ील्ड जोड़िए।'));return;}
-  ok.forEach(function(f){f.vals=PX.fields(f.pages,defs.map(function(d){return {labels:d[1],type:d[2],nth:d[3]};}));});
-  COLS=defs.map(function(d,i){return {k:'f'+i,name:d[0]||('Field '+(i+1)),keep:true};});
-  $('colWrap').style.display='';
+  DEFS=getFields();
+  if(!DEFS.length){alert(T('Add at least one field.','कम से कम एक फ़ील्ड जोड़िए।'));return;}
+  var needItems=DEFS.some(function(d){return /^item_/.test(d[2]);});
+  ok.forEach(function(f){
+   var lv=DEFS.map(function(d){return /^item_|serial/.test(d[2])?{labels:'',type:'text'}:{labels:d[1],type:d[2],nth:d[3],last:d[2]==='amount'?1:0};});
+   f.vals=PX.fields(f.pages,lv);
+   f.inv=needItems?PX.invoice(f.pages):null;
+  });
+  COLS=DEFS.map(function(d,i){return {k:'f'+i,name:d[0]||('Field '+(i+1)),keep:true,type:d[2]};});
  }
+ var sv=store()[$('svSel').value];if(sv&&sv.mode===MODE&&MODE!=='f')applyCols(sv);
+ $('xPage').parentNode.style.display=MODE==='t'?'':'none';
  CUR=0;OUT=true;$('out').hidden=false;render();$('out').scrollIntoView({behavior:'smooth'});
 };
-/* build output rows */
+function r2(n){return Math.round(n*100)/100;}
+function nz(v){return v==null?'':v;}
+/* rows for one file in invoice mode: list of {key, vals:{colKey:value}} */
+function invRows(f,flat){
+ var R=f.inv,inv=R.inv,base={no:inv.no,date:inv.date,seller:inv.seller,buyer:inv.buyer,check:R.check==='OK'?'✓ OK':R.check};
+ var out=[];
+ if(!R.items.length){out.push({key:'x',v:Object.assign({},base,{desc:T('(items not found)','(आइटम नहीं मिले)'),taxable:nz(PX.numVal(inv.taxable)),tax:taxOf(inv,R),total:nz(PX.numVal(inv.total))})});return out;}
+ R.items.forEach(function(o,i){
+  var v={desc:o.desc,hsn:o.hsn,qty:nz(o.qty),unit:o.unit,rate:nz(o.rate),taxable:nz(o.taxable),gstpct:nz(o.gstpct),tax:nz(o.tax),total:nz(o.total)};
+  if(flat||i===0)Object.assign(v,base);
+  if(!flat&&i===0)v.check='';
+  out.push({key:'i'+i,v:v});
+ });
+ if(!flat){
+  var tx=PX.numVal(inv.taxable),tt=PX.numVal(inv.total);
+  out.push({key:'tot',v:{desc:T('Invoice total','इनवॉइस टोटल'),taxable:tx!=null?tx:R.sum.taxable,tax:taxOf(inv,R),total:tt!=null?tt:R.sum.total,check:base.check}});
+  out.push({key:'blank',v:{},blank:true});
+ }
+ return out;
+}
+function taxOf(inv,R){var s=0,n=0;['cgst','sgst','igst'].forEach(function(k){var v=PX.numVal(inv[k]);if(v!=null){s+=v;n++;}});return n?r2(s):(R.sum.tax||'');}
+var IMAP={item_desc:'desc',item_hsn:'hsn',item_qty:'qty',item_unit:'unit',item_rate:'rate',item_taxable:'taxable',item_gstpct:'gstpct',item_tax:'tax',item_cgst:'cgst',item_sgst:'sgst',item_igst:'igst',item_total:'total'};
+/* build output sheets */
 function build(){
- var ok=FILES.filter(function(f){return f.status==='ok';}),keep=COLS.filter(function(c){return c.keep;}),xF=$('xFile').checked,xP=$('xPage').checked,skip=$('xBlank').checked;
- var head=(xF?['File']:[]).concat(xP&&MODE==='t'?['Page']:[]).concat(keep.map(function(c){return c.name;}));
- var off=(xF?1:0)+(xP&&MODE==='t'?1:0);
- if(MODE==='f'){return [{off:off,name:'Fields',head:head,rows:ok.map(function(f){return (xF?[f.name]:[]).concat(keep.map(function(c){return f.vals[+c.k.slice(1)];}));}),src:ok.map(function(f,i){return {f:f,r:i};})}];}
+ var ok=FILES.filter(function(f){return f.status==='ok';}),keep=COLS.filter(function(c){return c.keep;}),xF=$('xFile').checked,xP=$('xPage').checked&&MODE==='t',skip=$('xBlank').checked;
+ var head=(xF?['File']:[]).concat(xP?['Page']:[]).concat(keep.map(function(c){return c.name;})),off=(xF?1:0)+(xP?1:0);
+ function ed(f,key,k,v){var e=f.edits[key+'|'+k];return e!==undefined?e:v;}
+ if(MODE==='i'){
+  var flat=document.querySelector('input[name=lay]:checked').value==='f',S={off:off,name:'Invoice items',head:head,rows:[],src:[],kp:keep};
+  ok.forEach(function(f){invRows(f,flat).forEach(function(r){
+   if(r.blank){S.rows.push(head.map(function(){return '';}));S.src.push(null);return;}
+   S.rows.push((xF?[(flat||r.key==='i0'||r.key==='x')?f.name:'']:[]).concat(keep.map(function(c){return ed(f,r.key,c.k,nz(r.v[c.k]));})));S.src.push({f:f,key:r.key});
+  });});
+  return [S];
+ }
+ if(MODE==='f'){
+  var F={off:off,name:TPL?TPL.name:'Fields',head:head,rows:[],src:[],kp:keep};
+  ok.forEach(function(f){
+   var its=f.inv&&f.inv.items.length?f.inv.items:[null];
+   its.forEach(function(it,ii){
+    var key='r'+ii;
+    F.rows.push((xF?[f.name]:[]).concat(keep.map(function(c){var i=+c.k.slice(1),t=DEFS[i][2],v;if(t==='serial'){v=F.rows.length+1;}else if(/^item_/.test(t)){v=it?nz(it[IMAP[t]]):'';}else v=f.vals[i];return ed(f,key,c.k,nz(v));})));
+    F.src.push({f:f,key:key});
+   });
+  });
+  return [F];
+ }
  var sheets=ok.map(function(f){
   var idx={};f.tab.header.forEach(function(h,i){var k=nk(h)||h;if(!(k in idx))idx[k]=i;});
-  var rows=[],src=[],merge=$('oMerge').checked&&ok.length>1,kp=merge?keep:keep.filter(function(c){return c.k in idx;}),hd=(xF?['File']:[]).concat(xP?['Page']:[]).concat(kp.map(function(c){return c.name;}));
-  f.tab.rows.forEach(function(r,ri){var vals=kp.map(function(c){return c.k in idx?r[idx[c.k]]:'';});if(skip&&vals.every(function(v){return v===''||v==null;}))return;rows.push((xF?[f.name]:[]).concat(xP?[f.tab.pages[ri]]:[]).concat(vals));src.push({f:f,r:ri});});
+  var merge=$('oMerge').checked&&ok.length>1,kp=merge?keep:keep.filter(function(c){return c.k in idx;}),hd=(xF?['File']:[]).concat(xP?['Page']:[]).concat(kp.map(function(c){return c.name;}));
+  var rows=[],src=[];
+  f.tab.rows.forEach(function(r,ri){var key='t'+ri,vals=kp.map(function(c){return ed(f,key,c.k,c.k in idx?r[idx[c.k]]:'');});if(skip&&vals.every(function(v){return v===''||v==null;}))return;rows.push((xF?[f.name]:[]).concat(xP?[f.tab.pages[ri]]:[]).concat(vals));src.push({f:f,key:key});});
   return {off:off,name:f.name.replace(/\.pdf$/i,''),head:hd,rows:rows,src:src,kp:kp};
  });
  if($('oMerge').checked&&sheets.length>1){var all={off:off,name:'All PDFs',head:head,rows:[],src:[],kp:keep};sheets.forEach(function(s){all.rows=all.rows.concat(s.rows);all.src=all.src.concat(s.src);});return [all];}
@@ -496,7 +728,6 @@ function build(){
 var SHEETS=[];
 function fmt(v){return v.toLocaleString('en-IN',Math.round(v*100)%100?{minimumFractionDigits:2,maximumFractionDigits:2}:{maximumFractionDigits:0});}
 function render(){
- /* column editor */
  $('cols').innerHTML=COLS.map(function(c,i){return '<div class="px-col'+(c.keep?'':' off')+'"><input type="checkbox" data-k="'+i+'"'+(c.keep?' checked':'')+'><input type="text" data-n="'+i+'" value="'+esc(c.name)+'"><span class="src">'+(MODE==='t'?T('from: ','स्रोत: ')+esc(c.k):'')+'</span><span class="mv"><button type="button" data-u="'+i+'">↑</button><button type="button" data-d="'+i+'">↓</button></span></div>';}).join('');
  $('cols').querySelectorAll('[data-k]').forEach(function(x){x.onchange=function(){COLS[+x.dataset.k].keep=x.checked;render();};});
  $('cols').querySelectorAll('[data-n]').forEach(function(x){x.onchange=function(){COLS[+x.dataset.n].name=x.value;render();};});
@@ -504,34 +735,43 @@ function render(){
  SHEETS=build();if(CUR>=SHEETS.length)CUR=0;
  $('ftabs').innerHTML=SHEETS.length>1?SHEETS.map(function(s,i){return '<button type="button" data-s="'+i+'"'+(i===CUR?' class="on"':'')+' title="'+esc(s.name)+'">'+esc(s.name)+' ('+s.rows.length+')</button>';}).join(''):'';
  $('ftabs').querySelectorAll('[data-s]').forEach(function(b){b.onclick=function(){CUR=+b.dataset.s;render();};});
- var tot=SHEETS.reduce(function(a,s){return a+s.rows.length;},0),scan=FILES.filter(function(f){return f.status==='scan';}).length;
- $('stats').innerHTML='<b>'+FILES.filter(function(f){return f.status==='ok';}).length+'</b> '+T('PDF converted','PDF कन्वर्ट हुईं')+' · <b>'+tot+'</b> '+T('rows','लाइनें')+' · <b>'+(SHEETS[0]?SHEETS[0].head.length:0)+'</b> '+T('columns','कॉलम')+(scan?'<div class="px-msg warn" style="margin:8px 0 0">⚠ '+scan+' '+T('scanned PDF skipped: no text inside, OCR needed.','स्कैन की हुई PDF छोड़ी गईं: इनमें टेक्स्ट नहीं, OCR चाहिए।')+'</div>':'');
+ var okN=FILES.filter(function(f){return f.status==='ok';}).length,scan=FILES.filter(function(f){return f.status==='scan';}).length,extra='';
+ if(MODE==='i'){var okc=0,dif=0,nf=0;FILES.forEach(function(f){if(f.status!=='ok'||!f.inv)return;if(!f.inv.found)nf++;else if(f.inv.check==='OK')okc++;else dif++;});extra='<div style="margin-top:6px">✓ '+okc+' '+T('invoices match their total','इनवॉइस अपने टोटल से मेल खाते हैं')+(dif?' · <b style="color:#b45309">'+dif+' '+T('with a difference','में फ़र्क')+'</b>':'')+(nf?' · <b style="color:#dc2626">'+nf+' '+T('items not found','में आइटम नहीं मिले')+'</b>':'')+'</div>';}
+ if(MODE==='f'&&TPL)extra='<div style="margin-top:6px">📄 '+T('Your Excel format: ','आपका Excel फ़ॉर्मेट: ')+'<b>'+esc(TPL.name)+'</b>. '+T('Download fills it from row ','डाउनलोड इसे लाइन ')+(TPL.start+1)+T('.',' से भरेगा।')+'</div>';
+ $('stats').innerHTML='<b>'+okN+'</b> '+T('PDF converted','PDF कन्वर्ट हुईं')+' · <b>'+SHEETS.reduce(function(a,s){return a+s.rows.length;},0)+'</b> '+T('rows','लाइनें')+extra+(scan?'<div class="px-msg warn" style="margin:8px 0 0">⚠ '+scan+' '+T('scanned PDF skipped: no text inside, OCR needed.','स्कैन की हुई PDF छोड़ी गईं: इनमें टेक्स्ट नहीं, OCR चाहिए।')+'</div>':'');
  var S=SHEETS[CUR];if(!S){$('pv').innerHTML='';return;}
  var nc=S.head.length,sums=new Array(nc).fill(0),isN=new Array(nc).fill(false);
- S.rows.forEach(function(r){r.forEach(function(v,k){if(typeof v==='number'){sums[k]+=v;isN[k]=true;}});});
+ S.rows.forEach(function(r,ri){var sk=S.src[ri]&&S.src[ri].key==='tot';if(sk)return;r.forEach(function(v,k){if(typeof v==='number'&&!/gst %|rate|qty/i.test(S.head[k])){sums[k]+=v;isN[k]=true;}});});
  var lim=Math.min(S.rows.length,500);
  var h='<table class="px-t"><tr><th>#</th>'+S.head.map(function(x){return '<th>'+esc(x)+'</th>';}).join('')+'</tr>';
- for(var i=0;i<lim;i++){h+='<tr><td style="color:var(--mut)">'+(i+1)+'</td>'+S.rows[i].map(function(v,k){return '<td contenteditable data-r="'+i+'" data-c="'+k+'"'+(typeof v==='number'?' class="n"':'')+'>'+esc(typeof v==='number'?fmt(v):v)+'</td>';}).join('')+'</tr>';}
+ for(var i=0;i<lim;i++){var src=S.src[i],tot=src&&src.key==='tot',st=tot?' style="font-weight:700;background:var(--soft)"':'';
+  h+='<tr'+st+'><td style="color:var(--mut)">'+(src?i+1:'')+'</td>'+S.rows[i].map(function(v,k){var cls=typeof v==='number'?'n':'',sv=String(v);if(/^✓/.test(sv))cls='" style="color:#059669;font-weight:700';else if(/^Diff/.test(sv)||/not found|नहीं मिले/.test(sv))cls='" style="color:#dc2626;font-weight:700';return '<td'+(src?' contenteditable':'')+' data-r="'+i+'" data-c="'+k+'" class="'+cls+'">'+esc(typeof v==='number'?fmt(v):v)+'</td>';}).join('')+'</tr>';}
  if(isN.some(Boolean))h+='<tr class="sum"><td>Σ</td>'+sums.map(function(s,k){return '<td class="n">'+(isN[k]?fmt(s):'')+'</td>';}).join('')+'</tr>';
  h+='</table>'+(S.rows.length>lim?'<p style="padding:8px 12px;font-size:.82rem;color:var(--mut)">'+T('Showing first 500 rows. All ','पहली 500 लाइनें दिख रही हैं। सभी ')+S.rows.length+T(' rows go into the download.',' लाइनें डाउनलोड में आएँगी।')+'</p>':'');
  if(!S.rows.length)h='<p style="padding:14px">'+T('No rows found.','कोई लाइन नहीं मिली।')+'</p>';
  $('pv').innerHTML=h;
  $('pv').querySelectorAll('td[contenteditable]').forEach(function(td){td.addEventListener('blur',function(){
   var r=+td.dataset.r,c=+td.dataset.c,txt=td.textContent.trim(),v=PX.isNum(txt)&&!/^\d{5,}$/.test(txt.replace(/,/g,''))?PX.toNum(txt):txt,src=S.src[r];
-  S.rows[r][c]=v;
-  var kc=c-S.off;
-  if(kc>=0&&src){var col=(S.kp||COLS.filter(function(x){return x.keep;}))[kc];
-   if(MODE==='f'){src.f.vals[+col.k.slice(1)]=v;}else{var hi=src.f.tab.header.findIndex(function(hh){return (nk(hh)||hh)===col.k;});if(hi>=0)src.f.tab.rows[src.r][hi]=v;}}
+  S.rows[r][c]=v;var kc=c-S.off;
+  if(kc>=0&&src){var col=S.kp[kc];if(col)src.f.edits[src.key+'|'+col.k]=v;}
  });});
 }
 ['xFile','xPage','xBlank'].forEach(function(id){$(id).onchange=function(){if(OUT)render();};});
 /* ---------- download ---------- */
 function uniq(n,used){n=String(n).replace(/[\\\/\?\*\[\]:]/g,' ').slice(0,28)||'Sheet';var b=n,i=2;while(used[n.toLowerCase()])n=b.slice(0,25)+' ('+(i++)+')';used[n.toLowerCase()]=1;return n;}
+function widths(s){return s.head.map(function(h,k){var w=String(h).length;s.rows.slice(0,200).forEach(function(r){w=Math.max(w,String(r[k]==null?'':r[k]).length);});return {wch:Math.min(60,w+2)};});}
 $('dlX').onclick=function(){
  if(!window.XLSX){alert(T('Excel writer is still loading. Try again.','Excel लोड हो रहा है, दोबारा कोशिश कीजिए।'));return;}
+ if(MODE==='f'&&TPL){
+  var S=SHEETS[0],ws=TPL.wb.Sheets[TPL.sn],kc=S.kp.map(function(c){var d=DEFS[+c.k.slice(1)];return d[4]!=null?d[4]:TPL.cols[+c.k.slice(1)];}),maxc=Math.max.apply(null,kc.concat([0]));
+  var data=S.rows.map(function(r){var a=new Array(maxc+1).fill(null);r.slice(S.off).forEach(function(v,k){a[kc[k]]=v===''?null:v;});return a;});
+  XLSX.utils.sheet_add_aoa(ws,data,{origin:{r:TPL.start,c:0}});
+  XLSX.writeFile(TPL.wb,TPL.name+'-filled.xlsx');
+  return;
+ }
  var wb=XLSX.utils.book_new(),used={};
- SHEETS.forEach(function(s){var a=[s.head].concat(s.rows),ws=XLSX.utils.aoa_to_sheet(a);ws['!cols']=s.head.map(function(h,k){var w=String(h).length;s.rows.slice(0,200).forEach(function(r){w=Math.max(w,String(r[k]==null?'':r[k]).length);});return {wch:Math.min(60,w+2)};});XLSX.utils.book_append_sheet(wb,ws,uniq(s.name,used));});
- XLSX.writeFile(wb,(FILES.length===1?FILES[0].name.replace(/\.pdf$/i,''):'pdf-to-excel')+'.xlsx');
+ SHEETS.forEach(function(s){var ws2=XLSX.utils.aoa_to_sheet([s.head].concat(s.rows));ws2['!cols']=widths(s);XLSX.utils.book_append_sheet(wb,ws2,uniq(s.name,used));});
+ XLSX.writeFile(wb,(FILES.length===1?FILES[0].name.replace(/\.pdf$/i,''):MODE==='i'?'invoice-items':'pdf-to-excel')+'.xlsx');
 };
 $('dlC').onclick=function(){
  var s=SHEETS[CUR];if(!s)return;
@@ -541,6 +781,7 @@ $('dlC').onclick=function(){
 document.addEventListener('langchange',function(){drawFiles();if(OUT)render();});
 loadSaved();
 })();
+
 </script>
 </body>
 </html>
