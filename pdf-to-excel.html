@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDF to Excel Converter: Bulk, Accurate &amp; Free</title>
+<meta name="description" content="Free PDF to Excel converter. Convert many PDFs at once, keep exact text and numbers, pick only the columns or fields you need in your own format. No upload.">
+<link rel="canonical" href="https://www.cooridorstore.in/pdf-to-excel">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Cooridor Store"><meta property="og:locale" content="en_IN">
+<meta property="og:title" content="PDF to Excel Converter: Bulk, Accurate &amp; Free"><meta property="og:description" content="Convert many PDFs to Excel at once and get only the columns or fields you need, in your own format. Free, nothing uploaded."><meta property="og:url" content="https://www.cooridorstore.in/pdf-to-excel">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="PDF to Excel Converter: Bulk, Accurate &amp; Free"><meta name="twitter:description" content="Convert many PDFs to Excel at once and get only the columns or fields you need, in your own format.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<style>
+.px-box{padding:22px;margin-bottom:18px}
+.px-drop{display:flex;flex-direction:column;align-items:center;gap:8px;padding:30px 16px;border:2px dashed var(--line);border-radius:16px;background:var(--sur);text-align:center;cursor:pointer;transition:.15s}
+.px-drop:hover,.px-drop.over{border-color:var(--pri);background:var(--soft)}
+.px-drop b{font-size:1.05rem}.px-drop span{color:var(--mut);font-size:.88rem}
+.px-drop input{display:none}
+.px-files{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.px-file{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--sur);font-size:.88rem}
+.px-file .st{font-weight:700;white-space:nowrap}.st.ok{color:#059669}.st.bad{color:#dc2626}.st.wait{color:var(--mut)}
+.px-file button{border:none;background:none;color:var(--mut);cursor:pointer;font-size:1rem}
+.px-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:4px 0 16px}
+.px-tabs button{padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--sur);color:var(--txt);font:inherit;text-align:left;cursor:pointer}
+.px-tabs button b{display:block;font-size:.98rem;margin-bottom:2px}.px-tabs button span{font-size:.82rem;color:var(--mut)}
+.px-tabs button.on{border-color:var(--pri);background:var(--soft);box-shadow:0 0 0 2px var(--pri) inset}
+.px-opts{display:flex;gap:16px;flex-wrap:wrap;margin:6px 0 14px;font-size:.88rem}
+.px-opts label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.px-opts input[type=checkbox],.px-col input[type=checkbox],.px-drop input{width:auto!important;flex:none;margin:0}
+.px-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.px-btn{display:inline-flex;align-items:center;gap:6px;padding:11px 18px;border:1px solid var(--line);border-radius:10px;background:var(--sur);color:var(--txt);font:inherit;font-weight:700;font-size:.92rem;cursor:pointer}
+.px-btn.p{background:var(--pri);border-color:var(--pri);color:#fff}
+.px-btn:disabled{opacity:.45;cursor:not-allowed}
+.px-btn.sm{padding:6px 10px;font-size:.8rem;font-weight:600}
+.px-step{font-size:.76rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--mut);margin:2px 0 10px}
+.px-cols{display:flex;flex-direction:column;gap:6px;max-height:340px;overflow:auto;padding-right:4px}
+.px-col{display:grid;grid-template-columns:24px 1fr 1fr 64px;gap:8px;align-items:center;padding:6px 8px;border:1px solid var(--line);border-radius:9px;background:var(--sur);font-size:.85rem}
+.px-col.off{opacity:.5}
+.px-col input[type=text]{padding:6px 8px;font-size:.85rem;border:1px solid var(--line);border-radius:7px;background:var(--sur);color:var(--txt);min-width:0}
+.px-col .src{color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.px-col .mv{display:flex;gap:2px}.px-col .mv button{border:1px solid var(--line);background:var(--sur);color:var(--txt);border-radius:6px;cursor:pointer;width:28px;height:26px}
+.px-fld{display:grid;grid-template-columns:1fr 1.4fr 110px 56px 30px;gap:6px;align-items:center;margin-bottom:6px}
+.px-fld input,.px-fld select{padding:7px 8px;font-size:.84rem;border:1px solid var(--line);border-radius:7px;background:var(--sur);color:var(--txt);min-width:0}
+.px-fld button{border:none;background:none;color:#dc2626;cursor:pointer;font-size:1rem}
+.px-fh{font-size:.74rem;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+.px-grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.px-pv{margin-top:16px}
+.px-ftabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.px-ftabs button{border:1px solid var(--line);background:var(--sur);color:var(--txt);padding:6px 12px;border-radius:99px;font:inherit;font-size:.8rem;font-weight:600;cursor:pointer;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.px-ftabs button.on{background:var(--pri);border-color:var(--pri);color:#fff}
+.px-tw{overflow:auto;max-height:520px;border:1px solid var(--line);border-radius:12px;background:var(--sur)}
+.px-t{border-collapse:collapse;font-size:.82rem;white-space:nowrap;width:100%}
+.px-t th{position:sticky;top:0;background:var(--soft);text-align:left;padding:8px 10px;z-index:1}
+.px-t td{padding:6px 10px;border-top:1px solid var(--line)}
+.px-t td.n{text-align:right;font-variant-numeric:tabular-nums}
+.px-t td[contenteditable]:focus{outline:2px solid var(--pri);background:var(--soft)}
+.px-t tr.sum td{font-weight:800;background:var(--soft);position:sticky;bottom:0}
+.px-msg{padding:12px 14px;border-radius:10px;background:var(--soft);font-size:.88rem;margin:10px 0}
+.px-msg.warn{background:#fef3c7;color:#92400e}[data-theme="dark"] .px-msg.warn{background:#78350f;color:#fde68a}
+.px-sv{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.px-sv select,.px-sv input{padding:8px 10px;font-size:.85rem;border:1px solid var(--line);border-radius:8px;background:var(--sur);color:var(--txt)}
+.px-prog{height:6px;border-radius:9px;background:var(--soft);overflow:hidden;margin-top:10px;display:none}.px-prog i{display:block;height:100%;width:0;background:var(--pri);transition:width .2s}
+@media(max-width:760px){.px-grid2,.px-tabs{grid-template-columns:1fr}.px-fld{grid-template-columns:1fr 1fr}.px-col{grid-template-columns:24px 1fr 64px}.px-col .src{display:none}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How accurate is this PDF to Excel converter?","acceptedAnswer":{"@type":"Answer","text":"For digital PDFs, the text and numbers are copied exactly as they are stored in the PDF, not retyped or guessed, so every character matches. The tool also rebuilds rows and columns, and shows totals of number columns so you can check them against the PDF before downloading."}},
+{"@type":"Question","name":"Can I convert many PDFs at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. Select or drop as many PDFs as you like. You can combine all of them into one Excel sheet with a File column, or get one sheet per PDF."}},
+{"@type":"Question","name":"Can I get only the columns I need?","acceptedAnswer":{"@type":"Answer","text":"Yes. In Your format, untick columns you do not want, rename them and change their order. Save the format and it is applied automatically the next time."}},
+{"@type":"Question","name":"Can it pick specific details like invoice number and total from each PDF?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use Pick fields mode. Tell the tool which labels to look for, such as Invoice No or Grand Total, and it gives one Excel row per PDF with just those fields. A ready preset for GST invoices is included."}},
+{"@type":"Question","name":"Does it work with scanned PDFs?","acceptedAnswer":{"@type":"Answer","text":"No. Scanned PDFs are images with no text inside, so they need OCR first. The tool tells you when a PDF has no text layer."}},
+{"@type":"Question","name":"Can I open password-protected PDFs?","acceptedAnswer":{"@type":"Answer","text":"Yes. If a PDF has a password, the tool asks for it. The password is used only in your browser."}},
+{"@type":"Question","name":"Are my PDFs uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Everything happens inside your browser, so bank statements, invoices and client files never leave your computer."}},
+{"@type":"Question","name":"Are numbers converted so Excel can add them?","acceptedAnswer":{"@type":"Answer","text":"Yes. Amounts like 1,23,456.78 or (500) become real numbers. Long numbers such as account, reference or phone numbers are kept as text so their digits are not changed."}},
+{"@type":"Question","name":"What if a cell is wrong?","acceptedAnswer":{"@type":"Answer","text":"Click any cell in the preview to correct it before downloading. Your changes go into the Excel file."}},
+{"@type":"Question","name":"Is this PDF to Excel tool free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is free, with no signup, no watermark and no limit on the number of files."}}
+]}
+</script>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="/">Home</a> › <span data-en="PDF to Excel" data-hi="PDF से Excel">PDF to Excel</span></div>
+ <div class="ph">
+  <h1 data-en="PDF to Excel Converter" data-hi="PDF से Excel कन्वर्टर">PDF to Excel Converter</h1>
+  <p data-en="Convert one or many PDFs to Excel with the exact text and numbers. Keep only the columns you need, or pull chosen fields from every PDF into your own format." data-hi="एक या कई PDF को हूबहू टेक्स्ट और नंबरों के साथ Excel में बदलिए। सिर्फ़ ज़रूरी कॉलम रखिए, या हर PDF से चुनी हुई जानकारी अपने फ़ॉर्मेट में निकालिए।">Convert one or many PDFs to Excel with the exact text and numbers. Keep only the columns you need, or pull chosen fields from every PDF into your own format.</p>
+ </div>
+
+ <div class="card px-box">
+  <div class="px-step" data-en="Step 1 · Add PDFs" data-hi="स्टेप 1 · PDF डालिए">Step 1 · Add PDFs</div>
+  <label class="px-drop" id="drop"><input type="file" id="fi" accept="application/pdf,.pdf" multiple>
+   <b data-en="📄 Drop PDFs here or click to choose" data-hi="📄 PDF यहाँ छोड़िए या क्लिक करके चुनिए">📄 Drop PDFs here or click to choose</b>
+   <span data-en="Many files at once · password PDFs supported · nothing is uploaded" data-hi="एक साथ कई फ़ाइलें · पासवर्ड वाली PDF भी · कुछ अपलोड नहीं होता">Many files at once · password PDFs supported · nothing is uploaded</span></label>
+  <div class="px-prog" id="prog"><i></i></div>
+  <div class="px-files" id="flist"></div>
+ </div>
+
+ <div class="card px-box">
+  <div class="px-step" data-en="Step 2 · What do you want?" data-hi="स्टेप 2 · क्या चाहिए?">Step 2 · What do you want?</div>
+  <div class="px-tabs">
+   <button type="button" id="mT" class="on"><b data-en="📊 Full tables" data-hi="📊 पूरी टेबल">📊 Full tables</b><span data-en="All rows and columns, e.g. statements, registers, ledgers" data-hi="सारी लाइनें और कॉलम, जैसे स्टेटमेंट, रजिस्टर, लेजर">All rows and columns, e.g. statements, registers, ledgers</span></button>
+   <button type="button" id="mF"><b data-en="🎯 Pick fields (your format)" data-hi="🎯 चुनी जानकारी (आपका फ़ॉर्मेट)">🎯 Pick fields (your format)</b><span data-en="One row per PDF with only the details you choose, e.g. invoices" data-hi="हर PDF की एक लाइन, सिर्फ़ चुनी जानकारी के साथ, जैसे इनवॉइस">One row per PDF with only the details you choose, e.g. invoices</span></button>
+  </div>
+
+  <div id="tOpts">
+   <div class="px-opts">
+    <label><input type="checkbox" id="oMerge" checked><span data-en="All PDFs in one sheet" data-hi="सभी PDF एक शीट में">All PDFs in one sheet</span></label>
+    <label><input type="checkbox" id="oRep" checked><span data-en="Remove page headers & footers" data-hi="पेज हेडर और फ़ुटर हटाएँ">Remove page headers &amp; footers</span></label>
+    <label><input type="checkbox" id="oWrap" checked><span data-en="Join wrapped lines" data-hi="टूटी लाइनें जोड़ें">Join wrapped lines</span></label>
+    <label><input type="checkbox" id="oNum" checked><span data-en="Convert amounts to numbers" data-hi="रकम को नंबर बनाएँ">Convert amounts to numbers</span></label>
+   </div>
+  </div>
+
+  <div id="fOpts" hidden>
+   <div class="px-row" style="margin-bottom:10px">
+    <span style="font-weight:700;font-size:.88rem" data-en="Preset:" data-hi="तैयार सेट:">Preset:</span>
+    <button type="button" class="px-btn sm" data-pre="gst">GST invoice</button>
+    <button type="button" class="px-btn sm" data-pre="pur">Purchase bill</button>
+    <button type="button" class="px-btn sm" data-pre="blank" data-en="Start blank" data-hi="ख़ाली से शुरू">Start blank</button>
+   </div>
+   <div class="px-fld"><span class="px-fh" data-en="Column name" data-hi="कॉलम नाम">Column name</span><span class="px-fh" data-en="Look for label (comma = or)" data-hi="ये लेबल ढूँढें (कॉमा = या)">Look for label (comma = or)</span><span class="px-fh" data-en="Type" data-hi="प्रकार">Type</span><span class="px-fh" data-en="Nth" data-hi="कौन सा">Nth</span><span></span></div>
+   <div id="flds"></div>
+   <button type="button" class="px-btn sm" id="addF" data-en="+ Add field" data-hi="+ फ़ील्ड जोड़ें">+ Add field</button>
+   <p class="ez-note" style="font-size:.8rem;color:var(--mut);margin-top:8px" data-en="Tip: leave the label empty for GSTIN, PAN, date or amount to take the 1st, 2nd… one found in the PDF (use Nth)." data-hi="टिप: GSTIN, PAN, तारीख़ या रकम के लिए लेबल ख़ाली छोड़ें तो PDF में मिला पहला, दूसरा… लिया जाएगा (Nth से चुनें)।">Tip: leave the label empty for GSTIN, PAN, date or amount to take the 1st, 2nd… one found in the PDF (use Nth).</p>
+  </div>
+
+  <div class="px-sv">
+   <span style="font-weight:700;font-size:.85rem" data-en="Saved formats:" data-hi="सेव किए फ़ॉर्मेट:">Saved formats:</span>
+   <select id="svSel"><option value="">—</option></select>
+   <input id="svName" data-ph-en="Name this format" data-ph-hi="फ़ॉर्मेट का नाम" placeholder="Name this format" style="width:170px">
+   <button type="button" class="px-btn sm" id="svBtn" data-en="💾 Save" data-hi="💾 सेव">💾 Save</button>
+   <button type="button" class="px-btn sm" id="svDel" data-en="Delete" data-hi="हटाएँ">Delete</button>
+  </div>
+  <div style="margin-top:16px" class="px-row">
+   <button type="button" class="px-btn p" id="go" disabled data-en="Convert →" data-hi="कन्वर्ट करें →">Convert →</button>
+   <span id="goMsg" style="font-size:.85rem;color:var(--mut)"></span>
+  </div>
+ </div>
+
+ <section id="out" hidden>
+  <div class="card px-box">
+   <div class="px-grid2" id="colWrap">
+    <div>
+     <div class="px-step" data-en="Step 3 · Your format: keep, rename, reorder" data-hi="स्टेप 3 · आपका फ़ॉर्मेट: रखें, नाम बदलें, क्रम बदलें">Step 3 · Your format: keep, rename, reorder</div>
+     <div class="px-cols" id="cols"></div>
+     <div class="px-opts" style="margin-top:10px">
+      <label><input type="checkbox" id="xFile" checked><span data-en="Add File column" data-hi="File कॉलम जोड़ें">Add File column</span></label>
+      <label><input type="checkbox" id="xPage"><span data-en="Add Page column" data-hi="Page कॉलम जोड़ें">Add Page column</span></label>
+      <label><input type="checkbox" id="xBlank" checked><span data-en="Skip empty rows" data-hi="ख़ाली लाइनें छोड़ें">Skip empty rows</span></label>
+     </div>
+    </div>
+    <div>
+     <div class="px-step" data-en="Check before download" data-hi="डाउनलोड से पहले जाँचें">Check before download</div>
+     <div id="stats" class="px-msg"></div>
+     <p style="font-size:.84rem;color:var(--mut)" data-en="Totals of number columns are shown at the bottom of the preview. Match them with the PDF. Click any cell to correct it." data-hi="नंबर वाले कॉलम का जोड़ प्रीव्यू के नीचे है। इसे PDF से मिलाइए। कोई सेल गलत हो तो उस पर क्लिक करके ठीक कीजिए।">Totals of number columns are shown at the bottom of the preview. Match them with the PDF. Click any cell to correct it.</p>
+    </div>
+   </div>
+   <div class="px-pv">
+    <div class="px-ftabs" id="ftabs"></div>
+    <div class="px-tw" id="pv"></div>
+   </div>
+   <div class="px-row" style="margin-top:14px">
+    <button type="button" class="px-btn p" id="dlX" data-en="⬇ Download Excel" data-hi="⬇ Excel डाउनलोड करें">⬇ Download Excel</button>
+    <button type="button" class="px-btn" id="dlC" data-en="⬇ Download CSV" data-hi="⬇ CSV डाउनलोड करें">⬇ Download CSV</button>
+   </div>
+  </div>
+ </section>
+
+ <article class="art">
+  <h2>How to convert PDF to Excel</h2>
+  <ol>
+   <li>Drop one or more PDFs in the box. Password-protected files ask for their password.</li>
+   <li>Choose <b>Full tables</b> for statements, registers and reports, or <b>Pick fields</b> to get one row per PDF with only the details you need.</li>
+   <li>Click <b>Convert</b>, then set <b>Your format</b>: untick columns you do not want, rename them and change the order.</li>
+   <li>Check the totals at the bottom of the preview against the PDF, fix any cell by clicking it, and download Excel or CSV.</li>
+  </ol>
+  <h2>Why the output is exact</h2>
+  <p>Most digital PDFs, such as bank statements, GST reports, Tally exports and system-generated invoices, store their text inside the file. This tool reads that text directly, so every character and digit in Excel is the same as in the PDF. Nothing is retyped or guessed. The tool then rebuilds the table by finding the empty vertical gaps between columns across all pages, removes repeated page headers and footers, and joins descriptions that wrap onto a second line.</p>
+  <p>Scanned PDFs are pictures of paper with no text inside. They need OCR (optical character recognition) first, which can never be fully exact, so the tool warns you instead of guessing.</p>
+  <h2>Your own format</h2>
+  <p>Every office wants its Excel in a particular layout. With <b>Your format</b> you keep only the columns you need, in your order and with your column names. Save the format once, and the next time you convert similar PDFs it is applied automatically by matching column names.</p>
+  <p>With <b>Pick fields</b>, you list the details you want, such as Invoice No, Invoice Date, Seller GSTIN, Buyer GSTIN, Taxable Value, IGST and Grand Total. The tool looks for each label in every PDF and takes the value next to it or just below it. Fields of type GSTIN, PAN, date or amount are checked, so a wrong value is not picked up by mistake. Drop 100 invoices and get one clean Excel row per invoice.</p>
+
+  <h2>Frequently asked questions</h2>
+  <h3>1. How accurate is this PDF to Excel converter?</h3>
+  <p>For digital PDFs, the text and numbers are copied exactly as they are stored in the PDF, not retyped or guessed, so every character matches. The tool also rebuilds rows and columns, and shows totals of number columns so you can check them against the PDF before downloading.</p>
+  <h3>2. Can I convert many PDFs at once?</h3>
+  <p>Yes. Select or drop as many PDFs as you like. You can combine all of them into one Excel sheet with a File column, or get one sheet per PDF.</p>
+  <h3>3. Can I get only the columns I need?</h3>
+  <p>Yes. In Your format, untick columns you do not want, rename them and change their order. Save the format and it is applied automatically the next time.</p>
+  <h3>4. Can it pick specific details like invoice number and total from each PDF?</h3>
+  <p>Yes. Use Pick fields mode. Tell the tool which labels to look for, such as Invoice No or Grand Total, and it gives one Excel row per PDF with just those fields. A ready preset for GST invoices is included.</p>
+  <h3>5. Does it work with scanned PDFs?</h3>
+  <p>No. Scanned PDFs are images with no text inside, so they need OCR first. The tool tells you when a PDF has no text layer.</p>
+  <h3>6. Can I open password-protected PDFs?</h3>
+  <p>Yes. If a PDF has a password, the tool asks for it. The password is used only in your browser.</p>
+  <h3>7. Are my PDFs uploaded to a server?</h3>
+  <p>No. Everything happens inside your browser, so bank statements, invoices and client files never leave your computer.</p>
+  <h3>8. Are numbers converted so Excel can add them?</h3>
+  <p>Yes. Amounts like 1,23,456.78 or (500) become real numbers. Long numbers such as account, reference or phone numbers are kept as text so their digits are not changed.</p>
+  <h3>9. What if a cell is wrong?</h3>
+  <p>Click any cell in the preview to correct it before downloading. Your changes go into the Excel file.</p>
+  <h3>10. Is this PDF to Excel tool free?</h3>
+  <p>Yes. It is free, with no signup, no watermark and no limit on the number of files.</p>
+  <p class="note">By the Cooridor Store team · Last updated: <time datetime="2026-11-20">20 November 2026</time></p>
+  <h2>Related tools</h2>
+  <div class="related">
+   <a class="card" href="bank-statement-pdf-to-excel.html">🏦 Bank Statement to Excel</a>
+   <a class="card" href="tally-import.html">📥 Excel to Tally</a>
+   <a class="card" href="merge-pdf.html">📑 Merge PDF</a>
+  </div>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+/* PX engine: turn pdf.js text items into lines, tables and fields */
+var PX=(function(){
+'use strict';
+var NUMRE=/^\(?-?\s*(?:₹|rs\.?|inr)?\s*-?\d[\d,]*(?:\.\d+)?\)?\s*(?:cr|dr)?\.?$/i;
+function isNum(s){s=String(s).trim();return s!==''&&NUMRE.test(s)&&/\d/.test(s);}
+function toNum(s){
+ var t=String(s).trim(),neg=/^\(.*\)$/.test(t)||/^-/.test(t.replace(/₹|rs\.?|inr|\s/gi,''))||/dr\.?$/i.test(t);
+ var n=parseFloat(t.replace(/[^0-9.]/g,''));if(!isFinite(n))return s;return neg?-n:n;}
+/* 1. raw items -> {s,x0,x1,y,h} */
+function norm(items){
+ var out=[];
+ items.forEach(function(it){
+  if(!it||typeof it.str!=='string')return;
+  var s=it.str.replace(/\s+/g,' ');if(!s.trim())return;
+  var t=it.transform||[1,0,0,1,0,0],h=Math.abs(it.height)||Math.hypot(t[2],t[3])||Math.abs(t[3])||10;
+  var x0=t[4],w=Math.abs(it.width)||s.length*h*0.5;
+  out.push({s:s,x0:x0,x1:x0+w,y:t[5],h:h});
+ });
+ return out;
+}
+/* 2. items -> lines of segments */
+function lines(items){
+ var it=norm(items).sort(function(a,b){return b.y-a.y||a.x0-b.x0;}),L=[];
+ it.forEach(function(o){
+  var ln=null;
+  for(var k=L.length-1;k>=0&&k>=L.length-3;k--){if(Math.abs(L[k].y-o.y)<=Math.max(2,Math.min(L[k].h,o.h)*0.45)){ln=L[k];break;}}
+  if(!ln){ln={y:o.y,h:o.h,items:[]};L.push(ln);}
+  ln.items.push(o);ln.h=Math.max(ln.h,o.h);
+ });
+ L.forEach(function(ln){
+  ln.items.sort(function(a,b){return a.x0-b.x0;});
+  var segs=[],cur=null;
+  ln.items.forEach(function(o){
+   var gap=cur?o.x0-cur.x1:1e9,lim=Math.max(1.5,Math.min(cur?cur.h:o.h,o.h)*0.55);
+   if(cur&&gap<=lim){var sp=gap>Math.min(cur.h,o.h)*0.12&&!/\s$/.test(cur.s)&&!/^\s/.test(o.s);cur.s+=(sp?' ':'')+o.s;cur.x1=Math.max(cur.x1,o.x1);}
+   else{cur={s:o.s,x0:o.x0,x1:o.x1,h:o.h};segs.push(cur);}
+  });
+  segs.forEach(function(g){g.s=g.s.replace(/\s+/g,' ').trim();});
+  ln.segs=segs.filter(function(g){return g.s;});
+  delete ln.items;
+ });
+ return L.filter(function(l){return l.segs.length;});
+}
+/* 3. column boundaries from many lines (projection profile) */
+function columns(allLines){
+ var multi=allLines.filter(function(l){return l.segs.length>=2;});
+ if(!multi.length)return [];
+ var minX=1e9,maxX=-1e9;
+ multi.forEach(function(l){l.segs.forEach(function(g){minX=Math.min(minX,g.x0);maxX=Math.max(maxX,g.x1);});});
+ var W=Math.ceil(maxX-minX)+2,cov=new Float32Array(W);
+ multi.forEach(function(l){l.segs.forEach(function(g){for(var x=Math.floor(g.x0-minX);x<=Math.ceil(g.x1-minX)&&x<W;x++)cov[x]++;});});
+ var thr=Math.max(0,multi.length*0.04),cuts=[],inGap=false,gs=0,minGap=2.5;
+ for(var x=0;x<W;x++){
+  var empty=cov[x]<=thr;
+  if(empty&&!inGap){inGap=true;gs=x;}
+  if(!empty&&inGap){inGap=false;if(x-gs>=minGap&&gs>0){var best=gs,bv=1e9;for(var k=gs;k<x;k++)if(cov[k]<bv){bv=cov[k];best=k;}cuts.push(minX+(gs+x)/2);}}
+ }
+ return cuts;
+}
+function colOf(x,cuts){var i=0;while(i<cuts.length&&x>cuts[i])i++;return i;}
+/* 4. lines -> grid rows */
+function grid(pagesLines,opt){
+ opt=opt||{};
+ var all=[];pagesLines.forEach(function(pl){all=all.concat(pl);});
+ var cuts=opt.cuts||columns(all),nc=cuts.length+1,rows=[];
+ pagesLines.forEach(function(pl,pi){
+  pl.forEach(function(l){
+   var r=new Array(nc).fill(''),filled=0;
+   l.segs.forEach(function(g){
+    var a=colOf(g.x0+0.5,cuts),b=colOf(g.x1-0.5,cuts),c;
+    if(a===b)c=a;else{c=colOf((g.x0+g.x1)/2,cuts);}
+    r[c]=r[c]?r[c]+' '+g.s:g.s;
+   });
+   r.forEach(function(v){if(v)filled++;});
+   rows.push({cells:r,page:pi+1,y:l.y,h:l.h,filled:filled});
+  });
+ });
+ return {cuts:cuts,nc:nc,rows:rows};
+}
+/* 5. full table with cleanup */
+function table(pagesLines,opt){
+ opt=opt||{};
+ var G=grid(pagesLines,opt),rows=G.rows,np=pagesLines.length;
+ /* repeated page headers / footers */
+ if(opt.dropRepeats!==false&&np>1){
+  var cnt={};
+  rows.forEach(function(r){var k=r.cells.join('|').replace(/\d+/g,'#')+'@'+Math.round(r.y/4);(cnt[k]=cnt[k]||{});cnt[k][r.page]=1;});
+  rows=rows.filter(function(r){var k=r.cells.join('|').replace(/\d+/g,'#')+'@'+Math.round(r.y/4);var n=Object.keys(cnt[k]).length;return !(n>=Math.max(2,np*0.6)&&r.filled<=Math.max(2,G.nc/2)&&!r.cells.some(isNum));});
+ }
+ /* header = first row with >=60% filled, mostly text */
+ var hi=-1;
+ for(var i=0;i<Math.min(rows.length,40);i++){
+  var r=rows[i],txt=r.cells.filter(function(c){return c&&!isNum(c);}).length;
+  if(r.filled>=Math.max(2,Math.ceil(G.nc*0.6))&&txt>=r.filled*0.7){hi=i;break;}
+ }
+ var header=hi>=0?rows[hi].cells.slice():G.cells,before=hi>=0?rows.slice(0,hi):[],body=hi>=0?rows.slice(hi+1):rows;
+ if(hi<0)header=new Array(G.nc).fill('').map(function(_,k){return 'Column '+(k+1);});
+ header=header.map(function(h,k){return h||('Column '+(k+1));});
+ var hk=header.join('|').toLowerCase();
+ body=body.filter(function(r){return r.cells.join('|').toLowerCase()!==hk;});
+ /* merge wrapped lines into previous row */
+ if(opt.mergeWrapped!==false){
+  var out=[];
+  body.forEach(function(r){
+   var prev=out[out.length-1];
+   var noNum=!r.cells.some(isNum),few=r.filled<=Math.max(1,Math.floor(G.nc/3));
+   if(prev&&noNum&&few&&prev.page===r.page&&Math.abs(prev.y-r.y)<=r.h*2.2+14&&prev.filled>=2){
+    r.cells.forEach(function(c,k){if(c)prev.cells[k]=prev.cells[k]?prev.cells[k]+' '+c:c;});
+   }else out.push({cells:r.cells.slice(),page:r.page,y:r.y,filled:r.filled,h:r.h});
+  });
+  body=out;
+ }
+ /* drop fully empty columns */
+ var keep=header.map(function(_,k){return body.some(function(r){return r.cells[k];})||!/^Column \d+$/.test(header[k]);});
+ header=header.filter(function(_,k){return keep[k];});
+ body.forEach(function(r){r.cells=r.cells.filter(function(_,k){return keep[k];});});
+ if(opt.numbers!==false)body.forEach(function(r){r.cells=r.cells.map(function(c){return isNum(c)&&!/^\d{5,}$/.test(c.replace(/,/g,''))||/^\d[\d,]*\.\d{1,2}$/.test(c)?toNum(c):c;});});
+ return {header:header,rows:body.map(function(r){return r.cells;}),pages:body.map(function(r){return r.page;}),before:before.map(function(r){return r.cells.filter(Boolean).join(' ');})};
+}
+/* 6. fields */
+var TYPES={
+ text:null,
+ gstin:/\b\d{2}[A-Z]{5}\d{4}[A-Z][1-9A-Z]Z[0-9A-Z]\b/,
+ pan:/\b[A-Z]{5}\d{4}[A-Z]\b/,
+ date:/\b(\d{1,2}[\-\/\. ](?:\d{1,2}|[A-Za-z]{3,9})[\-\/\. ,]+\d{2,4}|\d{4}-\d{2}-\d{2})\b/,
+ amount:/(?:₹|rs\.?|inr)?\s*-?\d[\d,]*(?:\.\d{1,2})?/i,
+ number:/[A-Za-z0-9][A-Za-z0-9\-\/_.]*\d[A-Za-z0-9\-\/_.]*/
+};
+function pick(type,text){
+ text=String(text||'').trim();if(!text)return '';
+ var re=TYPES[type];
+ if(!re)return text.replace(/^[\s:\-#.]+/,'').trim();
+ if(type==='amount'){text=text.replace(/-?\d[\d,]*(?:\.\d+)?\s*%/g,' ');var all=text.match(/-?\d[\d,]*(?:\.\d{1,2})?/g);if(!all)return '';var best=all.filter(function(a){return /\d/.test(a);}).pop();return toNum(best);}
+ var m=text.toUpperCase&&type!=='date'&&type!=='number'?text.toUpperCase().match(re):text.match(re);
+ return m?(m[1]||m[0]).trim():'';
+}
+function flat(pagesLines){var L=[];pagesLines.forEach(function(pl,pi){pl.forEach(function(l){L.push({segs:l.segs,y:l.y,page:pi+1,h:l.h,text:l.segs.map(function(g){return g.s;}).join('  ')});});});return L;}
+function field(L,def){
+ var labels=String(def.labels||'').split(',').map(function(s){return s.trim().toLowerCase();}).filter(Boolean),type=def.type||'text';
+ if(!labels.length){
+  if(type==='text')return '';
+  var n=Math.max(1,def.nth||1),found=[];
+  for(var i=0;i<L.length;i++){var src=type==='gstin'||type==='pan'?L[i].text.toUpperCase():L[i].text,g=new RegExp(TYPES[type].source,'g'+(type==='amount'?'i':'')),m;while((m=g.exec(src))){if(found.indexOf(m[0])<0)found.push(m[0]);}}
+  var v=found[n-1]||'';return type==='amount'&&v?toNum(v):v;
+ }
+ for(var i2=0;i2<L.length;i2++){
+  var ln=L[i2];
+  for(var s=0;s<ln.segs.length;s++){
+   var seg=ln.segs[s],low=seg.s.toLowerCase();
+   for(var k=0;k<labels.length;k++){
+    var at=low.indexOf(labels[k]);if(at<0)continue;
+    var rest=seg.s.slice(at+labels[k].length),v;
+    if(type==='amount'){var tail=rest+' '+ln.segs.slice(s+1).map(function(g){return g.s;}).join(' ');v=pick(type,tail);}
+    else v=pick(type,rest);
+    if(v===''||v==null){for(var j=s+1;j<ln.segs.length&&j<=s+2;j++){v=pick(type,ln.segs[j].s);if(v!==''&&v!=null)break;}}
+    if((v===''||v==null)&&L[i2+1]){var nx=L[i2+1],bx=null,bd=1e9;nx.segs.forEach(function(g){var d=Math.abs(g.x0-seg.x0);if(g.x1>=seg.x0-5&&d<bd){bd=d;bx=g;}});if(bx)v=pick(type,bx.s);}
+    if(v!==''&&v!=null)return v;
+   }
+  }
+ }
+ return '';
+}
+function fields(pagesLines,defs){var L=flat(pagesLines);return defs.map(function(d){return field(L,d);});}
+function hasText(pagesLines){var n=0;pagesLines.forEach(function(pl){pl.forEach(function(l){n+=l.segs.length;});});return n>0;}
+return {lines:lines,columns:columns,table:table,fields:fields,isNum:isNum,toNum:toNum,hasText:hasText,flat:flat};
+})();
+if(typeof module!=='undefined')module.exports=PX;
+
+(function(){
+var $=function(i){return document.getElementById(i);};
+function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function nk(s){return String(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');}
+var FILES=[],MODE='t',COLS=[],CUR=0,OUT=null;
+var PRE={
+ gst:[['Invoice No','invoice no,invoice number,inv no,bill no','number',1],['Invoice Date','invoice date,inv date,dated,date','date',1],['Seller GSTIN','','gstin',1],['Buyer GSTIN','','gstin',2],['Taxable Value','taxable value,taxable amount,sub total,subtotal','amount',1],['CGST','cgst','amount',1],['SGST','sgst,utgst','amount',1],['IGST','igst','amount',1],['Total','grand total,invoice total,total amount,net amount,total','amount',1]],
+ pur:[['Supplier','sold by,supplier,from','text',1],['Supplier GSTIN','','gstin',1],['Bill No','invoice no,bill no,invoice number','number',1],['Bill Date','invoice date,bill date,date','date',1],['Taxable Value','taxable value,taxable amount,sub total','amount',1],['GST Amount','total tax,gst amount,tax amount','amount',1],['Total','grand total,total amount,net amount,total','amount',1]],
+ blank:[['','','text',1]]
+};
+/* ---------- files ---------- */
+function lib(cb){var n=0;(function w(){if(window.pdfjsLib){pdfjsLib.GlobalWorkerOptions.workerSrc=pdfjsLib.GlobalWorkerOptions.workerSrc||'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';cb();}else if(n++<100)setTimeout(w,100);else alert(T('PDF reader could not load. Check your internet and refresh.','PDF रीडर लोड नहीं हुआ। इंटरनेट जाँचकर पेज रिफ़्रेश कीजिए।'));})();}
+function addFiles(list){
+ Array.prototype.forEach.call(list,function(f){if(/\.pdf$/i.test(f.name)||f.type==='application/pdf')FILES.push({file:f,name:f.name,status:'wait',pages:null});});
+ drawFiles();readAll();
+}
+function drawFiles(){
+ $('flist').innerHTML=FILES.map(function(f,i){var st=f.status==='ok'?'<span class="st ok">✓ '+f.np+' '+T('pages','पेज')+'</span>':f.status==='scan'?'<span class="st bad">⚠ '+T('Scanned (no text)','स्कैन की हुई (टेक्स्ट नहीं)')+'</span>':f.status==='err'?'<span class="st bad">✗ '+esc(f.err)+'</span>':'<span class="st wait">'+T('Reading…','पढ़ रहा है…')+'</span>';
+  return '<div class="px-file"><span>📄 '+esc(f.name)+'</span><span>'+st+' <button type="button" data-rm="'+i+'" title="Remove">✕</button></span></div>';}).join('');
+ $('flist').querySelectorAll('[data-rm]').forEach(function(b){b.onclick=function(e){e.preventDefault();FILES.splice(+b.dataset.rm,1);drawFiles();updGo();};});
+ updGo();
+}
+function updGo(){var ok=FILES.filter(function(f){return f.status==='ok';}).length,wait=FILES.some(function(f){return f.status==='wait';});$('go').disabled=!ok||wait;$('goMsg').textContent=FILES.length?(wait?T('Reading files…','फ़ाइलें पढ़ी जा रही हैं…'):ok+' '+T('PDF ready','PDF तैयार')):'';}
+var reading=false;
+function readAll(){
+ if(reading)return;var f=FILES.filter(function(x){return x.status==='wait';})[0];if(!f){$('prog').style.display='none';return;}
+ reading=true;$('prog').style.display='block';
+ lib(function(){
+  var fr=new FileReader();
+  fr.onload=function(){
+   var task=pdfjsLib.getDocument({data:new Uint8Array(fr.result)});
+   task.onPassword=function(cb,reason){var p=prompt((reason===2?T('Wrong password. ','गलत पासवर्ड। '):'')+T('Password for ','पासवर्ड: ')+f.name);if(p===null){task.destroy();f.status='err';f.err=T('Password needed','पासवर्ड चाहिए');done();}else cb(p);};
+   task.promise.then(function(doc){
+    var P=[],i=1;f.np=doc.numPages;
+    (function next(){
+     if(i>doc.numPages){f.pages=P;f.status=PX.hasText(P)?'ok':'scan';done();return;}
+     doc.getPage(i).then(function(pg){return pg.getTextContent();}).then(function(tc){P.push(PX.lines(tc.items));var done1=FILES.filter(function(x){return x.status!=='wait';}).length;$('prog').firstChild.style.width=Math.round((done1+i/doc.numPages)/FILES.length*100)+'%';i++;next();}).catch(function(e){f.status='err';f.err=String(e.message||e).slice(0,60);done();});
+    })();
+   }).catch(function(e){if(f.status==='wait'){f.status='err';f.err=/password/i.test(e&&e.name||'')?T('Password needed','पासवर्ड चाहिए'):T('Could not read','पढ़ी नहीं जा सकी');}done();});
+  };
+  fr.readAsArrayBuffer(f.file);
+ });
+ function done(){reading=false;drawFiles();readAll();}
+}
+var dz=$('drop');
+$('fi').addEventListener('change',function(){addFiles(this.files);this.value='';});
+['dragenter','dragover'].forEach(function(ev){dz.addEventListener(ev,function(e){e.preventDefault();dz.classList.add('over');});});
+['dragleave','drop'].forEach(function(ev){dz.addEventListener(ev,function(e){e.preventDefault();dz.classList.remove('over');});});
+dz.addEventListener('drop',function(e){if(e.dataTransfer&&e.dataTransfer.files)addFiles(e.dataTransfer.files);});
+/* ---------- mode & fields ---------- */
+function setMode(m){MODE=m;$('mT').classList.toggle('on',m==='t');$('mF').classList.toggle('on',m==='f');$('tOpts').hidden=m!=='t';$('fOpts').hidden=m!=='f';$('out').hidden=true;loadSaved();}
+$('mT').onclick=function(){setMode('t');};$('mF').onclick=function(){setMode('f');};
+var TYPES=[['text','Text'],['number','Number / ID'],['date','Date'],['amount','Amount'],['gstin','GSTIN'],['pan','PAN']];
+function fldRow(f){var d=document.createElement('div');d.className='px-fld';
+ d.innerHTML='<input class="fn" value="'+esc(f[0])+'" placeholder="Invoice No"><input class="fl" value="'+esc(f[1])+'" placeholder="invoice no, bill no"><select class="ft">'+TYPES.map(function(t){return '<option value="'+t[0]+'"'+(t[0]===f[2]?' selected':'')+'>'+t[1]+'</option>';}).join('')+'</select><input class="fnth" type="number" min="1" value="'+(f[3]||1)+'"><button type="button" title="Remove">✕</button>';
+ d.querySelector('button').onclick=function(){d.remove();};$('flds').appendChild(d);}
+function setFields(list){$('flds').innerHTML='';list.forEach(fldRow);}
+function getFields(){return Array.prototype.map.call($('flds').children,function(d){return [d.querySelector('.fn').value.trim(),d.querySelector('.fl').value.trim(),d.querySelector('.ft').value,+d.querySelector('.fnth').value||1];}).filter(function(f){return f[0]||f[1];});}
+document.querySelectorAll('[data-pre]').forEach(function(b){b.onclick=function(){setFields(PRE[b.dataset.pre]);};});
+$('addF').onclick=function(){fldRow(['','','text',1]);};
+setFields(PRE.gst);
+/* ---------- saved formats ---------- */
+function store(){try{return JSON.parse(localStorage.getItem('px_formats')||'{}');}catch(e){return {};}}
+function storeSet(o){try{localStorage.setItem('px_formats',JSON.stringify(o));}catch(e){}}
+function loadSaved(){var o=store(),s=$('svSel');s.innerHTML='<option value="">—</option>'+Object.keys(o).filter(function(k){return o[k].mode===MODE;}).map(function(k){return '<option>'+esc(k)+'</option>';}).join('');}
+$('svBtn').onclick=function(){var n=$('svName').value.trim()||$('svSel').value;if(!n){alert(T('Type a name for this format.','फ़ॉर्मेट का नाम लिखिए।'));return;}
+ var o=store();o[n]=MODE==='f'?{mode:'f',fields:getFields()}:{mode:'t',cols:COLS.map(function(c){return {k:c.k,name:c.name,keep:c.keep};}),xFile:$('xFile').checked,xPage:$('xPage').checked};
+ storeSet(o);loadSaved();$('svSel').value=n;$('svName').value='';alert(T('Format saved in this browser.','फ़ॉर्मेट इस ब्राउज़र में सेव हो गया।'));};
+$('svDel').onclick=function(){var n=$('svSel').value;if(!n)return;var o=store();delete o[n];storeSet(o);loadSaved();};
+$('svSel').onchange=function(){var o=store()[this.value];if(!o)return;if(o.mode==='f')setFields(o.fields);else if(OUT){applyCols(o);render();}};
+function applyCols(o){
+ if(!o||!o.cols)return;var pos={};o.cols.forEach(function(c,i){pos[c.k]={i:i,c:c};});
+ COLS.forEach(function(c){var m=pos[c.k];if(m){c.name=m.c.name;c.keep=m.c.keep;c.ord=m.i;}else{c.keep=false;c.ord=1e3+COLS.indexOf(c);}});
+ COLS.sort(function(a,b){return a.ord-b.ord;});
+ if('xFile' in o)$('xFile').checked=o.xFile;if('xPage' in o)$('xPage').checked=o.xPage;
+}
+/* ---------- convert ---------- */
+$('go').onclick=function(){
+ var ok=FILES.filter(function(f){return f.status==='ok';});
+ if(MODE==='t'){
+  var opt={dropRepeats:$('oRep').checked,mergeWrapped:$('oWrap').checked,numbers:$('oNum').checked},seen={};COLS=[];
+  ok.forEach(function(f){f.tab=PX.table(f.pages,opt);f.tab.header.forEach(function(h){var k=nk(h)||h;if(!seen[k]){seen[k]=1;COLS.push({k:k,name:h,keep:true});}});});
+  var sv=store()[$('svSel').value];if(sv&&sv.mode==='t')applyCols(sv);
+  $('colWrap').style.display='';
+ }else{
+  var defs=getFields();if(!defs.length){alert(T('Add at least one field.','कम से कम एक फ़ील्ड जोड़िए।'));return;}
+  ok.forEach(function(f){f.vals=PX.fields(f.pages,defs.map(function(d){return {labels:d[1],type:d[2],nth:d[3]};}));});
+  COLS=defs.map(function(d,i){return {k:'f'+i,name:d[0]||('Field '+(i+1)),keep:true};});
+  $('colWrap').style.display='';
+ }
+ CUR=0;OUT=true;$('out').hidden=false;render();$('out').scrollIntoView({behavior:'smooth'});
+};
+/* build output rows */
+function build(){
+ var ok=FILES.filter(function(f){return f.status==='ok';}),keep=COLS.filter(function(c){return c.keep;}),xF=$('xFile').checked,xP=$('xPage').checked,skip=$('xBlank').checked;
+ var head=(xF?['File']:[]).concat(xP&&MODE==='t'?['Page']:[]).concat(keep.map(function(c){return c.name;}));
+ var off=(xF?1:0)+(xP&&MODE==='t'?1:0);
+ if(MODE==='f'){return [{off:off,name:'Fields',head:head,rows:ok.map(function(f){return (xF?[f.name]:[]).concat(keep.map(function(c){return f.vals[+c.k.slice(1)];}));}),src:ok.map(function(f,i){return {f:f,r:i};})}];}
+ var sheets=ok.map(function(f){
+  var idx={};f.tab.header.forEach(function(h,i){var k=nk(h)||h;if(!(k in idx))idx[k]=i;});
+  var rows=[],src=[],merge=$('oMerge').checked&&ok.length>1,kp=merge?keep:keep.filter(function(c){return c.k in idx;}),hd=(xF?['File']:[]).concat(xP?['Page']:[]).concat(kp.map(function(c){return c.name;}));
+  f.tab.rows.forEach(function(r,ri){var vals=kp.map(function(c){return c.k in idx?r[idx[c.k]]:'';});if(skip&&vals.every(function(v){return v===''||v==null;}))return;rows.push((xF?[f.name]:[]).concat(xP?[f.tab.pages[ri]]:[]).concat(vals));src.push({f:f,r:ri});});
+  return {off:off,name:f.name.replace(/\.pdf$/i,''),head:hd,rows:rows,src:src,kp:kp};
+ });
+ if($('oMerge').checked&&sheets.length>1){var all={off:off,name:'All PDFs',head:head,rows:[],src:[],kp:keep};sheets.forEach(function(s){all.rows=all.rows.concat(s.rows);all.src=all.src.concat(s.src);});return [all];}
+ return sheets;
+}
+var SHEETS=[];
+function fmt(v){return v.toLocaleString('en-IN',Math.round(v*100)%100?{minimumFractionDigits:2,maximumFractionDigits:2}:{maximumFractionDigits:0});}
+function render(){
+ /* column editor */
+ $('cols').innerHTML=COLS.map(function(c,i){return '<div class="px-col'+(c.keep?'':' off')+'"><input type="checkbox" data-k="'+i+'"'+(c.keep?' checked':'')+'><input type="text" data-n="'+i+'" value="'+esc(c.name)+'"><span class="src">'+(MODE==='t'?T('from: ','स्रोत: ')+esc(c.k):'')+'</span><span class="mv"><button type="button" data-u="'+i+'">↑</button><button type="button" data-d="'+i+'">↓</button></span></div>';}).join('');
+ $('cols').querySelectorAll('[data-k]').forEach(function(x){x.onchange=function(){COLS[+x.dataset.k].keep=x.checked;render();};});
+ $('cols').querySelectorAll('[data-n]').forEach(function(x){x.onchange=function(){COLS[+x.dataset.n].name=x.value;render();};});
+ $('cols').querySelectorAll('[data-u],[data-d]').forEach(function(b){b.onclick=function(){var i=+(b.dataset.u||b.dataset.d),j=b.dataset.u?i-1:i+1;if(j<0||j>=COLS.length)return;var t=COLS[i];COLS[i]=COLS[j];COLS[j]=t;render();};});
+ SHEETS=build();if(CUR>=SHEETS.length)CUR=0;
+ $('ftabs').innerHTML=SHEETS.length>1?SHEETS.map(function(s,i){return '<button type="button" data-s="'+i+'"'+(i===CUR?' class="on"':'')+' title="'+esc(s.name)+'">'+esc(s.name)+' ('+s.rows.length+')</button>';}).join(''):'';
+ $('ftabs').querySelectorAll('[data-s]').forEach(function(b){b.onclick=function(){CUR=+b.dataset.s;render();};});
+ var tot=SHEETS.reduce(function(a,s){return a+s.rows.length;},0),scan=FILES.filter(function(f){return f.status==='scan';}).length;
+ $('stats').innerHTML='<b>'+FILES.filter(function(f){return f.status==='ok';}).length+'</b> '+T('PDF converted','PDF कन्वर्ट हुईं')+' · <b>'+tot+'</b> '+T('rows','लाइनें')+' · <b>'+(SHEETS[0]?SHEETS[0].head.length:0)+'</b> '+T('columns','कॉलम')+(scan?'<div class="px-msg warn" style="margin:8px 0 0">⚠ '+scan+' '+T('scanned PDF skipped: no text inside, OCR needed.','स्कैन की हुई PDF छोड़ी गईं: इनमें टेक्स्ट नहीं, OCR चाहिए।')+'</div>':'');
+ var S=SHEETS[CUR];if(!S){$('pv').innerHTML='';return;}
+ var nc=S.head.length,sums=new Array(nc).fill(0),isN=new Array(nc).fill(false);
+ S.rows.forEach(function(r){r.forEach(function(v,k){if(typeof v==='number'){sums[k]+=v;isN[k]=true;}});});
+ var lim=Math.min(S.rows.length,500);
+ var h='<table class="px-t"><tr><th>#</th>'+S.head.map(function(x){return '<th>'+esc(x)+'</th>';}).join('')+'</tr>';
+ for(var i=0;i<lim;i++){h+='<tr><td style="color:var(--mut)">'+(i+1)+'</td>'+S.rows[i].map(function(v,k){return '<td contenteditable data-r="'+i+'" data-c="'+k+'"'+(typeof v==='number'?' class="n"':'')+'>'+esc(typeof v==='number'?fmt(v):v)+'</td>';}).join('')+'</tr>';}
+ if(isN.some(Boolean))h+='<tr class="sum"><td>Σ</td>'+sums.map(function(s,k){return '<td class="n">'+(isN[k]?fmt(s):'')+'</td>';}).join('')+'</tr>';
+ h+='</table>'+(S.rows.length>lim?'<p style="padding:8px 12px;font-size:.82rem;color:var(--mut)">'+T('Showing first 500 rows. All ','पहली 500 लाइनें दिख रही हैं। सभी ')+S.rows.length+T(' rows go into the download.',' लाइनें डाउनलोड में आएँगी।')+'</p>':'');
+ if(!S.rows.length)h='<p style="padding:14px">'+T('No rows found.','कोई लाइन नहीं मिली।')+'</p>';
+ $('pv').innerHTML=h;
+ $('pv').querySelectorAll('td[contenteditable]').forEach(function(td){td.addEventListener('blur',function(){
+  var r=+td.dataset.r,c=+td.dataset.c,txt=td.textContent.trim(),v=PX.isNum(txt)&&!/^\d{5,}$/.test(txt.replace(/,/g,''))?PX.toNum(txt):txt,src=S.src[r];
+  S.rows[r][c]=v;
+  var kc=c-S.off;
+  if(kc>=0&&src){var col=(S.kp||COLS.filter(function(x){return x.keep;}))[kc];
+   if(MODE==='f'){src.f.vals[+col.k.slice(1)]=v;}else{var hi=src.f.tab.header.findIndex(function(hh){return (nk(hh)||hh)===col.k;});if(hi>=0)src.f.tab.rows[src.r][hi]=v;}}
+ });});
+}
+['xFile','xPage','xBlank'].forEach(function(id){$(id).onchange=function(){if(OUT)render();};});
+/* ---------- download ---------- */
+function uniq(n,used){n=String(n).replace(/[\\\/\?\*\[\]:]/g,' ').slice(0,28)||'Sheet';var b=n,i=2;while(used[n.toLowerCase()])n=b.slice(0,25)+' ('+(i++)+')';used[n.toLowerCase()]=1;return n;}
+$('dlX').onclick=function(){
+ if(!window.XLSX){alert(T('Excel writer is still loading. Try again.','Excel लोड हो रहा है, दोबारा कोशिश कीजिए।'));return;}
+ var wb=XLSX.utils.book_new(),used={};
+ SHEETS.forEach(function(s){var a=[s.head].concat(s.rows),ws=XLSX.utils.aoa_to_sheet(a);ws['!cols']=s.head.map(function(h,k){var w=String(h).length;s.rows.slice(0,200).forEach(function(r){w=Math.max(w,String(r[k]==null?'':r[k]).length);});return {wch:Math.min(60,w+2)};});XLSX.utils.book_append_sheet(wb,ws,uniq(s.name,used));});
+ XLSX.writeFile(wb,(FILES.length===1?FILES[0].name.replace(/\.pdf$/i,''):'pdf-to-excel')+'.xlsx');
+};
+$('dlC').onclick=function(){
+ var s=SHEETS[CUR];if(!s)return;
+ var csv=[s.head].concat(s.rows).map(function(r){return r.map(function(v){v=v==null?'':String(v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}).join(',');}).join('\r\n');
+ var a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'}));a.download=s.name+'.csv';document.body.appendChild(a);a.click();a.remove();
+};
+document.addEventListener('langchange',function(){drawFiles();if(OUT)render();});
+loadSaved();
+})();
+</script>
+</body>
+</html>
