@@ -52,6 +52,7 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
   m('rent-receipt-generator.html','🏘️','Rent Receipt Generator','किराया रसीद जनरेटर','Monthly receipts for HRA','HRA के लिए मासिक रसीदें')+
   m('tally-import.html','📥','Invoices to Tally','इनवॉइस से Tally','Excel to Tally XML','Excel से Tally XML'))+
  dd('PDF Tools','PDF टूल्स',
+  m('pdf-to-excel.html','📊','PDF to Excel','PDF से Excel','Any PDF table, bulk, your format','कोई भी PDF टेबल, bulk, आपका फ़ॉर्मेट')+ 
   m('bank-statement-pdf-to-excel.html','🏦','Bank Statement to Excel','बैंक स्टेटमेंट से Excel','PDF statement to Excel','PDF स्टेटमेंट को Excel में')+
   m('word-to-pdf.html','📄','Word to PDF','Word से PDF','Convert .docx to PDF','.docx को PDF में बदलें')+
   m('pdf-to-word.html','📝','PDF to Word','PDF से Word','Editable .docx from PDF','PDF से बदलने लायक़ .docx')+
@@ -67,7 +68,8 @@ var footer='<footer class="ftr"><div class="container">'+
  col('Calculators','कैलकुलेटर',[['gst-calculator.html','GST'],['gst-late-fee-calculator.html','GST Late Fee'],['income-tax-calculator.html','Income Tax'],['hra-calculator.html','HRA'],['tds-calculator.html','TDS'],['80gg-calculator.html','80GG'],['in-hand-salary-calculator.html','In-hand Salary'],['gratuity-calculator.html','Gratuity'],['emi-calculator.html','EMI'],['sip-calculator.html','SIP']])+
  col('Reconciliation','रिकंसिलिएशन',[['ecommerce-reconciliation.html','E-commerce Reco'],['amazon-reconciliation.html','Amazon Reco'],['flipkart-reconciliation.html','Flipkart Reco'],['meesho-reconciliation.html','Meesho Reco'],['myntra-reconciliation.html','Myntra Reco'],['jiomart-reconciliation.html','JioMart Reco'],['gstr-2b-reconciliation.html','GSTR-2B Reco'],['gstr-1-einvoice-reconciliation.html','GSTR-1 vs e-Invoice'],['bank-reconciliation.html','Bank Reco']])+
  col('Generators','जनरेटर',[['invoice-generator.html','Invoice Generator'],['qr-code-generator.html','QR Code Generator'],['rent-receipt-generator.html','Rent Receipt'],['tally-import.html','Invoices to Tally']])+
- col('PDF Tools','PDF टूल्स',[['bank-statement-pdf-to-excel.html','Bank Statement to Excel'],['word-to-pdf.html','Word to PDF'],['pdf-to-word.html','PDF to Word'],['compress-pdf.html','Compress PDF'],['merge-pdf.html','Merge PDF']])+
+ 
+ col('PDF Tools','PDF टूल्स',[['pdf-to-excel.html','PDF to Excel'],['bank-statement-pdf-to-excel.html','Bank Statement to Excel'],['word-to-pdf.html','Word to PDF'],['pdf-to-word.html','PDF to Word'],['compress-pdf.html','Compress PDF'],['merge-pdf.html','Merge PDF']])+
  col('Learn &amp; Company','सीखें और कंपनी',[['accounting-games.html','Accounting Games'],['tax-quiz.html','Tax Quiz'],['blog.html','Blog'],['about.html','About'],['contact.html','Contact'],['privacy-policy.html','Privacy Policy'],['terms.html','Terms']])+
  '</div><div class="copy">© 2026 '+NAME+' · cooridorstore.in</div></div></footer>';
 function get(k,d){try{return localStorage.getItem(k)||d;}catch(e){return d;}}
