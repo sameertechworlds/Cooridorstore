@@ -295,6 +295,94 @@
 <div id="site-footer"></div>
 <script src="app.js"></script>
 <script>
+/* Homepage tiles: change every 15 seconds */
+(function () {
+  var TOOLS = [
+    ['gst-calculator.html','🧮','Calculate GST','GST निकालें'],
+    ['income-tax-calculator.html','📊','Old vs new tax regime','पुरानी बनाम नई टैक्स रिजीम'],
+    ['gstr-2b-reconciliation.html','🔄','Match GSTR-2B','GSTR-2B मिलान'],
+    ['bank-reconciliation.html','🏦','Bank reconciliation','बैंक रिकंसिलिएशन'],
+    ['invoice-generator.html','🧾','Make a GST invoice','GST इनवॉइस बनाएं'],
+    ['tally-import.html','📥','Excel to Tally','Excel से Tally'],
+    ['compress-pdf.html','🗜️','Compress a PDF','PDF छोटा करें'],
+    ['merge-pdf.html','📑','Merge PDFs','PDF जोड़ें'],
+    ['hra-calculator.html','🏠','Calculate HRA','HRA निकालें'],
+    ['tds-calculator.html','💸','Calculate TDS','TDS निकालें'],
+    ['gst-late-fee-calculator.html','⏰','GST late fee','GST लेट फीस'],
+    ['80gg-calculator.html','🏘️','Rent deduction (80GG)','किराये पर छूट (80GG)'],
+    ['in-hand-salary-calculator.html','💰','In-hand salary','इन-हैंड सैलरी'],
+    ['gratuity-calculator.html','🎁','Gratuity','ग्रेच्युटी'],
+    ['emi-calculator.html','🏧','Loan EMI','लोन EMI'],
+    ['sip-calculator.html','📈','SIP returns','SIP रिटर्न'],
+    ['ecommerce-reconciliation.html','🛒','E-commerce reconciliation','ई-कॉमर्स रिकंसिलिएशन'],
+    ['gstr-1-einvoice-reconciliation.html','🧩','GSTR-1 vs e-invoice','GSTR-1 बनाम ई-इनवॉइस'],
+    ['rent-receipt-generator.html','🏡','Rent receipt','किराया रसीद'],
+    ['qr-code-generator.html','🔳','QR code generator','QR कोड बनाएं'],
+    ['gstin-validator.html','✅','Check a GSTIN','GSTIN जांचें'],
+    ['word-to-pdf.html','📝','Word to PDF','Word से PDF'],
+    ['pdf-to-word.html','📄','PDF to Word','PDF से Word'],
+    ['pdf-to-excel.html','📋','PDF to Excel','PDF से Excel'],
+    ['bank-statement-pdf-to-excel.html','🏛️','Bank statement to Excel','बैंक स्टेटमेंट से Excel'],
+    ['tax-quiz.html','🎯','Tax quiz','टैक्स क्विज़'],
+    ['accounting-games.html','🎮','Accounting games','अकाउंटिंग गेम्स'],
+    ['claim-gst-tcs-amazon-flipkart-meesho.html','💡','Claim GST TCS','GST TCS क्लेम करें']
+  ];
+  var INTERVAL = 15000; // 15 seconds
+
+  // Find the tile grid: the parent of the "Calculate GST" tile
+  var first = document.querySelector('a[href$="gst-calculator.html"]');
+  var grid = null;
+  document.querySelectorAll('a[href$="gst-calculator.html"]').forEach(function (a) {
+    if (!grid && a.parentElement && a.parentElement.querySelectorAll(':scope > a').length >= 4) grid = a.parentElement;
+  });
+  if (!grid) return;
+  var tiles = Array.prototype.slice.call(grid.querySelectorAll(':scope > a'));
+  var n = tiles.length, page = 0, paused = false;
+  var emojiRe = /\p{Extended_Pictographic}/u;
+
+  function setTile(a, t) {
+    var hi = document.documentElement.lang === 'hi';
+    a.setAttribute('href', t[0]);
+    var walker = document.createTreeWalker(a, NodeFilter.SHOW_TEXT);
+    var node, iconDone = false, labelDone = false;
+    while ((node = walker.nextNode())) {
+      var txt = node.nodeValue.trim();
+      if (!txt || txt === '→') continue;
+      if (!iconDone && emojiRe.test(txt) && txt.length <= 4) {
+        node.nodeValue = t[1]; iconDone = true;
+      } else if (!labelDone) {
+        node.nodeValue = hi ? t[3] : t[2]; labelDone = true;
+        var p = node.parentElement;
+        if (p && p.hasAttribute('data-en')) { p.setAttribute('data-en', t[2]); p.setAttribute('data-hi', t[3]); }
+      }
+    }
+  }
+
+  function show() {
+    for (var i = 0; i < n; i++) setTile(tiles[i], TOOLS[(page * n + i) % TOOLS.length]);
+  }
+
+  grid.style.transition = 'opacity .4s ease';
+  function next() {
+    if (paused || document.hidden) return;
+    grid.style.opacity = '0';
+    setTimeout(function () {
+      page = (page + 1) % Math.ceil(TOOLS.length / n);
+      show();
+      grid.style.opacity = '1';
+    }, 400);
+  }
+
+  // Pause while the user hovers or taps
+  grid.addEventListener('mouseenter', function () { paused = true; });
+  grid.addEventListener('mouseleave', function () { paused = false; });
+  grid.addEventListener('touchstart', function () { paused = true; setTimeout(function () { paused = false; }, 8000); }, { passive: true });
+
+  document.addEventListener('langchange', show);
+  setInterval(next, INTERVAL);
+})();
+</script>
+ <script>
 /* ---------- Quick GST ---------- */
 var MODE='add',RATE=18;
 function inr(n){return '₹'+n.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
