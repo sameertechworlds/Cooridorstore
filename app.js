@@ -21,7 +21,7 @@ document.head.appendChild(css);
 var LOGO='<svg width="36" height="36" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0b3d91"/><g stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M9 13h16M9 20h12M9 27h8"/></g><path d="M21 26.5l4 4 7.5-9" stroke="#34d399" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function m(h,i,en,hi,sen,shi){return '<a href="'+h+'"><b style="font-size:1.15rem;width:24px;text-align:center">'+i+'</b><div><div data-en="'+en+'" data-hi="'+hi+'">'+en+'</div><span data-en="'+sen+'" data-hi="'+shi+'">'+sen+'</span></div></a>';}
 function dd(en,hi,items,wide){return '<div class="dd"><button type="button" data-en="'+en+' ▾" data-hi="'+hi+' ▾">'+en+' ▾</button><div class="menu'+(wide?' wide':'')+'">'+items+'</div></div>';}
-function col(en,hi,links){return '<div><h4 data-en="'+en+'" data-hi="'+hi+'">'+en+'</h4>'+links.map(function(l){return '<a href="'+l[0]+'">'+l[1]+'</a>';}).join('')+'</div>';}
+function col(en,hi,links){return '<div><h2 data-en="'+en+'" data-hi="'+hi+'">'+en+'</h2>'+links.map(function(l){return '<a href="'+l[0]+'">'+l[1]+'</a>';}).join('')+'</div>';}
 var brand='<a href="/" class="brand" style="color:var(--txt)">'+LOGO+'<div class="brand-t">'+NAME+'<small>'+TAG+'</small></div></a>';
 var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav" id="nav">'+
  dd('Calculators','कैलकुलेटर',
