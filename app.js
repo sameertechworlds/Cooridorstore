@@ -47,6 +47,7 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
   m('bank-reconciliation.html','🏦','Bank Reconciliation','बैंक रिकंसिलिएशन','Statement vs ledger, BRS','स्टेटमेंट बनाम लेजर, BRS'),true)+
  dd('Generators','जनरेटर',
   m('invoice-generator.html','🧾','GST Invoice Generator','GST इनवॉइस जनरेटर','Create and print invoices','इनवॉइस बनाएँ और प्रिंट करें')+
+  m('gst-notice-reply.html','📨','GST Notice Reply','GST नोटिस जवाब','Reply to ASMT-10, DRC-01 & more','GST नोटिस का जवाब तैयार करें')+  
    m('gstin-validator.html','✅','GSTIN Validator','GSTIN वैलिडेटर','Check GST number, state, PAN','GST नंबर, राज्य, PAN जाँचें')+
     m('qr-code-generator.html','🔳','QR Code Generator','QR कोड जनरेटर','UPI, link, WhatsApp, WiFi','UPI, लिंक, WhatsApp, WiFi')+
   m('rent-receipt-generator.html','🏘️','Rent Receipt Generator','किराया रसीद जनरेटर','Monthly receipts for HRA','HRA के लिए मासिक रसीदें')+
