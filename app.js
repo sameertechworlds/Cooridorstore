@@ -58,7 +58,8 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
   m('word-to-pdf.html','📄','Word to PDF','Word से PDF','Convert .docx to PDF','.docx को PDF में बदलें')+
   m('pdf-to-word.html','📝','PDF to Word','PDF से Word','Editable .docx from PDF','PDF से बदलने लायक़ .docx')+
   m('compress-pdf.html','🗜️','Compress PDF','PDF छोटी करें','Reduce PDF file size','PDF का साइज़ घटाएँ')+
-  m('merge-pdf.html','📑','Merge PDF','PDF जोड़ें','Combine PDFs into one','कई PDF को एक बनाएँ'))+
+  m('merge-pdf.html','📑','Merge PDF','PDF जोड़ें','Combine PDFs into one','कई PDF को एक बनाएँ')+
+  m('pdf-editor.html','✏️','PDF Editor','PDF एडिटर','Add text, sign & edit PDF','PDF में टेक्स्ट, साइन और बदलाव'))+
  dd('Learn','सीखें',
   m('accounting-games.html','🎮','Accounting Games','अकाउंटिंग गेम्स','Refresh your mind','दिमाग़ ताज़ा कीजिए')+
   m('tax-quiz.html','🎯','Tax Quiz','टैक्स क्विज़','Test your GST and tax knowledge','अपना GST और टैक्स ज्ञान परखें'))+
@@ -68,9 +69,9 @@ var footer='<footer class="ftr"><div class="container">'+
  '<div class="ftr-g f5">'+
  col('Calculators','कैलकुलेटर',[['gst-calculator.html','GST'],['gst-late-fee-calculator.html','GST Late Fee'],['income-tax-calculator.html','Income Tax'],['hra-calculator.html','HRA'],['tds-calculator.html','TDS'],['80gg-calculator.html','80GG'],['in-hand-salary-calculator.html','In-hand Salary'],['gratuity-calculator.html','Gratuity'],['emi-calculator.html','EMI'],['sip-calculator.html','SIP']])+
  col('Reconciliation','रिकंसिलिएशन',[['ecommerce-reconciliation.html','E-commerce Reco'],['amazon-reconciliation.html','Amazon Reco'],['flipkart-reconciliation.html','Flipkart Reco'],['meesho-reconciliation.html','Meesho Reco'],['myntra-reconciliation.html','Myntra Reco'],['jiomart-reconciliation.html','JioMart Reco'],['gstr-2b-reconciliation.html','GSTR-2B Reco'],['gstr-1-einvoice-reconciliation.html','GSTR-1 vs e-Invoice'],['bank-reconciliation.html','Bank Reco']])+
- col('Generators','जनरेटर',[['invoice-generator.html','Invoice Generator'],['qr-code-generator.html','QR Code Generator'],['rent-receipt-generator.html','Rent Receipt'],['tally-import.html','Invoices to Tally']])+
+ col('Generators','जनरेटर',[['invoice-generator.html','Invoice Generator'],['gst-notice-reply.html','GST Notice Reply'],['gstin-validator.html','GSTIN Validator'],['qr-code-generator.html','QR Code Generator'],['rent-receipt-generator.html','Rent Receipt'],['tally-import.html','Invoices to Tally']])+
  
- col('PDF Tools','PDF टूल्स',[['pdf-to-excel.html','PDF to Excel'],['bank-statement-pdf-to-excel.html','Bank Statement to Excel'],['word-to-pdf.html','Word to PDF'],['pdf-to-word.html','PDF to Word'],['compress-pdf.html','Compress PDF'],['merge-pdf.html','Merge PDF']])+
+ col('PDF Tools','PDF टूल्स',[['pdf-to-excel.html','PDF to Excel'],['bank-statement-pdf-to-excel.html','Bank Statement to Excel'],['word-to-pdf.html','Word to PDF'],['pdf-to-word.html','PDF to Word'],['compress-pdf.html','Compress PDF'],['merge-pdf.html','Merge PDF'],['pdf-editor.html','PDF Editor']])+
  col('Learn &amp; Company','सीखें और कंपनी',[['accounting-games.html','Accounting Games'],['tax-quiz.html','Tax Quiz'],['blog.html','Blog'],['about.html','About'],['contact.html','Contact'],['privacy-policy.html','Privacy Policy'],['terms.html','Terms']])+
  '</div><div class="copy">© 2026 '+NAME+' · cooridorstore.in</div></div></footer>';
 function get(k,d){try{return localStorage.getItem(k)||d;}catch(e){return d;}}
