@@ -4,100 +4,122 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>PDF Editor Online Free: Add Text, Sign &amp; Edit PDF</title>
-<meta name="description" content="Free online PDF editor. Add or edit text, sign, draw, highlight, white out, add images and rotate or delete pages. Works in your browser, no upload or signup.">
+<meta name="description" content="Free online PDF editor. Edit text, sign, add links, form fields, images and shapes, highlight, white out and manage pages. Works in your browser, no upload.">
 <link rel="canonical" href="https://www.cooridorstore.in/pdf-editor">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Cooridor Store"><meta property="og:locale" content="en_IN">
-<meta property="og:title" content="PDF Editor Online Free: Add Text, Sign &amp; Edit PDF"><meta property="og:description" content="Edit PDF in your browser: add text, sign, draw, highlight, white out and manage pages. Free, no upload."><meta property="og:url" content="https://www.cooridorstore.in/pdf-editor">
+<meta property="og:title" content="PDF Editor Online Free: Add Text, Sign &amp; Edit PDF"><meta property="og:description" content="Edit PDF in your browser: change text, sign, add links, forms, images and shapes. Free, no upload."><meta property="og:url" content="https://www.cooridorstore.in/pdf-editor">
 <meta property="og:image" content="https://www.cooridorstore.in/og-image.jpg">
-<meta name="twitter:card" content="summary"><meta name="twitter:title" content="PDF Editor Online Free: Add Text, Sign &amp; Edit PDF"><meta name="twitter:description" content="Edit PDF in your browser: add text, sign, draw, highlight, white out and manage pages. Free, no upload.">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="PDF Editor Online Free: Add Text, Sign &amp; Edit PDF"><meta name="twitter:description" content="Edit PDF in your browser: change text, sign, add links, forms, images and shapes. Free, no upload.">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="calc.css">
 <style>
-:root{--pe-pri:var(--pri,#2563eb);--pe-acc:var(--acc,#10b981);--pe-sur:var(--sur,#111a2e);--pe-line:var(--line,#24304a);--pe-txt:var(--txt,#e6ebf5);--pe-soft:var(--soft,#18223a);--pe-mut:#8a96ad}
-.pe-app{margin-top:20px;background:var(--pe-sur);border:1px solid var(--pe-line);border-radius:18px;overflow:hidden;position:relative}
-.pe-app:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--pe-pri),var(--pe-acc));z-index:2}
+:root{--pe-pri:var(--pri,#2563eb);--pe-acc:var(--acc,#10b981);--pe-sur:var(--sur,#ffffff);--pe-line:var(--line,#e2e8f0);--pe-txt:var(--txt,#0f172a);--pe-soft:var(--soft,#f1f5f9);--pe-mut:#64748b}
+.pe-app{margin-top:20px;background:var(--pe-sur);border:1px solid var(--pe-line);border-radius:18px;position:relative}
+.pe-app:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:18px 18px 0 0;background:linear-gradient(90deg,var(--pe-pri),var(--pe-acc));z-index:2}
 .pe-drop{margin:22px;border:2px dashed var(--pe-line);border-radius:16px;padding:46px 20px;text-align:center;cursor:pointer;transition:.2s}
-.pe-drop:hover,.pe-drop.over{border-color:var(--pe-pri);background:color-mix(in srgb,var(--pe-pri) 8%,transparent)}
+.pe-drop:hover,.pe-drop.over{border-color:var(--pe-pri);background:color-mix(in srgb,var(--pe-pri) 7%,transparent)}
 .pe-drop .ic{font-size:2.6rem}
 .pe-drop h2{font-size:1.15rem;margin:10px 0 6px}
 .pe-drop p{color:var(--pe-mut);font-size:.88rem;margin:0}
-.pe-drop .pe-btn{margin-top:16px}
 .pe-feat{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px}
 .pe-feat span{font-size:.76rem;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--pe-soft);border:1px solid var(--pe-line)}
 .pe-btn{border:1px solid var(--pe-line);background:var(--pe-soft);color:var(--pe-txt);padding:9px 14px;border-radius:10px;font:inherit;font-size:.85rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .pe-btn:hover{border-color:color-mix(in srgb,var(--pe-pri) 60%,var(--pe-line))}
 .pe-btn.pri{background:linear-gradient(135deg,var(--pe-pri),color-mix(in srgb,var(--pe-pri) 70%,var(--pe-acc)));border-color:transparent;color:#fff}
 .pe-btn:disabled{opacity:.4;cursor:not-allowed}
+.pe-btn.sm{padding:5px 9px;font-size:.78rem;border-radius:8px}
 .pe-ed{display:none}
 .pe-app.loaded .pe-drop{display:none}
 .pe-app.loaded .pe-ed{display:block}
-.pe-bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--pe-line);background:color-mix(in srgb,var(--pe-soft) 60%,transparent)}
-.pe-tools{display:flex;flex-wrap:wrap;gap:4px}
-.pe-tool{border:1px solid transparent;background:transparent;color:var(--pe-txt);min-width:40px;height:40px;padding:0 9px;border-radius:10px;font:inherit;font-size:.8rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.pe-bar{display:flex;flex-wrap:wrap;gap:2px;align-items:center;padding:12px 14px 10px;border-bottom:1px solid var(--pe-line);background:var(--pe-sur);border-radius:18px 18px 0 0;position:relative;z-index:30}
+.pe-dd{position:relative}
+.pe-tool{border:1px solid transparent;background:transparent;color:var(--pe-txt);height:40px;padding:0 7px;border-radius:10px;font:inherit;font-size:.84rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .pe-tool .i{font-size:1.05rem}
+.pe-tool .cv{font-size:.65rem;opacity:.6}
 .pe-tool:hover{background:var(--pe-soft)}
-.pe-tool.on{background:color-mix(in srgb,var(--pe-pri) 22%,transparent);border-color:var(--pe-pri)}
+.pe-tool.on{background:color-mix(in srgb,var(--pe-pri) 14%,transparent);border-color:color-mix(in srgb,var(--pe-pri) 60%,transparent);color:var(--pe-pri)}
+.pe-tool:disabled{opacity:.35;cursor:not-allowed}
+.pe-menu{position:absolute;top:calc(100% + 6px);left:0;min-width:220px;background:var(--pe-sur);border:1px solid var(--pe-line);border-radius:12px;box-shadow:0 18px 40px -12px rgba(15,23,42,.35);padding:6px;display:none;z-index:40}
+.pe-dd.open .pe-menu{display:block}
+.pe-menu button{display:flex;align-items:center;gap:10px;width:100%;border:none;background:none;color:var(--pe-txt);padding:9px 10px;border-radius:8px;font:inherit;font-size:.86rem;cursor:pointer;text-align:left}
+.pe-menu button:hover{background:var(--pe-soft)}
+.pe-menu button.on{color:var(--pe-pri);font-weight:700}
+.pe-menu .hd{font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--pe-mut);padding:8px 10px 4px}
+.pe-menu .stp{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:2px 4px 4px}
+.pe-menu .stp button{justify-content:center;font-weight:800;font-size:.72rem;letter-spacing:.04em;border:2px solid currentColor;padding:6px}
 .pe-sep{width:1px;height:28px;background:var(--pe-line);margin:0 4px}
 .pe-sp{flex:1}
-.pe-props{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:9px 14px;border-bottom:1px solid var(--pe-line);font-size:.8rem;color:var(--pe-mut)}
+.pe-props{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:8px 14px;border-bottom:1px solid var(--pe-line);font-size:.8rem;color:var(--pe-mut);background:var(--pe-sur)}
 .pe-props label{display:inline-flex;align-items:center;gap:6px}
 .pe-props select,.pe-props input[type=number]{background:var(--pe-soft);border:1px solid var(--pe-line);color:var(--pe-txt);border-radius:8px;padding:6px 8px;font:inherit;font-size:.8rem}
-.pe-props input[type=number]{width:64px}
+.pe-props input[type=number]{width:62px}
 .pe-props input[type=color]{width:34px;height:30px;border:1px solid var(--pe-line);border-radius:8px;background:none;padding:2px;cursor:pointer}
 .pe-sw{display:inline-flex;gap:4px}
 .pe-sw button{width:22px;height:22px;border-radius:50%;border:2px solid var(--pe-line);cursor:pointer;padding:0}
-.pe-b{font-weight:800}
+.pe-tog{min-width:34px;justify-content:center}
 .pe-tog.on{background:var(--pe-pri);color:#fff;border-color:var(--pe-pri)}
-.pe-main{display:grid;grid-template-columns:150px 1fr;min-height:560px}
-.pe-thumbs{border-right:1px solid var(--pe-line);overflow-y:auto;max-height:78vh;padding:10px;display:flex;flex-direction:column;gap:12px}
-.pe-th{position:relative;border:2px solid transparent;border-radius:10px;padding:5px;cursor:pointer;background:var(--pe-soft);text-align:center}
-.pe-th.on{border-color:var(--pe-pri)}
-.pe-th canvas{max-width:100%;background:#fff;border-radius:3px;display:block;margin:0 auto;transition:transform .2s}
-.pe-th .n{font-size:.72rem;color:var(--pe-mut);margin-top:4px}
-.pe-th .act{display:flex;justify-content:center;gap:2px;margin-top:4px}
-.pe-th .act button{border:none;background:transparent;color:var(--pe-txt);cursor:pointer;font-size:.85rem;padding:3px 4px;border-radius:6px}
-.pe-th .act button:hover{background:var(--pe-sur)}
-.pe-stage{background:#525a68;overflow:auto;max-height:78vh;padding:24px;position:relative}
-.pe-box{position:relative;margin:0 auto}
-.pe-page{position:absolute;left:50%;top:50%;transform-origin:center center;box-shadow:0 8px 30px rgba(0,0,0,.35);background:#fff}
+.pe-hint{padding:8px 14px;font-size:.8rem;color:var(--pe-mut);border-bottom:1px solid var(--pe-line);background:color-mix(in srgb,var(--pe-pri) 5%,var(--pe-sur))}
+.pe-stage{background:#e8ebf0;overflow:auto;height:calc(100vh - 220px);min-height:520px;padding:22px 16px 40px;position:relative}
+[data-theme=dark] .pe-stage{background:#3a4150}
+.pe-pages{display:flex;flex-direction:column;align-items:center;gap:6px}
+.pe-pw{display:flex;flex-direction:column;align-items:center}
+.pe-pbar{display:flex;align-items:center;gap:6px;margin:6px 0 8px;font-size:.78rem;color:#475569;font-weight:600}
+[data-theme=dark] .pe-pbar{color:#cbd5e1}
+.pe-pbar button{border:1px solid rgba(100,116,139,.35);background:rgba(255,255,255,.85);color:#1e293b;border-radius:8px;padding:4px 8px;font:inherit;font-size:.76rem;font-weight:600;cursor:pointer}
+.pe-pbar button:hover{border-color:var(--pe-pri);color:var(--pe-pri)}
+.pe-box{position:relative}
+.pe-page{position:absolute;left:50%;top:50%;transform-origin:center center;box-shadow:0 4px 18px rgba(15,23,42,.22);background:#fff}
 .pe-page canvas{position:absolute;inset:0;width:100%;height:100%}
+.pe-ld{position:absolute;inset:0;display:grid;place-items:center;color:#94a3b8;font-size:.85rem}
 .pe-layer{position:absolute;inset:0;touch-action:none;overflow:hidden}
-.pe-layer.t-text,.pe-layer.t-check,.pe-layer.t-cross,.pe-layer.t-date{cursor:text}
-.pe-layer.t-draw,.pe-layer.t-rect,.pe-layer.t-white,.pe-layer.t-hl{cursor:crosshair}
-.pe-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.pe-svg path{fill:none;stroke-linecap:round;stroke-linejoin:round;pointer-events:stroke;cursor:move}
+.pe-layer.c-text{cursor:text}
+.pe-layer.c-cross{cursor:crosshair}
+.pe-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.pe-svg path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pe-svg path.hit{stroke:transparent;pointer-events:stroke;cursor:move}
 .pe-svg path.sel{filter:drop-shadow(0 0 2px #2563eb) drop-shadow(0 0 2px #2563eb)}
 .pe-o{position:absolute;cursor:move;box-sizing:border-box}
 .pe-o.sel{outline:2px dashed #2563eb;outline-offset:2px}
-.pe-t{white-space:pre;line-height:1.2;min-width:4px;min-height:1em;outline-offset:2px}
+.pe-t{white-space:pre;line-height:1.2;min-width:4px;min-height:1em}
 .pe-t[contenteditable=true],.pe-t[contenteditable=plaintext-only]{cursor:text;outline:2px solid #2563eb;background:rgba(37,99,235,.06)}
 .pe-hl{mix-blend-mode:multiply}
 .pe-img{user-select:none;-webkit-user-drag:none}
+.pe-lnk{border:1.5px dashed #2563eb;background:rgba(37,99,235,.10);color:#1d4ed8;font:600 11px/1.2 system-ui;padding:2px 4px;overflow:hidden}
+.pe-fld{border:1px solid #60a5fa;background:rgba(191,219,254,.55);color:#1e3a8a;font:600 11px/1.2 system-ui;padding:2px 5px;overflow:hidden;display:flex;align-items:center}
 .pe-h{position:absolute;right:-8px;bottom:-8px;width:14px;height:14px;background:#2563eb;border:2px solid #fff;border-radius:50%;cursor:nwse-resize;z-index:3}
-.pe-x{position:absolute;right:-10px;top:-12px;width:20px;height:20px;background:#ef4444;color:#fff;border:2px solid #fff;border-radius:50%;font:700 11px/16px system-ui;text-align:center;cursor:pointer;z-index:3;padding:0}
+.pe-x{position:absolute;width:20px;height:20px;background:#ef4444;color:#fff;border:2px solid #fff;border-radius:50%;font:700 11px/16px system-ui;text-align:center;cursor:pointer;z-index:4;padding:0}
+.pe-o>.pe-x{right:-10px;top:-12px}
 .pe-ti{position:absolute;border:1px dashed rgba(37,99,235,.7);background:rgba(37,99,235,.08);cursor:text;border-radius:2px}
-.pe-ti:hover{background:rgba(37,99,235,.2)}
+.pe-ti:hover{background:rgba(37,99,235,.22)}
+.pe-ins{border:1px dashed rgba(100,116,139,.5);background:transparent;color:#64748b;border-radius:99px;padding:4px 12px;font:inherit;font-size:.74rem;font-weight:600;cursor:pointer;margin:8px 0 2px}
+.pe-ins:hover{border-color:var(--pe-pri);color:var(--pe-pri);background:rgba(255,255,255,.6)}
 .pe-foot{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:10px 14px;border-top:1px solid var(--pe-line);font-size:.82rem;color:var(--pe-mut)}
 .pe-zoom{display:inline-flex;align-items:center;gap:4px}
-.pe-hint{padding:8px 14px;font-size:.8rem;color:var(--pe-mut);border-bottom:1px solid var(--pe-line);background:color-mix(in srgb,var(--pe-pri) 6%,transparent)}
-.pe-modal{position:fixed;inset:0;background:rgba(2,6,23,.7);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+.pe-modal{position:fixed;inset:0;background:rgba(2,6,23,.6);display:none;align-items:center;justify-content:center;z-index:200;padding:16px}
 .pe-modal.on{display:flex}
-.pe-card{background:var(--pe-sur);border:1px solid var(--pe-line);border-radius:16px;padding:18px;width:min(560px,100%)}
-.pe-card h3{margin:0 0 10px;font-size:1.05rem}
-.pe-sig{background:#fff;border-radius:10px;width:100%;height:200px;touch-action:none;cursor:crosshair;display:block}
-.pe-card .row{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-top:12px;flex-wrap:wrap}
-.pe-busy{position:absolute;inset:0;background:rgba(2,6,23,.55);display:none;align-items:center;justify-content:center;z-index:20;color:#fff;font-weight:700;gap:10px}
+.pe-card{background:var(--pe-sur);color:var(--pe-txt);border:1px solid var(--pe-line);border-radius:16px;padding:18px;width:min(560px,100%);box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
+.pe-card h3{margin:0 0 12px;font-size:1.05rem}
+.pe-card label{display:block;font-size:.8rem;font-weight:600;color:var(--pe-mut);margin:10px 0 5px}
+.pe-card input[type=text],.pe-card input[type=url],.pe-card input[type=number]{width:100%;box-sizing:border-box;background:var(--pe-soft);border:1px solid var(--pe-line);color:var(--pe-txt);border-radius:10px;padding:10px 12px;font:inherit}
+.pe-card .chk{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--pe-txt);margin-top:10px}
+.pe-card .seg{display:flex;gap:6px;flex-wrap:wrap}
+.pe-card .seg button{flex:1;border:1px solid var(--pe-line);background:var(--pe-soft);color:var(--pe-txt);padding:8px;border-radius:9px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
+.pe-card .seg button.on{background:var(--pe-pri);border-color:var(--pe-pri);color:#fff}
+.pe-sig{background:#fff;border:1px solid var(--pe-line);border-radius:10px;width:100%;height:200px;touch-action:none;cursor:crosshair;display:block}
+.pe-card .row{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap}
+.pe-card .row .r{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.pe-busy{position:absolute;inset:0;background:rgba(2,6,23,.5);display:none;align-items:center;justify-content:center;z-index:60;color:#fff;font-weight:700;gap:10px;border-radius:18px}
 .pe-busy.on{display:flex}
-.pe-spin{width:22px;height:22px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:pes 0.8s linear infinite}
+.pe-spin{width:22px;height:22px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:pes .8s linear infinite}
 @keyframes pes{to{transform:rotate(360deg)}}
-.pe-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#0f172a;color:#fff;padding:11px 18px;border-radius:12px;font-size:.88rem;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:120;box-shadow:0 10px 30px rgba(0,0,0,.35);max-width:90vw;text-align:center}
+.pe-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#0f172a;color:#fff;padding:11px 18px;border-radius:12px;font-size:.88rem;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:300;box-shadow:0 10px 30px rgba(0,0,0,.35);max-width:90vw;text-align:center}
 .pe-toast.on{opacity:1;transform:translateX(-50%)}
 .art details{background:var(--pe-sur);border:1px solid var(--pe-line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
 .art summary{font-weight:600;cursor:pointer;color:var(--pe-txt)}
 .art details p{margin:8px 0 0}
 .art table{width:100%;border-collapse:collapse;font-size:.88rem}
 .art td,.art th{border-bottom:1px solid var(--pe-line);padding:8px 6px;text-align:left;vertical-align:top}
-@media(max-width:760px){.pe-main{grid-template-columns:1fr}.pe-thumbs{flex-direction:row;max-height:none;border-right:none;border-bottom:1px solid var(--pe-line);overflow-x:auto}.pe-th{min-width:86px;max-width:86px}.pe-th canvas{max-height:72px;width:auto}.pe-tool .l{display:none}.pe-stage{padding:12px;max-height:70vh}}
+@media(max-width:760px){.pe-tool .l,.pe-tool .cv{display:none}.pe-tool{padding:0 8px}.pe-stage{padding:12px 6px 30px;height:calc(100vh - 170px)}.pe-menu{position:fixed;left:8px;right:8px;top:auto;min-width:0}}
 </style>
 <script type="application/ld+json">
 {
@@ -124,7 +146,7 @@
       "@id": "https://www.cooridorstore.in/pdf-editor#webpage",
       "url": "https://www.cooridorstore.in/pdf-editor",
       "name": "PDF Editor Online Free",
-      "description": "Add or edit text, sign, draw, highlight, white out, add images and rotate or delete PDF pages in your browser.",
+      "description": "Edit text, sign, add links, form fields, images, stamps and shapes, highlight, white out and manage PDF pages in your browser.",
       "inLanguage": "en-IN",
       "isPartOf": { "@id": "https://www.cooridorstore.in/#website" },
       "author": { "@id": "https://www.cooridorstore.in/#organization" },
@@ -153,12 +175,12 @@
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"Is this PDF editor really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can add text, sign, draw, highlight, white out, add images and manage pages for free, with no signup and no watermark."}},
+{"@type":"Question","name":"Is this PDF editor really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. All tools, including text editing, signatures, links, form fields, images, stamps and shapes, are free with no signup and no watermark."}},
 {"@type":"Question","name":"Is my PDF uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. The PDF is opened and edited inside your browser, and the edited file is created on your device. Nothing is uploaded."}},
-{"@type":"Question","name":"Can I edit existing text in a PDF?","acceptedAnswer":{"@type":"Answer","text":"Yes. Choose Edit text and click a line in the PDF. The old text is covered with white and a new editable text box with the same words appears on top, so you can change it."}},
+{"@type":"Question","name":"Can I edit existing text in a PDF?","acceptedAnswer":{"@type":"Answer","text":"Yes. Choose Text, then Edit existing text, and click a line. The old text is covered with white and an editable box with the same words appears on top. You can also use Find and replace to change a word on every page at once."}},
+{"@type":"Question","name":"Can I add fillable form fields and links?","acceptedAnswer":{"@type":"Answer","text":"Yes. The Forms menu adds text fields, multi-line fields, checkboxes and drop-down lists that can be filled in any PDF reader. The Links tool adds clickable links to a website, an email address or another page."}},
 {"@type":"Question","name":"How do I sign a PDF online?","acceptedAnswer":{"@type":"Answer","text":"Click Sign, draw your signature with a mouse or finger, or upload a photo of it, and place it on the page. Resize it with the blue handle and click Download PDF."}},
-{"@type":"Question","name":"Can I type in Hindi or use the rupee symbol?","acceptedAnswer":{"@type":"Answer","text":"Yes. Hindi text and symbols such as ₹ are added as high-resolution images so they display correctly in every PDF reader. Plain English text is added as real, selectable text."}},
-{"@type":"Question","name":"Does it work on mobile?","acceptedAnswer":{"@type":"Answer","text":"Yes. The editor works in Chrome, Safari and other modern mobile browsers, and you can draw or sign with your finger."}}
+{"@type":"Question","name":"Can I type in Hindi or use the rupee symbol?","acceptedAnswer":{"@type":"Answer","text":"Yes. Hindi text and symbols such as ₹ are added as high-resolution images so they display correctly in every PDF reader. Plain English text is added as real, selectable text."}}
 ]}
 </script>
 </head>
@@ -168,7 +190,7 @@
  <div class="crumb"><a href="index.html">Home</a> › <span data-en="PDF Editor" data-hi="PDF एडिटर">PDF Editor</span></div>
  <div class="ph">
   <h1 data-en="PDF Editor Online" data-hi="ऑनलाइन PDF एडिटर">PDF Editor Online</h1>
-  <p data-en="Add or edit text, sign, draw, highlight, white out and manage pages. Your PDF never leaves your device." data-hi="टेक्स्ट जोड़ें या बदलें, साइन करें, ड्रॉ करें, हाइलाइट करें, व्हाइटआउट करें और पेज मैनेज करें। आपकी PDF आपके डिवाइस से बाहर नहीं जाती।">Add or edit text, sign, draw, highlight, white out and manage pages. Your PDF never leaves your device.</p>
+  <p data-en="Edit text, sign, add links, form fields, images, stamps and shapes, and manage pages. Your PDF never leaves your device." data-hi="टेक्स्ट बदलें, साइन करें, लिंक, फॉर्म फ़ील्ड, इमेज, स्टैम्प और शेप जोड़ें, और पेज मैनेज करें। आपकी PDF आपके डिवाइस से बाहर नहीं जाती।">Edit text, sign, add links, form fields, images, stamps and shapes, and manage pages. Your PDF never leaves your device.</p>
  </div>
 
  <div class="pe-app" id="peApp">
@@ -176,63 +198,95 @@
    <div class="ic">📄</div>
    <h2 data-en="Choose a PDF to edit" data-hi="एडिट करने के लिए PDF चुनें">Choose a PDF to edit</h2>
    <p data-en="Drag and drop here, or click to select. Processed in your browser, nothing is uploaded." data-hi="यहाँ ड्रैग करें या क्लिक करके चुनें। ब्राउज़र में ही प्रोसेस, कुछ भी अपलोड नहीं होता।">Drag and drop here, or click to select. Processed in your browser, nothing is uploaded.</p>
-   <button type="button" class="pe-btn pri" id="pePick" data-en="Select PDF" data-hi="PDF चुनें">Select PDF</button>
-   <button type="button" class="pe-btn" id="peBlank" style="margin-left:6px" data-en="Start with a blank page" data-hi="खाली पेज से शुरू करें">Start with a blank page</button>
-   <div class="pe-feat"><span>✍️ Add text</span><span>🔤 Edit text</span><span>🖊️ Sign</span><span>🖍️ Highlight</span><span>⬜ White out</span><span>🖼️ Image</span><span>✔️ Tick / ✖️ Cross</span><span>🔄 Rotate &amp; delete pages</span></div>
+   <p style="margin-top:16px"><button type="button" class="pe-btn pri" id="pePick" data-en="Select PDF" data-hi="PDF चुनें">Select PDF</button> <button type="button" class="pe-btn" id="peBlank" data-en="Start with a blank page" data-hi="खाली पेज से शुरू करें">Start with a blank page</button></p>
+   <div class="pe-feat"><span>✍️ Edit text</span><span>🔎 Find &amp; replace</span><span>🔗 Links</span><span>☑️ Forms</span><span>🖼️ Images &amp; stamps</span><span>🖊️ Sign</span><span>⬜ Whiteout</span><span>🖍️ Annotate</span><span>⬭ Shapes</span><span>🔄 Pages</span></div>
    <input type="file" id="peFile" accept="application/pdf,.pdf" hidden>
   </div>
 
   <div class="pe-ed">
-   <div class="pe-bar">
-    <div class="pe-tools" id="peTools">
-     <button type="button" class="pe-tool on" data-t="select" title="Select / move (V)"><span class="i">🖱️</span><span class="l" data-en="Select" data-hi="चुनें">Select</span></button>
-     <button type="button" class="pe-tool" data-t="text" title="Add text (T)"><span class="i">✍️</span><span class="l" data-en="Text" data-hi="टेक्स्ट">Text</span></button>
-     <button type="button" class="pe-tool" data-t="edittext" title="Edit existing text (E)"><span class="i">🔤</span><span class="l" data-en="Edit text" data-hi="टेक्स्ट बदलें">Edit text</span></button>
-     <button type="button" class="pe-tool" data-t="sign" title="Signature"><span class="i">🖊️</span><span class="l" data-en="Sign" data-hi="साइन">Sign</span></button>
-     <button type="button" class="pe-tool" data-t="draw" title="Draw (D)"><span class="i">✏️</span><span class="l" data-en="Draw" data-hi="ड्रॉ">Draw</span></button>
-     <button type="button" class="pe-tool" data-t="hl" title="Highlight (H)"><span class="i">🖍️</span><span class="l" data-en="Highlight" data-hi="हाइलाइट">Highlight</span></button>
-     <button type="button" class="pe-tool" data-t="white" title="White out (W)"><span class="i">⬜</span><span class="l" data-en="White out" data-hi="व्हाइटआउट">White out</span></button>
-     <button type="button" class="pe-tool" data-t="rect" title="Rectangle (R)"><span class="i">▭</span><span class="l" data-en="Box" data-hi="बॉक्स">Box</span></button>
-     <button type="button" class="pe-tool" data-t="image" title="Add image"><span class="i">🖼️</span><span class="l" data-en="Image" data-hi="इमेज">Image</span></button>
-     <button type="button" class="pe-tool" data-t="check" title="Tick mark"><span class="i">✔️</span></button>
-     <button type="button" class="pe-tool" data-t="cross" title="Cross mark"><span class="i">✖️</span></button>
-     <button type="button" class="pe-tool" data-t="date" title="Today's date"><span class="i">📅</span></button>
+   <div class="pe-bar" id="peBar">
+    <button type="button" class="pe-tool" data-t="select" title="Select / move (V)"><span class="i">🖱️</span><span class="l" data-en="Select" data-hi="चुनें">Select</span></button>
+    <div class="pe-dd" data-g="text">
+     <button type="button" class="pe-tool" data-menu><span class="i">✍️</span><span class="l" data-en="Text" data-hi="टेक्स्ट">Text</span><span class="cv">▼</span></button>
+     <div class="pe-menu">
+      <button type="button" data-t="text">✍️ <span data-en="Add new text" data-hi="नया टेक्स्ट जोड़ें">Add new text</span></button>
+      <button type="button" data-t="edittext">🔤 <span data-en="Edit existing text" data-hi="मौजूदा टेक्स्ट बदलें">Edit existing text</span></button>
+      <button type="button" data-a="find">🔎 <span data-en="Find &amp; replace" data-hi="ढूँढें और बदलें">Find &amp; replace</span></button>
+     </div>
+    </div>
+    <button type="button" class="pe-tool" data-t="link" title="Add link"><span class="i">🔗</span><span class="l" data-en="Links" data-hi="लिंक">Links</span></button>
+    <div class="pe-dd" data-g="forms">
+     <button type="button" class="pe-tool" data-menu><span class="i">☑️</span><span class="l" data-en="Forms" data-hi="फॉर्म">Forms</span><span class="cv">▼</span></button>
+     <div class="pe-menu">
+      <div class="hd" data-en="Fill in" data-hi="भरें">Fill in</div>
+      <button type="button" data-t="check">✔️ <span data-en="Tick mark" data-hi="टिक">Tick mark</span></button>
+      <button type="button" data-t="cross">✖️ <span data-en="Cross mark" data-hi="क्रॉस">Cross mark</span></button>
+      <button type="button" data-t="date">📅 <span data-en="Today's date" data-hi="आज की तारीख">Today's date</span></button>
+      <div class="hd" data-en="Fillable fields" data-hi="भरने लायक फ़ील्ड">Fillable fields</div>
+      <button type="button" data-t="f_text">▭ <span data-en="Text field" data-hi="टेक्स्ट फ़ील्ड">Text field</span></button>
+      <button type="button" data-t="f_multi">☰ <span data-en="Multi-line text field" data-hi="कई लाइन वाली फ़ील्ड">Multi-line text field</span></button>
+      <button type="button" data-t="f_check">☑️ <span data-en="Checkbox" data-hi="चेकबॉक्स">Checkbox</span></button>
+      <button type="button" data-t="f_drop">▾ <span data-en="Drop-down list" data-hi="ड्रॉप-डाउन लिस्ट">Drop-down list</span></button>
+     </div>
+    </div>
+    <div class="pe-dd" data-g="images">
+     <button type="button" class="pe-tool" data-menu><span class="i">🖼️</span><span class="l" data-en="Images" data-hi="इमेज">Images</span><span class="cv">▼</span></button>
+     <div class="pe-menu">
+      <button type="button" data-a="image">🖼️ <span data-en="New image" data-hi="नई इमेज">New image</span></button>
+      <div class="hd" data-en="Stamps" data-hi="स्टैम्प">Stamps</div>
+      <div class="stp" id="peStamps"></div>
+     </div>
+    </div>
+    <button type="button" class="pe-tool" data-a="sign" title="Signature"><span class="i">🖊️</span><span class="l" data-en="Sign" data-hi="साइन">Sign</span></button>
+    <button type="button" class="pe-tool" data-t="white" title="Whiteout (W)"><span class="i">⬜</span><span class="l" data-en="Whiteout" data-hi="व्हाइटआउट">Whiteout</span></button>
+    <div class="pe-dd" data-g="annot">
+     <button type="button" class="pe-tool" data-menu><span class="i">🖍️</span><span class="l" data-en="Annotate" data-hi="एनोटेट">Annotate</span><span class="cv">▼</span></button>
+     <div class="pe-menu">
+      <button type="button" data-t="hl">🖍️ <span data-en="Highlight" data-hi="हाइलाइट">Highlight</span></button>
+      <button type="button" data-t="strike">S̶ <span data-en="Strike out" data-hi="काटें">Strike out</span></button>
+      <button type="button" data-t="under">U̲ <span data-en="Underline" data-hi="रेखांकन">Underline</span></button>
+      <button type="button" data-t="draw">✏️ <span data-en="Freehand" data-hi="फ्रीहैंड">Freehand</span></button>
+     </div>
+    </div>
+    <div class="pe-dd" data-g="shapes">
+     <button type="button" class="pe-tool" data-menu><span class="i">⬭</span><span class="l" data-en="Shapes" data-hi="शेप">Shapes</span><span class="cv">▼</span></button>
+     <div class="pe-menu">
+      <button type="button" data-t="rect">▭ <span data-en="Rectangle" data-hi="आयत">Rectangle</span></button>
+      <button type="button" data-t="ellipse">⬭ <span data-en="Ellipse" data-hi="गोला">Ellipse</span></button>
+      <button type="button" data-t="line">╱ <span data-en="Line" data-hi="लाइन">Line</span></button>
+      <button type="button" data-t="arrow">➚ <span data-en="Arrow" data-hi="तीर">Arrow</span></button>
+     </div>
     </div>
     <span class="pe-sep"></span>
     <button type="button" class="pe-tool" id="peUndo" title="Undo (Ctrl+Z)"><span class="i">↶</span></button>
     <button type="button" class="pe-tool" id="peRedo" title="Redo (Ctrl+Y)"><span class="i">↷</span></button>
     <button type="button" class="pe-tool" id="peDel" title="Delete selected (Del)"><span class="i">🗑️</span></button>
     <span class="pe-sp"></span>
-    <button type="button" class="pe-btn" id="peNew" data-en="Open another" data-hi="दूसरी PDF">Open another</button>
-    <button type="button" class="pe-btn pri" id="peSave">⬇ <span data-en="Download PDF" data-hi="PDF डाउनलोड">Download PDF</span></button>
+    <button type="button" class="pe-btn" id="peNew" title="Open another PDF">📂</button>
+    <button type="button" class="pe-btn pri" id="peSave">⬇ <span data-en="Download" data-hi="डाउनलोड">Download</span></button>
    </div>
-   <div class="pe-props">
+   <div class="pe-props" id="peProps">
     <label><span data-en="Colour" data-hi="रंग">Colour</span> <input type="color" id="pColor" value="#111111"></label>
     <span class="pe-sw" id="pSw"></span>
-    <label><span data-en="Size" data-hi="साइज़">Size</span> <input type="number" id="pSize" min="4" max="144" value="14"></label>
-    <label><span data-en="Font" data-hi="फॉन्ट">Font</span> <select id="pFont"><option value="Helvetica">Helvetica / Arial</option><option value="Times">Times New Roman</option><option value="Courier">Courier</option></select></label>
-    <button type="button" class="pe-btn pe-tog pe-b" id="pBold" title="Bold">B</button>
-    <label><span data-en="Stroke" data-hi="मोटाई">Stroke</span> <input type="number" id="pWidth" min="1" max="30" value="2"></label>
+    <label id="wSize"><span data-en="Size" data-hi="साइज़">Size</span> <input type="number" id="pSize" min="4" max="144" value="14"></label>
+    <label id="wFont"><span data-en="Font" data-hi="फॉन्ट">Font</span> <select id="pFont"><option value="Helvetica">Helvetica / Arial</option><option value="Times">Times New Roman</option><option value="Courier">Courier</option></select></label>
+    <button type="button" class="pe-btn pe-tog" id="pBold" title="Bold" style="font-weight:900">B</button>
+    <label id="wWidth"><span data-en="Stroke" data-hi="मोटाई">Stroke</span> <input type="number" id="pWidth" min="1" max="30" value="2"></label>
+    <label id="wFill"><span data-en="Fill" data-hi="भराव">Fill</span> <select id="pFill"><option value="">None</option><option value="#ffffff">White</option><option value="#fef08a">Yellow</option><option value="#bfdbfe">Blue</option><option value="#fecaca">Red</option><option value="#bbf7d0">Green</option></select></label>
    </div>
    <div class="pe-hint" id="peHint"></div>
-   <div class="pe-main">
-    <div class="pe-thumbs" id="peThumbs"></div>
-    <div class="pe-stage" id="peStage"><div class="pe-box" id="peBox"><div class="pe-page" id="pePage"><canvas id="peCanvas"></canvas><div class="pe-layer" id="peLayer"></div></div></div></div>
-   </div>
+   <div class="pe-stage" id="peStage"><div class="pe-pages" id="pePages"></div></div>
    <div class="pe-foot">
     <span class="pe-zoom">
-     <button type="button" class="pe-btn" id="pePrev" title="Previous page">‹</button>
+     <button type="button" class="pe-btn sm" id="pePrev" title="Previous page">▲</button>
      <span id="pePageNo">1 / 1</span>
-     <button type="button" class="pe-btn" id="peNext" title="Next page">›</button>
+     <button type="button" class="pe-btn sm" id="peNext" title="Next page">▼</button>
     </span>
     <span class="pe-zoom">
-     <button type="button" class="pe-btn" id="peZo" title="Zoom out">−</button>
-     <span id="peZv">100%</span>
-     <button type="button" class="pe-btn" id="peZi" title="Zoom in">+</button>
-     <button type="button" class="pe-btn" id="peFit" data-en="Fit" data-hi="फिट">Fit</button>
-    </span>
-    <span class="pe-zoom">
-     <button type="button" class="pe-btn" id="peAddPage">＋ <span data-en="Blank page" data-hi="खाली पेज">Blank page</span></button>
+     <button type="button" class="pe-btn sm" id="peZo" title="Zoom out">−</button>
+     <span id="peZv" style="min-width:44px;text-align:center">100%</span>
+     <button type="button" class="pe-btn sm" id="peZi" title="Zoom in">+</button>
+     <button type="button" class="pe-btn sm" id="peFit" data-en="Fit width" data-hi="चौड़ाई फिट">Fit width</button>
     </span>
    </div>
   </div>
@@ -246,7 +300,7 @@
    <canvas class="pe-sig" id="peSig"></canvas>
    <div class="row">
     <span class="pe-sw" id="sigSw"></span>
-    <span style="display:flex;gap:6px;flex-wrap:wrap">
+    <span class="r">
      <button type="button" class="pe-btn" id="sigClear" data-en="Clear" data-hi="मिटाएं">Clear</button>
      <button type="button" class="pe-btn" id="sigUp" data-en="Upload photo" data-hi="फोटो अपलोड">Upload photo</button>
      <button type="button" class="pe-btn" id="sigCancel" data-en="Cancel" data-hi="रद्द">Cancel</button>
@@ -255,28 +309,29 @@
    </div>
   </div>
  </div>
+ <div class="pe-modal" id="peDlg"><div class="pe-card" id="peDlgC"></div></div>
 
  <article class="art">
   <h2>What can I do with this free PDF editor?</h2>
-  <p>This online PDF editor lets you change a PDF without installing software. You can type new text anywhere, change existing text, sign documents, fill forms with ticks and dates, highlight important lines, hide information with white out, add a logo or stamp, and rotate, reorder, delete or add pages. Everything runs in your browser, so your file stays on your device.</p>
+  <p>This online PDF editor works like a desktop PDF program inside your browser. Change existing text or replace a word on every page, add new text, sign documents, insert clickable links, create fillable form fields, add images and ready-made stamps, highlight, strike out or underline, draw shapes and arrows, hide information with whiteout, and rotate, reorder, delete or insert pages. Your file stays on your device.</p>
   <table>
-   <tr><th>Tool</th><th>What it does</th></tr>
-   <tr><td>✍️ Text</td><td>Click anywhere on the page and type. Choose font, size, colour and bold.</td></tr>
-   <tr><td>🔤 Edit text</td><td>Click an existing line to cover it with white and retype it in an editable box.</td></tr>
-   <tr><td>🖊️ Sign</td><td>Draw your signature or upload a photo of it, then place and resize it.</td></tr>
-   <tr><td>✏️ Draw</td><td>Freehand pen for notes, underlines and circles.</td></tr>
-   <tr><td>🖍️ Highlight</td><td>Drag over text to mark it with a see-through colour.</td></tr>
-   <tr><td>⬜ White out</td><td>Drag over anything to hide it with a white box.</td></tr>
-   <tr><td>🖼️ Image</td><td>Add a logo, stamp or photo (PNG, JPG or WebP).</td></tr>
-   <tr><td>✔️ ✖️ 📅</td><td>One-click tick mark, cross mark and today's date for forms.</td></tr>
+   <tr><th>Menu</th><th>What it does</th></tr>
+   <tr><td>✍️ Text</td><td>Add new text, edit existing text by clicking it, or find and replace a word across all pages.</td></tr>
+   <tr><td>🔗 Links</td><td>Draw a box and link it to a website, an email address or another page.</td></tr>
+   <tr><td>☑️ Forms</td><td>Tick, cross and date stamps, plus fillable text fields, multi-line fields, checkboxes and drop-down lists.</td></tr>
+   <tr><td>🖼️ Images</td><td>Add a logo or photo, or a stamp such as APPROVED, PAID, RECEIVED or CONFIDENTIAL.</td></tr>
+   <tr><td>🖊️ Sign</td><td>Draw your signature or upload a photo of it.</td></tr>
+   <tr><td>⬜ Whiteout</td><td>Cover anything with a white box.</td></tr>
+   <tr><td>🖍️ Annotate</td><td>Highlight, strike out, underline or draw freehand.</td></tr>
+   <tr><td>⬭ Shapes</td><td>Rectangles, ellipses, lines and arrows with colour, stroke and fill.</td></tr>
   </table>
 
   <h2>How do I edit a PDF online?</h2>
   <ol>
-   <li>Click <b>Select PDF</b> and choose your file, or drag it onto the box.</li>
-   <li>Pick a tool from the toolbar, such as Text, Sign or White out, and click or drag on the page.</li>
+   <li>Click <b>Select PDF</b> and choose your file, or drag it onto the box. All pages open in large size, one below the other.</li>
+   <li>Pick a tool from the toolbar, such as Text, Sign or Whiteout, and click or drag on the page.</li>
    <li>Click any item to select it, drag to move it, and use the blue handle to resize. Press Delete to remove it.</li>
-   <li>Use the page thumbnails to rotate, move or delete pages, or add a blank page.</li>
+   <li>Use the buttons above each page to rotate, move or delete it, or insert a blank page.</li>
    <li>Click <b>Download PDF</b> to save the edited file.</li>
   </ol>
 
@@ -286,10 +341,10 @@
   <h2>Frequently asked questions</h2>
   <details><summary>1. Is this PDF editor really free?</summary><p>Yes. All tools are free, with no signup and no watermark.</p></details>
   <details><summary>2. Is my PDF uploaded to a server?</summary><p>No. The PDF is opened and edited in your browser, and the edited file is created on your device.</p></details>
-  <details><summary>3. Can I edit existing text in a PDF?</summary><p>Yes. Choose Edit text and click a line. The old text is covered with white and an editable text box with the same words appears on top. The new text uses a standard font, so it may look slightly different from the original.</p></details>
-  <details><summary>4. How do I sign a PDF online?</summary><p>Click Sign, draw your signature with a mouse or finger, or upload a photo of it, and place it on the page. Resize it with the blue handle and download.</p></details>
-  <details><summary>5. Can I type in Hindi or use the ₹ symbol?</summary><p>Yes. Hindi text and symbols such as ₹ are added as high-resolution images so they display correctly everywhere. Plain English text is added as real, selectable text.</p></details>
-  <details><summary>6. Does it work on mobile?</summary><p>Yes. It works in modern mobile browsers, and you can draw or sign with your finger.</p></details>
+  <details><summary>3. Can I edit existing text in a PDF?</summary><p>Yes. Choose Text › Edit existing text and click a line. The old text is covered with white and an editable box with the same words appears on top. Text › Find &amp; replace changes a word on every page at once. The new text uses a standard font, so it may look slightly different from the original.</p></details>
+  <details><summary>4. Can I add fillable form fields and links?</summary><p>Yes. Forms adds text fields, multi-line fields, checkboxes and drop-down lists that can be filled in any PDF reader. Links adds clickable links to a website, an email address or another page.</p></details>
+  <details><summary>5. How do I sign a PDF online?</summary><p>Click Sign, draw your signature or upload a photo of it, place it on the page, resize it with the blue handle and download.</p></details>
+  <details><summary>6. Can I type in Hindi or use the ₹ symbol?</summary><p>Yes. Hindi text and symbols such as ₹ are added as high-resolution images so they display correctly everywhere. Plain English text is added as real, selectable text.</p></details>
 
   <section class="sources">
    <h2>Which technology powers this editor?</h2>
@@ -299,7 +354,7 @@
    </blockquote>
    <ul>
     <li><a href="https://mozilla.github.io/pdf.js/" target="_blank" rel="noopener">PDF.js by Mozilla</a>: displays the PDF pages and reads existing text</li>
-    <li><a href="https://pdf-lib.js.org/" target="_blank" rel="noopener">pdf-lib</a>: writes your changes into the PDF</li>
+    <li><a href="https://pdf-lib.js.org/" target="_blank" rel="noopener">pdf-lib</a>: writes your changes, links and form fields into the PDF</li>
     <li><a href="https://www.iso.org/standard/75839.html" target="_blank" rel="noopener">ISO 32000-2</a>: the international standard for the PDF format</li>
    </ul>
   </section>
@@ -324,33 +379,32 @@ var PDFJS_URL='https://cdn.jsdelivr.net/npm/pdfjs-dist@6.2.108/legacy/build/pdf.
 var PDFJS_WORKER='https://cdn.jsdelivr.net/npm/pdfjs-dist@6.2.108/legacy/build/pdf.worker.min.mjs';
 var PDFLIB_URL='https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js';
 
-/* ---------- helpers ---------- */
+/* ================= helpers ================= */
 function $(id){return document.getElementById(id);}
 function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
-function toast(m){var t=$('peToast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(function(){t.classList.remove('on');},2600);}
+function toast(m){var t=$('peToast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(function(){t.classList.remove('on');},2800);}
 function busy(on,msg){$('peBusy').classList.toggle('on',!!on);if(msg)$('peBusyT').textContent=msg;}
 function uid(){return 'o'+Math.random().toString(36).slice(2,9);}
 function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function rv(x,y,r){var a=r*Math.PI/180,c=Math.round(Math.cos(a)),s=Math.round(Math.sin(a));return [x*c-y*s,x*s+y*c];}
-function ur(){return (360-(pages[cur]?pages[cur].urot:0))%360;}
 function bbox(o){var r=o.r||0,w=o.w||1,h=o.h||1;if(r===90)return {x:o.x-h,y:o.y,w:h,h:w};if(r===180)return {x:o.x-w,y:o.y-h,w:w,h:h};if(r===270)return {x:o.x,y:o.y-w,w:h,h:w};return {x:o.x,y:o.y,w:w,h:h};}
 function loadScript(src){return new Promise(function(res,rej){if(window.PDFLib)return res();var s=document.createElement('script');s.src=src;s.onload=res;s.onerror=function(){rej(new Error('load'));};document.head.appendChild(s);});}
 var FONTS={Helvetica:{css:'Helvetica, Arial, "Liberation Sans", sans-serif',bl:0.9465,r:'Helvetica',b:'HelveticaBold'},Times:{css:'"Times New Roman", Times, "Liberation Serif", serif',bl:0.9375,r:'TimesRoman',b:'TimesRomanBold'},Courier:{css:'"Courier New", Courier, "Liberation Mono", monospace',bl:0.8665,r:'Courier',b:'CourierBold'}};
-var SWATCH=['#111111','#1d4ed8','#dc2626','#16a34a','#f59e0b','#7c3aed'];
-var HLSW=['#fde047','#86efac','#93c5fd','#f9a8d4'];
+var SWATCH=['#111111','#1d4ed8','#dc2626','#16a34a','#f59e0b','#7c3aed'],HLSW=['#fde047','#86efac','#93c5fd','#f9a8d4'];
+var STAMPS=[['APPROVED','#15803d'],['PAID','#15803d'],['RECEIVED','#15803d'],['ORIGINAL','#15803d'],['REJECTED','#dc2626'],['CONFIDENTIAL','#dc2626'],['DRAFT','#1d4ed8'],['COPY','#1d4ed8']];
+var GROUPS={text:['text','edittext'],forms:['check','cross','date','f_text','f_multi','f_check','f_drop'],annot:['hl','strike','under','draw'],shapes:['rect','ellipse','line','arrow']};
+var BOX_TOOLS={white:1,hl:1,rect:1,ellipse:1,link:1};
+var LINE_TOOLS={line:1,arrow:1,strike:1,under:1};
 
-/* ---------- state ---------- */
+/* ================= state ================= */
 var pdfjsLib=null,doc=null,srcBytes=null,fileName='document.pdf';
-var pages=[],vps={},cur=0,zoom=1,tool='select',sel=null,hist=[],fut=[],renderTask=null,tiCache={};
-var style={color:'#111111',size:14,font:'Helvetica',bold:false,width:2,hl:'#fde047'};
+var pages=[],vps={},els=[],zoom=1,tool='select',sel=null,hist=[],fut=[],tiCache={},obs=null,curPg=0;
+var style={color:'#111111',size:14,font:'Helvetica',bold:false,width:2,hl:'#fde047',fill:''};
 
-/* ---------- library loading ---------- */
-function libs(){
- var p1=pdfjsLib?Promise.resolve():import(PDFJS_URL).then(function(m){pdfjsLib=m;pdfjsLib.GlobalWorkerOptions.workerSrc=PDFJS_WORKER;});
- return Promise.all([p1,loadScript(PDFLIB_URL)]);
-}
+function libs(){var p1=pdfjsLib?Promise.resolve():import(PDFJS_URL).then(function(m){pdfjsLib=m;pdfjsLib.GlobalWorkerOptions.workerSrc=PDFJS_WORKER;});return Promise.all([p1,loadScript(PDFLIB_URL)]);}
 
-/* ---------- open ---------- */
+/* ================= open ================= */
 function openFile(f){
  if(!f)return;
  if(!/pdf$/i.test(f.type)&&!/\.pdf$/i.test(f.name)){toast(T('Please choose a PDF file.','कृपया PDF फाइल चुनें।'));return;}
@@ -361,240 +415,315 @@ function openFile(f){
 }
 function loadPdf(buf){
  return pdfjsLib.getDocument({data:new Uint8Array(buf)}).promise.then(function(d){
-  doc=d;pages=[];vps={};tiCache={};
-  var chain=Promise.resolve();
+  doc=d;pages=[];vps={};tiCache={};var chain=Promise.resolve();
   for(var i=0;i<d.numPages;i++)(function(i){chain=chain.then(function(){return d.getPage(i+1).then(function(pg){var vp=pg.getViewport({scale:1});vps[i]=vp;pages.push({src:i,w:vp.width,h:vp.height,rot0:pg.rotate||0,urot:0,objs:[]});});});})(i);
   return chain;
  }).then(start);
 }
-function startBlank(){
- busy(true,T('Preparing…','तैयार हो रहा है…'));
- libs().then(function(){doc=null;srcBytes=null;fileName='new-document.pdf';pages=[blankPage()];vps={};start();}).catch(function(){busy(false);toast(T('Could not load the editor. Check your internet connection.','एडिटर लोड नहीं हुआ। इंटरनेट जांचें।'));});
-}
-function blankPage(){return {src:-1,w:595.28,h:841.89,rot0:0,urot:0,objs:[]};}
+function blankPage(w,h){return {src:-1,w:w||595.28,h:h||841.89,rot0:0,urot:0,objs:[]};}
+function startBlank(){busy(true,T('Preparing…','तैयार हो रहा है…'));libs().then(function(){doc=null;srcBytes=null;fileName='new-document.pdf';pages=[blankPage()];vps={};start();}).catch(function(){busy(false);toast(T('Could not load the editor. Check your internet connection.','एडिटर लोड नहीं हुआ। इंटरनेट जांचें।'));});}
 function start(){
- busy(false);cur=0;sel=null;hist=[];fut=[];
+ busy(false);sel=null;hist=[];fut=[];curPg=0;
  $('peApp').classList.add('loaded');
- fitZoom();renderThumbs();renderPage();setTool('select');snapshot(true);
+ fitZoom();buildPages();setTool('select');snapshot(true);
  $('peApp').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-/* ---------- history ---------- */
+/* ================= history ================= */
+function structKey(){return pages.map(function(p){return p.src+':'+p.urot+':'+p.w;}).join();}
 function snapshot(reset){var s=JSON.stringify(pages);if(reset){hist=[s];fut=[];}else if(hist[hist.length-1]!==s){hist.push(s);if(hist.length>60)hist.shift();fut=[];}updUndo();}
 function updUndo(){$('peUndo').disabled=hist.length<2;$('peRedo').disabled=!fut.length;}
-function restore(s){var old=pages.map(function(p){return p.src+':'+p.urot;}).join();pages=JSON.parse(s);cur=clamp(cur,0,pages.length-1);sel=null;if(pages.map(function(p){return p.src+':'+p.urot;}).join()!==old)renderThumbs();renderPage();}
+function restore(s){var k=structKey();pages=JSON.parse(s);sel=null;if(structKey()!==k)buildPages();else renderAllLayers();}
 function undo(){if(hist.length<2)return;fut.push(hist.pop());restore(hist[hist.length-1]);updUndo();}
 function redo(){if(!fut.length)return;var s=fut.pop();hist.push(s);restore(s);updUndo();}
 
-/* ---------- geometry ---------- */
-function P(){return pages[cur];}
-function objById(id){var o=null;P().objs.forEach(function(x){if(x.id===id)o=x;});return o;}
-function toLocal(e){
- var pg=$('pePage'),r=pg.getBoundingClientRect(),p=P(),W=p.w*zoom,H=p.h*zoom;
- var cx=r.left+r.width/2,cy=r.top+r.height/2,dx=e.clientX-cx,dy=e.clientY-cy,a=-p.urot*Math.PI/180;
- var lx=dx*Math.cos(a)-dy*Math.sin(a),ly=dx*Math.sin(a)+dy*Math.cos(a);
- return {x:(lx+W/2)/zoom,y:(ly+H/2)/zoom};
+/* ================= layout ================= */
+function fitZoom(){var st=$('peStage'),mw=0;pages.forEach(function(p){mw=Math.max(mw,p.urot%180?p.h:p.w);});if(!mw)return;var avail=Math.max(240,st.clientWidth-(window.innerWidth<760?14:48));zoom=clamp(Math.floor(avail/mw*100)/100,0.3,window.innerWidth<760?3:1.45);updZoomLabel();}
+function updZoomLabel(){$('peZv').textContent=Math.round(zoom*100)+'%';}
+function buildPages(){
+ var box=$('pePages');box.innerHTML='';els=[];
+ if(obs)obs.disconnect();
+ obs=new IntersectionObserver(function(ents){ents.forEach(function(en){var i=+en.target.dataset.pi;if(en.isIntersecting){els[i].vis=true;renderCanvas(i);if(tool==='edittext')showTextItems(i);}else els[i].vis=false;});},{root:$('peStage'),rootMargin:'800px 0px'});
+ pages.forEach(function(p,i){
+  var w=document.createElement('div');w.className='pe-pw';w.dataset.pi=i;
+  w.innerHTML='<div class="pe-pbar"><span>'+T('Page','पेज')+' '+(i+1)+'</span><button type="button" data-pa="rot" title="Rotate">⟳ '+T('Rotate','घुमाएं')+'</button><button type="button" data-pa="up" title="Move up"'+(i===0?' disabled':'')+'>↑</button><button type="button" data-pa="down" title="Move down"'+(i===pages.length-1?' disabled':'')+'>↓</button><button type="button" data-pa="del" title="Delete page">🗑 '+T('Delete','हटाएं')+'</button></div>'+
+   '<div class="pe-box" data-pi="'+i+'"><div class="pe-page"><div class="pe-ld">'+T('Loading…','लोड हो रहा है…')+'</div><canvas></canvas><div class="pe-layer" data-pi="'+i+'"></div></div></div>'+
+   '<button type="button" class="pe-ins" data-pa="ins">＋ '+T('Insert blank page here','यहाँ खाली पेज जोड़ें')+'</button>';
+  box.appendChild(w);
+  var bx=w.querySelector('.pe-box');
+  els.push({w:w,box:bx,page:w.querySelector('.pe-page'),cv:w.querySelector('canvas'),layer:w.querySelector('.pe-layer'),ld:w.querySelector('.pe-ld'),key:null,vis:false});
+  obs.observe(bx);
+ });
+ layoutAll();
 }
-function fitZoom(){var st=$('peStage'),p=P();if(!p)return;var sw=p.urot%180?p.h:p.w,sh=p.urot%180?p.w:p.h;var avail=Math.max(200,st.clientWidth-(window.innerWidth<760?24:48));zoom=clamp(avail/sw,0.3,2);if(window.innerWidth>=760)zoom=Math.min(zoom,Math.max(0.5,(st.clientHeight||700)/sh*1.6));zoom=Math.round(zoom*100)/100;}
-
-/* ---------- render page ---------- */
-function renderPage(){
- var p=P();if(!p)return;
- var W=p.w*zoom,H=p.h*zoom,rot=p.urot%180!==0;
- var box=$('peBox'),pg=$('pePage');
- box.style.width=(rot?H:W)+'px';box.style.height=(rot?W:H)+'px';
- pg.style.width=W+'px';pg.style.height=H+'px';
- pg.style.transform='translate(-50%,-50%) rotate('+p.urot+'deg)';
- $('pePageNo').textContent=(cur+1)+' / '+pages.length;
- $('peZv').textContent=Math.round(zoom*100)+'%';
- $('pePrev').disabled=cur===0;$('peNext').disabled=cur===pages.length-1;
- document.querySelectorAll('.pe-th').forEach(function(t,i){t.classList.toggle('on',i===cur);});
- var cv=$('peCanvas'),dpr=Math.min(window.devicePixelRatio||1,2);
- if(renderTask){try{renderTask.cancel();}catch(e){}renderTask=null;}
- if(p.src<0){cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);var c=cv.getContext('2d');c.fillStyle='#fff';c.fillRect(0,0,cv.width,cv.height);}
- else{
-  var want=cur;
-  doc.getPage(p.src+1).then(function(page){
-   if(want!==cur)return;
-   var vp=page.getViewport({scale:zoom*dpr});
-   var off=document.createElement('canvas');off.width=Math.round(vp.width);off.height=Math.round(vp.height);
-   renderTask=page.render({canvasContext:off.getContext('2d'),canvas:off,viewport:vp});
-   return renderTask.promise.then(function(){if(want!==cur)return;cv.width=off.width;cv.height=off.height;cv.getContext('2d').drawImage(off,0,0);});
-  }).catch(function(e){if(!e||e.name!=='RenderingCancelledException')console.error(e);});
- }
- renderObjects();
+function layoutAll(){
+ pages.forEach(function(p,i){var e=els[i];if(!e)return;var W=p.w*zoom,H=p.h*zoom,rot=p.urot%180!==0;
+  e.box.style.width=(rot?H:W)+'px';e.box.style.height=(rot?W:H)+'px';
+  e.page.style.width=W+'px';e.page.style.height=H+'px';e.page.style.transform='translate(-50%,-50%) rotate('+p.urot+'deg)';
+  e.key=null;if(e.vis)renderCanvas(i);renderLayer(i);});
+ updZoomLabel();updPageNo();
 }
+function renderCanvas(i){
+ var p=pages[i],e=els[i];if(!p||!e)return;var dpr=Math.min(window.devicePixelRatio||1,2),key=zoom+'|'+p.src;
+ if(e.key===key)return;e.key=key;
+ if(p.src<0){e.cv.width=Math.round(p.w*zoom*dpr);e.cv.height=Math.round(p.h*zoom*dpr);var c=e.cv.getContext('2d');c.fillStyle='#fff';c.fillRect(0,0,e.cv.width,e.cv.height);e.ld.style.display='none';return;}
+ doc.getPage(p.src+1).then(function(page){
+  if(e.key!==key)return;var vp=page.getViewport({scale:zoom*dpr});
+  var off=document.createElement('canvas');off.width=Math.round(vp.width);off.height=Math.round(vp.height);
+  if(e.task){try{e.task.cancel();}catch(x){}}
+  e.task=page.render({canvasContext:off.getContext('2d'),canvas:off,viewport:vp});
+  return e.task.promise.then(function(){if(e.key!==key)return;e.cv.width=off.width;e.cv.height=off.height;e.cv.getContext('2d').drawImage(off,0,0);e.ld.style.display='none';});
+ }).catch(function(x){if(!x||x.name!=='RenderingCancelledException')console.error(x);});
+}
+function updPageNo(){$('pePageNo').textContent=(curPg+1)+' / '+pages.length;}
+function scrollToPage(i){i=clamp(i,0,pages.length-1);var e=els[i];if(!e)return;var st=$('peStage');st.scrollTo({top:e.w.offsetTop-12,behavior:'smooth'});curPg=i;updPageNo();}
+$('peStage').addEventListener('scroll',function(){var st=$('peStage'),mid=st.scrollTop+st.clientHeight/3,best=0;els.forEach(function(e,i){if(e.w.offsetTop<=mid)best=i;});if(best!==curPg){curPg=best;updPageNo();}},{passive:true});
 
-/* ---------- objects ---------- */
-function renderObjects(){
- var p=P(),L=$('peLayer');
- if(!p){syncProps();return;}
- L.innerHTML='';L.className='pe-layer t-'+tool;
- var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('class','pe-svg');svg.setAttribute('viewBox','0 0 '+p.w+' '+p.h);svg.setAttribute('preserveAspectRatio','none');
- L.appendChild(svg);
+/* ================= objects ================= */
+function objAt(pi,id){var o=null;(pages[pi]||{objs:[]}).objs.forEach(function(x){if(x.id===id)o=x;});return o;}
+function selObj(){return sel?objAt(sel.pi,sel.id):null;}
+function arrowPath(o){var dx=o.x2-o.x1,dy=o.y2-o.y1,a=Math.atan2(dy,dx),L=Math.max(8,o.width*4),s=0.45;var h1=[o.x2-L*Math.cos(a-s),o.y2-L*Math.sin(a-s)],h2=[o.x2-L*Math.cos(a+s),o.y2-L*Math.sin(a+s)];return 'M'+o.x1+' '+o.y1+' L'+o.x2+' '+o.y2+(o.arrow?' M'+h1[0]+' '+h1[1]+' L'+o.x2+' '+o.y2+' L'+h2[0]+' '+h2[1]:'');}
+function pathD(o){if(o.type==='line')return arrowPath(o);return o.pts.map(function(q,i){return (i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1);}).join(' ')+(o.pts.length===1?' l0.01 0':'');}
+function renderAllLayers(){pages.forEach(function(p,i){renderLayer(i);});}
+function renderLayer(pi){
+ var p=pages[pi],e=els[pi];if(!p||!e)return;var L=e.layer;
+ L.innerHTML='';L.className='pe-layer '+(tool==='text'||tool==='date'||tool==='check'||tool==='cross'?'c-text':tool!=='select'&&tool!=='edittext'?'c-cross':'');
+ var NS='http://www.w3.org/2000/svg',svg=document.createElementNS(NS,'svg');svg.setAttribute('class','pe-svg');svg.setAttribute('viewBox','0 0 '+p.w+' '+p.h);svg.setAttribute('preserveAspectRatio','none');L.appendChild(svg);
  p.objs.forEach(function(o){
-  if(o.type==='draw'){
-   var path=document.createElementNS('http://www.w3.org/2000/svg','path');
-   path.setAttribute('d',o.pts.map(function(q,i){return (i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1);}).join(' ')+(o.pts.length===1?' l0.01 0':''));
-   path.setAttribute('stroke',o.color);path.setAttribute('stroke-width',o.width);path.dataset.id=o.id;if(sel===o.id)path.setAttribute('class','sel');
-   svg.appendChild(path);return;
+  var isSel=sel&&sel.pi===pi&&sel.id===o.id;
+  if(o.type==='draw'||o.type==='line'){
+   var d=pathD(o),vis=document.createElementNS(NS,'path'),hit=document.createElementNS(NS,'path');
+   vis.setAttribute('d',d);vis.setAttribute('stroke',o.color);vis.setAttribute('stroke-width',o.width);if(isSel)vis.setAttribute('class','sel');
+   hit.setAttribute('d',d);hit.setAttribute('class','hit');hit.setAttribute('stroke-width',Math.max(o.width+6,12/zoom));hit.dataset.id=o.id;
+   svg.appendChild(vis);svg.appendChild(hit);
+   if(isSel){var end=o.type==='line'?[o.x2,o.y2]:o.pts[o.pts.length-1],x=document.createElement('button');x.type='button';x.className='pe-x';x.textContent='✕';x.dataset.act='del';x.style.left=(end[0]*zoom+6)+'px';x.style.top=(end[1]*zoom-22)+'px';L.appendChild(x);}
+   return;
   }
   var el;
-  if(o.type==='text'){
-   el=document.createElement('div');el.className='pe-o pe-t';el.textContent=o.text;
-   el.style.fontSize=(o.size*zoom)+'px';el.style.color=o.color;el.style.fontFamily=FONTS[o.font].css;el.style.fontWeight=o.bold?'700':'400';
-  }else if(o.type==='img'){
-   el=document.createElement('img');el.className='pe-o pe-img';el.src=o.src;el.draggable=false;el.alt='';
-   el.style.width=(o.w*zoom)+'px';el.style.height=(o.h*zoom)+'px';
-  }else{
-   el=document.createElement('div');el.className='pe-o';el.style.width=(o.w*zoom)+'px';el.style.height=(o.h*zoom)+'px';
+  if(o.type==='text'){el=document.createElement('div');el.className='pe-o pe-t';el.textContent=o.text;el.style.fontSize=(o.size*zoom)+'px';el.style.color=o.color;el.style.fontFamily=FONTS[o.font].css;el.style.fontWeight=o.bold?'700':'400';}
+  else if(o.type==='img'){el=document.createElement('img');el.className='pe-o pe-img';el.src=o.src;el.draggable=false;el.alt='';el.style.width=(o.w*zoom)+'px';el.style.height=(o.h*zoom)+'px';}
+  else{el=document.createElement('div');el.className='pe-o';el.style.width=(o.w*zoom)+'px';el.style.height=(o.h*zoom)+'px';
    if(o.type==='white')el.style.background='#fff';
    else if(o.type==='hl'){el.classList.add('pe-hl');el.style.background=o.color;el.style.opacity='.4';}
-   else{el.style.border=Math.max(1,o.width*zoom)+'px solid '+o.color;}
+   else if(o.type==='rect'||o.type==='ellipse'){el.style.border=Math.max(1,o.width*zoom)+'px solid '+o.color;if(o.fill)el.style.background=o.fill;if(o.type==='ellipse')el.style.borderRadius='50%';}
+   else if(o.type==='link'){el.classList.add('pe-lnk');el.textContent='🔗 '+(o.url?o.url.replace(/^mailto:|^https?:\/\//,''):T('Page ','पेज ')+o.page);}
+   else if(o.type==='field'){el.classList.add('pe-fld');el.textContent=o.ft==='check'?'☑':o.ft==='drop'?'▾ '+(o.opts||[]).join(', '):o.ft==='multi'?'☰ '+T('Multi-line field','कई लाइन फ़ील्ड'):'▭ '+T('Text field','टेक्स्ट फ़ील्ड');if(o.ft==='check')el.style.justifyContent='center';}
   }
   el.style.left=(o.x*zoom)+'px';el.style.top=(o.y*zoom)+'px';el.dataset.id=o.id;
   if(o.r){el.style.transformOrigin='0 0';el.style.transform='rotate('+o.r+'deg)';}
-  if(sel===o.id){el.classList.add('sel');
-   var x=document.createElement('button');x.type='button';x.className='pe-x';x.textContent='✕';x.title='Delete';x.dataset.act='del';el.appendChild(x);
-   var h=document.createElement('div');h.className='pe-h';h.dataset.act='resize';el.appendChild(h);
-  }
+  if(isSel){el.classList.add('sel');var x2=document.createElement('button');x2.type='button';x2.className='pe-x';x2.textContent='✕';x2.dataset.act='del';el.appendChild(x2);var h=document.createElement('div');h.className='pe-h';h.dataset.act='resize';el.appendChild(h);}
   L.appendChild(el);
   if(o.type==='text'){o.w=el.offsetWidth/zoom;o.h=el.offsetHeight/zoom;}
  });
- if(tool==='edittext')showTextItems();
- syncProps();
+ if(tool==='edittext'&&e.vis)showTextItems(pi);
+ if(sel&&sel.pi===pi||!sel)syncProps();
 }
-function addObj(o){o.id=uid();P().objs.push(o);sel=o.id;renderObjects();return o;}
-function delSel(){if(!sel)return;var p=P();p.objs=p.objs.filter(function(o){return o.id!==sel;});sel=null;renderObjects();snapshot();}
-function editText(id){
- var el=$('peLayer').querySelector('.pe-t[data-id="'+id+'"]'),o=objById(id);if(!el||!o)return;
+function addObj(pi,o,select){o.id=o.id||uid();pages[pi].objs.push(o);var old=sel;if(select!==false)sel={pi:pi,id:o.id};if(old&&old.pi!==pi)renderLayer(old.pi);renderLayer(pi);return o;}
+function setSel(s){var old=sel;sel=s;if(old&&(!s||old.pi!==s.pi))renderLayer(old.pi);if(s)renderLayer(s.pi);syncProps();}
+function delSel(){if(!sel)return;var p=pages[sel.pi],id=sel.id,pi=sel.pi;p.objs=p.objs.filter(function(o){return o.id!==id;});sel=null;renderLayer(pi);syncProps();snapshot();}
+function urOf(pi){return (360-(pages[pi].urot||0))%360;}
+function editText(pi,id){
+ var e=els[pi],el=e.layer.querySelector('.pe-t[data-id="'+id+'"]'),o=objAt(pi,id);if(!el||!o)return;
  el.querySelectorAll('.pe-x,.pe-h').forEach(function(n){n.remove();});
- try{el.contentEditable='plaintext-only';}catch(e){}if(el.contentEditable!=='plaintext-only')el.contentEditable='true';
+ try{el.contentEditable='plaintext-only';}catch(x){}if(el.contentEditable!=='plaintext-only')el.contentEditable='true';
  el.focus();var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);
- el.addEventListener('blur',function fin(){el.removeEventListener('blur',fin);var t=el.innerText.replace(/\n$/,'');o.text=t;if(!t.trim()){P().objs=P().objs.filter(function(x){return x.id!==id;});sel=null;}renderObjects();snapshot();});
- el.addEventListener('keydown',function(e){if(e.key==='Escape'){e.preventDefault();el.blur();}e.stopPropagation();});
+ el.addEventListener('blur',function fin(){el.removeEventListener('blur',fin);var t=el.innerText.replace(/\n$/,'');o.text=t;if(!t.trim()){pages[pi].objs=pages[pi].objs.filter(function(x){return x.id!==id;});if(sel&&sel.id===id)sel=null;}renderLayer(pi);snapshot();});
+ el.addEventListener('keydown',function(ev){if(ev.key==='Escape'){ev.preventDefault();el.blur();}ev.stopPropagation();});
 }
 
-/* ---------- edit existing text ---------- */
-function showTextItems(){
- var p=P(),L=$('peLayer');
- if(p.src<0)return;
- if(p.rot0){toast(T('Edit text works on unrotated pages. Use White out + Text here.','टेक्स्ट एडिट बिना घुमाए पेज पर चलता है। यहाँ व्हाइटआउट + टेक्स्ट लगाएं।'));return;}
- var put=function(items){items.forEach(function(it,idx){if(it.used)return;var d=document.createElement('div');d.className='pe-ti';d.style.left=(it.x*zoom)+'px';d.style.top=(it.y*zoom)+'px';d.style.width=(it.w*zoom)+'px';d.style.height=(it.h*zoom)+'px';d.dataset.ti=idx;d.title=it.str;L.appendChild(d);});};
- if(tiCache[p.src])return put(tiCache[p.src]);
- doc.getPage(p.src+1).then(function(page){return page.getTextContent().then(function(tc){
+/* ================= existing text ================= */
+function getItems(pi){
+ var p=pages[pi];if(!p||p.src<0||p.rot0)return Promise.resolve([]);
+ if(tiCache[p.src])return Promise.resolve(tiCache[p.src]);
+ return doc.getPage(p.src+1).then(function(page){return page.getTextContent();}).then(function(tc){
   var vp=vps[p.src],items=[];
-  tc.items.forEach(function(it){if(!it.str||!it.str.trim())return;var tx=pdfjsLib.Util.transform(vp.transform,it.transform);var fh=Math.hypot(tx[2],tx[3]);if(fh<2)return;var w=it.width*vp.scale;if(Math.abs(tx[1])>0.01)return;
-   var fam=(tc.styles[it.fontName]||{}).fontFamily||'';var nm=String(it.fontName||'')+fam;
-   items.push({str:it.str,x:tx[4],y:tx[5]-fh*0.88,w:Math.max(w,4),h:fh*1.12,size:Math.round(fh*0.97*10)/10,font:/mono|courier/i.test(nm)?'Courier':/serif|times|roman/i.test(nm)&&!/sans/i.test(nm)?'Times':'Helvetica',bold:/bold|black|heavy/i.test(nm)});});
-  tiCache[p.src]=items;if(tool==='edittext'&&P()===p)put(items);
- });});
+  tc.items.forEach(function(it){if(!it.str||!it.str.trim())return;var tx=pdfjsLib.Util.transform(vp.transform,it.transform);var fh=Math.hypot(tx[2],tx[3]);if(fh<2||Math.abs(tx[1])>0.01)return;
+   var fam=(tc.styles[it.fontName]||{}).fontFamily||'',nm=String(it.fontName||'')+' '+fam;
+   items.push({str:it.str,x:tx[4],y:tx[5]-fh*0.88,w:Math.max(it.width*vp.scale,4),h:fh*1.12,size:Math.round(fh*0.97*10)/10,font:/mono|courier/i.test(nm)?'Courier':/serif|times|roman|georgia/i.test(nm)&&!/sans/i.test(nm)?'Times':'Helvetica',bold:/bold|black|heavy|semibold/i.test(nm)});});
+  tiCache[p.src]=items;return items;
+ });
 }
-function useTextItem(idx){
- var p=P(),it=tiCache[p.src][idx];if(!it)return;it.used=true;
+function showTextItems(pi){
+ var p=pages[pi],e=els[pi];if(!p||p.src<0)return;
+ if(p.rot0){if(!showTextItems.warned){showTextItems.warned=1;toast(T('Edit text works on unrotated pages. Use Whiteout + Text on rotated pages.','टेक्स्ट एडिट बिना घुमाए पेज पर चलता है। घुमाए पेज पर व्हाइटआउट + टेक्स्ट लगाएं।'));}return;}
+ getItems(pi).then(function(items){if(tool!=='edittext')return;e.layer.querySelectorAll('.pe-ti').forEach(function(n){n.remove();});
+  items.forEach(function(it,idx){if(it.used)return;var d=document.createElement('div');d.className='pe-ti';d.style.left=(it.x*zoom)+'px';d.style.top=(it.y*zoom)+'px';d.style.width=(it.w*zoom)+'px';d.style.height=(it.h*zoom)+'px';d.dataset.ti=idx;d.title=it.str;e.layer.appendChild(d);});});
+}
+function replaceItem(pi,it,newStr,select){
+ it.used=true;var p=pages[pi];
  p.objs.push({id:uid(),type:'white',x:it.x-1,y:it.y-0.5,w:it.w+2,h:it.h+1});
- var o=addObj({type:'text',x:it.x,y:it.y+(it.h-it.size*1.2)/2,text:it.str,size:it.size,color:'#111111',font:it.font,bold:it.bold});
- setTool('select');editText(o.id);
+ return addObj(pi,{type:'text',x:it.x,y:it.y+(it.h-it.size*1.2)/2,text:newStr,size:it.size,color:'#111111',font:it.font,bold:it.bold},select);
 }
+function useTextItem(pi,idx){var p=pages[pi],it=tiCache[p.src][idx];if(!it)return;var o=replaceItem(pi,it,it.str,true);setTool('select');editText(pi,o.id);}
 
-/* ---------- pointer interaction ---------- */
+/* ================= pointer ================= */
 var act=null;
+function layerOf(t){return t.closest&&t.closest('.pe-layer');}
+function toLocal(e,pi){var p=pages[pi],r=els[pi].page.getBoundingClientRect(),W=p.w*zoom,H=p.h*zoom,cx=r.left+r.width/2,cy=r.top+r.height/2,dx=e.clientX-cx,dy=e.clientY-cy,a=-p.urot*Math.PI/180;return {x:(dx*Math.cos(a)-dy*Math.sin(a)+W/2)/zoom,y:(dx*Math.sin(a)+dy*Math.cos(a)+H/2)/zoom};}
 function onDown(e){
  if(e.button&&e.button!==0)return;
- var tgt=e.target,L=$('peLayer'),pt=toLocal(e);
+ var L=layerOf(e.target);if(!L)return;var pi=+L.dataset.pi,tgt=e.target,pt=toLocal(e,pi);
  if(tgt.isContentEditable)return;
+ closeMenus();
  if(tgt.dataset.act==='del'){e.preventDefault();delSel();return;}
- if(tgt.classList.contains('pe-ti')){e.preventDefault();useTextItem(+tgt.dataset.ti);return;}
- var idEl=tgt.closest&&tgt.closest('[data-id]');
- if(tgt.dataset.act==='resize'&&sel){var o=objById(sel);act={k:'resize',o:o,s:pt,orig:JSON.parse(JSON.stringify(o))};L.setPointerCapture(e.pointerId);e.preventDefault();return;}
- var creating=tool==='draw'||tool==='rect'||tool==='white'||tool==='hl';
- if(idEl&&!creating){
-  var id=idEl.dataset.id,ob=objById(id);if(!ob)return;
-  var was=sel===id;sel=id;if(!was)renderObjects();
-  act={k:'move',o:ob,s:pt,orig:JSON.parse(JSON.stringify(ob)),moved:false,was:was};L.setPointerCapture(e.pointerId);e.preventDefault();return;
- }
- if(tool==='select'||tool==='edittext'){if(sel){sel=null;renderObjects();}return;}
+ if(tgt.classList.contains('pe-ti')){e.preventDefault();useTextItem(pi,+tgt.dataset.ti);return;}
+ if(tgt.dataset.act==='resize'&&sel){var o=selObj();act={k:'resize',pi:pi,o:o,s:pt,orig:JSON.parse(JSON.stringify(o))};e.preventDefault();return;}
+ var idEl=tgt.closest('[data-id]'),creating=BOX_TOOLS[tool]||LINE_TOOLS[tool]||tool==='draw'||/^f_/.test(tool);
+ if(idEl&&!creating){var id=idEl.dataset.id,ob=objAt(pi,id);if(!ob)return;var was=sel&&sel.id===id;if(!was)setSel({pi:pi,id:id});act={k:'move',pi:pi,o:ob,s:pt,orig:JSON.parse(JSON.stringify(ob)),moved:false,was:was};e.preventDefault();return;}
+ if(tool==='select'||tool==='edittext'){if(sel)setSel(null);return;}
  e.preventDefault();
- var R0=ur(),off=rv(0,-style.size*0.6,R0);
- if(tool==='text'){var o2=addObj({type:'text',r:R0,x:pt.x+off[0],y:pt.y+off[1],text:'',size:style.size,color:style.color,font:style.font,bold:style.bold});setTool('select');editText(o2.id);return;}
- if(tool==='date'){var d=new Date(),ds=('0'+d.getDate()).slice(-2)+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+d.getFullYear();addObj({type:'text',r:R0,x:pt.x+off[0],y:pt.y+off[1],text:ds,size:style.size,color:style.color,font:style.font,bold:style.bold});snapshot();return;}
+ var R0=urOf(pi),off=rv(0,-style.size*0.6,R0);
+ if(tool==='text'){var o2=addObj(pi,{type:'text',r:R0,x:pt.x+off[0],y:pt.y+off[1],text:'',size:style.size,color:style.color,font:style.font,bold:style.bold});setTool('select');editText(pi,o2.id);return;}
+ if(tool==='date'){var d=new Date(),ds=('0'+d.getDate()).slice(-2)+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+d.getFullYear();addObj(pi,{type:'text',r:R0,x:pt.x+off[0],y:pt.y+off[1],text:ds,size:style.size,color:style.color,font:style.font,bold:style.bold});snapshot();return;}
  if(tool==='check'||tool==='cross'){var s=style.size*1.1,w=Math.max(1.5,style.size/7),RP=function(a,b){var q=rv(a,b,R0);return [pt.x+q[0],pt.y+q[1]];};
-  if(tool==='check'){addObj({type:'draw',color:style.color,width:w,pts:[RP(-s*0.45,0),RP(-s*0.1,s*0.38),RP(s*0.5,-s*0.45)]});}
-  else{addObj({type:'draw',color:style.color,width:w,pts:[RP(-s*0.4,-s*0.4),RP(s*0.4,s*0.4)]});addObj({type:'draw',color:style.color,width:w,pts:[RP(s*0.4,-s*0.4),RP(-s*0.4,s*0.4)]});}
+  if(tool==='check')addObj(pi,{type:'draw',color:style.color,width:w,pts:[RP(-s*0.45,0),RP(-s*0.1,s*0.38),RP(s*0.5,-s*0.45)]});
+  else{addObj(pi,{type:'draw',color:style.color,width:w,pts:[RP(-s*0.4,-s*0.4),RP(s*0.4,s*0.4)]},false);addObj(pi,{type:'draw',color:style.color,width:w,pts:[RP(s*0.4,-s*0.4),RP(-s*0.4,s*0.4)]});}
   snapshot();return;}
- if(tool==='draw'){var od={id:uid(),type:'draw',color:style.color,width:style.width,pts:[[pt.x,pt.y]]};P().objs.push(od);act={k:'draw',o:od};sel=null;renderObjects();L.setPointerCapture(e.pointerId);return;}
- if(tool==='rect'||tool==='white'||tool==='hl'){var orr={id:uid(),type:tool,x:pt.x,y:pt.y,w:1,h:1,color:tool==='hl'?style.hl:style.color,width:style.width};P().objs.push(orr);sel=orr.id;act={k:'create',o:orr,s:pt};renderObjects();L.setPointerCapture(e.pointerId);return;}
+ if(/^f_/.test(tool)){var ft=tool.slice(2),sz=ft==='check'?{w:14,h:14}:ft==='multi'?{w:220,h:60}:ft==='drop'?{w:150,h:20}:{w:180,h:20};
+  var fo={type:'field',ft:ft,x:pt.x,y:pt.y-sz.h/2,w:sz.w,h:sz.h};
+  if(ft==='drop'){dropDialog(function(opts){fo.opts=opts;addObj(pi,fo);snapshot();});return;}
+  addObj(pi,fo);snapshot();return;}
+ if(tool==='draw'){var od={id:uid(),type:'draw',color:style.color,width:style.width,pts:[[pt.x,pt.y]]};pages[pi].objs.push(od);if(sel)setSel(null);act={k:'draw',pi:pi,o:od};renderLayer(pi);return;}
+ if(LINE_TOOLS[tool]){var lc=tool==='strike'?'#dc2626':style.color,lo={id:uid(),type:'line',x1:pt.x,y1:pt.y,x2:pt.x,y2:pt.y,color:lc,width:tool==='strike'||tool==='under'?Math.max(1,style.width*0.75):style.width,arrow:tool==='arrow',horiz:tool==='strike'||tool==='under'};pages[pi].objs.push(lo);sel={pi:pi,id:lo.id};act={k:'line',pi:pi,o:lo};renderLayer(pi);return;}
+ if(BOX_TOOLS[tool]){var orr={id:uid(),type:tool,x:pt.x,y:pt.y,w:1,h:1,color:tool==='hl'?style.hl:style.color,width:style.width,fill:(tool==='rect'||tool==='ellipse')?style.fill:''};pages[pi].objs.push(orr);sel={pi:pi,id:orr.id};act={k:'create',pi:pi,o:orr,s:pt};renderLayer(pi);return;}
 }
 function onMove(e){
- if(!act)return;var pt=toLocal(e),o=act.o;
- if(act.k==='draw'){var last=o.pts[o.pts.length-1];if(Math.hypot(pt.x-last[0],pt.y-last[1])>0.8/zoom){o.pts.push([pt.x,pt.y]);var path=$('peLayer').querySelector('path[data-id="'+o.id+'"]');if(path)path.setAttribute('d',o.pts.map(function(q,i){return (i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1);}).join(' '));}return;}
+ if(!act)return;var pt=toLocal(e,act.pi),o=act.o;e.preventDefault();
+ if(act.k==='draw'){var last=o.pts[o.pts.length-1];if(Math.hypot(pt.x-last[0],pt.y-last[1])>0.8/zoom){o.pts.push([pt.x,pt.y]);var hp=els[act.pi].layer.querySelector('path.hit[data-id="'+o.id+'"]');if(hp){var d=pathD(o);hp.setAttribute('d',d);hp.previousSibling.setAttribute('d',d);}else renderLayer(act.pi);}return;}
+ if(act.k==='line'){o.x2=pt.x;o.y2=o.horiz?o.y1:pt.y;renderLayer(act.pi);return;}
  var dx=pt.x-act.s.x,dy=pt.y-act.s.y;
- if(act.k==='create'){o.x=Math.min(act.s.x,pt.x);o.y=Math.min(act.s.y,pt.y);o.w=Math.abs(dx);o.h=Math.abs(dy);renderObjects();return;}
+ if(act.k==='create'){o.x=Math.min(act.s.x,pt.x);o.y=Math.min(act.s.y,pt.y);o.w=Math.abs(dx);o.h=Math.abs(dy);renderLayer(act.pi);return;}
  if(act.k==='move'){if(!act.moved&&Math.hypot(dx,dy)*zoom<3)return;act.moved=true;
-  if(o.type==='draw'){o.pts=act.orig.pts.map(function(q){return [q[0]+dx,q[1]+dy];});}else{o.x=act.orig.x+dx;o.y=act.orig.y+dy;}
-  renderObjects();return;}
+  if(o.type==='draw')o.pts=act.orig.pts.map(function(q){return [q[0]+dx,q[1]+dy];});
+  else if(o.type==='line'){o.x1=act.orig.x1+dx;o.y1=act.orig.y1+dy;o.x2=act.orig.x2+dx;o.y2=act.orig.y2+dy;}
+  else{o.x=act.orig.x+dx;o.y=act.orig.y+dy;}
+  renderLayer(act.pi);return;}
  if(act.k==='resize'){var lr=rv(dx,dy,(360-(o.r||0))%360);dx=lr[0];dy=lr[1];
   if(o.type==='text'){var nw=Math.max(4,(act.orig.w||10)+dx);o.size=clamp(Math.round(act.orig.size*nw/(act.orig.w||10)*10)/10,4,200);}
   else if(o.type==='img'&&!e.shiftKey){var r=act.orig.w/act.orig.h,w2=Math.max(8,act.orig.w+dx);o.w=w2;o.h=w2/r;}
   else{o.w=Math.max(4,act.orig.w+dx);o.h=Math.max(4,act.orig.h+dy);}
-  renderObjects();
- }
+  renderLayer(act.pi);}
 }
 function onUp(){
  if(!act)return;var a=act;act=null;
- if(a.k==='create'){var o=a.o;if(o.w<4&&o.h<4){if(o.type==='hl'){o.w=120;o.h=16;}else if(o.type==='white'){o.w=120;o.h=24;}else{o.w=120;o.h=60;}o.x-=o.w/2;o.y-=o.h/2;renderObjects();}}
- if(a.k==='move'&&!a.moved){if(a.o.type==='text'&&a.was){editText(a.o.id);}return;}
+ if(a.k==='create'){var o=a.o;if(o.w<4&&o.h<4){var df={hl:[120,16],white:[120,24],link:[140,22],rect:[120,60],ellipse:[120,60]}[o.type]||[120,40];o.w=df[0];o.h=df[1];o.x-=o.w/2;o.y-=o.h/2;}
+  if(o.type==='link'){linkDialog(o,function(ok){if(!ok){pages[a.pi].objs=pages[a.pi].objs.filter(function(x){return x.id!==o.id;});sel=null;}renderLayer(a.pi);snapshot();});return;}
+  renderLayer(a.pi);}
+ if(a.k==='line'){var l=a.o;if(Math.hypot(l.x2-l.x1,l.y2-l.y1)<3){l.x2=l.x1+100;if(!l.horiz)l.y2=l.y1;renderLayer(a.pi);}}
+ if(a.k==='move'&&!a.moved){if(a.o.type==='text'&&a.was)editText(a.pi,a.o.id);else if(a.o.type==='link'&&a.was)linkDialog(a.o,function(){renderLayer(a.pi);snapshot();});return;}
  snapshot();
 }
 
-/* ---------- tools & props ---------- */
-var HINTS={select:['Click an item to select it. Drag to move, use the blue dot to resize, Delete to remove. Click a selected text again to edit it.','किसी आइटम पर क्लिक करके चुनें। खींचकर हटाएं, नीले डॉट से साइज़ बदलें, Delete से मिटाएं। चुने हुए टेक्स्ट पर दोबारा क्लिक करके बदलें।'],
+/* ================= dialogs ================= */
+function dialog(html,bind){var c=$('peDlgC');c.innerHTML=html;$('peDlg').classList.add('on');bind(c,function(){$('peDlg').classList.remove('on');});var f=c.querySelector('input');if(f)setTimeout(function(){f.focus();},30);}
+function linkDialog(o,done){
+ var mode=o.page?'page':(o.url&&/^mailto:/.test(o.url))?'mail':'web';
+ dialog('<h3>🔗 '+T('Add link','लिंक जोड़ें')+'</h3><div class="seg"><button type="button" data-m="web">'+T('Website','वेबसाइट')+'</button><button type="button" data-m="mail">'+T('Email','ईमेल')+'</button><button type="button" data-m="page">'+T('Page in this PDF','इसी PDF का पेज')+'</button></div><label id="lnL"></label><input type="text" id="lnV"><div class="row"><span class="r"><button type="button" class="pe-btn" data-x>'+T('Cancel','रद्द')+'</button><button type="button" class="pe-btn pri" data-ok>'+T('Save link','लिंक सेव करें')+'</button></span></div>',function(c,close){
+  var inp=c.querySelector('#lnV'),lab=c.querySelector('#lnL');
+  function setM(m){mode=m;c.querySelectorAll('[data-m]').forEach(function(b){b.classList.toggle('on',b.dataset.m===m);});lab.textContent=m==='web'?T('Website address','वेबसाइट पता'):m==='mail'?T('Email address','ईमेल पता'):T('Page number (1 to ','पेज नंबर (1 से ')+pages.length+')';inp.type=m==='page'?'number':'text';inp.placeholder=m==='web'?'https://www.example.com':m==='mail'?'name@example.com':'1';
+   inp.value=m==='page'?(o.page||''):m==='mail'?(o.url&&/^mailto:/.test(o.url)?o.url.slice(7):''):(o.url&&!/^mailto:/.test(o.url)?o.url:'');}
+  c.querySelectorAll('[data-m]').forEach(function(b){b.onclick=function(){setM(b.dataset.m);};});setM(mode);
+  c.querySelector('[data-x]').onclick=function(){close();done(!!(o.url||o.page));};
+  c.querySelector('[data-ok]').onclick=function(){var v=inp.value.trim();if(!v){toast(T('Enter a link first.','पहले लिंक डालें।'));return;}
+   if(mode==='page'){var n=parseInt(v,10);if(!(n>=1&&n<=pages.length)){toast(T('Enter a valid page number.','सही पेज नंबर डालें।'));return;}o.page=n;delete o.url;}
+   else if(mode==='mail'){o.url='mailto:'+v;delete o.page;}
+   else{o.url=/^[a-z]+:/i.test(v)?v:'https://'+v;delete o.page;}
+   close();done(true);};
+  inp.onkeydown=function(ev){if(ev.key==='Enter')c.querySelector('[data-ok]').click();};
+ });
+}
+function dropDialog(done){
+ dialog('<h3>▾ '+T('Drop-down options','ड्रॉप-डाउन विकल्प')+'</h3><label>'+T('Options, separated by commas','विकल्प, कॉमा से अलग करें')+'</label><input type="text" id="dpV" placeholder="Yes, No, Not applicable"><div class="row"><span class="r"><button type="button" class="pe-btn" data-x>'+T('Cancel','रद्द')+'</button><button type="button" class="pe-btn pri" data-ok>'+T('Add field','फ़ील्ड जोड़ें')+'</button></span></div>',function(c,close){
+  c.querySelector('[data-x]').onclick=close;
+  c.querySelector('[data-ok]').onclick=function(){var o=c.querySelector('#dpV').value.split(',').map(function(s){return s.trim();}).filter(Boolean);if(!o.length){toast(T('Add at least one option.','कम से कम एक विकल्प डालें।'));return;}close();done(o);};
+ });
+}
+function findDialog(){
+ dialog('<h3>🔎 '+T('Find &amp; replace','ढूँढें और बदलें')+'</h3><label>'+T('Find','ढूँढें')+'</label><input type="text" id="frF"><label>'+T('Replace with','इससे बदलें')+'</label><input type="text" id="frR"><label class="chk"><input type="checkbox" id="frC"> '+T('Match case','केस मिलाएं')+'</label><p id="frM" style="font-size:.82rem;color:var(--pe-mut);margin:10px 0 0"></p><div class="row"><span class="r"><button type="button" class="pe-btn" data-x>'+T('Close','बंद')+'</button><button type="button" class="pe-btn" data-c>'+T('Count','गिनें')+'</button><button type="button" class="pe-btn pri" data-ok>'+T('Replace all','सब बदलें')+'</button></span></div>',function(c,close){
+  var F=c.querySelector('#frF'),Rp=c.querySelector('#frR'),C=c.querySelector('#frC'),M=c.querySelector('#frM');
+  function rx(){var s=F.value;if(!s)return null;return new RegExp(s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),C.checked?'g':'gi');}
+  function scan(cb){var r=rx();if(!r){M.textContent=T('Type a word to find.','ढूँढने के लिए शब्द लिखें।');return;}M.textContent=T('Searching…','ढूँढ रहे हैं…');var hits=[],chain=Promise.resolve();
+   pages.forEach(function(p,pi){chain=chain.then(function(){return getItems(pi).then(function(items){items.forEach(function(it){if(!it.used&&r.test(it.str))hits.push({pi:pi,it:it});r.lastIndex=0;});});});});
+   chain.then(function(){cb(hits,r);});}
+  c.querySelector('[data-x]').onclick=close;
+  c.querySelector('[data-c]').onclick=function(){scan(function(h){M.textContent=h.length?T(h.length+' matching line(s) found.',h.length+' लाइन मिलीं।'):T('No match found. Scanned pages cannot be searched.','कुछ नहीं मिला। स्कैन पेज में खोज नहीं होती।');});};
+  c.querySelector('[data-ok]').onclick=function(){scan(function(h,r){if(!h.length){M.textContent=T('No match found.','कुछ नहीं मिला।');return;}var touched={};h.forEach(function(x){replaceItem(x.pi,x.it,x.it.str.replace(r,Rp.value),false);touched[x.pi]=1;});sel=null;Object.keys(touched).forEach(function(k){renderLayer(+k);});snapshot();close();toast(T('Replaced on '+h.length+' line(s).',h.length+' लाइनों में बदला गया।'));scrollToPage(h[0].pi);});};
+ });
+}
+
+/* ================= tools & props ================= */
+var HINTS={select:['Click an item to select it. Drag to move, blue dot to resize, Delete to remove. Click a selected text again to edit it.','आइटम पर क्लिक करके चुनें। खींचकर हटाएं, नीले डॉट से साइज़ बदलें, Delete से मिटाएं। चुने हुए टेक्स्ट पर दोबारा क्लिक करके बदलें।'],
  text:['Click on the page where you want to type.','जहाँ लिखना है, पेज पर वहाँ क्लिक करें।'],
- edittext:['Click any highlighted line to change it. The old text is covered with white and you can retype it.','किसी भी हाइलाइट लाइन पर क्लिक करके बदलें। पुराना टेक्स्ट सफ़ेद से ढक जाएगा और आप नया लिख सकेंगे।'],
+ edittext:['Click any highlighted line to change it. The old text is covered with white and you can retype it.','किसी भी हाइलाइट लाइन पर क्लिक करके बदलें। पुराना टेक्स्ट सफ़ेद से ढक जाएगा।'],
+ link:['Drag a box over the text or area that should be clickable.','जिस हिस्से पर क्लिक करना है, उस पर बॉक्स बनाएं।'],
  draw:['Draw with your mouse or finger.','माउस या उंगली से ड्रॉ करें।'],
  hl:['Drag over the text you want to highlight.','जिस टेक्स्ट को हाइलाइट करना है, उस पर ड्रैग करें।'],
+ strike:['Drag across the text to strike it out.','टेक्स्ट को काटने के लिए उस पर ड्रैग करें।'],
+ under:['Drag along the bottom of the text to underline it.','रेखांकन के लिए टेक्स्ट के नीचे ड्रैग करें।'],
  white:['Drag over anything you want to hide.','जो छिपाना है, उस पर ड्रैग करें।'],
- rect:['Drag to draw a box.','बॉक्स बनाने के लिए ड्रैग करें।'],
- check:['Click to place a tick mark. Change size with the Size box.','टिक लगाने के लिए क्लिक करें। साइज़ बॉक्स से साइज़ बदलें।'],
- cross:['Click to place a cross mark.','क्रॉस लगाने के लिए क्लिक करें।'],
- date:["Click to place today's date.",'आज की तारीख लगाने के लिए क्लिक करें।']};
+ rect:['Drag to draw a rectangle.','आयत बनाने के लिए ड्रैग करें।'],ellipse:['Drag to draw an ellipse.','गोला बनाने के लिए ड्रैग करें।'],line:['Drag to draw a line.','लाइन बनाने के लिए ड्रैग करें।'],arrow:['Drag to draw an arrow.','तीर बनाने के लिए ड्रैग करें।'],
+ check:['Click to place a tick mark. Change its size with the Size box.','टिक लगाने के लिए क्लिक करें।'],cross:['Click to place a cross mark.','क्रॉस लगाने के लिए क्लिक करें।'],date:["Click to place today's date.",'आज की तारीख लगाने के लिए क्लिक करें।'],
+ f_text:['Click to add a fillable text field. Drag the blue dot to resize it.','भरने लायक टेक्स्ट फ़ील्ड के लिए क्लिक करें।'],f_multi:['Click to add a multi-line text field.','कई लाइन वाली फ़ील्ड के लिए क्लिक करें।'],f_check:['Click to add a checkbox.','चेकबॉक्स के लिए क्लिक करें।'],f_drop:['Click to add a drop-down list.','ड्रॉप-डाउन लिस्ट के लिए क्लिक करें।']};
 function setTool(t){
- if(t==='image'){$('peImgFile').click();return;}
- if(t==='sign'){openSig();return;}
- tool=t;document.querySelectorAll('.pe-tool[data-t]').forEach(function(b){b.classList.toggle('on',b.dataset.t===t);});
+ tool=t;closeMenus();
+ document.querySelectorAll('#peBar [data-t]').forEach(function(b){b.classList.toggle('on',b.dataset.t===t);});
+ document.querySelectorAll('#peBar .pe-dd').forEach(function(d){d.querySelector('[data-menu]').classList.toggle('on',(GROUPS[d.dataset.g]||[]).indexOf(t)>=0);});
  var h=HINTS[t]||HINTS.select;$('peHint').textContent='💡 '+T(h[0],h[1]);
- if(t!=='select'&&sel){sel=null;}
- renderObjects();
+ if(t!=='select'&&sel)sel=null;
+ renderAllLayers();syncProps();
 }
 function syncProps(){
- var o=sel?objById(sel):null;
- var isText=o?o.type==='text':(tool==='text'||tool==='date'||tool==='select'||tool==='edittext');
- if(o){if(o.color)$('pColor').value=o.color;if(o.type==='text'){$('pSize').value=o.size;$('pFont').value=o.font;$('pBold').classList.toggle('on',!!o.bold);}if(o.width&&o.type!=='text')$('pWidth').value=o.width;}
- else{$('pColor').value=tool==='hl'?style.hl:style.color;$('pSize').value=style.size;$('pFont').value=style.font;$('pBold').classList.toggle('on',style.bold);$('pWidth').value=style.width;}
- $('pFont').parentNode.style.display=$('pBold').style.display=isText?'':'none';
- var showW=o?(o.type==='draw'||o.type==='rect'):(tool==='draw'||tool==='rect');$('pWidth').parentNode.style.display=showW?'':'none';
- $('pSize').parentNode.style.display=(o?o.type==='text':(isText||tool==='check'||tool==='cross'))?'':'none';
+ var o=selObj(),ty=o?o.type:null;
+ var isText=o?ty==='text':(tool==='text'||tool==='date'||tool==='edittext'||tool==='select');
+ var showSize=o?ty==='text':(isText||tool==='check'||tool==='cross');
+ var showW=o?(ty==='draw'||ty==='rect'||ty==='ellipse'||ty==='line'):(tool==='draw'||tool==='rect'||tool==='ellipse'||!!LINE_TOOLS[tool]);
+ var showFill=o?(ty==='rect'||ty==='ellipse'):(tool==='rect'||tool==='ellipse');
+ var isHl=o?ty==='hl':tool==='hl';
+ if(o){if(o.color)$('pColor').value=o.color;if(ty==='text'){$('pSize').value=o.size;$('pFont').value=o.font;$('pBold').classList.toggle('on',!!o.bold);}if(o.width)$('pWidth').value=o.width;$('pFill').value=o.fill||'';}
+ else{$('pColor').value=isHl?style.hl:style.color;$('pSize').value=style.size;$('pFont').value=style.font;$('pBold').classList.toggle('on',style.bold);$('pWidth').value=style.width;$('pFill').value=style.fill;}
+ $('wFont').style.display=$('pBold').style.display=isText?'':'none';$('wSize').style.display=showSize?'':'none';$('wWidth').style.display=showW?'':'none';$('wFill').style.display=showFill?'':'none';
  $('peDel').disabled=!sel;
- var sw=(o?o.type==='hl':tool==='hl')?HLSW:SWATCH;
- $('pSw').innerHTML=sw.map(function(c){return '<button type="button" style="background:'+c+'" data-c="'+c+'" title="'+c+'"></button>';}).join('');
+ $('pSw').innerHTML=(isHl?HLSW:SWATCH).map(function(c){return '<button type="button" style="background:'+c+'" data-c="'+c+'" title="'+c+'"></button>';}).join('');
 }
 function applyProp(k,v){
- var o=sel?objById(sel):null;
- if(o){if(k==='color'){if(o.type==='white')return;o.color=v;}else if(k==='size'&&o.type==='text')o.size=v;else if(k==='font'&&o.type==='text')o.font=v;else if(k==='bold'&&o.type==='text')o.bold=v;else if(k==='width'&&o.width!==undefined)o.width=v;renderObjects();snapshot();}
+ var o=selObj();
+ if(o){if(k==='color'){if(o.type==='white'||o.type==='img'||o.type==='field'||o.type==='link')return;o.color=v;}else if(k==='size'&&o.type==='text')o.size=v;else if(k==='font'&&o.type==='text')o.font=v;else if(k==='bold'&&o.type==='text')o.bold=v;else if(k==='width'&&o.width!==undefined)o.width=v;else if(k==='fill'&&(o.type==='rect'||o.type==='ellipse'))o.fill=v;else return;renderLayer(sel.pi);snapshot();}
  else{if(k==='color'){if(tool==='hl')style.hl=v;else style.color=v;}else style[k]=v;syncProps();}
 }
 $('pColor').addEventListener('input',function(){applyProp('color',this.value);});
 $('pSw').addEventListener('click',function(e){var c=e.target.dataset.c;if(c){$('pColor').value=c;applyProp('color',c);}});
 $('pSize').addEventListener('change',function(){applyProp('size',clamp(+this.value||14,4,200));});
 $('pFont').addEventListener('change',function(){applyProp('font',this.value);});
-$('pBold').addEventListener('click',function(){var o=sel?objById(sel):null;applyProp('bold',!(o&&o.type==='text'?o.bold:style.bold));});
+$('pBold').addEventListener('click',function(){var o=selObj();applyProp('bold',!(o&&o.type==='text'?o.bold:style.bold));});
 $('pWidth').addEventListener('change',function(){applyProp('width',clamp(+this.value||2,1,40));});
+$('pFill').addEventListener('change',function(){applyProp('fill',this.value);});
 
-/* ---------- images & signature ---------- */
-function placeImage(src,w,h){var p=P(),maxW=p.w*0.4,sc=Math.min(1,maxW/w),W=w*sc,H=h*sc;if(H>p.h*0.4){H=p.h*0.4;W=H*w/h;}addObj({type:'img',src:src,r:ur(),x:(p.w-W)/2,y:(p.h-H)/2,w:W,h:H});setTool('select');snapshot();}
+/* ================= menus ================= */
+function closeMenus(){document.querySelectorAll('.pe-dd.open').forEach(function(d){d.classList.remove('open');});}
+$('peBar').addEventListener('click',function(e){
+ var m=e.target.closest('[data-menu]');
+ if(m){e.stopPropagation();var dd=m.parentNode,o=dd.classList.contains('open');closeMenus();if(!o)dd.classList.add('open');return;}
+ var t=e.target.closest('[data-t]');if(t){setTool(t.dataset.t);return;}
+ var a=e.target.closest('[data-a]');if(a){closeMenus();var k=a.dataset.a;if(k==='find')findDialog();else if(k==='image'){$('peImgFile').click();}else if(k==='sign')openSig();return;}
+ var st=e.target.closest('[data-stamp]');if(st){closeMenus();addStamp(STAMPS[+st.dataset.stamp]);}
+});
+document.addEventListener('click',function(e){if(!e.target.closest('.pe-dd'))closeMenus();});
+$('peStamps').innerHTML=STAMPS.map(function(s,i){return '<button type="button" data-stamp="'+i+'" style="color:'+s[1]+'">'+s[0]+'</button>';}).join('');
+function addStamp(s){
+ var c=document.createElement('canvas'),fs=84,ctx=c.getContext('2d');ctx.font='800 '+fs+'px Arial, sans-serif';var tw=ctx.measureText(s[0]).width;c.width=Math.ceil(tw+90);c.height=150;
+ ctx=c.getContext('2d');ctx.strokeStyle=s[1];ctx.fillStyle=s[1];ctx.lineWidth=9;var r=22,w=c.width-12,h=c.height-12,x=6,y=6;
+ ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();ctx.stroke();
+ ctx.font='800 '+fs+'px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(s[0],c.width/2,c.height/2+4);
+ placeImage(c.toDataURL('image/png'),c.width/4,c.height/4);
+}
+
+/* ================= images & signature ================= */
+function placeImage(src,w,h,pos){var pi=curPg,p=pages[pi],maxW=p.w*0.4,sc=Math.min(1,maxW/w),W=w*sc,H=h*sc;if(H>p.h*0.4){H=p.h*0.4;W=H*w/h;}
+ var x=pos?pos.x:(p.w-W)/2,y=pos?pos.y:Math.min(p.h-H-20,Math.max(20,(p.h-H)/2));addObj(pi,{type:'img',src:src,r:urOf(pi),x:x,y:y,w:W,h:H});setTool('select');snapshot();}
+var sigFromUpload=false;
 $('peImgFile').addEventListener('change',function(){var f=this.files[0];this.value='';if(!f)return;var rd=new FileReader();rd.onload=function(){var im=new Image();im.onload=function(){var src=rd.result;if(!/^data:image\/(png|jpeg)/.test(src)){var c=document.createElement('canvas');c.width=im.naturalWidth;c.height=im.naturalHeight;c.getContext('2d').drawImage(im,0,0);src=c.toDataURL('image/png');}
  if(sigFromUpload){sigFromUpload=false;closeSig();}placeImage(src,im.naturalWidth/2,im.naturalHeight/2);};im.src=rd.result;};rd.readAsDataURL(f);});
-var sigCtx=null,sigDrawing=false,sigInk=false,sigColor='#0b2a8a',sigFromUpload=false;
+var sigCtx=null,sigDrawing=false,sigInk=false,sigColor='#0b2a8a';
 function openSig(){$('peSigM').classList.add('on');var c=$('peSig'),r=c.getBoundingClientRect(),d=2;c.width=r.width*d;c.height=r.height*d;sigCtx=c.getContext('2d');sigCtx.scale(d,d);sigCtx.lineCap='round';sigCtx.lineJoin='round';sigCtx.lineWidth=2.6;sigInk=false;
  $('sigSw').innerHTML=['#0b2a8a','#111111','#1d4ed8'].map(function(x){return '<button type="button" style="background:'+x+'" data-c="'+x+'"></button>';}).join('');}
 function closeSig(){$('peSigM').classList.remove('on');}
@@ -608,42 +737,28 @@ $('sigCancel').onclick=closeSig;
 $('sigUp').onclick=function(){sigFromUpload=true;$('peImgFile').click();};
 $('sigOk').onclick=function(){
  if(!sigInk){toast(T('Draw your signature first.','पहले साइन बनाइए।'));return;}
- var c=$('peSig'),ctx=c.getContext('2d'),d=ctx.getImageData(0,0,c.width,c.height).data,x0=c.width,y0=c.height,x1=0,y1=0;
+ var c=$('peSig'),d=c.getContext('2d').getImageData(0,0,c.width,c.height).data,x0=c.width,y0=c.height,x1=0,y1=0;
  for(var y=0;y<c.height;y+=2)for(var x=0;x<c.width;x+=2){if(d[(y*c.width+x)*4+3]>10){if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}}
  var pad=8;x0=Math.max(0,x0-pad);y0=Math.max(0,y0-pad);x1=Math.min(c.width,x1+pad);y1=Math.min(c.height,y1+pad);
  var o=document.createElement('canvas');o.width=x1-x0;o.height=y1-y0;o.getContext('2d').drawImage(c,x0,y0,o.width,o.height,0,0,o.width,o.height);
- closeSig();var p=P(),w=Math.min(p.w*0.28,o.width/2.5),h=w*o.height/o.width;
- addObj({type:'img',src:o.toDataURL('image/png'),r:ur(),x:p.w*0.6,y:p.h*0.75,w:w,h:h});setTool('select');snapshot();
+ closeSig();var p=pages[curPg],w=Math.min(p.w*0.28,o.width/2.5),h=w*o.height/o.width;
+ placeImage(o.toDataURL('image/png'),w,h,{x:p.w*0.6,y:Math.min(p.h*0.75,p.h-h-20)});
  toast(T('Drag the signature to the right place and resize it.','साइन को सही जगह खींचें और साइज़ ठीक करें।'));
 };
 
-/* ---------- thumbnails & pages ---------- */
-function renderThumbs(){
- var box=$('peThumbs');box.innerHTML='';
- pages.forEach(function(p,i){
-  var d=document.createElement('div');d.className='pe-th'+(i===cur?' on':'');d.dataset.i=i;
-  d.innerHTML='<canvas></canvas><div class="n">'+(i+1)+'</div><div class="act"><button type="button" data-a="rot" title="Rotate">⟳</button><button type="button" data-a="up" title="Move up">↑</button><button type="button" data-a="down" title="Move down">↓</button><button type="button" data-a="del" title="Delete page">🗑</button></div>';
-  box.appendChild(d);
-  var cv=d.querySelector('canvas');cv.style.transform='rotate('+p.urot+'deg)';
-  var sc=110/Math.max(p.w,p.h);cv.width=Math.round(p.w*sc);cv.height=Math.round(p.h*sc);
-  if(p.urot%180){cv.style.margin=((cv.width-cv.height)/2)+'px auto';}
-  if(p.src<0){var c=cv.getContext('2d');c.fillStyle='#fff';c.fillRect(0,0,cv.width,cv.height);}
-  else doc.getPage(p.src+1).then(function(pg){var vp=pg.getViewport({scale:sc});return pg.render({canvasContext:cv.getContext('2d'),canvas:cv,viewport:vp}).promise;}).catch(function(){});
- });
-}
-$('peThumbs').addEventListener('click',function(e){
- var th=e.target.closest('.pe-th');if(!th)return;var i=+th.dataset.i,a=e.target.dataset.a;
- if(!a){cur=i;sel=null;fitZoom();renderPage();return;}
- if(a==='rot'){pages[i].urot=(pages[i].urot+90)%360;cur=i;fitZoom();}
- else if(a==='del'){if(pages.length===1){toast(T('A PDF needs at least one page.','PDF में कम से कम एक पेज चाहिए।'));return;}pages.splice(i,1);cur=clamp(cur>=i?cur-1:cur,0,pages.length-1);}
- else if(a==='up'&&i>0){var t=pages[i];pages[i]=pages[i-1];pages[i-1]=t;cur=i-1;}
- else if(a==='down'&&i<pages.length-1){var t2=pages[i];pages[i]=pages[i+1];pages[i+1]=t2;cur=i+1;}
+/* ================= page actions ================= */
+$('pePages').addEventListener('click',function(e){
+ var b=e.target.closest('[data-pa]');if(!b)return;var w=b.closest('.pe-pw'),i=+w.dataset.pi,a=b.dataset.pa;
+ if(a==='rot')pages[i].urot=(pages[i].urot+90)%360;
+ else if(a==='del'){if(pages.length===1){toast(T('A PDF needs at least one page.','PDF में कम से कम एक पेज चाहिए।'));return;}pages.splice(i,1);}
+ else if(a==='up'&&i>0){var t=pages[i];pages[i]=pages[i-1];pages[i-1]=t;}
+ else if(a==='down'&&i<pages.length-1){var t2=pages[i];pages[i]=pages[i+1];pages[i+1]=t2;}
+ else if(a==='ins'){var p=pages[i];pages.splice(i+1,0,blankPage(p.rot0?p.h:p.w,p.rot0?p.w:p.h));}
  else return;
- sel=null;renderThumbs();renderPage();snapshot();
+ sel=null;var top=$('peStage').scrollTop;buildPages();$('peStage').scrollTop=top;snapshot();
 });
-$('peAddPage').onclick=function(){var p=P(),b=blankPage();if(p&&p.src>=0&&!p.rot0){b.w=p.w;b.h=p.h;}pages.splice(cur+1,0,b);cur++;sel=null;renderThumbs();fitZoom();renderPage();snapshot();};
 
-/* ---------- save ---------- */
+/* ================= save ================= */
 function hexRgb(h){var n=parseInt(h.replace('#',''),16);return PDFLib.rgb((n>>16&255)/255,(n>>8&255)/255,(n&255)/255);}
 function dataBytes(u){var b=atob(u.split(',')[1]),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a;}
 function loadImg(src){return new Promise(function(r,j){var i=new Image();i.onload=function(){r(i);};i.onerror=j;i.src=src;});}
@@ -651,44 +766,51 @@ function rotCanvas(src,deg){deg=((deg%360)+360)%360;if(!deg)return src;var c=doc
 function textCanvas(o){var s=4,c=document.createElement('canvas'),W=Math.max(1,o.w),H=Math.max(1,o.h);c.width=Math.ceil(W*s);c.height=Math.ceil(H*s);var x=c.getContext('2d');x.scale(s,s);x.fillStyle=o.color;x.font=(o.bold?'700 ':'400 ')+o.size+'px '+FONTS[o.font].css;x.textBaseline='alphabetic';o.text.split('\n').forEach(function(ln,i){x.fillText(ln,0,o.size*FONTS[o.font].bl+i*o.size*1.2);});return c;}
 function save(){
  if(!pages.length)return;
- busy(true,T('Creating your PDF…','आपकी PDF बन रही है…'));
  if(document.activeElement&&document.activeElement.isContentEditable)document.activeElement.blur();
- var L=PDFLib,out,src,fonts={};
- var go=(srcBytes?L.PDFDocument.load(srcBytes):Promise.resolve(null)).then(function(s){src=s;return L.PDFDocument.create();}).then(function(o){out=o;
-  var chain=Promise.resolve();
-  pages.forEach(function(p){chain=chain.then(function(){return savePage(p);});});
-  return chain;
- }).then(function(){return out.save();}).then(function(bytes){
+ busy(true,T('Creating your PDF…','आपकी PDF बन रही है…'));
+ var L=PDFLib,out,src,fonts={},links=[],form=null,fn=0;
+ (srcBytes?L.PDFDocument.load(srcBytes):Promise.resolve(null)).then(function(s){src=s;return L.PDFDocument.create();}).then(function(o){out=o;
+  var chain=Promise.resolve();pages.forEach(function(p,i){chain=chain.then(function(){return savePage(p,i);});});return chain;
+ }).then(function(){
+  links.forEach(function(l){var ctx=out.context,A,dict={Type:'Annot',Subtype:'Link',Rect:[l.r.x,l.r.y,l.r.x+l.r.w,l.r.y+l.r.h],Border:[0,0,0]};
+   if(l.o.url){dict.A=ctx.obj({Type:'Action',S:'URI',URI:L.PDFString.of(l.o.url)});}
+   else{var tp=out.getPage(clamp(l.o.page-1,0,out.getPageCount()-1));dict.Dest=ctx.obj([tp.ref,'Fit']);}
+   l.pg.node.addAnnot(ctx.register(ctx.obj(dict)));});
+  return out.save();
+ }).then(function(bytes){
   var blob=new Blob([bytes],{type:'application/pdf'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fileName;document.body.appendChild(a);a.click();
   setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1500);busy(false);toast(T('Your edited PDF is downloaded ✓','आपकी एडिट की हुई PDF डाउनलोड हो गई ✓'));
  }).catch(function(e){busy(false);console.error(e);toast(e&&/encrypt/i.test(e.message||'')?T('This PDF is encrypted. Unlock it first, then edit.','ये PDF एन्क्रिप्टेड है। पहले अनलॉक करें।'):T('Could not save the PDF. Please try again.','PDF सेव नहीं हुई। फिर कोशिश करें।'));});
  function font(key){if(!fonts[key])fonts[key]=out.embedFont(L.StandardFonts[key]);return fonts[key];}
- function savePage(p){
-  var pagePromise;
-  if(p.src>=0)pagePromise=out.copyPages(src,[p.src]).then(function(r){return out.addPage(r[0]);});
-  else pagePromise=Promise.resolve(out.addPage([p.w,p.h]));
-  return pagePromise.then(function(pg){
-   var vp=p.src>=0?vps[p.src]:null;
-   var cv=function(x,y){return vp?vp.convertToPdfPoint(x,y):[x,p.h-y];};
+ function savePage(p,idx){
+  var pp=p.src>=0?out.copyPages(src,[p.src]).then(function(r){return out.addPage(r[0]);}):Promise.resolve(out.addPage([p.w,p.h]));
+  return pp.then(function(pg){
+   var vp=p.src>=0?vps[p.src]:null,cv=function(x,y){return vp?vp.convertToPdfPoint(x,y):[x,p.h-y];};
    var rectOf=function(x,y,w,h){var a=cv(x,y),b=cv(x+w,y+h);return {x:Math.min(a[0],b[0]),y:Math.min(a[1],b[1]),w:Math.abs(b[0]-a[0]),h:Math.abs(b[1]-a[1])};};
-   var drawImg=function(img,o,png){var r=rectOf(o.x,o.y,o.w,o.h);var em=png?out.embedPng(img):out.embedJpg(img);return em.then(function(e){pg.drawImage(e,{x:r.x,y:r.y,width:r.w,height:r.h});});};
+   var drawImg=function(bytes,box,png){var r=rectOf(box.x,box.y,box.w,box.h);return (png?out.embedPng(bytes):out.embedJpg(bytes)).then(function(e){pg.drawImage(e,{x:r.x,y:r.y,width:r.w,height:r.h});});};
+   var seg=function(a,b,w,c){pg.drawLine({start:{x:a[0],y:a[1]},end:{x:b[0],y:b[1]},thickness:w,color:c,lineCap:L.LineCapStyle.Round});};
    var chain=Promise.resolve();
    p.objs.forEach(function(o){chain=chain.then(function(){
-    if(o.type==='white'||o.type==='hl'||o.type==='rect'){var r=rectOf(o.x,o.y,o.w,o.h);
-     if(o.type==='white')pg.drawRectangle({x:r.x,y:r.y,width:r.w,height:r.h,color:L.rgb(1,1,1)});
-     else if(o.type==='hl')pg.drawRectangle({x:r.x,y:r.y,width:r.w,height:r.h,color:hexRgb(o.color),opacity:0.4,blendMode:L.BlendMode.Multiply});
-     else pg.drawRectangle({x:r.x+o.width/2,y:r.y+o.width/2,width:Math.max(0,r.w-o.width),height:Math.max(0,r.h-o.width),borderColor:hexRgb(o.color),borderWidth:o.width});
+    var r;
+    if(o.type==='white'){r=rectOf(o.x,o.y,o.w,o.h);pg.drawRectangle({x:r.x,y:r.y,width:r.w,height:r.h,color:L.rgb(1,1,1)});return;}
+    if(o.type==='hl'){r=rectOf(o.x,o.y,o.w,o.h);pg.drawRectangle({x:r.x,y:r.y,width:r.w,height:r.h,color:hexRgb(o.color),opacity:0.4,blendMode:L.BlendMode.Multiply});return;}
+    if(o.type==='rect'){r=rectOf(o.x,o.y,o.w,o.h);var hw=o.width/2,opt={x:r.x+hw,y:r.y+hw,width:Math.max(0,r.w-o.width),height:Math.max(0,r.h-o.width),borderColor:hexRgb(o.color),borderWidth:o.width};if(o.fill)opt.color=hexRgb(o.fill);pg.drawRectangle(opt);return;}
+    if(o.type==='ellipse'){r=rectOf(o.x,o.y,o.w,o.h);var eo={x:r.x+r.w/2,y:r.y+r.h/2,xScale:Math.max(0.5,r.w/2-o.width/2),yScale:Math.max(0.5,r.h/2-o.width/2),borderColor:hexRgb(o.color),borderWidth:o.width};if(o.fill)eo.color=hexRgb(o.fill);pg.drawEllipse(eo);return;}
+    if(o.type==='link'){links.push({pg:pg,r:rectOf(o.x,o.y,o.w,o.h),o:o});return;}
+    if(o.type==='field'){r=rectOf(o.x,o.y,o.w,o.h);if(!form)form=out.getForm();var nm='field_'+(idx+1)+'_'+(++fn),fo={x:r.x,y:r.y,width:r.w,height:r.h,borderColor:L.rgb(0.55,0.6,0.7),borderWidth:1};
+     if(o.ft==='check'){form.createCheckBox(nm).addToPage(pg,fo);}
+     else if(o.ft==='drop'){var dd=form.createDropdown(nm);dd.addOptions(o.opts||[]);dd.addToPage(pg,fo);}
+     else{var tf=form.createTextField(nm);if(o.ft==='multi')tf.enableMultiline();tf.addToPage(pg,fo);}
      return;}
-    if(o.type==='draw'){var c=hexRgb(o.color);var pts=o.pts.map(function(q){return cv(q[0],q[1]);});
-     if(pts.length===1){pg.drawCircle({x:pts[0][0],y:pts[0][1],size:o.width/2,color:c});return;}
-     for(var i=1;i<pts.length;i++)pg.drawLine({start:{x:pts[i-1][0],y:pts[i-1][1]},end:{x:pts[i][0],y:pts[i][1]},thickness:o.width,color:c,lineCap:L.LineCapStyle.Round});
+    if(o.type==='draw'){var c=hexRgb(o.color),pts=o.pts.map(function(q){return cv(q[0],q[1]);});if(pts.length===1){pg.drawCircle({x:pts[0][0],y:pts[0][1],size:o.width/2,color:c});return;}for(var i=1;i<pts.length;i++)seg(pts[i-1],pts[i],o.width,c);return;}
+    if(o.type==='line'){var lc=hexRgb(o.color),a1=cv(o.x1,o.y1),a2=cv(o.x2,o.y2);seg(a1,a2,o.width,lc);
+     if(o.arrow){var dx=o.x2-o.x1,dy=o.y2-o.y1,an=Math.atan2(dy,dx),Ln=Math.max(8,o.width*4),s=0.45;seg(cv(o.x2-Ln*Math.cos(an-s),o.y2-Ln*Math.sin(an-s)),a2,o.width,lc);seg(cv(o.x2-Ln*Math.cos(an+s),o.y2-Ln*Math.sin(an+s)),a2,o.width,lc);}
      return;}
     if(o.type==='img'){
      if(!p.rot0&&!o.r)return drawImg(dataBytes(o.src),o,/^data:image\/png/.test(o.src));
      return loadImg(o.src).then(function(im){var c0=document.createElement('canvas');c0.width=im.naturalWidth;c0.height=im.naturalHeight;c0.getContext('2d').drawImage(im,0,0);return drawImg(dataBytes(rotCanvas(c0,(o.r||0)-p.rot0).toDataURL('image/png')),bbox(o),true);});}
     if(o.type==='text'&&o.text){
-     var key=o.bold?FONTS[o.font].b:FONTS[o.font].r;
-     return font(key).then(function(f){
+     return font(o.bold?FONTS[o.font].b:FONTS[o.font].r).then(function(f){
       var lines=o.text.split('\n'),ok=!p.rot0&&!o.r;
       if(ok){try{lines.forEach(function(ln){f.widthOfTextAtSize(ln,o.size);});}catch(err){ok=false;}}
       if(ok){lines.forEach(function(ln,i){if(!ln)return;var b=cv(o.x,o.y+o.size*FONTS[o.font].bl+i*o.size*1.2);pg.drawText(ln,{x:b[0],y:b[1],size:o.size,font:f,color:hexRgb(o.color)});});return;}
@@ -698,10 +820,9 @@ function save(){
    return chain.then(function(){pg.setRotation(L.degrees(((p.rot0||0)+p.urot)%360));});
   });
  }
- return go;
 }
 
-/* ---------- wiring ---------- */
+/* ================= wiring ================= */
 var drop=$('peDrop');
 $('pePick').onclick=function(e){e.stopPropagation();$('peFile').click();};
 $('peBlank').onclick=function(e){e.stopPropagation();startBlank();};
@@ -711,31 +832,36 @@ $('peFile').onchange=function(){openFile(this.files[0]);this.value='';};
 ['dragenter','dragover'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.add('over');});});
 ['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('over');});});
 drop.addEventListener('drop',function(e){openFile(e.dataTransfer.files[0]);});
-$('peNew').onclick=function(){if(hist.length>1&&!confirmLeave())return;$('peApp').classList.remove('loaded');pages=[];doc=null;};
-function confirmLeave(){return window.confirm(T('Discard your changes and open another PDF?','बदलाव छोड़कर दूसरी PDF खोलें?'));}
-$('peTools').addEventListener('click',function(e){var b=e.target.closest('[data-t]');if(b)setTool(b.dataset.t);});
+$('peNew').onclick=function(){if(hist.length>1&&!window.confirm(T('Discard your changes and open another PDF?','बदलाव छोड़कर दूसरी PDF खोलें?')))return;$('peApp').classList.remove('loaded');pages=[];doc=null;$('pePages').innerHTML='';};
 $('peUndo').onclick=undo;$('peRedo').onclick=redo;$('peDel').onclick=delSel;$('peSave').onclick=save;
-$('pePrev').onclick=function(){if(cur>0){cur--;sel=null;fitZoom();renderPage();}};
-$('peNext').onclick=function(){if(cur<pages.length-1){cur++;sel=null;fitZoom();renderPage();}};
-$('peZi').onclick=function(){zoom=clamp(Math.round((zoom+0.15)*100)/100,0.3,3);renderPage();};
-$('peZo').onclick=function(){zoom=clamp(Math.round((zoom-0.15)*100)/100,0.3,3);renderPage();};
-$('peFit').onclick=function(){fitZoom();renderPage();};
-var L0=$('peLayer');L0.addEventListener('pointerdown',onDown);L0.addEventListener('pointermove',onMove);L0.addEventListener('pointerup',onUp);L0.addEventListener('pointercancel',onUp);
+$('pePrev').onclick=function(){scrollToPage(curPg-1);};
+$('peNext').onclick=function(){scrollToPage(curPg+1);};
+function setZoom(z){var st=$('peStage'),ratio=st.scrollTop/Math.max(1,st.scrollHeight);zoom=clamp(Math.round(z*100)/100,0.3,3);layoutAll();st.scrollTop=ratio*st.scrollHeight;}
+$('peZi').onclick=function(){setZoom(zoom+0.15);};
+$('peZo').onclick=function(){setZoom(zoom-0.15);};
+$('peFit').onclick=function(){fitZoom();setZoom(zoom);};
+$('pePages').addEventListener('pointerdown',onDown);
+window.addEventListener('pointermove',onMove,{passive:false});
+window.addEventListener('pointerup',onUp);
+window.addEventListener('pointercancel',onUp);
 document.addEventListener('keydown',function(e){
- if(!$('peApp').classList.contains('loaded'))return;
+ if(!$('peApp').classList.contains('loaded')||$('peDlg').classList.contains('on')||$('peSigM').classList.contains('on'))return;
  var tag=(e.target.tagName||'').toLowerCase();if(e.target.isContentEditable||tag==='input'||tag==='textarea'||tag==='select')return;
  var k=e.key.toLowerCase();
  if((e.ctrlKey||e.metaKey)&&k==='z'){e.preventDefault();if(e.shiftKey)redo();else undo();return;}
  if((e.ctrlKey||e.metaKey)&&k==='y'){e.preventDefault();redo();return;}
  if((e.key==='Delete'||e.key==='Backspace')&&sel){e.preventDefault();delSel();return;}
- if(e.key==='Escape'){sel=null;setTool('select');return;}
- if(sel&&/^arrow/.test(k)){e.preventDefault();var o=objById(sel),st=e.shiftKey?10:1,dx=k==='arrowleft'?-st:k==='arrowright'?st:0,dy=k==='arrowup'?-st:k==='arrowdown'?st:0;if(o.type==='draw')o.pts=o.pts.map(function(q){return [q[0]+dx,q[1]+dy];});else{o.x+=dx;o.y+=dy;}renderObjects();clearTimeout(L0.t);L0.t=setTimeout(snapshot,400);return;}
+ if(e.key==='Escape'){closeMenus();sel=null;setTool('select');return;}
+ if(sel&&/^arrow/.test(k)){e.preventDefault();var o=selObj(),st=e.shiftKey?10:1,dx=k==='arrowleft'?-st:k==='arrowright'?st:0,dy=k==='arrowup'?-st:k==='arrowdown'?st:0;
+  if(o.type==='draw')o.pts=o.pts.map(function(q){return [q[0]+dx,q[1]+dy];});else if(o.type==='line'){o.x1+=dx;o.x2+=dx;o.y1+=dy;o.y2+=dy;}else{o.x+=dx;o.y+=dy;}
+  renderLayer(sel.pi);clearTimeout(document.t);document.t=setTimeout(snapshot,400);return;}
  if(e.ctrlKey||e.metaKey||e.altKey)return;
- var map={v:'select',t:'text',e:'edittext',d:'draw',w:'white',r:'rect'};if(k==='h')setTool('hl');else if(map[k])setTool(map[k]);
+ var map={v:'select',t:'text',e:'edittext',d:'draw',h:'hl',w:'white',r:'rect',l:'link'};if(map[k])setTool(map[k]);
 });
+$('peDlg').addEventListener('click',function(e){if(e.target===this)this.classList.remove('on');});
 window.addEventListener('beforeunload',function(e){if($('peApp').classList.contains('loaded')&&hist.length>1){e.preventDefault();e.returnValue='';}});
-var rz;window.addEventListener('resize',function(){if(!pages.length)return;clearTimeout(rz);rz=setTimeout(function(){fitZoom();renderPage();},200);});
-document.addEventListener('langchange',function(){if(pages.length)setTool(tool);});
+var rz,lastW=window.innerWidth;window.addEventListener('resize',function(){if(!pages.length||Math.abs(window.innerWidth-lastW)<40)return;lastW=window.innerWidth;clearTimeout(rz);rz=setTimeout(function(){fitZoom();layoutAll();},250);});
+document.addEventListener('langchange',function(){if(pages.length){var top=$('peStage').scrollTop;buildPages();$('peStage').scrollTop=top;setTool(tool);}else{var h=HINTS[tool]||HINTS.select;$('peHint').textContent='💡 '+T(h[0],h[1]);}});
 setTool('select');
 })();
 </script>
