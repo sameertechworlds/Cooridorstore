@@ -1,118 +1,532 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Income Tax Calculator FY 2026-27: Old vs New Regime</title>
-<meta name="description" content="Free income tax calculator for FY 2026-27. Compare old and new regime slab by slab with ₹12 lakh rebate, standard deduction, cess and full working.">
+<meta name="description" content="Free income tax calculator FY 2026-27: new vs old regime with ₹12 lakh rebate, marginal relief, HRA for 8 cities, capital gains, surcharge and refund after TDS.">
+<meta name="keywords" content="income tax calculator FY 2026-27, new vs old regime calculator, tax on 12 lakh salary, tax on 15 lakh salary, 87A rebate marginal relief, capital gains tax calculator, surcharge calculator, advance tax calculator, income tax refund calculator, senior citizen tax calculator">
 <link rel="canonical" href="https://www.cooridorstore.in/income-tax-calculator">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Cooridor Store">
-<meta property="og:locale" content="en_IN">
-<meta property="og:title" content="Income Tax Calculator FY 2026-27: Old vs New Regime">
-<meta property="og:description" content="Compare old and new tax regime slab by slab and see which saves more. Free, no sign-up.">
-<meta property="og:url" content="https://www.cooridorstore.in/income-tax-calculator">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Income Tax Calculator FY 2026-27: Old vs New Regime">
-<meta name="twitter:description" content="Compare old and new tax regime slab by slab and see which saves more. Free, no sign-up.">
-  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="calc.css"><script src="app.js"></script>
+<meta property="og:type" content="website"><meta property="og:site_name" content="Cooridor Store"><meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Income Tax Calculator FY 2026-27: Old vs New Regime"><meta property="og:description" content="Free income tax calculator FY 2026-27: new vs old regime with ₹12 lakh rebate, marginal relief, HRA for 8 cities, capital gains, surcharge and refund after TDS."><meta property="og:url" content="https://www.cooridorstore.in/income-tax-calculator">
+<meta property="og:image" content="https://www.cooridorstore.in/og-image.jpg">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Income Tax Calculator FY 2026-27: Old vs New Regime"><meta name="twitter:description" content="Free income tax calculator FY 2026-27: new vs old regime with ₹12 lakh rebate, marginal relief, HRA for 8 cities, capital gains, surcharge and refund after TDS.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<style>
+:root{--is-pri:var(--pri,#2563eb);--is-acc:var(--acc,#10b981);--is-sur:var(--sur,#fff);--is-line:var(--line,#e2e8f0);--is-txt:var(--txt,#0f172a);--is-soft:var(--soft,#f1f5f9);--is-mut:#64748b;
+ --s1:#257de0;--s2:#f47230;--s3:#00b894;--s4:#f2a600;--s5:#ee7fac}
+[data-theme=dark]{--s1:#338ced;--s2:#e76624;--s3:#00a888;--s4:#d28e05;--s5:#e24d8b}
+.is-new{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.is-new span{font-size:.76rem;font-weight:700;padding:5px 11px;border-radius:999px;background:color-mix(in srgb,var(--is-acc) 14%,var(--is-sur));border:1px solid color-mix(in srgb,var(--is-acc) 40%,var(--is-line));color:var(--is-txt)}
+.is-lay{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start;margin-top:22px}
+.is-card{background:var(--is-sur);border:1px solid var(--is-line);border-radius:18px;padding:22px;position:relative}
+.is-card.top:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:18px 18px 0 0;background:linear-gradient(90deg,var(--is-pri),var(--is-acc))}
+.is-sec{font-size:.74rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--is-mut);margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.is-sec:first-child{margin-top:0}
+.is-sec:after{content:"";flex:1;height:1px;background:var(--is-line)}
+.is-g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.is-f{margin-bottom:12px}
+.is-f label{display:block;font-size:.84rem;font-weight:600;margin-bottom:6px;color:var(--is-txt)}
+.is-f input,.is-f select{width:100%;box-sizing:border-box;background:var(--is-soft);border:1px solid var(--is-line);color:var(--is-txt);border-radius:10px;padding:11px 12px;font:inherit;font-size:.95rem}
+.is-f input:focus,.is-f select:focus{outline:none;border-color:var(--is-pri);box-shadow:0 0 0 3px color-mix(in srgb,var(--is-pri) 20%,transparent)}
+.is-f small{display:block;color:var(--is-mut);font-size:.76rem;margin-top:5px;line-height:1.4}
+.is-f .big{font-size:1.15rem;font-weight:700}
+.is-seg{display:flex;gap:6px;flex-wrap:wrap}
+.is-seg button{flex:1;min-width:90px;border:1px solid var(--is-line);background:var(--is-sur);color:var(--is-txt);padding:9px 10px;border-radius:10px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
+.is-seg button.on{background:var(--is-pri);border-color:var(--is-pri);color:#fff}
+.is-tg{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed var(--is-line);font-size:.88rem}
+.is-tg span small{display:block;color:var(--is-mut);font-size:.75rem;margin-top:2px}
+.is-sw{position:relative;width:44px;height:24px;flex:none;margin-top:2px}
+.is-sw input{opacity:0;width:0;height:0}
+.is-sw i{position:absolute;inset:0;background:var(--is-line);border-radius:99px;cursor:pointer;transition:.2s}
+.is-sw i:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.is-sw input:checked+i{background:var(--is-pri)}
+.is-sw input:checked+i:before{transform:translateX(20px)}
+.is-adv{margin-top:6px}
+.is-adv summary{cursor:pointer;font-weight:700;font-size:.88rem;color:var(--is-pri);padding:8px 0}
+.is-res{position:sticky;top:86px}
+.is-lbl{font-size:.85rem;color:var(--is-mut);font-weight:600}
+.is-hero{font-size:2.6rem;font-weight:800;letter-spacing:-.02em;color:var(--is-pri);line-height:1.1;margin:4px 0}
+.is-sub{font-size:.88rem;color:var(--is-mut)}
+.is-chip{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:6px 11px;border-radius:999px;font-size:.8rem;font-weight:700;background:color-mix(in srgb,var(--is-acc) 14%,var(--is-sur));border:1px solid color-mix(in srgb,var(--is-acc) 45%,var(--is-line))}
+.is-warn{margin-top:12px;padding:10px 12px;border-radius:10px;font-size:.82rem;line-height:1.5;background:color-mix(in srgb,#f59e0b 12%,var(--is-sur));border:1px solid color-mix(in srgb,#f59e0b 45%,var(--is-line))}
+.is-bar{display:flex;gap:2px;height:30px;margin:18px 0 10px;position:relative}
+.is-bar div{height:100%;min-width:3px;cursor:pointer;transition:filter .15s}
+.is-bar div:first-child{border-radius:4px 0 0 4px}
+.is-bar div:last-child{border-radius:0 4px 4px 0}
+.is-bar div:only-child{border-radius:4px}
+.is-bar div:hover{filter:brightness(1.08) saturate(1.1)}
+.is-leg{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-size:.82rem}
+.is-leg span{display:flex;align-items:center;gap:7px;color:var(--is-txt)}
+.is-leg i{width:10px;height:10px;border-radius:3px;flex:none}
+.is-leg b{margin-left:auto;font-weight:700}
+.is-tip{position:fixed;pointer-events:none;background:var(--is-txt);color:var(--is-sur);font-size:.8rem;font-weight:600;padding:7px 10px;border-radius:8px;opacity:0;transition:opacity .12s;z-index:90;white-space:nowrap}
+.is-tbl{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:14px}
+.is-tbl th{text-align:right;font-size:.74rem;color:var(--is-mut);font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:6px 4px;border-bottom:1px solid var(--is-line)}
+.is-tbl th:first-child{text-align:left}
+.is-tbl td{padding:8px 4px;border-bottom:1px dashed var(--is-line);text-align:right;font-variant-numeric:tabular-nums}
+.is-tbl td:first-child{text-align:left;color:var(--is-txt)}
+.is-tbl tr.h td{font-weight:800;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--is-mut);border-bottom:none;padding-top:14px}
+.is-tbl tr.t td{font-weight:800;border-bottom:1px solid var(--is-line)}
+.is-tbl tr.ih td{font-weight:800;font-size:1rem;color:var(--is-pri);border-bottom:none}
+.is-tbl td.neg{color:#dc2626}
+.is-cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.is-cmp div{border:1px solid var(--is-line);border-radius:12px;padding:12px;background:var(--is-soft)}
+.is-cmp div.best{border-color:var(--is-acc);background:color-mix(in srgb,var(--is-acc) 10%,var(--is-sur))}
+.is-cmp b{display:block;font-size:1.1rem;margin-top:4px}
+.is-cmp small{color:var(--is-mut);font-size:.76rem}
+.is-tools{margin-top:22px}
+.is-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.is-tabs button{border:1px solid var(--is-line);background:var(--is-soft);color:var(--is-txt);padding:10px 14px;border-radius:10px;font:inherit;font-size:.86rem;font-weight:700;cursor:pointer}
+.is-tabs button.on{background:var(--is-pri);border-color:var(--is-pri);color:#fff}
+.is-pane{display:none}
+.is-pane.on{display:block}
+.is-pane .is-g3{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.is-out{margin-top:6px;padding:16px;border-radius:12px;background:color-mix(in srgb,var(--is-pri) 7%,var(--is-sur));border:1px solid color-mix(in srgb,var(--is-pri) 30%,var(--is-line));font-size:.92rem;line-height:1.7}
+.is-out b.k{font-size:1.4rem;color:var(--is-pri)}
+.is-work{margin-top:16px}
+.is-work summary{cursor:pointer;font-weight:700;font-size:.88rem}
+.is-work pre{white-space:pre-wrap;font-size:.8rem;line-height:1.6;background:var(--is-soft);border-radius:10px;padding:12px;margin-top:8px;overflow:auto}
+.is-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.is-btn{border:1px solid var(--is-line);background:var(--is-soft);color:var(--is-txt);padding:9px 14px;border-radius:10px;font:inherit;font-size:.84rem;font-weight:700;cursor:pointer}
+.is-btn:hover{border-color:var(--is-pri)}
+.art details{background:var(--is-sur);border:1px solid var(--is-line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.art summary{font-weight:600;cursor:pointer;color:var(--is-txt)}
+.art details p{margin:8px 0 0}
+.art table{width:100%;border-collapse:collapse;font-size:.88rem}
+.art td,.art th{border-bottom:1px solid var(--is-line);padding:8px 6px;text-align:left;vertical-align:top}
+@media(max-width:900px){.is-lay{grid-template-columns:1fr}.is-res{position:static}.is-pane .is-g3{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.is-g2,.is-cmp,.is-leg{grid-template-columns:1fr}.is-hero{font-size:2.1rem}.is-pane .is-g3{grid-template-columns:1fr}}
+@media print{body *{visibility:hidden}#isRes,#isRes *{visibility:visible}#isRes{position:absolute;left:0;top:0;width:100%;border:none}.is-btns,.is-work{display:none}}
+
+.is-kw{font-size:.88rem;line-height:1.9;color:var(--is-mut)}
+.is-tools .is-g3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:520px}
+#itabs button{font-size:.8rem;padding:9px 11px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://www.cooridorstore.in/#organization", "name": "Cooridor Store", "url": "https://www.cooridorstore.in/", "logo": {"@type": "ImageObject", "url": "https://www.cooridorstore.in/og-image.jpg"}}, {"@type": "WebSite", "@id": "https://www.cooridorstore.in/#website", "url": "https://www.cooridorstore.in/", "name": "Cooridor Store", "inLanguage": "en-IN", "publisher": {"@id": "https://www.cooridorstore.in/#organization"}}, {"@type": "WebPage", "@id": "https://www.cooridorstore.in/income-tax-calculator#webpage", "url": "https://www.cooridorstore.in/income-tax-calculator", "name": "Income Tax Calculator FY 2026-27: Old vs New Regime", "inLanguage": "en-IN", "isPartOf": {"@id": "https://www.cooridorstore.in/#website"}, "datePublished": "2026-10-01", "dateModified": "2026-11-28", "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.cooridorstore.in/"}, {"@type": "ListItem", "position": 2, "name": "Income Tax Calculator", "item": "https://www.cooridorstore.in/income-tax-calculator"}]}}, {"@type": "SoftwareApplication", "name": "Income Tax Calculator FY 2026-27", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "url": "https://www.cooridorstore.in/income-tax-calculator", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "publisher": {"@id": "https://www.cooridorstore.in/#organization"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I calculate income tax for FY 2026-27?", "acceptedAnswer": {"@type": "Answer", "text": "Add your income from all sources, subtract the standard deduction and other allowed deductions, apply the slab rates of your chosen regime, subtract the 87A rebate if eligible, add surcharge if income is above ₹50 lakh, and add 4% cess. The calculator above does every step and shows the working."}}, {"@type": "Question", "name": "Is income up to ₹12 lakh tax-free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, in the new regime for residents. The rebate makes tax nil on taxable income up to ₹12 lakh, and salaried people with the ₹75,000 standard deduction pay nothing up to ₹12.75 lakh, as long as there is no special-rate income such as capital gains."}}, {"@type": "Question", "name": "What is marginal relief in the new regime?", "acceptedAnswer": {"@type": "Answer", "text": "If income is just over ₹12 lakh, tax is limited to the amount by which income exceeds ₹12 lakh. On ₹12.1 lakh, for example, tax is ₹10,000 plus cess instead of ₹61,500."}}, {"@type": "Question", "name": "How much tax will I pay on a ₹15 lakh salary?", "acceptedAnswer": {"@type": "Answer", "text": "Under the new regime, ₹97,500 including cess. Taxable income is ₹14.25 lakh after the ₹75,000 standard deduction."}}, {"@type": "Question", "name": "How much tax on a ₹20 lakh salary?", "acceptedAnswer": {"@type": "Answer", "text": "₹1,92,400 under the new regime, including cess, with no other deductions."}}, {"@type": "Question", "name": "Which regime is better for me?", "acceptedAnswer": {"@type": "Answer", "text": "Enter your numbers above. The calculator shows both and also tells you how many more old-regime deductions you would need for the old regime to win. For most people with deductions under ₹4–5 lakh, the new regime is cheaper."}}, {"@type": "Question", "name": "Can I claim HRA and home loan interest in the new regime?", "acceptedAnswer": {"@type": "Answer", "text": "No. HRA exemption and interest on a self-occupied home loan are allowed only in the old regime. Interest on a let-out house is allowed in the new regime but a loss cannot be set off."}}, {"@type": "Question", "name": "Does the rebate apply to capital gains?", "acceptedAnswer": {"@type": "Answer", "text": "No. The rebate does not cover tax on equity LTCG, crypto, or special-rate income in the new regime. Unused basic exemption can still be set off against capital gains for residents."}}, {"@type": "Question", "name": "Can I switch between the old and new regime every year?", "acceptedAnswer": {"@type": "Answer", "text": "Salaried people and pensioners without business income can choose every year while filing. Those with business income can leave the new regime and come back only once."}}, {"@type": "Question", "name": "Why is my result different from my employer's TDS?", "acceptedAnswer": {"@type": "Answer", "text": "Employers estimate tax on salary only and may not know about your interest, rent, capital gains or deductions you did not declare. Your final tax is based on total income, which is what this calculator works out."}}]}]}</script>
 </head>
 <body>
 <div id="site-header"></div>
 <main class="container page">
-  <div class="crumb"><a href="/">Home</a> › <span data-en="Income Tax Calculator" data-hi="इनकम टैक्स कैलकुलेटर">Income Tax Calculator</span></div>
-  <div class="ph">
-    <h1 data-en="Income Tax Calculator FY 2026-27" data-hi="इनकम टैक्स कैलकुलेटर FY 2026-27">Income Tax Calculator FY 2026-27</h1>
-    <p data-en="Compare your tax under the old and new regime, slab by slab, and see which one saves you more." data-hi="पुरानी और नई रिजीम में स्लैब के हिसाब से टैक्स की तुलना कीजिए और देखिए कौन सी ज़्यादा बचत कराती है।">Compare your tax under the old and new regime, slab by slab, and see which one saves you more.</p>
-  </div>
-  <div class="lay">
-    <div class="card box">
-      <div class="f"><label data-en="Annual gross income (₹)" data-hi="सालाना कुल आय (₹)">Annual gross income (₹)</label><input type="number" id="inc" value="1500000"></div>
-      <div class="f"><label data-en="Are you salaried?" data-hi="क्या आप नौकरीपेशा हैं?">Are you salaried?</label>
-        <div class="chips"><button class="on" onclick="chip(1,this)" data-en="Yes" data-hi="हाँ">Yes</button><button onclick="chip(0,this)" data-en="No" data-hi="नहीं">No</button></div></div>
-      <div class="f"><label data-en="Deductions for old regime: 80C, 80D, HRA etc. (₹)" data-hi="पुरानी रिजीम की कटौती: 80C, 80D, HRA आदि (₹)">Deductions for old regime: 80C, 80D, HRA etc. (₹)</label><input type="number" id="ded" value="200000"></div>
-      <p class="note" data-en="Deductions apply only to the old regime. Standard deduction is added automatically for salaried people." data-hi="कटौती सिर्फ़ पुरानी रिजीम में लगती है। नौकरीपेशा के लिए स्टैंडर्ड डिडक्शन अपने आप जुड़ता है।">Deductions apply only to the old regime. Standard deduction is added automatically for salaried people.</p>
+ <div class="crumb"><a href="index.html">Home</a> › <span data-en="Income Tax Calculator" data-hi="इनकम टैक्स कैलकुलेटर">Income Tax Calculator</span></div>
+ <div class="ph">
+  <h1 data-en="Income Tax Calculator FY 2026-27: Old vs New Regime" data-hi="इनकम टैक्स कैलकुलेटर FY 2026-27: पुरानी बनाम नई रिजीम">Income Tax Calculator FY 2026-27: Old vs New Regime</h1>
+  <p data-en="Enter your salary, other income, capital gains and deductions. We work out tax under both regimes with rebate, marginal relief, surcharge and cess, show every step and tell you which regime saves more." data-hi="अपनी सैलरी, दूसरी आय, कैपिटल गेन और छूट डालें। हम दोनों रिजीम में रिबेट, मार्जिनल रिलीफ, सरचार्ज और सेस के साथ टैक्स निकालते हैं, हर स्टेप दिखाते हैं और बताते हैं कि कौन सी रिजीम ज़्यादा बचत देती है।">Enter your salary, other income, capital gains and deductions. We work out tax under both regimes with rebate, marginal relief, surcharge and cess, show every step and tell you which regime saves more.</p>
+  <div class="is-new"><span>✅ FY 2026-27 &amp; FY 2025-26 slabs</span><span>✅ ₹12 lakh rebate + marginal relief</span><span>✅ HRA for 8 metro cities</span><span>✅ Capital gains at special rates</span><span>✅ Surcharge with relief</span><span>✅ Refund or tax payable</span></div>
+ </div>
+
+ <div class="is-lay">
+  <div class="is-card top">
+   <div class="is-sec">Basic details</div>
+   <div class="is-g2">
+    <div class="is-f"><label for="fy">Financial year</label><select id="fy"><option value="2027" selected>FY 2026-27 (Tax Year 2026-27, file in 2027)</option><option value="2026">FY 2025-26 (AY 2026-27, file in 2026)</option></select></div>
+    <div class="is-f"><label for="age">Your age</label><select id="age"><option value="0" selected>Below 60</option><option value="1">60 to 79 (senior citizen)</option><option value="2">80 or above (super senior)</option></select></div>
+   </div>
+   <div class="is-f"><div class="is-seg" id="res"><button type="button" data-v="r" class="on">Resident</button><button type="button" data-v="nr">Non-resident (NRI)</button></div></div>
+
+   <div class="is-tabs" id="itabs" style="margin-top:16px">
+    <button type="button" data-p="sal" class="on">💼 Salary</button>
+    <button type="button" data-p="oth">🏠 Other income</button>
+    <button type="button" data-p="cg">📈 Capital gains</button>
+    <button type="button" data-p="ded">🧾 Deductions</button>
+    <button type="button" data-p="paid">✅ Tax paid</button>
+   </div>
+
+   <div class="is-pane on" data-p="sal">
+    <div class="is-f"><label for="gross">Gross salary for the year, ₹</label><input id="gross" class="big" inputmode="decimal" value="1500000"><small id="grossW">Total of all salary components, including bonus and employer NPS. Do not include employer PF.</small></div>
+    <div class="is-tg"><span>I get salary or pension<small>Gives the standard deduction: ₹75,000 new regime, ₹50,000 old regime</small></span><label class="is-sw"><input type="checkbox" id="isSal" checked><i></i></label></div>
+    <div class="is-g2" style="margin-top:12px">
+     <div class="is-f"><label for="basic">Basic + DA for the year, ₹</label><input id="basic" inputmode="decimal" value="600000"><small>Used for HRA and NPS limits</small></div>
+     <div class="is-f"><label for="hra">HRA received for the year, ₹</label><input id="hra" inputmode="decimal" value="0"></div>
+     <div class="is-f"><label for="rent">Rent paid for the year, ₹</label><input id="rent" inputmode="decimal" value="0"></div>
+     <div class="is-f"><label for="city">City you live in</label><select id="city"><option value="m4">Delhi, Mumbai, Kolkata, Chennai</option><option value="m8">Bengaluru, Hyderabad, Pune, Ahmedabad</option><option value="o" selected>Any other city</option></select><small id="cityMsg"></small></div>
+     <div class="is-f"><label for="enps">Employer NPS contribution, ₹</label><input id="enps" inputmode="decimal" value="0"><small>Deductible up to 14% of basic (new) or 10% (old)</small></div>
+     <div class="is-f"><label for="pt">Professional tax paid, ₹</label><input id="pt" inputmode="decimal" value="0"><small>Old regime only, up to ₹2,500</small></div>
     </div>
-    <div class="card box">
-      <div class="lbl" id="winlbl"></div>
-      <div class="big" id="big">₹0</div>
-      <table class="rt" id="rows"></table>
-      <div class="work"><b data-en="New regime working" data-hi="नई रिजीम की कैलकुलेशन">New regime working</b><pre id="wn"></pre></div>
-      <div class="work"><b data-en="Old regime working" data-hi="पुरानी रिजीम की कैलकुलेशन">Old regime working</b><pre id="wo"></pre></div>
-      <p class="note">Surcharge for income above ₹50 lakh is not included.</p>
+   </div>
+
+   <div class="is-pane" data-p="oth">
+    <div class="is-g2">
+     <div class="is-f"><label for="sav">Savings account interest, ₹</label><input id="sav" inputmode="decimal" value="0"></div>
+     <div class="is-f"><label for="fd">FD, RD and other interest, ₹</label><input id="fd" inputmode="decimal" value="0"></div>
+     <div class="is-f"><label for="divi">Dividends, ₹</label><input id="divi" inputmode="decimal" value="0"></div>
+     <div class="is-f"><label for="biz">Business or profession profit, ₹</label><input id="biz" inputmode="decimal" value="0"><small>Net profit after expenses, or presumptive income</small></div>
+     <div class="is-f"><label for="othr">Any other income, ₹</label><input id="othr" inputmode="decimal" value="0"><small>Gifts above ₹50,000, family pension and so on</small></div>
     </div>
+    <div class="is-sec">House property</div>
+    <div class="is-g2">
+     <div class="is-f"><label for="hlSelf">Home loan interest, house you live in, ₹</label><input id="hlSelf" inputmode="decimal" value="0"><small>Old regime only, up to ₹2 lakh</small></div>
+     <div class="is-f"><label for="rentRec">Rent received from a let-out house, ₹</label><input id="rentRec" inputmode="decimal" value="0"></div>
+     <div class="is-f"><label for="mtax">Municipal tax paid on it, ₹</label><input id="mtax" inputmode="decimal" value="0"></div>
+     <div class="is-f"><label for="hlLet">Home loan interest, let-out house, ₹</label><input id="hlLet" inputmode="decimal" value="0"></div>
+    </div>
+   </div>
+
+   <div class="is-pane" data-p="cg">
+    <div class="is-g2">
+     <div class="is-f"><label for="stcg">Short-term gain on shares / equity funds, ₹</label><input id="stcg" inputmode="decimal" value="0"><small>Held 12 months or less, STT paid. Taxed at 20%</small></div>
+     <div class="is-f"><label for="ltcg">Long-term gain on shares / equity funds, ₹</label><input id="ltcg" inputmode="decimal" value="0"><small>Held over 12 months. 12.5% above ₹1.25 lakh</small></div>
+     <div class="is-f"><label for="ltcgO">Other long-term gains (property, gold, bonds), ₹</label><input id="ltcgO" inputmode="decimal" value="0"><small>Taxed at 12.5% without indexation</small></div>
+     <div class="is-f"><label for="stcgO">Other short-term gains, ₹</label><input id="stcgO" inputmode="decimal" value="0"><small>Added to income and taxed at slab rates</small></div>
+     <div class="is-f"><label for="vda">Crypto / VDA gains, ₹</label><input id="vda" inputmode="decimal" value="0"><small>Flat 30%, no set-off of losses</small></div>
+    </div>
+   </div>
+
+   <div class="is-pane" data-p="ded">
+    <div class="is-warn" style="margin:0 0 12px">These deductions count only in the <b>old regime</b>. The new regime allows the standard deduction and employer NPS, which are taken from the Salary tab.</div>
+    <div class="is-g2">
+     <div class="is-f"><label for="c80">80C: EPF, PPF, ELSS, LIC, tuition, principal, ₹</label><input id="c80" inputmode="decimal" value="0"><small>Capped at ₹1,50,000</small></div>
+     <div class="is-f"><label for="nps1">80CCD(1B): own NPS, ₹</label><input id="nps1" inputmode="decimal" value="0"><small>Extra, up to ₹50,000</small></div>
+     <div class="is-f"><label for="d80s">80D: health insurance for self/family, ₹</label><input id="d80s" inputmode="decimal" value="0"><small>Up to ₹25,000 (₹50,000 if senior)</small></div>
+     <div class="is-f"><label for="d80p">80D: health insurance for parents, ₹</label><input id="d80p" inputmode="decimal" value="0"><select id="pSen" style="margin-top:6px"><option value="0">Parents below 60 (up to ₹25,000)</option><option value="1">Parents 60+ (up to ₹50,000)</option></select></div>
+     <div class="is-f"><label for="e80">80E: education loan interest, ₹</label><input id="e80" inputmode="decimal" value="0"><small>No upper limit</small></div>
+     <div class="is-f"><label for="g80">80G: eligible donation amount, ₹</label><input id="g80" inputmode="decimal" value="0"><small>Enter the deductible amount (50% or 100%)</small></div>
+     <div class="is-f"><label for="oded">Other deductions (80DD, 80U, 80EEB…), ₹</label><input id="oded" inputmode="decimal" value="0"></div>
+    </div>
+    <p class="is-sub" style="margin:4px 0 0">Savings interest deduction (80TTA ₹10,000, or 80TTB ₹50,000 for seniors) and 80GG for rent without HRA are applied automatically.</p>
+   </div>
+
+   <div class="is-pane" data-p="paid">
+    <div class="is-g2">
+     <div class="is-f"><label for="tds">TDS deducted (salary + others), ₹</label><input id="tds" inputmode="decimal" value="0"><small>See Form 16, Form 26AS or AIS</small></div>
+     <div class="is-f"><label for="adv">Advance / self-assessment tax paid, ₹</label><input id="adv" inputmode="decimal" value="0"></div>
+    </div>
+   </div>
+
+   <div class="is-sec">Show result for</div>
+   <div class="is-f"><div class="is-seg" id="reg"><button type="button" data-v="auto" class="on">Best for me</button><button type="button" data-v="new">New regime</button><button type="button" data-v="old">Old regime</button></div></div>
   </div>
 
-  <article class="art">
-    <h2>New tax regime slabs (FY 2026-27)</h2>
-    <table><tr><th>Taxable income</th><th>Rate</th></tr>
-    <tr><td>Up to ₹4,00,000</td><td>Nil</td></tr><tr><td>₹4,00,001 – ₹8,00,000</td><td>5%</td></tr>
-    <tr><td>₹8,00,001 – ₹12,00,000</td><td>10%</td></tr><tr><td>₹12,00,001 – ₹16,00,000</td><td>15%</td></tr>
-    <tr><td>₹16,00,001 – ₹20,00,000</td><td>20%</td></tr><tr><td>₹20,00,001 – ₹24,00,000</td><td>25%</td></tr>
-    <tr><td>Above ₹24,00,000</td><td>30%</td></tr></table>
-    <p>Salaried people get a standard deduction of ₹75,000. If taxable income is up to ₹12 lakh, a rebate makes the tax zero, so a salaried person earning up to ₹12.75 lakh pays no tax.</p>
+  <div class="is-card is-res" id="isRes">
+   <div class="is-lbl" id="heroL">Total tax for the year</div>
+   <div class="is-hero" id="hero">₹0</div>
+   <div class="is-sub" id="heroSub"></div>
+   <div class="is-chip" id="chip"></div>
+   <div id="warns"></div>
+   <div class="is-cmp" id="cmp"></div>
+   <div class="is-lbl" style="margin-top:18px">Where your income goes</div>
+   <div class="is-bar" id="bar" role="img" aria-label="Income split"></div>
+   <div class="is-leg" id="leg"></div>
+   <table class="is-tbl" id="tbl"></table>
+   <div class="is-out" id="be" style="margin-top:14px"></div>
+   <div class="is-btns"><button type="button" class="is-btn" id="cp">📋 Copy summary</button><button type="button" class="is-btn" id="sh">🔗 Copy share link</button><button type="button" class="is-btn" id="pr">🖨️ Print / PDF</button><button type="button" class="is-btn" id="rs">↺ Reset</button></div>
+   <details class="is-work"><summary>How we calculated it (slab by slab)</summary><pre id="work"></pre></details>
+  </div>
+ </div>
 
-    <h2>Old tax regime slabs</h2>
-    <table><tr><th>Taxable income</th><th>Rate</th></tr>
-    <tr><td>Up to ₹2,50,000</td><td>Nil</td></tr><tr><td>₹2,50,001 – ₹5,00,000</td><td>5%</td></tr>
-    <tr><td>₹5,00,001 – ₹10,00,000</td><td>20%</td></tr><tr><td>Above ₹10,00,000</td><td>30%</td></tr></table>
-    <p>The old regime allows deductions such as 80C (up to ₹1.5 lakh), 80D, HRA and home loan interest, plus a ₹50,000 standard deduction. Income up to ₹5 lakh gets a full rebate. A 4% health and education cess is added in both regimes.</p>
+ <div class="is-card is-tools">
+  <div class="is-tabs" id="tabs">
+   <button type="button" data-p="advt" class="on">📅 Advance tax schedule</button>
+   <button type="button" data-p="hike">📈 Tax after a salary hike</button>
+   <button type="button" data-p="tbl">📊 Tax at every salary</button>
+  </div>
+  <div class="is-pane on" data-p="advt"><div class="is-out" id="advOut"></div></div>
+  <div class="is-pane" data-p="hike">
+   <div class="is-g3"><div class="is-f"><label for="hk">Hike, %</label><input id="hk" inputmode="decimal" value="10"></div><div class="is-f"><label for="hkb">Or bonus received, ₹</label><input id="hkb" inputmode="decimal" value="0"></div></div>
+   <div class="is-out" id="hkOut"></div>
+  </div>
+  <div class="is-pane" data-p="tbl"><div id="stOut" style="overflow-x:auto"></div></div>
+ </div>
+ <div class="is-tip" id="tip"></div>
 
-    <h2>Worked example</h2>
-    <p>Salary ₹15,00,000, new regime: taxable income = 15,00,000 − 75,000 = ₹14,25,000. Tax = 0 + 20,000 + 40,000 + 33,750 = ₹93,750. Cess 4% = ₹3,750. Total = ₹97,500.</p>
+ <article class="art">
+  <h2>What does this income tax calculator do?</h2>
+  <p>This free income tax calculator works out your tax for <b>FY 2026-27 (Tax Year 2026-27)</b> and <b>FY 2025-26 (AY 2026-27)</b> under both the new and the old regime. Unlike a simple slab calculator, it handles the parts where most online calculators go wrong: the ₹12 lakh rebate with marginal relief, HRA for the eight metro cities, house property loss, capital gains at special rates, surcharge with marginal relief, the basic exemption set-off against capital gains, and rounding under sections 288A and 288B. It then compares both regimes, shows each step, and tells you the tax still payable or the refund after TDS.</p>
+  <p>Everything runs in your browser. Nothing you type is uploaded or stored.</p>
 
-    <h2>Which regime should I choose?</h2>
-    <p>If your total deductions are small, the new regime usually saves more. If you claim large deductions like HRA, 80C and home loan interest, compare both using the calculator above.</p>
-    <h2>Frequently asked questions</h2>
-    <h3>1. How do I calculate income tax for FY 2026-27?</h3>
-    <p>Subtract the standard deduction (and, in the old regime, your other deductions) from your income to get taxable income. Apply the slab rates, subtract any rebate, then add 4% cess. The calculator above shows every step.</p>
-    <h3>2. Is income up to ₹12 lakh tax-free?</h3>
-    <p>Yes, in the new regime. Taxable income up to ₹12 lakh gets a full rebate. For salaried people, the ₹75,000 standard deduction makes income up to ₹12.75 lakh tax-free.</p>
-    <h3>3. What is marginal relief in the new regime?</h3>
-    <p>If taxable income is slightly above ₹12 lakh, the tax cannot be more than the income above ₹12 lakh. For example, on ₹12,10,000 taxable income the tax is limited to ₹10,000 plus cess.</p>
-    <h3>4. How much tax is payable on a ₹10 lakh salary?</h3>
-    <p>Nil in the new regime, as taxable income after the ₹75,000 standard deduction is ₹9,25,000, which is covered by the rebate.</p>
-    <h3>5. How much tax is payable on a ₹15 lakh salary?</h3>
-    <p>In the new regime, taxable income is ₹14,25,000. Tax is ₹93,750 plus ₹3,750 cess, a total of ₹97,500.</p>
-    <h3>6. How much tax is payable on a ₹20 lakh salary?</h3>
-    <p>In the new regime, taxable income is ₹19,25,000. Tax is ₹1,85,000 plus ₹7,400 cess, a total of ₹1,92,400.</p>
-    <h3>7. Which deductions are allowed in the new regime?</h3>
-    <p>Only a few, mainly the ₹75,000 standard deduction for salaried people and the employer's contribution to NPS. Deductions like 80C, 80D, HRA and home loan interest on a self-occupied house are allowed only in the old regime.</p>
-    <h3>8. What is the standard deduction?</h3>
-    <p>A flat deduction from salary or pension income, without any proof. It is ₹75,000 in the new regime and ₹50,000 in the old regime.</p>
-    <h3>9. Can I switch between the old and new regime?</h3>
-    <p>Salaried people without business income can choose either regime every year while filing the return. People with business or professional income can switch back to the new regime only once.</p>
-    <h3>10. What are surcharge and cess?</h3>
-    <p>A 4% health and education cess is added to the tax in both regimes. Surcharge applies only above ₹50 lakh income: 10% above ₹50 lakh, 15% above ₹1 crore and 25% above ₹2 crore in the new regime.</p>
-    <h2>Related tools</h2>
-    <div class="related"><a class="card" href="hra-calculator.html">🏠 HRA Calculator</a><a class="card" href="tds-calculator.html">✂️ TDS Calculator</a><a class="card" href="gst-calculator.html">🧮 GST Calculator</a></div>
-    <p class="note">Results are for guidance only. Please verify with a tax professional before filing.</p>
-  </article>
+  <h2>What changed for FY 2026-27?</h2>
+  <ul>
+   <li><b>New law, same rates.</b> The Income-tax Act, 2025 replaced the 1961 Act from 1 April 2026. The CBDT announced that the "Income-tax Act, 2025 comes into force from 1st April, 2026" (<a href="https://www.incometaxindia.gov.in/documents/d/guest/press-release-income-tax-act-2025-comes-into-force-from-01-april-2026-pdf" target="_blank" rel="noopener">CBDT press release</a>). Slab rates did not change.</li>
+   <li><b>"Tax Year" replaces "previous year" and "assessment year".</b> Income earned from April 2026 to March 2027 is Tax Year 2026-27, with the return filed in 2027.</li>
+   <li><b>HRA for 8 cities.</b> Bengaluru, Hyderabad, Pune and Ahmedabad now get the 50% HRA limit along with Delhi, Mumbai, Kolkata and Chennai.</li>
+   <li><b>New section numbers.</b> Deductions and TDS have new section numbers under the 2025 Act. This page uses the familiar old numbers (80C, 80D, 87A) because that is what most people search for.</li>
+  </ul>
+
+  <h2>How is income tax calculated?</h2>
+  <ol>
+   <li><b>Add up income</b> under five heads: salary, house property, business or profession, capital gains, and other sources.</li>
+   <li><b>Reduce salary</b> by the standard deduction (₹75,000 new, ₹50,000 old), exempt HRA (old regime), employer NPS and professional tax (old regime).</li>
+   <li><b>Set off house property loss</b> up to ₹2 lakh against other income (old regime only).</li>
+   <li><b>Subtract deductions</b> such as 80C, 80D and 80CCD(1B) in the old regime to reach taxable income. Round it to the nearest ₹10.</li>
+   <li><b>Apply slab rates</b> to normal income and <b>special rates</b> to capital gains and crypto.</li>
+   <li><b>Subtract the 87A rebate</b> (residents only) and apply marginal relief where income is just above ₹12 lakh.</li>
+   <li><b>Add surcharge</b> if total income is above ₹50 lakh, with marginal relief at each threshold.</li>
+   <li><b>Add 4% health and education cess</b>, round to the nearest ₹10, and subtract TDS and advance tax already paid.</li>
+  </ol>
+
+  <h2>What are the income tax slabs for FY 2026-27?</h2>
+  <table><thead><tr><th>New regime: taxable income</th><th>Rate</th></tr></thead><tbody>
+   <tr><td>Up to ₹4,00,000</td><td>Nil</td></tr><tr><td>₹4,00,001 – ₹8,00,000</td><td>5%</td></tr><tr><td>₹8,00,001 – ₹12,00,000</td><td>10%</td></tr><tr><td>₹12,00,001 – ₹16,00,000</td><td>15%</td></tr><tr><td>₹16,00,001 – ₹20,00,000</td><td>20%</td></tr><tr><td>₹20,00,001 – ₹24,00,000</td><td>25%</td></tr><tr><td>Above ₹24,00,000</td><td>30%</td></tr></tbody></table>
+  <p></p>
+  <table><thead><tr><th>Old regime: taxable income</th><th>Below 60</th><th>60 to 79</th><th>80 and above</th></tr></thead><tbody>
+   <tr><td>Up to ₹2,50,000</td><td>Nil</td><td>Nil</td><td>Nil</td></tr><tr><td>₹2,50,001 – ₹3,00,000</td><td>5%</td><td>Nil</td><td>Nil</td></tr><tr><td>₹3,00,001 – ₹5,00,000</td><td>5%</td><td>5%</td><td>Nil</td></tr><tr><td>₹5,00,001 – ₹10,00,000</td><td>20%</td><td>20%</td><td>20%</td></tr><tr><td>Above ₹10,00,000</td><td>30%</td><td>30%</td><td>30%</td></tr></tbody></table>
+  <p>The higher exemption for senior citizens in the old regime is available only to residents.</p>
+
+  <h2>How do the ₹12 lakh rebate and marginal relief work?</h2>
+  <p>Under the new regime, a resident whose total income is up to ₹12 lakh gets a rebate of up to ₹60,000, so the tax becomes nil. With the ₹75,000 standard deduction, salary up to ₹12.75 lakh is tax-free. If income goes slightly above ₹12 lakh, marginal relief caps the tax at the amount by which income exceeds ₹12 lakh. For example, on taxable income of ₹12,10,000 the slab tax is ₹61,500, but you pay only ₹10,000 plus cess. The old regime rebate is up to ₹12,500 for income up to ₹5 lakh.</p>
+  <p>The rebate does not reduce tax on long-term capital gains on equity, crypto income, or (in the new regime) other special-rate income. That is why someone with ₹10 lakh salary and large share gains can still owe tax.</p>
+
+  <h2>How are capital gains taxed?</h2>
+  <table><thead><tr><th>Gain</th><th>Rate</th></tr></thead><tbody>
+   <tr><td>Listed shares and equity funds, held up to 12 months (STCG)</td><td>20%</td></tr>
+   <tr><td>Listed shares and equity funds, held over 12 months (LTCG)</td><td>12.5% above ₹1.25 lakh a year</td></tr>
+   <tr><td>Property, gold, unlisted shares, long-term</td><td>12.5% without indexation</td></tr>
+   <tr><td>Other short-term gains</td><td>Slab rates</td></tr>
+   <tr><td>Crypto and other virtual digital assets</td><td>30%, no loss set-off</td></tr></tbody></table>
+  <p>Residents whose normal income is below the basic exemption limit can use the unused limit against STCG and LTCG. The calculator does this automatically.</p>
+
+  <h2>How much surcharge applies?</h2>
+  <table><thead><tr><th>Total income</th><th>New regime</th><th>Old regime</th></tr></thead><tbody>
+   <tr><td>₹50 lakh – ₹1 crore</td><td>10%</td><td>10%</td></tr><tr><td>₹1 crore – ₹2 crore</td><td>15%</td><td>15%</td></tr><tr><td>₹2 crore – ₹5 crore</td><td>25%</td><td>25%</td></tr><tr><td>Above ₹5 crore</td><td>25%</td><td>37%</td></tr></tbody></table>
+  <p>Surcharge on equity capital gains is capped at 15%. Marginal relief makes sure that crossing a threshold never costs more in tax than the extra income.</p>
+
+  <h2>Which deductions are allowed in each regime?</h2>
+  <table><thead><tr><th>Deduction</th><th>New regime</th><th>Old regime</th></tr></thead><tbody>
+   <tr><td>Standard deduction</td><td>₹75,000</td><td>₹50,000</td></tr>
+   <tr><td>Employer NPS, 80CCD(2)</td><td>Up to 14% of basic</td><td>Up to 10% of basic</td></tr>
+   <tr><td>HRA exemption</td><td>No</td><td>Yes</td></tr>
+   <tr><td>80C (PPF, ELSS, EPF, LIC, principal)</td><td>No</td><td>Up to ₹1.5 lakh</td></tr>
+   <tr><td>80D health insurance</td><td>No</td><td>₹25,000 to ₹1 lakh</td></tr>
+   <tr><td>Own NPS, 80CCD(1B)</td><td>No</td><td>Up to ₹50,000</td></tr>
+   <tr><td>Home loan interest, self-occupied</td><td>No</td><td>Up to ₹2 lakh</td></tr>
+   <tr><td>Home loan interest, let-out</td><td>Yes, but loss not set off</td><td>Yes, loss set off up to ₹2 lakh</td></tr>
+   <tr><td>80TTA / 80TTB interest</td><td>No</td><td>₹10,000 / ₹50,000</td></tr>
+   <tr><td>Professional tax</td><td>No</td><td>Up to ₹2,500</td></tr></tbody></table>
+
+  <h2>How much tax do common salaries pay?</h2>
+  <table><thead><tr><th>Gross salary</th><th>New regime tax</th></tr></thead><tbody>
+   <tr><td>₹10 lakh</td><td>₹0</td></tr><tr><td>₹12.75 lakh</td><td>₹0</td></tr><tr><td>₹15 lakh</td><td>₹97,500</td></tr><tr><td>₹20 lakh</td><td>₹1,92,400</td></tr><tr><td>₹25 lakh</td><td>₹3,19,800</td></tr><tr><td>₹30 lakh</td><td>₹4,75,800</td></tr></tbody></table>
+  <p>Salaried, below 60, resident, no other income, including 4% cess. See the "Tax at every salary" tab above for more levels.</p>
+
+  <h2>What do the terms mean?</h2>
+  <h3>Gross total income</h3><p>Total of all five income heads after exemptions such as HRA and the standard deduction, before Chapter VI-A deductions like 80C.</p>
+  <h3>Taxable income</h3><p>Gross total income minus deductions, rounded to the nearest ₹10. Slab rates apply to this.</p>
+  <h3>Rebate under section 87A</h3><p>A reduction in tax for residents with income up to ₹12 lakh (new regime) or ₹5 lakh (old regime).</p>
+  <h3>Marginal relief</h3><p>A cap that stops tax from jumping by more than the extra income when you cross the rebate or surcharge limits.</p>
+  <h3>Surcharge</h3><p>An extra tax on tax for incomes above ₹50 lakh.</p>
+  <h3>Cess</h3><p>Health and education cess of 4% on tax plus surcharge.</p>
+  <h3>TDS</h3><p>Tax deducted at source by your employer, bank or client, which counts towards your total tax.</p>
+  <h3>Advance tax</h3><p>Tax paid in instalments during the year when the tax due after TDS is ₹10,000 or more.</p>
+
+  <h2>Frequently asked questions</h2>
+  <details><summary>How do I calculate income tax for FY 2026-27?</summary><p>Add your income from all sources, subtract the standard deduction and other allowed deductions, apply the slab rates of your chosen regime, subtract the 87A rebate if eligible, add surcharge if income is above ₹50 lakh, and add 4% cess. The calculator above does every step and shows the working.</p></details>
+  <details><summary>Is income up to ₹12 lakh tax-free?</summary><p>Yes, in the new regime for residents. The rebate makes tax nil on taxable income up to ₹12 lakh, and salaried people with the ₹75,000 standard deduction pay nothing up to ₹12.75 lakh, as long as there is no special-rate income such as capital gains.</p></details>
+  <details><summary>What is marginal relief in the new regime?</summary><p>If income is just over ₹12 lakh, tax is limited to the amount by which income exceeds ₹12 lakh. On ₹12.1 lakh, for example, tax is ₹10,000 plus cess instead of ₹61,500.</p></details>
+  <details><summary>How much tax will I pay on a ₹15 lakh salary?</summary><p>Under the new regime, ₹97,500 including cess. Taxable income is ₹14.25 lakh after the ₹75,000 standard deduction.</p></details>
+  <details><summary>How much tax on a ₹20 lakh salary?</summary><p>₹1,92,400 under the new regime, including cess, with no other deductions.</p></details>
+  <details><summary>Which regime is better for me?</summary><p>Enter your numbers above. The calculator shows both and also tells you how many more old-regime deductions you would need for the old regime to win. For most people with deductions under ₹4–5 lakh, the new regime is cheaper.</p></details>
+  <details><summary>Can I claim HRA and home loan interest in the new regime?</summary><p>No. HRA exemption and interest on a self-occupied home loan are allowed only in the old regime. Interest on a let-out house is allowed in the new regime but a loss cannot be set off.</p></details>
+  <details><summary>Does the rebate apply to capital gains?</summary><p>No. The rebate does not cover tax on equity LTCG, crypto, or special-rate income in the new regime. Unused basic exemption can still be set off against capital gains for residents.</p></details>
+  <details><summary>Can I switch between the old and new regime every year?</summary><p>Salaried people and pensioners without business income can choose every year while filing. Those with business income can leave the new regime and come back only once.</p></details>
+  <details><summary>Why is my result different from my employer's TDS?</summary><p>Employers estimate tax on salary only and may not know about your interest, rent, capital gains or deductions you did not declare. Your final tax is based on total income, which is what this calculator works out.</p></details>
+
+  <section class="sources">
+   <h2>Which official websites should I check?</h2>
+   <ul>
+    <li><a href="https://www.incometax.gov.in/" target="_blank" rel="noopener">Income Tax e-Filing Portal</a>: file returns, see AIS and Form 26AS, pay tax</li>
+    <li><a href="https://incometaxindia.gov.in/" target="_blank" rel="noopener">Income Tax Department</a>: Acts, rules, rates and circulars</li>
+    <li><a href="https://www.incometaxindia.gov.in/documents/d/guest/press-release-income-tax-act-2025-comes-into-force-from-01-april-2026-pdf" target="_blank" rel="noopener">CBDT: Income-tax Act, 2025 in force from 1 April 2026</a></li>
+    <li><a href="https://www.tdscpc.gov.in/" target="_blank" rel="noopener">TRACES</a>: TDS certificates and Form 26AS</li>
+    <li><a href="https://www.indiabudget.gov.in/" target="_blank" rel="noopener">Union Budget</a>: Finance Act changes</li>
+   </ul>
+  </section>
+
+  <h2>Guides from our blog</h2>
+  <div class="related">
+   <a href="new-tax-regime-slabs-2026-27.html">New tax regime slabs FY 2026-27 with examples</a>
+   <a href="belated-itr-filing-2026.html">Belated ITR: last date 31 December 2026</a>
+   <a href="hra-exemption-calculation-2026.html">HRA exemption 2026: 8 metro cities</a>
+   <a href="tds-rate-chart-2026-27.html">TDS rate chart FY 2026-27 (section 393)</a>
+   <a href="ppf-ssy-interest-rates.html">PPF, SSY, SCSS interest rates</a>
+   <a href="blog.html">All guides on the blog →</a>
+  </div>
+
+  <h2>Which other tools can help?</h2>
+  <div class="related">
+   <a href="in-hand-salary-calculator.html">In-hand Salary Calculator</a>
+   <a href="hra-calculator.html">HRA Calculator</a>
+   <a href="80gg-calculator.html">80GG Calculator</a>
+   <a href="tds-calculator.html">TDS Calculator</a>
+   <a href="sip-calculator.html">SIP Calculator</a>
+   <a href="rent-receipt-generator.html">Rent Receipt Generator</a>
+  </div>
+
+  <h2>Popular searches</h2>
+  <p class="is-kw">income tax calculator FY 2026-27 · income tax calculator AY 2027-28 · new vs old tax regime calculator · tax on 12 lakh salary · tax on 15 lakh salary · tax on 20 lakh salary · 12.75 lakh tax free · section 87A rebate marginal relief · income tax slab 2026-27 · salary tax calculator India · capital gains tax calculator · LTCG 12.5% calculator · surcharge calculator · HRA exemption new regime · senior citizen income tax calculator · advance tax calculator · income tax refund calculator · Income-tax Act 2025 tax year</p>
+  <p class="note">This calculator gives an estimate for individuals under the rules for FY 2026-27 and FY 2025-26. It does not cover every case, such as agricultural income, AMT, losses from earlier years, or relief for arrears. Check your figures with Form 16, AIS and a tax professional before filing.</p>
+ </article>
 </main>
 <div id="site-footer"></div>
+<script src="app.js"></script>
 <script>
-var sal=1;
-function chip(v,b){sal=v;b.parentNode.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');calc();}
-function inr(n){return '₹'+Math.round(n).toLocaleString('en-IN');}
-function slab(t,S){var tax=0,lines=[],prev=0;for(var i=0;i<S.length;i++){var lim=S[i][0],r=S[i][1];if(t<=prev)break;var part=Math.min(t,lim)-prev;if(r>0){tax+=part*r/100;lines.push(inr(prev)+' – '+(lim===Infinity?'above':inr(Math.min(t,lim)))+' @ '+r+'% = '+inr(part*r/100));}prev=lim;}return {tax:tax,lines:lines};}
-var NEW=[[400000,0],[800000,5],[1200000,10],[1600000,15],[2000000,20],[2400000,25],[Infinity,30]];
-var OLD=[[250000,0],[500000,5],[1000000,20],[Infinity,30]];
-function calc(){
-  var hi=(localStorage.getItem('lang')==='hi'),inc=+document.getElementById('inc').value||0,ded=+document.getElementById('ded').value||0;
-  var tn=Math.max(0,inc-(sal?75000:0)),n=slab(tn,NEW),rn=n.tax,wn='Taxable = '+inr(inc)+(sal?' − 75,000 std. deduction':'')+' = '+inr(tn)+'\n'+n.lines.join('\n')+'\nSlab tax = '+inr(n.tax);
-  if(tn<=1200000){rn=0;wn+='\nRebate (income ≤ ₹12 lakh) → tax = ₹0';}
-  else if(n.tax>tn-1200000){rn=tn-1200000;wn+='\nMarginal relief → tax limited to '+inr(rn);}
-  var cn=rn*0.04;wn+='\nCess 4% = '+inr(cn)+'\nTotal = '+inr(rn+cn);
-  var to=Math.max(0,inc-(sal?50000:0)-ded),o=slab(to,OLD),ro=o.tax,wo='Taxable = '+inr(inc)+(sal?' − 50,000':'')+' − '+inr(ded)+' = '+inr(to)+'\n'+o.lines.join('\n')+'\nSlab tax = '+inr(o.tax);
-  if(to<=500000){ro=0;wo+='\nRebate (income ≤ ₹5 lakh) → tax = ₹0';}
-  var co=ro*0.04;wo+='\nCess 4% = '+inr(co)+'\nTotal = '+inr(ro+co);
-  var N=rn+cn,O=ro+co,best=N<=O;
-  document.getElementById('winlbl').textContent=best?(hi?'नई रिजीम बेहतर है, बचत':'New regime is better. You save'):(hi?'पुरानी रिजीम बेहतर है, बचत':'Old regime is better. You save');
-  document.getElementById('big').textContent=inr(Math.abs(N-O));
-  document.getElementById('rows').innerHTML='<tr><td>'+(hi?'नई रिजीम में टैक्स':'Tax in new regime')+'</td><td>'+inr(N)+'</td></tr><tr><td>'+(hi?'पुरानी रिजीम में टैक्स':'Tax in old regime')+'</td><td>'+inr(O)+'</td></tr>';
-  document.getElementById('wn').textContent=wn;document.getElementById('wo').textContent=wo;
+(function(){
+var $=function(i){return document.getElementById(i);};
+var IDS=['fy','age','gross','basic','hra','rent','city','enps','pt','sav','fd','divi','biz','othr','hlSelf','rentRec','mtax','hlLet','stcg','ltcg','ltcgO','stcgO','vda','c80','nps1','d80s','d80p','pSen','e80','g80','oded','tds','adv','hk','hkb'];
+var DEF={};IDS.forEach(function(i){DEF[i]=$(i).value;});
+var RES='r',REG='auto';
+function num(v){v=String(v==null?'':v).replace(/[,₹\s]/g,'');var x=parseFloat(v);return isFinite(x)&&x>0?x:0;}
+function v(i){return num($(i).value);}
+function inr(x,neg){var s=Math.round(Math.abs(x)).toLocaleString('en-IN');return (x<0||neg?'−':'')+'₹'+s;}
+function words(x){x=Math.round(x);if(x>=1e7)return (x/1e7).toFixed(2).replace(/\.?0+$/,'')+' crore';if(x>=1e5)return (x/1e5).toFixed(2).replace(/\.?0+$/,'')+' lakh';return x.toLocaleString('en-IN');}
+var NEW=[[4e5,0],[8e5,.05],[12e5,.10],[16e5,.15],[20e5,.20],[24e5,.25],[Infinity,.30]];
+function oldS(age,res){var E=res?(age==2?5e5:age==1?3e5:2.5e5):2.5e5,s=[[E,0]];if(E<5e5)s.push([5e5,.05]);s.push([1e6,.2],[Infinity,.3]);return s;}
+function slab(inc,S){var t=0,p=0,rows=[];for(var i=0;i<S.length;i++){var hi=S[i][0],r=S[i][1];if(inc>p){var part=Math.min(inc,hi)-p;t+=part*r;rows.push([p,Math.min(inc,hi),r,part*r]);}p=hi;}return {t:t,rows:rows};}
+function r10(x){return Math.round(x/10)*10;}
+
+/* tax on a given taxable income split; no surcharge relief */
+function taxOn(nTI,sp,R,age,res){
+ var S=R==='new'?NEW:oldS(age,res),E=S[0][0];
+ var sh=res?Math.max(0,E-nTI):0,st=sp.stcg,l1=Math.max(0,sp.ltcg-125000),lo=sp.ltcgO,a;
+ a=Math.min(sh,st);st-=a;sh-=a;a=Math.min(sh,l1);l1-=a;sh-=a;a=Math.min(sh,lo);lo-=a;sh-=a;
+ var sl=slab(nTI,S),tN=sl.t,tSt=.20*st,tL=.125*(l1+lo),tV=.30*sp.vda;
+ var TI=nTI+sp.stcg+sp.ltcg+sp.ltcgO+sp.vda,reb=0,mr=0;
+ if(res){if(R==='new'){if(TI<=12e5)reb=Math.min(tN,60000);}else if(TI<=5e5)reb=Math.min(tN+tSt,12500);}
+ if(res&&R==='new'&&TI>12e5){var ex=TI-12e5;if(tN>ex)mr=tN-ex;}
+ var base=Math.max(0,tN+tSt+tL+tV-reb-mr);
+ var rate=TI>5e7?(R==='new'?.25:.37):TI>2e7?.25:TI>1e7?.15:TI>5e6?.10:0;
+ var eq=Math.min(tSt+tL,base),sur=rate*(base-eq)+Math.min(rate,.15)*eq;
+ return {S:S,sl:sl,tN:tN,tSt:tSt,tL:tL,tV:tV,reb:reb,mr:mr,base:base,rate:rate,sur:sur,TI:TI,st:st,l1:l1,lo:lo};
 }
-['inc','ded'].forEach(function(i){document.getElementById(i).addEventListener('input',calc)});
-document.addEventListener('langchange',calc);document.addEventListener('DOMContentLoaded',calc);
+function full(nTI,sp,R,age,res){
+ var t=taxOn(nTI,sp,R,age,res),srel=0;
+ if(t.sur>0){
+  var TH=R==='new'?[2e7,1e7,5e6]:[5e7,2e7,1e7,5e6],T=0;for(var i=0;i<TH.length;i++)if(t.TI>TH[i]){T=TH[i];break;}
+  var d=t.TI-T,n2=Math.max(0,nTI-d);d-=nTI-n2;var s2={stcg:sp.stcg,ltcg:sp.ltcg,ltcgO:sp.ltcgO,vda:sp.vda};
+  ['vda','ltcgO','ltcg','stcg'].forEach(function(k){var c=Math.min(d,s2[k]);s2[k]-=c;d-=c;});
+  var tT=taxOn(n2,s2,R,age,res),lim=tT.base+tT.sur+(t.TI-T);
+  if(t.base+t.sur>lim){srel=t.base+t.sur-lim;}
+ }
+ t.srel=srel;t.surN=t.sur-srel;t.cess=.04*(t.base+t.surN);t.total=r10(t.base+t.surN+t.cess);return t;
+}
+function inputs(o){
+ var I={fy:+$('fy').value,age:+$('age').value,res:RES==='r',isSal:$('isSal').checked,city:$('city').value,pSen:+$('pSen').value};
+ ['gross','basic','hra','rent','enps','pt','sav','fd','divi','biz','othr','hlSelf','rentRec','mtax','hlLet','stcg','ltcg','ltcgO','stcgO','vda','c80','nps1','d80s','d80p','e80','g80','oded','tds','adv'].forEach(function(k){I[k]=v(k);});
+ if(o)for(var k in o)I[k]=o[k];return I;
+}
+function compute(I,R,extra){
+ var L={},senior=I.age>0;
+ L.sd=I.isSal?Math.min(I.gross,R==='new'?75000:50000):0;
+ var pct=I.city==='m4'?.5:(I.city==='m8'&&I.fy===2027)?.5:.4;L.pct=pct;
+ L.hraEx=(R==='old'&&I.hra>0&&I.rent>0)?Math.max(0,Math.min(I.hra,I.rent-.1*I.basic,pct*I.basic)):0;
+ L.enps=Math.min(I.enps,(R==='new'?.14:.10)*I.basic);
+ L.pt=R==='old'?Math.min(I.pt,2500):0;
+ L.sal=Math.max(0,I.gross-L.sd-L.hraEx-L.enps-L.pt);
+ var nav=Math.max(0,I.rentRec-I.mtax),let=nav-.3*nav-I.hlLet;L.nav=nav;L.let=let;
+ if(R==='old'){L.selfInt=Math.min(I.hlSelf,2e5);L.hp=Math.max(let-L.selfInt,-2e5);}else{L.selfInt=0;L.hp=Math.max(0,let);}
+ L.oth=I.sav+I.fd+I.divi+I.othr;
+ L.gti=Math.max(0,L.sal+L.hp+I.biz+L.oth+I.stcgO);
+ var D=[];
+ if(R==='old'){
+  D.push(['80C',Math.min(I.c80,1.5e5)],['80CCD(1B) NPS',Math.min(I.nps1,5e4)],['80D self/family',Math.min(I.d80s,senior?5e4:25e3)],['80D parents',Math.min(I.d80p,I.pSen?5e4:25e3)],['80E education loan',I.e80],['80G donations',I.g80],['Other deductions',I.oded]);
+  if(senior&&I.res)D.push(['80TTB interest',Math.min(I.sav+I.fd,5e4)]);else D.push(['80TTA savings interest',Math.min(I.sav,1e4)]);
+  var pre=D.reduce(function(s,d){return s+d[1];},0);
+  if(I.hra===0&&I.rent>0){var ati=Math.max(0,L.gti-pre);D.push(['80GG rent',Math.max(0,Math.min(60000,.25*ati,I.rent-.1*ati))]);}
+ }
+ if(extra)D.push(['Extra deductions',extra]);
+ L.D=D.filter(function(d){return d[1]>0;});
+ L.ded=Math.min(L.gti,L.D.reduce(function(s,d){return s+d[1];},0));
+ L.nTI=r10(Math.max(0,L.gti-L.ded));
+ L.sp={stcg:I.stcg,ltcg:I.ltcg,ltcgO:I.ltcgO,vda:I.vda};
+ L.t=full(L.nTI,L.sp,R,I.age,I.res);
+ L.total=L.t.total;L.totInc=I.gross+Math.max(0,L.nav)+I.biz+L.oth+I.stcgO+I.stcg+I.ltcg+I.ltcgO+I.vda;
+ L.R=R;return L;
+}
+function breakeven(I,nw){var o=compute(I,'old');if(o.total<=nw)return -1;var lo=0,hi=1e8;for(var k=0;k<60;k++){var m=(lo+hi)/2;if(compute(I,'old',m).total<=nw)hi=m;else lo=m;}return Math.ceil(hi/1000)*1000;}
+
+var tip=$('tip');
+function render(){
+ var I=inputs(),N=compute(I,'new'),O=compute(I,'old'),best=O.total<N.total?'old':'new',R=REG==='auto'?best:REG,C=R==='new'?N:O,X=R==='new'?O:N,t=C.t;
+ $('cityMsg').textContent=I.city==='m8'?(I.fy===2027?'50% of basic counts as metro from FY 2026-27':'Still 40% for FY 2025-26; 50% from FY 2026-27'):(I.city==='m4'?'50% of basic for HRA':'40% of basic for HRA');
+ $('grossW').textContent=I.gross?'₹'+words(I.gross)+' a year · ₹'+Math.round(I.gross/12).toLocaleString('en-IN')+' a month. Include bonus and employer NPS; leave out employer PF.':'Total of all salary components, including bonus and employer NPS.';
+ var paid=I.tds+I.adv,due=C.total-paid;
+ $('heroL').textContent='Total tax for the year ('+(R==='new'?'new':'old')+' regime)';
+ $('hero').textContent=inr(C.total);
+ var eff=C.totInc?C.total/C.totInc*100:0;
+ $('heroSub').textContent='₹'+Math.round(C.total/12).toLocaleString('en-IN')+' a month · effective rate '+eff.toFixed(1)+'% of total income'+(paid?(' · '+(due>0?'still to pay '+inr(due):due<0?'refund '+inr(-due):'fully paid')):'');
+ var diff=Math.abs(N.total-O.total);
+ $('chip').innerHTML=diff<10?'⚖️ Both regimes cost the same':(best==='new'?'✅ New regime saves '+inr(diff):'✅ Old regime saves '+inr(diff))+(REG!=='auto'&&REG!==best?' · you are viewing the costlier one':'');
+ // warnings
+ var W=[];
+ if(I.basic>I.gross&&I.gross>0)W.push('Basic + DA is more than gross salary. Please check the figures.');
+ if(I.c80>1.5e5)W.push('80C is capped at ₹1,50,000. We used the cap.');
+ if(I.hra>0&&I.rent===0)W.push('You entered HRA but no rent, so the whole HRA is taxable.');
+ if(I.hra>0&&I.rent>1e5)W.push('Rent is above ₹1 lakh a year. Give your employer the landlord\'s PAN to claim HRA.');
+ if(I.enps>.10*I.basic&&I.basic>0)W.push('Employer NPS above 10% of basic is not deductible in the old regime (14% limit in the new regime).');
+ if(I.hlSelf>0)W.push('Home loan interest on the house you live in counts only in the old regime (up to ₹2 lakh).');
+ if(!I.res)W.push('Non-residents get no 87A rebate and cannot set off the basic exemption against capital gains. Higher basic exemption for seniors is also for residents only.');
+ if(t.rate>0)W.push('Surcharge of '+Math.round(t.rate*100)+'% applies because total income is above ₹50 lakh'+(t.srel>0?', reduced by marginal relief.':'.'));
+ if(t.mr>0)W.push('Marginal relief of '+inr(t.mr)+' applied: tax cannot exceed the income above ₹12 lakh.');
+ if(I.biz>0)W.push('With business income, you can move back to the new regime only once after leaving it.');
+ if(I.fy===2026)W.push('For FY 2025-26, the belated return deadline is 31 December 2026. A belated return can only use the new regime if you have no business income.');
+ if(due>=10000&&I.fy===2027&&(paid>0||!I.isSal))W.push('Tax due after TDS is '+inr(due)+'. Pay advance tax to avoid interest; see the schedule below.');
+ $('warns').innerHTML=W.map(function(w){return '<div class="is-warn">'+w+'</div>';}).join('');
+ // compare
+ $('cmp').innerHTML='<div class="'+(best==='new'?'best':'')+'"><small>New regime</small><b>'+inr(N.total)+'</b><small>Taxable '+inr(N.nTI)+'</small></div><div class="'+(best==='old'?'best':'')+'"><small>Old regime</small><b>'+inr(O.total)+'</b><small>Taxable '+inr(O.nTI)+'</small></div>';
+ // bar
+ var kept=Math.max(0,C.totInc-C.total),parts=[['Income after tax',kept,'var(--s3)'],['Income tax',t.base,'var(--s1)'],['Surcharge',t.surN,'var(--s4)'],['Cess',t.cess,'var(--s2)']].filter(function(p){return p[1]>0;}),tot=parts.reduce(function(s,p){return s+p[1];},0)||1;
+ $('bar').innerHTML=parts.map(function(p){return '<div style="flex:'+p[1]+';background:'+p[2]+'" data-t="'+p[0]+': '+inr(p[1])+' ('+(p[1]/tot*100).toFixed(1)+'%)"></div>';}).join('');
+ $('leg').innerHTML=parts.map(function(p){return '<span><i style="background:'+p[2]+'"></i>'+p[0]+'<b>'+inr(p[1])+'</b></span>';}).join('');
+ // table
+ var T=[],row=function(a,b,c){T.push('<tr'+(c?' class="'+c+'"':'')+'><td>'+a+'</td><td'+(b<0?' class="neg"':'')+'>'+(typeof b==='string'?b:inr(b))+'</td></tr>');};
+ T.push('<tr><th>'+(R==='new'?'New':'Old')+' regime</th><th>Amount</th></tr>');
+ row('Income','','h');
+ if(I.gross){row('Gross salary',I.gross);if(C.sd)row('Standard deduction',-C.sd);if(C.hraEx)row('HRA exempt ('+Math.round(C.pct*100)+'% city)',-C.hraEx);if(C.enps)row('Employer NPS',-C.enps);if(C.pt)row('Professional tax',-C.pt);row('Income from salary',C.sal,'t');}
+ if(C.hp)row('House property'+(C.hp<0?' (loss)':''),C.hp);if(I.biz)row('Business / profession',I.biz);if(C.oth)row('Interest, dividends, other',C.oth);if(I.stcgO)row('Other short-term gains',I.stcgO);
+ row('Gross total income',C.gti,'t');
+ if(C.D.length){row('Deductions','','h');C.D.forEach(function(d){row(d[0],-d[1]);});}
+ row('Taxable income at slab rates',C.nTI,'ih');
+ if(I.stcg||I.ltcg||I.ltcgO||I.vda){row('Special-rate income','','h');if(I.stcg)row('Equity STCG at 20%',I.stcg);if(I.ltcg)row('Equity LTCG (₹1.25 lakh exempt)',I.ltcg);if(I.ltcgO)row('Other LTCG at 12.5%',I.ltcgO);if(I.vda)row('Crypto / VDA at 30%',I.vda);}
+ row('Tax','','h');row('Tax at slab rates',t.tN);if(t.tSt+t.tL+t.tV)row('Tax on gains and VDA',t.tSt+t.tL+t.tV);if(t.reb)row('Rebate u/s 87A',-t.reb);if(t.mr)row('Marginal relief',-t.mr);if(t.sur)row('Surcharge '+Math.round(t.rate*100)+'%',t.sur);if(t.srel)row('Surcharge marginal relief',-t.srel);row('Health &amp; education cess 4%',t.cess);row('Total tax (rounded)',C.total,'ih');
+ if(paid){if(I.tds)row('TDS already deducted',-I.tds);if(I.adv)row('Advance tax paid',-I.adv);row(due>=0?'Tax still payable':'Refund due',due>=0?due:-due,'ih');}
+ $('tbl').innerHTML=T.join('');
+ // break-even
+ var b=breakeven(I,N.total);
+ $('be').innerHTML=b<0?'<b>Old regime is cheaper for you</b> by '+inr(N.total-O.total)+' because your deductions are large enough. Make sure you have proof for each one.':'<b>When would the old regime win?</b> Only if you add about <b class="k">'+inr(b)+'</b> more in old-regime deductions (HRA, 80C, 80D, home loan, NPS) beyond what you entered. '+(b>3e5?'That is hard to reach for most people, so the new regime is the practical choice.':'Check whether you have deductions you have not entered yet.');
+ // working
+ var wk='';[N,O].forEach(function(Z){var tz=Z.t;wk+=(Z.R==='new'?'NEW':'OLD')+' REGIME\nTaxable income at slab rates: '+inr(Z.nTI)+'\n';tz.sl.rows.forEach(function(r){wk+='  '+inr(r[0])+' – '+inr(r[1])+' @ '+Math.round(r[2]*100)+'% = '+inr(r[3])+'\n';});
+  if(tz.tSt)wk+='  Equity STCG '+inr(tz.st)+' @ 20% = '+inr(tz.tSt)+'\n';if(tz.tL)wk+='  LTCG '+inr(tz.l1+tz.lo)+' @ 12.5% = '+inr(tz.tL)+'\n';if(tz.tV)wk+='  VDA @ 30% = '+inr(tz.tV)+'\n';
+  if(tz.reb)wk+='  Rebate 87A: −'+inr(tz.reb)+'\n';if(tz.mr)wk+='  Marginal relief: −'+inr(tz.mr)+'\n';if(tz.sur)wk+='  Surcharge '+Math.round(tz.rate*100)+'%: '+inr(tz.sur)+(tz.srel?' (relief −'+inr(tz.srel)+')':'')+'\n';
+  wk+='  Cess 4%: '+inr(tz.cess)+'\n  Total (rounded to ₹10): '+inr(Z.total)+'\n\n';});
+ $('work').textContent=wk+'Rounding: taxable income to the nearest ₹10 (section 288A) and tax to the nearest ₹10 (section 288B).';
+ // advance tax
+ var net=C.total-I.tds;
+ if(net<10000)$('advOut').innerHTML='Tax left after TDS is '+inr(Math.max(0,net))+'. Advance tax is needed only when it is ₹10,000 or more, so you do not need to pay advance tax.';
+ else if(I.age>0&&I.res&&!I.biz)$('advOut').innerHTML='Resident senior citizens without business income do not have to pay advance tax. Pay the remaining '+inr(net)+' as self-assessment tax before filing.';
+ else{var sch0=(I.isSal&&!I.tds)?'<p class="is-sub" style="margin:0 0 8px">Salaried? Your employer usually deducts TDS every month. Enter it in the Tax paid tab and this schedule will shrink or disappear.</p>':'';var sch=[['15 June',.15],['15 September',.45],['15 December',.75],['15 March',1]],p=0,h='<b>Tax after TDS: '+inr(net)+'</b><table class="is-tbl"><tr><th>Due date</th><th>Cumulative</th><th>Pay now</th></tr>';sch.forEach(function(s){var c=Math.round(net*s[1]);h+='<tr><td>'+s[0]+'</td><td>'+inr(c)+'</td><td>'+inr(c-p)+'</td></tr>';p=c;});
+  $('advOut').innerHTML=sch0+h+'</table><p class="is-sub" style="margin:8px 0 0">Late or short payment costs 1% a month. Presumptive taxpayers (44AD / 44ADA) can pay everything by 15 March.</p>';}
+ // hike
+ var hk=v('hk')/100,hb=v('hkb'),ng=I.gross*(1+hk)+hb,I2=inputs({gross:ng,basic:I.basic*(1+hk)}),N2=compute(I2,'new'),O2=compute(I2,'old'),c2=Math.min(N2.total,O2.total),c1=Math.min(N.total,O.total),add=ng-I.gross,dt=c2-c1;
+ $('hkOut').innerHTML=add>0?'New gross salary <b class="k">'+inr(ng)+'</b><br>Tax goes from '+inr(c1)+' to '+inr(c2)+' (+'+inr(dt)+')<br>Of the extra '+inr(add)+', you keep <b>'+inr(add-dt)+'</b>, about ₹'+Math.round((add-dt)/add*100)+' of every ₹100.'+(N2.t.mr>0?'<br>Marginal relief applies at this salary.':''):'Enter a hike % or a bonus to see the effect.';
+ // salary table
+ var SAL=[5e5,7.5e5,1e6,12e5,1275e3,13e5,15e5,18e5,2e6,25e5,3e6,4e6,5e6,75e5,1e7],h2='<table class="is-tbl"><tr><th>Gross salary</th><th>New regime</th><th>Old (no deductions)</th><th>Old (your deductions)</th></tr>';
+ SAL.forEach(function(s){var J=inputs({gross:s,basic:s*.4,hra:I.hra?s*.2:0,sav:0,fd:0,divi:0,biz:0,othr:0,rentRec:0,stcg:0,ltcg:0,ltcgO:0,stcgO:0,vda:0,isSal:true}),J0=inputs({gross:s,basic:s*.4,hra:0,rent:0,enps:0,pt:0,hlSelf:0,sav:0,fd:0,divi:0,biz:0,othr:0,rentRec:0,stcg:0,ltcg:0,ltcgO:0,stcgO:0,vda:0,c80:0,nps1:0,d80s:0,d80p:0,e80:0,g80:0,oded:0,isSal:true});
+  h2+='<tr><td>'+inr(s)+'</td><td>'+inr(compute(J0,'new').total)+'</td><td>'+inr(compute(J0,'old').total)+'</td><td>'+inr(compute(J,'old').total)+'</td></tr>';});
+ $('stOut').innerHTML=h2+'</table><p class="is-sub" style="margin:8px 0 0">Salaried, below 60, resident. "Your deductions" uses the deductions and rent you entered, with basic at 40% of salary.</p>';
+ window.__itc={N:N,O:O,R:R,C:C,due:due};
+}
+// events
+document.addEventListener('input',function(e){if(e.target.closest('.page'))render();});
+document.addEventListener('change',function(e){if(e.target.closest('.page'))render();});
+function seg(id,cb){[].forEach.call($(id).querySelectorAll('button'),function(b){b.addEventListener('click',function(){[].forEach.call($(id).querySelectorAll('button'),function(x){x.classList.remove('on');});b.classList.add('on');cb(b.dataset.v);render();});});}
+seg('res',function(x){RES=x;});seg('reg',function(x){REG=x;});
+function tabs(id,root){[].forEach.call($(id).querySelectorAll('button'),function(b){b.addEventListener('click',function(){[].forEach.call($(id).querySelectorAll('button'),function(x){x.classList.remove('on');});b.classList.add('on');[].forEach.call(root.querySelectorAll(':scope > .is-pane'),function(p){p.classList.toggle('on',p.dataset.p===b.dataset.p);});});});}
+tabs('itabs',$('itabs').parentNode);tabs('tabs',$('tabs').parentNode);
+$('bar').addEventListener('mousemove',function(e){var d=e.target.closest('[data-t]');if(!d){tip.style.opacity=0;return;}tip.textContent=d.dataset.t;tip.style.left=(e.clientX+12)+'px';tip.style.top=(e.clientY-34)+'px';tip.style.opacity=1;});
+$('bar').addEventListener('mouseleave',function(){tip.style.opacity=0;});
+function flash(b,t){var o=b.textContent;b.textContent=t;setTimeout(function(){b.textContent=o;},1500);}
+function copy(txt,b){try{navigator.clipboard.writeText(txt).then(function(){flash(b,'✓ Copied');});}catch(e){prompt('Copy',txt);}}
+$('cp').addEventListener('click',function(){var s=window.__itc;copy('Income tax estimate ('+$('fy').selectedOptions[0].text+')\nNew regime: '+inr(s.N.total)+'\nOld regime: '+inr(s.O.total)+'\nRecommended: '+(s.O.total<s.N.total?'Old':'New')+' regime\n'+(s.due>=0?'Tax payable: '+inr(s.due):'Refund: '+inr(-s.due))+'\nCalculated at https://www.cooridorstore.in/income-tax-calculator',this);});
+$('sh').addEventListener('click',function(){var q=IDS.filter(function(i){return $(i).value!==DEF[i];}).map(function(i){return i+'='+encodeURIComponent($(i).value);});if(RES!=='r')q.push('res='+RES);if(!$('isSal').checked)q.push('sal=0');copy(location.origin+location.pathname+(q.length?'?'+q.join('&'):''),this);});
+$('pr').addEventListener('click',function(){window.print();});
+$('rs').addEventListener('click',function(){IDS.forEach(function(i){$(i).value=DEF[i];});$('isSal').checked=true;RES='r';REG='auto';['res','reg'].forEach(function(id){[].forEach.call($(id).querySelectorAll('button'),function(x,k){x.classList.toggle('on',k===0);});});render();});
+// load from URL
+try{var P=new URLSearchParams(location.search);IDS.forEach(function(i){if(P.has(i))$(i).value=P.get(i);});if(P.get('res')==='nr'){RES='nr';[].forEach.call($('res').querySelectorAll('button'),function(x){x.classList.toggle('on',x.dataset.v==='nr');});}if(P.get('sal')==='0')$('isSal').checked=false;}catch(e){}
+window.addEventListener('langchange',render);
+render();
+window.__itcCompute=function(o,R){return compute(inputs(o),R);};
+})();
 </script>
+
 </body>
 </html>
