@@ -52,7 +52,7 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
   m('qr-code-generator.html','🔳','QR Code Generator','QR कोड जनरेटर','UPI, link, WhatsApp, WiFi','UPI, लिंक, WhatsApp, WiFi')+
   m('rent-receipt-generator.html','🏘️','Rent Receipt Generator','किराया रसीद जनरेटर','Monthly receipts for HRA','HRA के लिए मासिक रसीदें')+
   m('salary-slip-generator.html','🧾','Salary Slip Generator','सैलरी स्लिप जनरेटर','Payslip PDF, WhatsApp share','पेस्लिप PDF, WhatsApp शेयर')+
-  m('tally-import.html','📥','Invoices to Tally','इनवॉइस से Tally','Excel to Tally XML','Excel से Tally XML'))+
+  m('tally-import.html','📥','Invoices to Tally','इनवॉइस से Tally','Excel to Tally XML','Excel से Tally XML'),true)+
  dd('PDF Tools','PDF टूल्स',
   m('pdf-to-excel.html','📊','PDF to Excel','PDF से Excel','Any PDF table, bulk, your format','कोई भी PDF टेबल, bulk, आपका फ़ॉर्मेट')+ 
   m('bank-statement-pdf-to-excel.html','🏦','Bank Statement to Excel','बैंक स्टेटमेंट से Excel','PDF statement to Excel','PDF स्टेटमेंट को Excel में')+
@@ -60,7 +60,7 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
   m('pdf-to-word.html','📝','PDF to Word','PDF से Word','Editable .docx from PDF','PDF से बदलने लायक़ .docx')+
   m('compress-pdf.html','🗜️','Compress PDF','PDF छोटी करें','Reduce PDF file size','PDF का साइज़ घटाएँ')+
   m('merge-pdf.html','📑','Merge PDF','PDF जोड़ें','Combine PDFs into one','कई PDF को एक बनाएँ')+
-  m('pdf-editor.html','✏️','PDF Editor','PDF एडिटर','Add text, sign & edit PDF','PDF में टेक्स्ट, साइन और बदलाव'))+
+  m('pdf-editor.html','✏️','PDF Editor','PDF एडिटर','Add text, sign & edit PDF','PDF में टेक्स्ट, साइन और बदलाव'),true)+
  dd('Learn','सीखें',
   m('accounting-games.html','🎮','Accounting Games','अकाउंटिंग गेम्स','Refresh your mind','दिमाग़ ताज़ा कीजिए')+
   m('tax-quiz.html','🎯','Tax Quiz','टैक्स क्विज़','Test your GST and tax knowledge','अपना GST और टैक्स ज्ञान परखें'))+
