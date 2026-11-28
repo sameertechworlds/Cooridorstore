@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Salary Slip Generator: Free Payslip PDF &amp; WhatsApp Share</title>
+<meta name="description" content="Free salary slip generator for India. Create a professional payslip with PF, ESI, PT, TDS and LOP, net pay in words, download PDF or share on WhatsApp.">
+<meta name="keywords" content="salary slip generator, salary slip format, payslip generator India, salary slip PDF, free payslip maker, salary slip for 3 months, salary slip with PF ESI, pay slip template, monthly salary slip, salary slip WhatsApp">
+<link rel="canonical" href="https://www.cooridorstore.in/salary-slip-generator">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Cooridor Store"><meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Salary Slip Generator: Free Payslip PDF &amp; WhatsApp Share"><meta property="og:description" content="Free salary slip generator for India. Create a professional payslip with PF, ESI, PT, TDS and LOP, net pay in words, download PDF or share on WhatsApp."><meta property="og:url" content="https://www.cooridorstore.in/salary-slip-generator">
+<meta property="og:image" content="https://www.cooridorstore.in/og-image.jpg">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Salary Slip Generator: Free Payslip PDF &amp; WhatsApp Share"><meta name="twitter:description" content="Free salary slip generator for India. Create a professional payslip with PF, ESI, PT, TDS and LOP, net pay in words, download PDF or share on WhatsApp.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="calc.css">
+<style>:root{--is-pri:var(--pri,#2563eb);--is-acc:var(--acc,#10b981);--is-sur:var(--sur,#fff);--is-line:var(--line,#e2e8f0);--is-txt:var(--txt,#0f172a);--is-soft:var(--soft,#f1f5f9);--is-mut:#64748b;
+ --s1:#257de0;--s2:#f47230;--s3:#00b894;--s4:#f2a600;--s5:#ee7fac}
+[data-theme=dark]{--s1:#338ced;--s2:#e76624;--s3:#00a888;--s4:#d28e05;--s5:#e24d8b}
+.is-new{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.is-new span{font-size:.76rem;font-weight:700;padding:5px 11px;border-radius:999px;background:color-mix(in srgb,var(--is-acc) 14%,var(--is-sur));border:1px solid color-mix(in srgb,var(--is-acc) 40%,var(--is-line));color:var(--is-txt)}
+.is-lay{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start;margin-top:22px}
+.is-card{background:var(--is-sur);border:1px solid var(--is-line);border-radius:18px;padding:22px;position:relative}
+.is-card.top:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:18px 18px 0 0;background:linear-gradient(90deg,var(--is-pri),var(--is-acc))}
+.is-sec{font-size:.74rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--is-mut);margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.is-sec:first-child{margin-top:0}
+.is-sec:after{content:"";flex:1;height:1px;background:var(--is-line)}
+.is-g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.is-f{margin-bottom:12px}
+.is-f label{display:block;font-size:.84rem;font-weight:600;margin-bottom:6px;color:var(--is-txt)}
+.is-f input,.is-f select{width:100%;box-sizing:border-box;background:var(--is-soft);border:1px solid var(--is-line);color:var(--is-txt);border-radius:10px;padding:11px 12px;font:inherit;font-size:.95rem}
+.is-f input:focus,.is-f select:focus{outline:none;border-color:var(--is-pri);box-shadow:0 0 0 3px color-mix(in srgb,var(--is-pri) 20%,transparent)}
+.is-f small{display:block;color:var(--is-mut);font-size:.76rem;margin-top:5px;line-height:1.4}
+.is-f .big{font-size:1.15rem;font-weight:700}
+.is-seg{display:flex;gap:6px;flex-wrap:wrap}
+.is-seg button{flex:1;min-width:90px;border:1px solid var(--is-line);background:var(--is-sur);color:var(--is-txt);padding:9px 10px;border-radius:10px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
+.is-seg button.on{background:var(--is-pri);border-color:var(--is-pri);color:#fff}
+.is-tg{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed var(--is-line);font-size:.88rem}
+.is-tg span small{display:block;color:var(--is-mut);font-size:.75rem;margin-top:2px}
+.is-sw{position:relative;width:44px;height:24px;flex:none;margin-top:2px}
+.is-sw input{opacity:0;width:0;height:0}
+.is-sw i{position:absolute;inset:0;background:var(--is-line);border-radius:99px;cursor:pointer;transition:.2s}
+.is-sw i:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.is-sw input:checked+i{background:var(--is-pri)}
+.is-sw input:checked+i:before{transform:translateX(20px)}
+.is-adv{margin-top:6px}
+.is-adv summary{cursor:pointer;font-weight:700;font-size:.88rem;color:var(--is-pri);padding:8px 0}
+.is-res{position:sticky;top:86px}
+.is-lbl{font-size:.85rem;color:var(--is-mut);font-weight:600}
+.is-hero{font-size:2.6rem;font-weight:800;letter-spacing:-.02em;color:var(--is-pri);line-height:1.1;margin:4px 0}
+.is-sub{font-size:.88rem;color:var(--is-mut)}
+.is-chip{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:6px 11px;border-radius:999px;font-size:.8rem;font-weight:700;background:color-mix(in srgb,var(--is-acc) 14%,var(--is-sur));border:1px solid color-mix(in srgb,var(--is-acc) 45%,var(--is-line))}
+.is-warn{margin-top:12px;padding:10px 12px;border-radius:10px;font-size:.82rem;line-height:1.5;background:color-mix(in srgb,#f59e0b 12%,var(--is-sur));border:1px solid color-mix(in srgb,#f59e0b 45%,var(--is-line))}
+.is-bar{display:flex;gap:2px;height:30px;margin:18px 0 10px;position:relative}
+.is-bar div{height:100%;min-width:3px;cursor:pointer;transition:filter .15s}
+.is-bar div:first-child{border-radius:4px 0 0 4px}
+.is-bar div:last-child{border-radius:0 4px 4px 0}
+.is-bar div:only-child{border-radius:4px}
+.is-bar div:hover{filter:brightness(1.08) saturate(1.1)}
+.is-leg{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-size:.82rem}
+.is-leg span{display:flex;align-items:center;gap:7px;color:var(--is-txt)}
+.is-leg i{width:10px;height:10px;border-radius:3px;flex:none}
+.is-leg b{margin-left:auto;font-weight:700}
+.is-tip{position:fixed;pointer-events:none;background:var(--is-txt);color:var(--is-sur);font-size:.8rem;font-weight:600;padding:7px 10px;border-radius:8px;opacity:0;transition:opacity .12s;z-index:90;white-space:nowrap}
+.is-tbl{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:14px}
+.is-tbl th{text-align:right;font-size:.74rem;color:var(--is-mut);font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:6px 4px;border-bottom:1px solid var(--is-line)}
+.is-tbl th:first-child{text-align:left}
+.is-tbl td{padding:8px 4px;border-bottom:1px dashed var(--is-line);text-align:right;font-variant-numeric:tabular-nums}
+.is-tbl td:first-child{text-align:left;color:var(--is-txt)}
+.is-tbl tr.h td{font-weight:800;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--is-mut);border-bottom:none;padding-top:14px}
+.is-tbl tr.t td{font-weight:800;border-bottom:1px solid var(--is-line)}
+.is-tbl tr.ih td{font-weight:800;font-size:1rem;color:var(--is-pri);border-bottom:none}
+.is-tbl td.neg{color:#dc2626}
+.is-cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.is-cmp div{border:1px solid var(--is-line);border-radius:12px;padding:12px;background:var(--is-soft)}
+.is-cmp div.best{border-color:var(--is-acc);background:color-mix(in srgb,var(--is-acc) 10%,var(--is-sur))}
+.is-cmp b{display:block;font-size:1.1rem;margin-top:4px}
+.is-cmp small{color:var(--is-mut);font-size:.76rem}
+.is-tools{margin-top:22px}
+.is-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.is-tabs button{border:1px solid var(--is-line);background:var(--is-soft);color:var(--is-txt);padding:10px 14px;border-radius:10px;font:inherit;font-size:.86rem;font-weight:700;cursor:pointer}
+.is-tabs button.on{background:var(--is-pri);border-color:var(--is-pri);color:#fff}
+.is-pane{display:none}
+.is-pane.on{display:block}
+.is-pane .is-g3{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.is-out{margin-top:6px;padding:16px;border-radius:12px;background:color-mix(in srgb,var(--is-pri) 7%,var(--is-sur));border:1px solid color-mix(in srgb,var(--is-pri) 30%,var(--is-line));font-size:.92rem;line-height:1.7}
+.is-out b.k{font-size:1.4rem;color:var(--is-pri)}
+.is-work{margin-top:16px}
+.is-work summary{cursor:pointer;font-weight:700;font-size:.88rem}
+.is-work pre{white-space:pre-wrap;font-size:.8rem;line-height:1.6;background:var(--is-soft);border-radius:10px;padding:12px;margin-top:8px;overflow:auto}
+.is-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.is-btn{border:1px solid var(--is-line);background:var(--is-soft);color:var(--is-txt);padding:9px 14px;border-radius:10px;font:inherit;font-size:.84rem;font-weight:700;cursor:pointer}
+.is-btn:hover{border-color:var(--is-pri)}
+.art details{background:var(--is-sur);border:1px solid var(--is-line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.art summary{font-weight:600;cursor:pointer;color:var(--is-txt)}
+.art details p{margin:8px 0 0}
+.art table{width:100%;border-collapse:collapse;font-size:.88rem}
+.art td,.art th{border-bottom:1px solid var(--is-line);padding:8px 6px;text-align:left;vertical-align:top}
+@media(max-width:900px){.is-lay{grid-template-columns:1fr}.is-res{position:static}.is-pane .is-g3{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.is-g2,.is-cmp,.is-leg{grid-template-columns:1fr}.is-hero{font-size:2.1rem}.is-pane .is-g3{grid-template-columns:1fr}}
+
+.ss-lay{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr)}
+.ss-res{position:sticky;top:86px}
+.ss-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.ss-months{min-width:170px;margin:0}
+.ss-acts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.ss-wa{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;border:none;border-radius:12px;padding:11px 18px;font:inherit;font-weight:800;font-size:.95rem;cursor:pointer;box-shadow:0 8px 18px -10px #25D366}
+.ss-wa:hover{background:#1EBE5A}
+.ss-pdf{background:var(--is-pri);color:#fff;border-color:var(--is-pri)}
+.ss-paper{position:relative;background:var(--is-soft);border-radius:14px;padding:12px}
+.ss-paper canvas{display:block;width:100%;height:auto;background:#fff;border-radius:6px;box-shadow:0 10px 30px -12px rgba(15,23,42,.35)}
+.ss-hint{display:block;text-align:center;font-size:.78rem;color:var(--is-mut);margin-top:8px}
+.ss-rows{display:flex;flex-direction:column;gap:8px}
+.ss-row{display:grid;grid-template-columns:minmax(0,1fr) 130px 36px;gap:8px}
+.ss-row input{width:100%;box-sizing:border-box;background:var(--is-soft);border:1px solid var(--is-line);color:var(--is-txt);border-radius:10px;padding:10px 11px;font:inherit;font-size:.92rem}
+.ss-row input:focus{outline:none;border-color:var(--is-pri)}
+.ss-row .am{text-align:right}
+.ss-row.auto .am{background:color-mix(in srgb,var(--is-acc) 10%,var(--is-sur));border-style:dashed}
+.ss-row .x{border:1px solid var(--is-line);background:var(--is-sur);color:var(--is-mut);border-radius:10px;font-size:1.2rem;cursor:pointer}
+.ss-row .x:hover{color:#dc2626;border-color:#dc2626}
+.ss-add{margin:8px 0 4px;border:1px dashed var(--is-line);background:transparent;color:var(--is-pri);font:inherit;font-weight:700;font-size:.86rem;padding:9px 12px;border-radius:10px;cursor:pointer;width:100%}
+.ss-fill{width:100%;background:var(--is-pri);color:#fff;border-color:var(--is-pri);padding:11px 12px}
+.ss-link{border:none;background:none;color:var(--is-pri);font:inherit;font-size:inherit;text-decoration:underline;cursor:pointer;padding:0}
+.ss-sw{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ss-sw button{width:34px;height:34px;border-radius:50%;border:3px solid var(--is-sur);box-shadow:0 0 0 1px var(--is-line);cursor:pointer}
+.ss-sw button.on{box-shadow:0 0 0 3px var(--is-txt)}
+.ss-cpick{position:relative;width:34px;height:34px;border-radius:50%;border:1px dashed var(--is-mut);display:grid;place-items:center;cursor:pointer;font-weight:700;color:var(--is-mut)}
+.ss-cpick input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.ss-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#0F172A;color:#fff;padding:12px 18px;border-radius:12px;font-size:.9rem;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:99;max-width:90vw;text-align:center}
+.ss-toast.on{opacity:1;transform:translateX(-50%)}
+.ss-flash{animation:ssf 1.2s}
+@keyframes ssf{0%,60%{box-shadow:0 0 0 4px color-mix(in srgb,var(--is-acc) 55%,transparent)}100%{box-shadow:none}}
+.is-kw{font-size:.88rem;line-height:1.9;color:var(--is-mut)}
+#printWrap{display:none}
+@media(max-width:900px){.ss-lay{grid-template-columns:1fr}.ss-res{position:static}}
+@media(max-width:520px){.ss-row{grid-template-columns:minmax(0,1fr) 100px 34px}.ss-wa{width:100%;justify-content:center}}
+@media print{body *{visibility:hidden!important}#printWrap,#printWrap *{visibility:visible!important}#printWrap{display:block!important;position:absolute;left:0;top:0;width:100%}#printWrap img{width:100%;height:auto}@page{size:A4;margin:0}}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://www.cooridorstore.in/#organization", "name": "Cooridor Store", "url": "https://www.cooridorstore.in/", "logo": {"@type": "ImageObject", "url": "https://www.cooridorstore.in/og-image.jpg"}}, {"@type": "WebSite", "@id": "https://www.cooridorstore.in/#website", "url": "https://www.cooridorstore.in/", "name": "Cooridor Store", "inLanguage": "en-IN", "publisher": {"@id": "https://www.cooridorstore.in/#organization"}}, {"@type": "WebPage", "@id": "https://www.cooridorstore.in/salary-slip-generator#webpage", "url": "https://www.cooridorstore.in/salary-slip-generator", "name": "Salary Slip Generator: Free Payslip in PDF", "inLanguage": "en-IN", "isPartOf": {"@id": "https://www.cooridorstore.in/#website"}, "datePublished": "2026-11-28", "dateModified": "2026-11-28", "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.cooridorstore.in/"}, {"@type": "ListItem", "position": 2, "name": "Salary Slip Generator", "item": "https://www.cooridorstore.in/salary-slip-generator"}]}}, {"@type": "SoftwareApplication", "name": "Salary Slip Generator", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "url": "https://www.cooridorstore.in/salary-slip-generator", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "publisher": {"@id": "https://www.cooridorstore.in/#organization"}}, {"@type": "HowTo", "name": "How to make a salary slip online", "step": [{"@type": "HowToStep", "name": "Company", "text": "Enter company name, address and logo."}, {"@type": "HowToStep", "name": "Employee", "text": "Add employee name, ID, designation, PAN, UAN and bank details."}, {"@type": "HowToStep", "name": "Salary", "text": "Choose the month and days, then fill earnings from the monthly gross."}, {"@type": "HowToStep", "name": "Deductions", "text": "PF, ESI and professional tax are calculated automatically; add TDS if needed."}, {"@type": "HowToStep", "name": "Share", "text": "Download the PDF or share it on WhatsApp."}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is this salary slip generator free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It is completely free with no sign-up, no watermark and no limit on the number of slips."}}, {"@type": "Question", "name": "How do I send a salary slip on WhatsApp?", "acceptedAnswer": {"@type": "Answer", "text": "Tap \"Share on WhatsApp\". On most phones the PDF is attached directly to WhatsApp. On a computer, the PDF downloads and a WhatsApp chat opens so you can attach it. Add the employee's number to open their chat directly."}}, {"@type": "Question", "name": "Can I edit the salary slip after creating it?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Every field and every earning or deduction row is editable, and the preview updates instantly. Click any part of the slip to jump to its field."}}, {"@type": "Question", "name": "Can I make salary slips for 3 or 6 months at once?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Choose \"Last 3 months\", \"Last 6 months\" or \"Last 12 months\" and the PDF will contain one slip per month. Only the selected month uses the LOP days you entered."}}, {"@type": "Question", "name": "How is PF calculated on a salary slip?", "acceptedAnswer": {"@type": "Answer", "text": "Employee PF is 12% of basic plus DA. If PF is capped, it is 12% of basic up to ₹25,000 a month (₹15,000 before 17 September 2026). You can also choose 12% of full basic or no PF."}}, {"@type": "Question", "name": "When is ESI deducted?", "acceptedAnswer": {"@type": "Answer", "text": "When gross wages are ₹21,000 a month or less. The employee pays 0.75% and the employer 3.25%."}}, {"@type": "Question", "name": "Is my data safe?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The slip is created in your browser. Nothing is uploaded to our servers. Details are saved only in your browser so you do not have to type them again; you can clear them anytime from the Design tab."}}, {"@type": "Question", "name": "What is the difference between a salary slip and Form 16?", "acceptedAnswer": {"@type": "Answer", "text": "A salary slip is a monthly statement of pay and deductions. Form 16 is an annual TDS certificate from the employer showing salary paid and tax deducted for the year, used to file the income tax return."}}, {"@type": "Question", "name": "Can I add my company logo?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Upload a PNG or JPG logo in the Company tab. It is resized automatically and appears at the top of the slip."}}, {"@type": "Question", "name": "Is a salary slip valid without a signature?", "acceptedAnswer": {"@type": "Answer", "text": "A computer-generated payslip usually carries a note that no signature is required. If a bank or embassy asks for a signed slip, turn on the \"Authorised signatory\" line, print it and have it signed and stamped by the employer."}}]}]}</script>
+</head>
+<body>
+<div id="site-header"></div>
+<main class="container page">
+ <div class="crumb"><a href="index.html">Home</a> › <span data-en="Salary Slip Generator" data-hi="सैलरी स्लिप जनरेटर">Salary Slip Generator</span></div>
+ <div class="ph">
+  <h1 data-en="Salary Slip Generator: Free Payslip in PDF" data-hi="सैलरी स्लिप जनरेटर: फ्री पेस्लिप PDF में">Salary Slip Generator: Free Payslip in PDF</h1>
+  <p data-en="Fill in company, employee and salary details once. Get a clean, professional payslip with PF, ESI, professional tax and TDS, net pay in words, and share the PDF on WhatsApp in one tap." data-hi="कंपनी, कर्मचारी और सैलरी की जानकारी एक बार भरें। PF, ESI, प्रोफेशनल टैक्स और TDS के साथ साफ़-सुथरी पेस्लिप पाएं, नेट पे शब्दों में, और एक टैप में WhatsApp पर PDF भेजें।">Fill in company, employee and salary details once. Get a clean, professional payslip with PF, ESI, professional tax and TDS, net pay in words, and share the PDF on WhatsApp in one tap.</p>
+  <div class="is-new"><span>✅ Live preview, click to edit</span><span>✅ Labour Code split + PF ₹25,000</span><span>✅ Auto PF, ESI &amp; state PT</span><span>✅ LOP days</span><span>✅ 1, 3, 6 or 12 months in one PDF</span><span>✅ WhatsApp share</span><span>✅ Saved on your device</span></div>
+ </div>
+
+ <div class="is-lay ss-lay">
+  <div class="is-card top">
+   <div class="is-tabs" id="ftabs">
+    <button type="button" data-p="co" class="on">🏢 Company</button>
+    <button type="button" data-p="emp">👤 Employee</button>
+    <button type="button" data-p="pay">💰 Salary</button>
+    <button type="button" data-p="des">🎨 Design</button>
+   </div>
+
+   <div class="is-pane on" data-p="co">
+    <div class="is-f"><label for="coName">Company name</label><input id="coName" class="big" value="Sharma Traders Pvt Ltd" maxlength="70"></div>
+    <div class="is-f"><label for="coAddr">Address</label><input id="coAddr" value="12 MG Road, Dehradun, Uttarakhand 248001" maxlength="110"></div>
+    <div class="is-f"><label for="coExtra">Extra line (optional)</label><input id="coExtra" placeholder="GSTIN, CIN, email or website" maxlength="90"></div>
+    <div class="is-f"><label for="logo">Company logo (optional)</label><input id="logo" type="file" accept="image/png,image/jpeg,image/webp"><small>PNG or JPG. It stays on your device. <button type="button" class="ss-link" id="logoX">Remove logo</button></small></div>
+   </div>
+
+   <div class="is-pane" data-p="emp">
+    <div class="is-g2">
+     <div class="is-f"><label for="eName">Employee name</label><input id="eName" value="Rahul Verma" maxlength="50"></div>
+     <div class="is-f"><label for="eId">Employee ID</label><input id="eId" value="EMP-014" maxlength="25"></div>
+     <div class="is-f"><label for="eDes">Designation</label><input id="eDes" value="Accounts Executive" maxlength="40"></div>
+     <div class="is-f"><label for="eDept">Department</label><input id="eDept" value="Finance" maxlength="40"></div>
+     <div class="is-f"><label for="eDoj">Date of joining</label><input id="eDoj" type="date" value="2024-04-01"></div>
+     <div class="is-f"><label for="eLoc">Work location</label><input id="eLoc" value="Dehradun" maxlength="40"></div>
+     <div class="is-f"><label for="ePan">PAN</label><input id="ePan" placeholder="ABCDE1234F" maxlength="10"><small id="panMsg"></small></div>
+     <div class="is-f"><label for="eUan">UAN (PF)</label><input id="eUan" placeholder="12-digit UAN" maxlength="12" inputmode="numeric"></div>
+     <div class="is-f"><label for="eEsi">ESI number</label><input id="eEsi" placeholder="If covered under ESI" maxlength="17" inputmode="numeric"></div>
+     <div class="is-f"><label for="eBank">Bank name</label><input id="eBank" value="State Bank of India" maxlength="40"></div>
+     <div class="is-f"><label for="eAcc">Bank account number</label><input id="eAcc" placeholder="Shown as XXXX1234" maxlength="20" inputmode="numeric"></div>
+     <div class="is-f"><label for="eWa">Employee WhatsApp number (not printed)</label><input id="eWa" placeholder="10-digit mobile" maxlength="13" inputmode="tel"><small>To send the slip straight to their chat</small></div>
+    </div>
+    <div class="is-tg"><span>Show full account number<small>Off shows only the last 4 digits, which is safer</small></span><label class="is-sw"><input type="checkbox" id="fullAcc"><i></i></label></div>
+   </div>
+
+   <div class="is-pane" data-p="pay">
+    <div class="is-g2">
+     <div class="is-f"><label for="mon">Pay month</label><input id="mon" type="month"></div>
+     <div class="is-f"><label for="pdate">Pay date</label><input id="pdate" type="date"></div>
+     <div class="is-f"><label for="wd">Working days in the month</label><input id="wd" inputmode="numeric" value="30"></div>
+     <div class="is-f"><label for="pd">Paid days</label><input id="pd" inputmode="numeric" value="30"><small id="lopMsg">Loss of pay (LOP) days are worked out automatically</small></div>
+    </div>
+    <div class="is-tg"><span>Reduce earnings for LOP days<small>Earnings × paid days ÷ working days. Enter full-month amounts below.</small></span><label class="is-sw"><input type="checkbox" id="prorate" checked><i></i></label></div>
+
+    <div class="is-sec">Quick fill from monthly gross</div>
+    <div class="is-g2 ss-quick">
+     <div class="is-f"><label for="qg">Monthly gross salary, ₹</label><input id="qg" inputmode="decimal" value="40000"></div>
+     <div class="is-f"><label>&nbsp;</label><button type="button" class="is-btn ss-fill" id="fill">⚡ Fill earnings (Labour Code split)</button></div>
+    </div>
+    <p class="is-sub" style="margin:-4px 0 6px">Basic 50%, HRA 20%, special allowance 30%. You can change every row after filling.</p>
+
+    <div class="is-sec">Earnings (full month)</div>
+    <div id="earn" class="ss-rows"></div>
+    <button type="button" class="ss-add" data-t="earn">+ Add earning</button>
+
+    <div class="is-sec">Deductions</div>
+    <div class="is-tg"><span>Calculate PF, ESI and professional tax automatically<small>Turn off to type every deduction yourself</small></span><label class="is-sw"><input type="checkbox" id="autoD" checked><i></i></label></div>
+    <div class="is-g2" id="autoBox" style="margin-top:10px">
+     <div class="is-f"><label for="pfm">Employee PF</label><select id="pfm"><option value="25000" selected>12% of basic up to ₹25,000 (from 17 Sep 2026)</option><option value="15000">12% of basic up to ₹15,000 (before 17 Sep 2026)</option><option value="full">12% of full basic</option><option value="0">No PF</option></select></div>
+     <div class="is-f"><label for="st">State (professional tax)</label><select id="st"></select></div>
+    </div>
+    <div id="ded" class="ss-rows"></div>
+    <button type="button" class="ss-add" data-t="ded">+ Add deduction</button>
+   </div>
+
+   <div class="is-pane" data-p="des">
+    <div class="is-f"><label>Colour</label><div class="ss-sw" id="col"></div></div>
+    <div class="is-f"><label>Style</label><div class="is-seg" id="sty"><button type="button" data-v="band" class="on">Classic band</button><button type="button" data-v="clean">Modern clean</button><button type="button" data-v="mono">Minimal</button></div></div>
+    <div class="is-f"><label for="foot">Footer note</label><input id="foot" value="This is a computer-generated payslip and does not require a signature." maxlength="110"></div>
+    <div class="is-tg"><span>Show "Authorised signatory" line</span><label class="is-sw"><input type="checkbox" id="sign"><i></i></label></div>
+    <div class="is-tg"><span>Show employer PF contribution<small>Adds a line below net pay, for information</small></span><label class="is-sw"><input type="checkbox" id="erpf"><i></i></label></div>
+    <div class="is-tg"><span>Small "Made with Cooridor Store" credit</span><label class="is-sw"><input type="checkbox" id="credit" checked><i></i></label></div>
+    <button type="button" class="is-btn" id="clr" style="margin-top:12px">🗑️ Clear saved details</button>
+   </div>
+  </div>
+
+  <div class="is-card ss-res" id="ssRes">
+   <div class="ss-top"><div><div class="is-lbl">Net pay</div><div class="is-hero" id="hero">₹0</div><div class="is-sub" id="heroSub"></div></div>
+    <div class="is-f ss-months"><label for="nm">Months in PDF</label><select id="nm"><option value="1">This month</option><option value="3">Last 3 months</option><option value="6">Last 6 months</option><option value="12">Last 12 months</option></select></div></div>
+   <div id="warns"></div>
+   <div class="ss-acts">
+    <button type="button" class="ss-wa" id="wa"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.3Z"/></svg> Share on WhatsApp</button>
+    <button type="button" class="is-btn ss-pdf" id="pdf">⬇️ Download PDF</button>
+    <button type="button" class="is-btn" id="png">🖼️ Image</button>
+    <button type="button" class="is-btn" id="prt">🖨️ Print</button>
+   </div>
+   <div class="ss-paper"><canvas id="cv" width="1240" height="1754" aria-label="Salary slip preview"></canvas><span class="ss-hint">Tip: click any part of the slip to edit it</span></div>
+   <div class="ss-toast" id="toast" role="status"></div>
+  </div>
+ </div>
+ <div id="printWrap"><img id="printImg" alt="Salary slip"></div>
+
+ <article class="art">
+  <h2>What is a salary slip?</h2>
+  <p>A salary slip, also called a payslip or pay stub, is a monthly statement an employer gives an employee. It shows what the employee earned, what was deducted, and the net pay credited to the bank. Employers are expected to issue wage slips under Indian labour laws, and employees need them for loans, credit cards, visas, rented homes, job changes and income tax returns.</p>
+  <p>This free salary slip generator creates a clean payslip in the standard Indian format in under a minute. Everything happens in your browser: the details, logo and salary figures are never uploaded, and they are saved only on your own device so next month's slip takes seconds.</p>
+
+  <h2>How do I make a salary slip online?</h2>
+  <ol>
+   <li><b>Company:</b> enter the company name and address, and upload a logo if you have one.</li>
+   <li><b>Employee:</b> add name, employee ID, designation, PAN, UAN and bank details. The account number is masked to the last 4 digits by default.</li>
+   <li><b>Salary:</b> pick the pay month, working and paid days, then type the monthly gross and press <b>Fill earnings</b>, or enter each component yourself.</li>
+   <li><b>Deductions:</b> PF, ESI and professional tax are calculated automatically. Add TDS, loan recovery or advances if needed.</li>
+   <li><b>Design:</b> choose a colour and style, and add a footer note or a signatory line.</li>
+   <li><b>Share:</b> tap <b>Share on WhatsApp</b> to send the PDF, or download it as PDF or image. Choose 3, 6 or 12 months to get all slips in one PDF.</li>
+  </ol>
+
+  <h2>What does a salary slip contain?</h2>
+  <table><thead><tr><th>Section</th><th>What it shows</th></tr></thead><tbody>
+   <tr><td>Company details</td><td>Name, address, logo and optional GSTIN or CIN</td></tr>
+   <tr><td>Employee details</td><td>Name, ID, designation, department, date of joining, PAN, UAN, ESI number, bank account</td></tr>
+   <tr><td>Attendance</td><td>Working days, paid days and loss of pay (LOP) days</td></tr>
+   <tr><td>Earnings</td><td>Basic, DA, HRA, special allowance, conveyance, bonus, overtime, incentives</td></tr>
+   <tr><td>Deductions</td><td>Employee PF, ESI, professional tax, income tax (TDS), loan or advance recovery</td></tr>
+   <tr><td>Net pay</td><td>Gross earnings minus total deductions, in figures and in words</td></tr></tbody></table>
+
+  <h2>What are the common salary components?</h2>
+  <h3>Basic salary and DA</h3><p>The fixed core of pay. Under the new Labour Codes, basic plus DA should be at least 50% of total pay. PF and gratuity are calculated on it.</p>
+  <h3>House Rent Allowance (HRA)</h3><p>Paid for rent. In the old tax regime part of it can be tax-free; from April 2026, eight cities get the higher 50% limit.</p>
+  <h3>Special allowance</h3><p>A flexible, fully taxable balancing component that makes up the rest of the gross salary.</p>
+  <h3>Bonus, overtime and incentives</h3><p>Variable pay added in the month it is paid. Add them as extra earning rows.</p>
+  <h3>Provident Fund (PF)</h3><p>12% of basic plus DA. Many employers cap it at the PF wage ceiling, which rose from ₹15,000 to ₹25,000 a month from 17 September 2026, so the maximum employee PF is now ₹3,000 a month.</p>
+  <h3>ESI</h3><p>Employees earning ₹21,000 a month or less pay 0.75% of gross wages; the employer pays 3.25%.</p>
+  <h3>Professional tax</h3><p>A state tax of up to ₹2,500 a year, usually ₹200 a month with ₹300 in February in some states. Delhi, Haryana, Uttar Pradesh, Rajasthan and Uttarakhand do not charge it.</p>
+  <h3>Income tax (TDS)</h3><p>Tax the employer deducts each month based on your expected annual tax. Use the income tax calculator to estimate it.</p>
+
+  <h2>How are LOP days calculated?</h2>
+  <p>Loss of pay days are working days for which no salary is paid, such as unpaid leave. When "Reduce earnings for LOP days" is on, each earning is multiplied by paid days and divided by working days. For example, with a ₹40,000 gross, 30 working days and 2 LOP days, earnings become ₹40,000 × 28 ÷ 30 = ₹37,333.33. PF and ESI are then worked out on the reduced amounts.</p>
+
+  <h2>Who can use this payslip generator?</h2>
+  <ul>
+   <li><b>Small businesses, shops and startups</b> that pay staff but do not use payroll software.</li>
+   <li><b>Accountants and CAs</b> who prepare salary slips for clients every month.</li>
+   <li><b>HR teams</b> that need a quick, branded slip for one employee.</li>
+   <li><b>Households</b> paying drivers, cooks or caretakers who need proof of income.</li>
+  </ul>
+  <p class="note"><b>Please use it honestly.</b> A salary slip must match the salary actually paid. Making a false payslip to get a loan, visa or rental is fraud and a criminal offence. Banks check slips against bank statements and Form 16.</p>
+
+  <h2>Frequently asked questions</h2>
+  <details><summary>Is this salary slip generator free?</summary><p>Yes. It is completely free with no sign-up, no watermark and no limit on the number of slips.</p></details>
+  <details><summary>How do I send a salary slip on WhatsApp?</summary><p>Tap "Share on WhatsApp". On most phones the PDF is attached directly to WhatsApp. On a computer, the PDF downloads and a WhatsApp chat opens so you can attach it. Add the employee's number to open their chat directly.</p></details>
+  <details><summary>Can I edit the salary slip after creating it?</summary><p>Yes. Every field and every earning or deduction row is editable, and the preview updates instantly. Click any part of the slip to jump to its field.</p></details>
+  <details><summary>Can I make salary slips for 3 or 6 months at once?</summary><p>Yes. Choose "Last 3 months", "Last 6 months" or "Last 12 months" and the PDF will contain one slip per month. Only the selected month uses the LOP days you entered.</p></details>
+  <details><summary>How is PF calculated on a salary slip?</summary><p>Employee PF is 12% of basic plus DA. If PF is capped, it is 12% of basic up to ₹25,000 a month (₹15,000 before 17 September 2026). You can also choose 12% of full basic or no PF.</p></details>
+  <details><summary>When is ESI deducted?</summary><p>When gross wages are ₹21,000 a month or less. The employee pays 0.75% and the employer 3.25%.</p></details>
+  <details><summary>Is my data safe?</summary><p>Yes. The slip is created in your browser. Nothing is uploaded to our servers. Details are saved only in your browser so you do not have to type them again; you can clear them anytime from the Design tab.</p></details>
+  <details><summary>What is the difference between a salary slip and Form 16?</summary><p>A salary slip is a monthly statement of pay and deductions. Form 16 is an annual TDS certificate from the employer showing salary paid and tax deducted for the year, used to file the income tax return.</p></details>
+  <details><summary>Can I add my company logo?</summary><p>Yes. Upload a PNG or JPG logo in the Company tab. It is resized automatically and appears at the top of the slip.</p></details>
+  <details><summary>Is a salary slip valid without a signature?</summary><p>A computer-generated payslip usually carries a note that no signature is required. If a bank or embassy asks for a signed slip, turn on the "Authorised signatory" line, print it and have it signed and stamped by the employer.</p></details>
+
+  <section class="sources">
+   <h2>Which official websites should I check?</h2>
+   <ul>
+    <li><a href="https://www.epfindia.gov.in/" target="_blank" rel="noopener">EPFO</a>: PF rules, UAN and passbook</li>
+    <li><a href="https://www.esic.gov.in/" target="_blank" rel="noopener">ESIC</a>: ESI contribution rates and coverage</li>
+    <li><a href="https://labour.gov.in/" target="_blank" rel="noopener">Ministry of Labour and Employment</a>: Labour Codes and wage rules</li>
+    <li><a href="https://www.incometax.gov.in/" target="_blank" rel="noopener">Income Tax e-Filing Portal</a>: TDS, Form 16 and returns</li>
+   </ul>
+  </section>
+
+  <h2>Guides from our blog</h2>
+  <div class="related">
+   <a href="blog.html#labour-code-salary-pf-25000">New Labour Code: what changes in your salary and PF</a>
+   <a href="new-tax-regime-slabs-2026-27.html">New tax regime slabs FY 2026-27</a>
+   <a href="hra-exemption-calculation-2026.html">HRA exemption 2026: 8 metro cities</a>
+   <a href="tds-rate-chart-2026-27.html">TDS rate chart FY 2026-27</a>
+   <a href="blog.html#epf-interest-rate-2025-26">EPF interest rate 8.25%: check your credit</a>
+   <a href="blog.html">All guides on the blog →</a>
+  </div>
+
+  <h2>Which other tools can help?</h2>
+  <div class="related">
+   <a href="in-hand-salary-calculator.html">In-hand Salary Calculator</a>
+   <a href="income-tax-calculator.html">Income Tax Calculator</a>
+   <a href="gratuity-calculator.html">Gratuity Calculator</a>
+   <a href="hra-calculator.html">HRA Calculator</a>
+   <a href="rent-receipt-generator.html">Rent Receipt Generator</a>
+   <a href="invoice-generator.html">GST Invoice Generator</a>
+  </div>
+
+  <h2>Popular searches</h2>
+  <p class="is-kw">salary slip generator · salary slip format · payslip generator India · salary slip format in Excel alternative · salary slip PDF download · free payslip maker · salary slip for 3 months · salary slip for 6 months · salary slip format with PF and ESI · salary slip for bank loan · pay slip template India · monthly salary slip format · employee salary slip online · salary certificate format · salary slip with logo · salary slip WhatsApp share · LOP salary calculation · net pay in words</p>
+ </article>
+</main>
+<div id="site-footer"></div>
+<script src="app.js"></script>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i);};
+var STATES=[['Andhra Pradesh',2400],['Assam',2500],['Bihar',2500],['Chhattisgarh',2500],['Delhi',0],['Goa',0],['Gujarat',2400],['Haryana',0],['Himachal Pradesh',0],['Jharkhand',2500],['Karnataka',2500],['Kerala',2500],['Madhya Pradesh',2500],['Maharashtra',2500],['Meghalaya',2500],['Odisha',2500],['Punjab',2400],['Rajasthan',0],['Tamil Nadu',2500],['Telangana',2400],['Uttar Pradesh',0],['Uttarakhand',0],['West Bengal',2400],['Other / not sure',2500]];
+var COLS=['#0B3D91','#047857','#7C3AED','#BE123C','#B45309','#0F172A'];
+var S={col:COLS[0],sty:'band',logo:null,earn:[],ded:[]};
+var FIELDS=['coName','coAddr','coExtra','eName','eId','eDes','eDept','eDoj','eLoc','ePan','eUan','eEsi','eBank','eAcc','eWa','mon','pdate','wd','pd','qg','pfm','st','foot','nm'];
+var CHECKS=['fullAcc','prorate','autoD','sign','erpf','credit'];
+var KEY='cs_salaryslip_v1';
+function num(v){v=String(v==null?'':v).replace(/[,₹\s]/g,'');var x=parseFloat(v);return isFinite(x)&&x>0?x:0;}
+function money(x){return '₹'+(Math.round(x*100)/100).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+/* number to Indian words */
+var ONES=['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'],TENS=['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+function two(n){return n<20?ONES[n]:TENS[Math.floor(n/10)]+(n%10?' '+ONES[n%10]:'');}
+function three(n){var h=Math.floor(n/100),r=n%100;return (h?ONES[h]+' Hundred'+(r?' ':''):'')+(r?two(r):'');}
+function words(x){x=Math.max(0,x);var r=Math.floor(x),p=Math.round((x-r)*100);if(p===100){r++;p=0;}
+ var parts=[],cr=Math.floor(r/1e7);r%=1e7;var l=Math.floor(r/1e5);r%=1e5;var t=Math.floor(r/1e3);r%=1e3;
+ if(cr)parts.push((cr>=100?three(Math.floor(cr/100))+' Hundred '+(cr%100?two(cr%100):''):two(cr)).trim()+' Crore');if(l)parts.push(two(l)+' Lakh');if(t)parts.push(two(t)+' Thousand');if(r)parts.push(three(r));
+ var s='Rupees '+(parts.length?parts.join(' '):'Zero');if(p)s+=' and '+two(p)+' Paise';return s+' Only';}
+function monthLabel(y,m){return new Date(y,m,1).toLocaleDateString('en-IN',{month:'long',year:'numeric'});}
+function dim(y,m){return new Date(y,m+1,0).getDate();}
+function fmtDate(s){if(!s)return '';var d=new Date(s+'T00:00:00');return isNaN(d)?s:d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});}
+
+/* rows */
+function rowHTML(t,r,i){var auto=t==='ded'&&$('autoD').checked&&r.k&&['pf','esi','pt'].indexOf(r.k)>-1;
+ return '<div class="ss-row'+(auto?' auto':'')+'" data-t="'+t+'" data-i="'+i+'"><input class="nm" value="'+esc(r.n)+'" maxlength="40" aria-label="Name"><input class="am" inputmode="decimal" value="'+(auto?'':esc(r.a))+'" placeholder="'+(auto?'auto':'0')+'" '+(auto?'readonly tabindex="-1"':'')+' aria-label="Amount"><button type="button" class="x" aria-label="Remove row">×</button></div>';}
+function drawRows(){$('earn').innerHTML=S.earn.map(function(r,i){return rowHTML('earn',r,i);}).join('');$('ded').innerHTML=S.ded.map(function(r,i){return rowHTML('ded',r,i);}).join('');}
+function ensureAutoRows(){if(!$('autoD').checked)return;[['pf','Provident Fund (PF)'],['esi','ESI'],['pt','Professional Tax']].forEach(function(a,ix){if(!S.ded.some(function(r){return r.k===a[0];}))S.ded.splice(ix,0,{k:a[0],n:a[1],a:''});});if(!S.ded.some(function(r){return r.k==='tds';}))S.ded.push({k:'tds',n:'Income Tax (TDS)',a:''});}
+function fill(){var g=num($('qg').value);if(!g){toast('Enter the monthly gross salary first');return;}var b=Math.round(g*.5),h=Math.round(g*.2);S.earn=[{k:'basic',n:'Basic + DA',a:b},{k:'hra',n:'House Rent Allowance',a:h},{k:'spl',n:'Special Allowance',a:g-b-h}];drawRows();render();save();toast('Earnings filled. Edit any row if needed.');}
+
+/* calculation */
+function calc(y,m,wd,pd){
+ var pr=$('prorate').checked&&wd>0?Math.min(pd,wd)/wd:1,E=[],D=[],gross=0,basic=0;
+ S.earn.forEach(function(r){var a=num(r.a)*pr;if(!a&&String(r.a==null?'':r.a).trim()==='')return;E.push([r.n||'Earning',a]);gross+=a;if(r.k==='basic'||/basic|\bda\b|dearness/i.test(r.n))basic+=a;});
+ var auto=$('autoD').checked,pfm=$('pfm').value,stv=+($('st').value||0),stn=($('st').selectedOptions[0]||{}).text||'',erpf=0;
+ S.ded.forEach(function(r){var a;
+  if(auto&&r.k==='pf'){a=pfm==='0'?0:Math.round(.12*(pfm==='full'?basic:Math.min(basic,+pfm)));erpf=a;}
+  else if(auto&&r.k==='esi'){a=gross>0&&gross<=21000?Math.ceil(.0075*gross):0;}
+  else if(auto&&r.k==='pt'){a=stv===0?0:(stv===2500&&m===1?300:200);if(gross<=0)a=0;}
+  else{a=num(r.a);if(!a&&String(r.a==null?'':r.a).trim()==='')return;}
+  if(auto&&r.k&&['pf','esi','pt'].indexOf(r.k)>-1&&a===0)return;
+  if(!r.n&&!a)return;D.push([r.n||'Deduction',a]);});
+ var td=D.reduce(function(s,d){return s+d[1];},0);
+ return {E:E,D:D,gross:gross,td:td,net:gross-td,basic:basic,erpf:erpf,pr:pr,stn:stn,wd:wd,pd:Math.min(pd,wd),lop:Math.max(0,wd-pd),label:monthLabel(y,m),y:y,m:m};
+}
+function period(){var v=$('mon').value,d=new Date();var y=d.getFullYear(),m=d.getMonth();if(/^\d{4}-\d{2}$/.test(v)){y=+v.slice(0,4);m=+v.slice(5,7)-1;}return {y:y,m:m};}
+function pages(){var p=period(),n=+$('nm').value||1,wd=num($('wd').value)||dim(p.y,p.m),pd=$('pd').value===''?wd:Math.min(num($('pd').value),wd),out=[];
+ for(var k=n-1;k>=0;k--){var dt=new Date(p.y,p.m-k,1),y=dt.getFullYear(),m=dt.getMonth();out.push(k===0?calc(y,m,wd,pd):calc(y,m,dim(y,m),dim(y,m)));}return out;}
+
+/* canvas drawing */
+var HITS=[],W=1240,H=1754,F="'Segoe UI',Roboto,'Noto Sans','Helvetica Neue',Arial,sans-serif";
+function tint(hex,a){var n=parseInt(hex.slice(1),16),r=n>>16,g=n>>8&255,b=n&255;return 'rgb('+Math.round(r+(255-r)*(1-a))+','+Math.round(g+(255-g)*(1-a))+','+Math.round(b+(255-b)*(1-a))+')';}
+function fit(c,t,w){t=String(t);if(c.measureText(t).width<=w)return t;while(t.length>1&&c.measureText(t+'…').width>w)t=t.slice(0,-1);return t+'…';}
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+function hit(x,y,w,h,id,tab){HITS.push([x,y,w,h,id,tab]);}
+function draw(cv,P,hits){
+ var c=cv.getContext('2d'),A=S.col,M=80,mono=S.sty==='mono',band=S.sty==='band',ink='#0F172A',mut='#64748B',line='#E2E8F0';if(hits)HITS=[];
+ c.fillStyle='#fff';c.fillRect(0,0,W,H);c.textBaseline='alphabetic';
+ // header
+ var hh=band?220:200,tx=M,txtCol=band?'#fff':ink;
+ if(band){c.fillStyle=A;c.fillRect(0,0,W,hh);}else if(!mono){c.fillStyle=A;c.fillRect(0,0,W,12);}
+ if(S.logo&&S.logo.complete&&S.logo.naturalWidth){var lw=130,lh=130,ir=S.logo.naturalWidth/S.logo.naturalHeight,dw=ir>1?lw:lh*ir,dh=ir>1?lw/ir:lh;
+  if(band){c.fillStyle='#fff';rr(c,M,45,lw+20,lh+20,16);c.fill();}c.drawImage(S.logo,M+10+(lw-dw)/2,55+(lh-dh)/2,dw,dh);tx=M+lw+50;}
+ hit(0,0,W*.62,hh,'coName','co');
+ c.fillStyle=txtCol;c.font='700 46px '+F;c.fillText(fit(c,$('coName').value||'Company name',W*.6-tx),tx,108);
+ c.font='400 23px '+F;c.fillStyle=band?'rgba(255,255,255,.88)':mut;c.fillText(fit(c,$('coAddr').value,W*.62-tx),tx,148);
+ if($('coExtra').value){c.fillText(fit(c,$('coExtra').value,W*.62-tx),tx,182);}
+ c.textAlign='right';c.font='700 22px '+F;c.fillStyle=band?'rgba(255,255,255,.8)':(mono?mut:A);c.fillText('SALARY SLIP',W-M,96);
+ c.font='700 36px '+F;c.fillStyle=txtCol;c.fillText(P.label,W-M,142);c.textAlign='left';hit(W*.62,0,W*.38,hh,'mon','pay');
+ if(!band){c.strokeStyle=line;c.lineWidth=2;c.beginPath();c.moveTo(M,hh);c.lineTo(W-M,hh);c.stroke();}
+ // employee details
+ var y=hh+70;c.font='700 20px '+F;c.fillStyle=mono?ink:A;c.fillText('EMPLOYEE DETAILS',M,y);y+=22;
+ var acc=$('eAcc').value.replace(/\s/g,''),accS=acc?($('fullAcc').checked?acc:'XXXX'+acc.slice(-4)):'';
+ var L=[['Employee name',$('eName').value,'eName'],['Employee ID',$('eId').value,'eId'],['Designation',$('eDes').value,'eDes'],['Department',$('eDept').value,'eDept'],['Date of joining',fmtDate($('eDoj').value),'eDoj'],['Work location',$('eLoc').value,'eLoc']].filter(function(r){return r[1];});
+ var R=[['PAN',$('ePan').value.toUpperCase(),'ePan'],['UAN',$('eUan').value,'eUan'],['ESI number',$('eEsi').value,'eEsi'],['Bank',$('eBank').value,'eBank'],['Account number',accS,'eAcc'],['Pay date',fmtDate($('pdate').value),'pdate']].filter(function(r){return r[1];});
+ var cw=(W-2*M-40)/2,rows=Math.max(L.length,R.length,1);
+ [[L,M],[R,M+cw+40]].forEach(function(col){col[0].forEach(function(r,i){var yy=y+30+i*46;c.font='400 22px '+F;c.fillStyle=mut;c.fillText(r[0],col[1],yy);c.font='600 22px '+F;c.fillStyle=ink;c.fillText(fit(c,r[1],cw-230),col[1]+220,yy);hit(col[1],yy-30,cw,44,r[2],r[2]==='pdate'?'pay':'emp');
+  c.strokeStyle='#F1F5F9';c.lineWidth=1;c.beginPath();c.moveTo(col[1],yy+14);c.lineTo(col[1]+cw,yy+14);c.stroke();});});
+ y+=30+rows*46+20;
+ // attendance strip
+ var sw=(W-2*M),stats=[['Working days',P.wd],['Paid days',P.pd],['LOP days',P.lop],['PF wage base',P.basic?money(Math.min(P.basic,$('pfm').value==='full'||$('pfm').value==='0'?P.basic:+$('pfm').value)).replace('.00',''):'—']];
+ c.fillStyle=mono?'#F8FAFC':tint(A,.07);rr(c,M,y,sw,96,16);c.fill();hit(M,y,sw,96,'pd','pay');
+ stats.forEach(function(s,i){var x=M+30+i*(sw/4);c.font='400 19px '+F;c.fillStyle=mut;c.fillText(s[0],x,y+38);c.font='700 28px '+F;c.fillStyle=ink;c.fillText(String(s[1]),x,y+74);});
+ y+=96+44;
+ // table
+ var half=(W-2*M-30)/2,xr=M+half+30,rh=50,n=Math.max(P.E.length,P.D.length,1);
+ [[M,'EARNINGS',P.E,'pay'],[xr,'DEDUCTIONS',P.D,'pay']].forEach(function(t){
+  c.fillStyle=mono?'#F1F5F9':tint(A,.12);rr(c,t[0],y,half,58,12);c.fill();
+  c.font='700 20px '+F;c.fillStyle=mono?ink:A;c.fillText(t[1],t[0]+22,y+37);c.textAlign='right';c.fillText('AMOUNT',t[0]+half-22,y+37);c.textAlign='left';
+  for(var i=0;i<n;i++){var yy=y+58+i*rh+33,r=t[2][i];if(r){c.font='400 23px '+F;c.fillStyle=ink;c.fillText(fit(c,r[0],half-230),t[0]+22,yy);c.textAlign='right';c.font='500 23px '+F;c.fillText(money(r[1]),t[0]+half-22,yy);c.textAlign='left';}
+   c.strokeStyle=line;c.lineWidth=1;c.beginPath();c.moveTo(t[0]+12,yy+17);c.lineTo(t[0]+half-12,yy+17);c.stroke();}
+  hit(t[0],y,half,58+n*rh,t[1]==='EARNINGS'?'earn':'ded','pay');});
+ y+=58+n*rh+12;
+ [[M,'Gross earnings',P.gross],[xr,'Total deductions',P.td]].forEach(function(t){c.font='700 24px '+F;c.fillStyle=ink;c.fillText(t[1],t[0]+22,y+34);c.textAlign='right';c.fillText(money(t[2]),t[0]+half-22,y+34);c.textAlign='left';});
+ y+=70;
+ // net pay
+ c.fillStyle=mono?ink:A;rr(c,M,y,W-2*M,150,20);c.fill();
+ c.fillStyle='rgba(255,255,255,.8)';c.font='600 21px '+F;c.fillText('NET PAY FOR '+P.label.toUpperCase(),M+34,y+48);
+ c.fillStyle='#fff';c.font='800 50px '+F;c.fillText(money(P.net),M+34,y+108);
+ c.textAlign='right';c.font='400 20px '+F;c.fillStyle='rgba(255,255,255,.85)';c.fillText('Gross '+money(P.gross)+'  −  Deductions '+money(P.td),W-M-34,y+108);c.textAlign='left';
+ y+=150+40;c.font='italic 400 22px '+F;c.fillStyle=ink;
+ var wtxt=words(P.net),wl=[],cur='';wtxt.split(' ').forEach(function(w){var t=cur?cur+' '+w:w;if(c.measureText('In words: '+t).width>W-2*M){wl.push(cur);cur=w;}else cur=t;});wl.push(cur);
+ wl.forEach(function(l,i){c.fillText((i?'':'In words: ')+l,M,y+i*32);});y+=wl.length*32+10;
+ if($('erpf').checked&&P.erpf){c.font='400 20px '+F;c.fillStyle=mut;c.fillText('Employer PF contribution (not part of net pay): '+money(P.erpf),M,y+14);y+=40;}
+ // footer
+ var fy=Math.max(y+60,H-200);
+ if($('sign').checked){c.strokeStyle='#94A3B8';c.lineWidth=1.5;c.beginPath();c.moveTo(W-M-300,fy);c.lineTo(W-M,fy);c.stroke();c.font='500 20px '+F;c.fillStyle=mut;c.textAlign='right';c.fillText('Authorised signatory',W-M,fy+30);c.textAlign='left';}
+ c.font='400 19px '+F;c.fillStyle=mut;c.fillText(fit(c,$('foot').value,$('sign').checked?W-2*M-340:W-2*M),M,fy+30);hit(M,fy,W-2*M,50,'foot','des');
+ if($('credit').checked){c.font='400 16px '+F;c.fillStyle='#94A3B8';c.textAlign='center';c.fillText('Made with the free Salary Slip Generator at cooridorstore.in',W/2,H-50);c.textAlign='left';}
+}
+
+/* render + warnings */
+function render(){
+ ensureAutoRows();var P=pages(),cur=P[P.length-1];draw($('cv'),cur,true);
+ $('hero').textContent=money(cur.net).replace('.00','');
+ $('heroSub').textContent=cur.label+' · gross '+money(cur.gross).replace('.00','')+' · deductions '+money(cur.td).replace('.00','')+(cur.lop?' · '+cur.lop+' LOP day'+(cur.lop>1?'s':''):'');
+ // fill auto amounts in row inputs
+ if($('autoD').checked){[].forEach.call($('ded').querySelectorAll('.ss-row.auto'),function(el){var r=S.ded[+el.dataset.i],d=cur.D.filter(function(x){return x[0]===r.n;})[0];el.querySelector('.am').placeholder=d?'auto '+Math.round(d[1]).toLocaleString('en-IN'):'auto 0';});}
+ var W2=[],p=period(),wd=num($('wd').value),pd=num($('pd').value);
+ if(!S.earn.length||cur.gross<=0)W2.push('Add at least one earning, or use "Fill earnings" with the monthly gross.');
+ if(cur.net<0)W2.push('Deductions are more than earnings, so net pay is negative. Please check the amounts.');
+ if(pd>wd&&wd)W2.push('Paid days cannot be more than working days. We used '+wd+'.');
+ if(wd>dim(p.y,p.m))W2.push('Working days are more than the days in '+cur.label+'.');
+ if($('autoD').checked&&$('pfm').value!=='0'&&!cur.basic)W2.push('PF needs a row named "Basic" (or Basic + DA). Rename your basic pay row so PF can be calculated.');
+ if(cur.gross>0&&cur.gross<=21000&&$('autoD').checked)W2.push('Gross is ₹21,000 or less, so ESI at 0.75% is deducted.');
+ var pan=$('ePan').value.trim().toUpperCase();$('panMsg').textContent=pan&&!/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(pan)?'PAN format looks wrong (e.g. ABCDE1234F)':'';
+ $('lopMsg').textContent=cur.lop?cur.lop+' LOP day'+(cur.lop>1?'s':'')+' this month':'Loss of pay (LOP) days are worked out automatically';
+ $('warns').innerHTML=W2.map(function(w){return '<div class="is-warn">'+w+'</div>';}).join('');
+}
+
+/* PDF (JPEG pages, no library) */
+function b64ToBytes(d){var b=atob(d.split(',')[1]),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
+function makePDF(imgs){var enc=new TextEncoder(),parts=[],off=0,xref=[];function push(x){var u=typeof x==='string'?enc.encode(x):x;parts.push(u);off+=u.length;}
+ var n=imgs.length,total=2+n*3;push('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n'.replace(/[\xE2\xE3\xCF\xD3]/g,'A'));
+ function obj(id,body){xref[id]=off;push(id+' 0 obj\n');if(Array.isArray(body))body.forEach(push);else push(body);push('\nendobj\n');}
+ obj(1,'<< /Type /Catalog /Pages 2 0 R >>');var kids=[];for(var i=0;i<n;i++)kids.push((3+i*3)+' 0 R');
+ obj(2,'<< /Type /Pages /Kids ['+kids.join(' ')+'] /Count '+n+' >>');
+ imgs.forEach(function(im,i){var p=3+i*3,cs='q 595.28 0 0 841.89 0 0 cm /Im0 Do Q';
+  obj(p,'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /XObject << /Im0 '+(p+2)+' 0 R >> >> /Contents '+(p+1)+' 0 R >>');
+  obj(p+1,'<< /Length '+cs.length+' >>\nstream\n'+cs+'\nendstream');
+  obj(p+2,['<< /Type /XObject /Subtype /Image /Width '+im.w+' /Height '+im.h+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+im.b.length+' >>\nstream\n',im.b,'\nendstream']);});
+ var xo=off,x='xref\n0 '+(total+1)+'\n0000000000 65535 f \n';for(var j=1;j<=total;j++)x+=String(xref[j]).padStart(10,'0')+' 00000 n \n';
+ push(x+'trailer\n<< /Size '+(total+1)+' /Root 1 0 R >>\nstartxref\n'+xo+'\n%%EOF');return new Blob(parts,{type:'application/pdf'});}
+function buildPDF(){var P=pages(),cv=document.createElement('canvas');cv.width=W;cv.height=H;var imgs=P.map(function(pg){draw(cv,pg,false);return {b:b64ToBytes(cv.toDataURL('image/jpeg',.92)),w:W,h:H};});return {blob:makePDF(imgs),P:P};}
+function fname(ext,P){var nm=($('eName').value||'employee').trim().replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'');var lb=P.length>1?P[0].label.replace(' ','-')+'-to-'+P[P.length-1].label.replace(' ','-'):P[0].label.replace(' ','-');return 'Salary-Slip-'+nm+'-'+lb+'.'+ext;}
+function dl(blob,name){var a=document.createElement('a'),u=URL.createObjectURL(blob);a.href=u;a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(u);a.remove();},1500);}
+var tt;function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('on');},3200);}
+
+$('pdf').addEventListener('click',function(){try{var r=buildPDF();dl(r.blob,fname('pdf',r.P));toast('PDF downloaded'+(r.P.length>1?' with '+r.P.length+' months':''));}catch(e){toast('Could not create the PDF. Please try again.');}});
+$('png').addEventListener('click',function(){var P=pages();$('cv').toBlob(function(b){if(b)dl(b,fname('png',[P[P.length-1]]));toast('Image downloaded');},'image/png');});
+$('prt').addEventListener('click',function(){$('printImg').src=$('cv').toDataURL('image/png');setTimeout(function(){window.print();},200);});
+$('wa').addEventListener('click',function(){
+ var r;try{r=buildPDF();}catch(e){toast('Could not create the PDF. Please try again.');return;}
+ var cur=r.P[r.P.length-1],name=$('eName').value||'there',msg='Hi '+name+', your salary slip for '+cur.label+' is attached. Net pay: '+money(cur.net).replace('.00','')+'.',file;
+ try{file=new File([r.blob],fname('pdf',r.P),{type:'application/pdf'});}catch(e){file=null;}
+ if(file&&navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:'Salary slip '+cur.label,text:msg}).catch(function(){});return;}
+ dl(r.blob,fname('pdf',r.P));var ph=$('eWa').value.replace(/\D/g,'');if(ph.length===10)ph='91'+ph;
+ window.open('https://wa.me/'+(ph.length>=11?ph:'')+'?text='+encodeURIComponent(msg+' (PDF sent separately)'),'_blank','noopener');
+ toast('PDF downloaded. Attach it in the WhatsApp chat that just opened.');});
+
+/* canvas click to edit */
+var cv=$('cv');function hitAt(e){var b=cv.getBoundingClientRect(),x=(e.clientX-b.left)*W/b.width,y=(e.clientY-b.top)*H/b.height;for(var i=HITS.length-1;i>=0;i--){var h=HITS[i];if(x>=h[0]&&x<=h[0]+h[2]&&y>=h[1]&&y<=h[1]+h[3])return h;}return null;}
+cv.addEventListener('mousemove',function(e){cv.style.cursor=hitAt(e)?'pointer':'default';});
+cv.addEventListener('click',function(e){var h=hitAt(e);if(!h)return;openTab(h[5]);var el=$(h[4]);if(el){if(el.classList.contains('ss-rows')){el=el.querySelector('input:not([readonly])')||el;}el.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){try{el.focus();}catch(x){}},350);el.classList.add('ss-flash');setTimeout(function(){el.classList.remove('ss-flash');},1200);}});
+function openTab(p){[].forEach.call($('ftabs').querySelectorAll('button'),function(b){b.classList.toggle('on',b.dataset.p===p);});[].forEach.call($('ftabs').parentNode.querySelectorAll(':scope > .is-pane'),function(x){x.classList.toggle('on',x.dataset.p===p);});}
+[].forEach.call($('ftabs').querySelectorAll('button'),function(b){b.addEventListener('click',function(){openTab(b.dataset.p);});});
+
+/* row events */
+['earn','ded'].forEach(function(t){$(t).addEventListener('input',function(e){var row=e.target.closest('.ss-row');if(!row)return;var r=S[t][+row.dataset.i];if(e.target.classList.contains('nm'))r.n=e.target.value;else r.a=e.target.value;render();save();});
+ $(t).addEventListener('click',function(e){if(!e.target.classList.contains('x'))return;var row=e.target.closest('.ss-row'),r=S[t][+row.dataset.i];if(t==='ded'&&r.k&&['pf','esi','pt'].indexOf(r.k)>-1&&$('autoD').checked){toast('Turn off automatic deductions to remove this row');return;}S[t].splice(+row.dataset.i,1);drawRows();render();save();});});
+[].forEach.call(document.querySelectorAll('.ss-add'),function(b){b.addEventListener('click',function(){var t=b.dataset.t;S[t].push({n:t==='earn'?'New earning':'New deduction',a:''});drawRows();render();save();var ins=$(t).querySelectorAll('.nm');ins[ins.length-1].select();});});
+$('fill').addEventListener('click',fill);
+$('autoD').addEventListener('change',function(){$('autoBox').style.display=this.checked?'':'none';if(this.checked)ensureAutoRows();drawRows();render();save();});
+/* colours, style */
+$('col').innerHTML=COLS.map(function(c){return '<button type="button" style="background:'+c+'" data-c="'+c+'" aria-label="Colour '+c+'"></button>';}).join('')+'<label class="ss-cpick" title="Custom colour"><input type="color" id="cpick" value="#0B3D91">＋</label>';
+function markCol(){[].forEach.call($('col').querySelectorAll('button'),function(b){b.classList.toggle('on',b.dataset.c===S.col);});}
+$('col').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;S.col=b.dataset.c;markCol();render();save();});
+$('cpick').addEventListener('input',function(){S.col=this.value;markCol();render();save();});
+[].forEach.call($('sty').querySelectorAll('button'),function(b){b.addEventListener('click',function(){S.sty=b.dataset.v;[].forEach.call($('sty').querySelectorAll('button'),function(x){x.classList.toggle('on',x===b);});render();save();});});
+/* logo */
+$('logo').addEventListener('change',function(){var f=this.files&&this.files[0];if(!f)return;if(f.size>5e6){toast('Logo is too large. Use an image under 5 MB.');return;}var rd=new FileReader();rd.onload=function(){var im=new Image();im.onload=function(){var s=Math.min(1,320/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);setLogo(c.toDataURL('image/png'));save();};im.onerror=function(){toast('Could not read this image');};im.src=rd.result;};rd.readAsDataURL(f);});
+function setLogo(src){if(!src){S.logo=null;S.logoSrc='';render();return;}var im=new Image();im.onload=render;im.src=src;S.logo=im;S.logoSrc=src;}
+$('logoX').addEventListener('click',function(){setLogo(null);$('logo').value='';save();});
+/* state list */
+$('st').innerHTML=STATES.map(function(s){return '<option value="'+s[1]+'"'+(s[0]==='Uttarakhand'?' selected':'')+'>'+s[0]+(s[1]?' (up to ₹'+s[1].toLocaleString('en-IN')+'/yr)':' (no PT)')+'</option>';}).join('');
+/* save / load */
+var stimer;function save(){clearTimeout(stimer);stimer=setTimeout(function(){try{var d={v:{},c:{},col:S.col,sty:S.sty,earn:S.earn,ded:S.ded,logo:S.logoSrc||'',st:$('st').selectedIndex};FIELDS.forEach(function(f){d.v[f]=$(f).value;});CHECKS.forEach(function(f){d.c[f]=$(f).checked;});localStorage.setItem(KEY,JSON.stringify(d));}catch(e){}},400);}
+function load(){var d=null;try{d=JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){}
+ if(d){FIELDS.forEach(function(f){if(d.v&&d.v[f]!=null&&f!=='st')$(f).value=d.v[f];});if(d.st!=null&&d.st>=0)$('st').selectedIndex=d.st;CHECKS.forEach(function(f){if(d.c&&f in d.c)$(f).checked=d.c[f];});S.col=d.col||S.col;S.sty=d.sty||S.sty;S.earn=d.earn||[];S.ded=d.ded||[];if(d.logo)setLogo(d.logo);}
+ [].forEach.call($('sty').querySelectorAll('button'),function(x){x.classList.toggle('on',x.dataset.v===S.sty);});markCol();
+ if(!$('mon').value){var n=new Date(),pm=new Date(n.getFullYear(),n.getMonth()-(n.getDate()<20?1:0),1);$('mon').value=pm.getFullYear()+'-'+String(pm.getMonth()+1).padStart(2,'0');}
+ if(!$('pdate').value){var p=period(),pdd=new Date(p.y,p.m+1,1);$('pdate').value=pdd.getFullYear()+'-'+String(pdd.getMonth()+1).padStart(2,'0')+'-01';}
+ if(!d){var p2=period();$('wd').value=dim(p2.y,p2.m);$('pd').value=dim(p2.y,p2.m);}
+ if(!S.earn.length){var g=num($('qg').value)||40000,b=Math.round(g*.5),h=Math.round(g*.2);S.earn=[{k:'basic',n:'Basic + DA',a:b},{k:'hra',n:'House Rent Allowance',a:h},{k:'spl',n:'Special Allowance',a:g-b-h}];}
+ $('autoBox').style.display=$('autoD').checked?'':'none';ensureAutoRows();drawRows();render();}
+$('clr').addEventListener('click',function(){try{localStorage.removeItem(KEY);}catch(e){}location.reload();});
+$('mon').addEventListener('change',function(){var p=period(),d=dim(p.y,p.m),wd=num($('wd').value);if(wd===28||wd===29||wd===30||wd===31){var lop=wd-num($('pd').value);$('wd').value=d;$('pd').value=Math.max(0,d-lop);}render();});
+document.addEventListener('input',function(e){if(e.target.closest('.is-pane')&&!e.target.closest('.ss-rows')&&e.target.id!=='logo'){render();save();}});
+document.addEventListener('change',function(e){if((e.target.closest('.is-pane')||e.target.id==='nm')&&e.target.id!=='logo'){render();save();}});
+window.addEventListener('langchange',render);
+load();
+window.__ss={words:words,pages:pages,buildPDF:buildPDF};
+})();
+</script>
+
+</body>
+</html>

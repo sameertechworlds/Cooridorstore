@@ -47,10 +47,11 @@ var header='<header class="hdr"><div class="container">'+brand+'<nav class="nav"
   m('bank-reconciliation.html','🏦','Bank Reconciliation','बैंक रिकंसिलिएशन','Statement vs ledger, BRS','स्टेटमेंट बनाम लेजर, BRS'),true)+
  dd('Generators','जनरेटर',
   m('invoice-generator.html','🧾','GST Invoice Generator','GST इनवॉइस जनरेटर','Create and print invoices','इनवॉइस बनाएँ और प्रिंट करें')+
-  m('gst-notice-reply.html','📨','GST Notice Reply','GST नोटिस जवाब','Reply to ASMT-10, DRC-01 & more','GST नोटिस का जवाब तैयार करें')+  
-   m('gstin-validator.html','✅','GSTIN Validator','GSTIN वैलिडेटर','Check GST number, state, PAN','GST नंबर, राज्य, PAN जाँचें')+
-    m('qr-code-generator.html','🔳','QR Code Generator','QR कोड जनरेटर','UPI, link, WhatsApp, WiFi','UPI, लिंक, WhatsApp, WiFi')+
+  m('gst-notice-reply.html','📨','GST Notice Reply','GST नोटिस जवाब','Reply to ASMT-10, DRC-01 & more','GST नोटिस का जवाब तैयार करें')+
+  m('gstin-validator.html','✅','GSTIN Validator','GSTIN वैलिडेटर','Check GST number, state, PAN','GST नंबर, राज्य, PAN जाँचें')+
+  m('qr-code-generator.html','🔳','QR Code Generator','QR कोड जनरेटर','UPI, link, WhatsApp, WiFi','UPI, लिंक, WhatsApp, WiFi')+
   m('rent-receipt-generator.html','🏘️','Rent Receipt Generator','किराया रसीद जनरेटर','Monthly receipts for HRA','HRA के लिए मासिक रसीदें')+
+  m('salary-slip-generator.html','🧾','Salary Slip Generator','सैलरी स्लिप जनरेटर','Payslip PDF, WhatsApp share','पेस्लिप PDF, WhatsApp शेयर')+
   m('tally-import.html','📥','Invoices to Tally','इनवॉइस से Tally','Excel to Tally XML','Excel से Tally XML'))+
  dd('PDF Tools','PDF टूल्स',
   m('pdf-to-excel.html','📊','PDF to Excel','PDF से Excel','Any PDF table, bulk, your format','कोई भी PDF टेबल, bulk, आपका फ़ॉर्मेट')+ 
@@ -69,8 +70,7 @@ var footer='<footer class="ftr"><div class="container">'+
  '<div class="ftr-g f5">'+
  col('Calculators','कैलकुलेटर',[['gst-calculator.html','GST'],['gst-late-fee-calculator.html','GST Late Fee'],['income-tax-calculator.html','Income Tax'],['hra-calculator.html','HRA'],['tds-calculator.html','TDS'],['80gg-calculator.html','80GG'],['in-hand-salary-calculator.html','In-hand Salary'],['gratuity-calculator.html','Gratuity'],['emi-calculator.html','EMI'],['sip-calculator.html','SIP']])+
  col('Reconciliation','रिकंसिलिएशन',[['ecommerce-reconciliation.html','E-commerce Reco'],['amazon-reconciliation.html','Amazon Reco'],['flipkart-reconciliation.html','Flipkart Reco'],['meesho-reconciliation.html','Meesho Reco'],['myntra-reconciliation.html','Myntra Reco'],['jiomart-reconciliation.html','JioMart Reco'],['gstr-2b-reconciliation.html','GSTR-2B Reco'],['gstr-1-einvoice-reconciliation.html','GSTR-1 vs e-Invoice'],['bank-reconciliation.html','Bank Reco']])+
- col('Generators','जनरेटर',[['invoice-generator.html','Invoice Generator'],['gst-notice-reply.html','GST Notice Reply'],['gstin-validator.html','GSTIN Validator'],['qr-code-generator.html','QR Code Generator'],['rent-receipt-generator.html','Rent Receipt'],['tally-import.html','Invoices to Tally']])+
- 
+ col('Generators','जनरेटर',[['invoice-generator.html','Invoice Generator'],['gst-notice-reply.html','GST Notice Reply'],['gstin-validator.html','GSTIN Validator'],['qr-code-generator.html','QR Code Generator'],['rent-receipt-generator.html','Rent Receipt'],['salary-slip-generator.html','Salary Slip Generator'],['tally-import.html','Invoices to Tally']])+
  col('PDF Tools','PDF टूल्स',[['pdf-to-excel.html','PDF to Excel'],['bank-statement-pdf-to-excel.html','Bank Statement to Excel'],['word-to-pdf.html','Word to PDF'],['pdf-to-word.html','PDF to Word'],['compress-pdf.html','Compress PDF'],['merge-pdf.html','Merge PDF'],['pdf-editor.html','PDF Editor']])+
  col('Learn &amp; Company','सीखें और कंपनी',[['accounting-games.html','Accounting Games'],['tax-quiz.html','Tax Quiz'],['blog.html','Blog'],['about.html','About'],['contact.html','Contact'],['privacy-policy.html','Privacy Policy'],['terms.html','Terms']])+
  '</div><div class="copy">© 2026 '+NAME+' · cooridorstore.in</div></div></footer>';
