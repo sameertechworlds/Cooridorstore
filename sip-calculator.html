@@ -3,102 +3,591 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
- <title>SIP Calculator with Step-up: Mutual Fund Returns</title>
-<meta name="description" content="Free SIP calculator with yearly step-up. See invested amount, estimated returns and maturity value of your mutual fund SIP, with a clear year-by-year breakup.">
+<title>SIP Calculator 2026: Step-up, Lumpsum, SWP &amp; Fund Returns</title>
+<meta name="description" content="Free SIP calculator with step-up, lumpsum, goal planner, SWP, inflation and LTCG tax, plus a live backtest of any mutual fund using real NAV data from AMFI.">
 <link rel="canonical" href="https://www.cooridorstore.in/sip-calculator">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Cooridor Store"><meta property="og:locale" content="en_IN">
-<meta property="og:title" content="SIP Calculator with Step-up: Mutual Fund Returns"><meta property="og:description" content="Estimate SIP maturity value with yearly step-up, year by year. Free, no sign-up."><meta property="og:url" content="https://www.cooridorstore.in/sip-calculator">
-<meta name="twitter:card" content="summary"><meta name="twitter:title" content="SIP Calculator with Step-up: Mutual Fund Returns"><meta name="twitter:description" content="Estimate SIP maturity value with yearly step-up, year by year. Free, no sign-up.">
+<meta property="og:title" content="SIP Calculator 2026: Step-up, Lumpsum, SWP &amp; Fund Returns"><meta property="og:description" content="Plan your SIP with step-up, inflation and tax, and backtest any mutual fund with real NAV history. Free."><meta property="og:url" content="https://www.cooridorstore.in/sip-calculator">
+<meta property="og:image" content="https://www.cooridorstore.in/og-image.jpg">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="SIP Calculator 2026: Step-up, Lumpsum, SWP &amp; Fund Returns"><meta name="twitter:description" content="Plan your SIP with step-up, inflation and tax, and backtest any mutual fund with real NAV history. Free.">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="calc.css">
 <style>
-.rg{display:flex;gap:10px;align-items:center}
-.rg input[type=range]{flex:1;padding:0;accent-color:var(--pri)}
-.rg input:not([type=range]){width:140px}
-.pbar{height:12px;border-radius:9px;background:var(--acc);overflow:hidden;margin:14px 0 6px}
-.pbar i{display:block;height:100%;background:var(--pri)}
-.leg{display:flex;gap:16px;font-size:.82rem;color:var(--mut)}
-.leg b{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
-.sch{margin-top:26px;padding:22px}
-.tw{overflow:auto;max-height:460px;border:1px solid var(--line);border-radius:10px;margin-top:12px}
-.tw table{width:100%;border-collapse:collapse;font-size:.88rem}
-.tw th,.tw td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
-.tw th:first-child,.tw td:first-child{text-align:left}
-.tw th{position:sticky;top:0;background:var(--soft)}
+:root{--sp-pri:var(--pri,#2563eb);--sp-acc:var(--acc,#10b981);--sp-sur:var(--sur,#fff);--sp-line:var(--line,#e2e8f0);--sp-txt:var(--txt,#0f172a);--sp-soft:var(--soft,#f1f5f9);--sp-mut:#64748b;--c1:#257de0;--c2:#00b894;--c3:#f47230}
+[data-theme=dark]{--c1:#338ced;--c2:#00a888;--c3:#e76624;--sp-mut:#94a3b8}
+.sp-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.sp-badges span{font-size:.76rem;font-weight:700;padding:5px 11px;border-radius:999px;background:color-mix(in srgb,var(--sp-pri) 9%,var(--sp-sur));border:1px solid color-mix(in srgb,var(--sp-pri) 30%,var(--sp-line))}
+.sp-card{background:var(--sp-sur);border:1px solid var(--sp-line);border-radius:20px;padding:22px;position:relative}
+.sp-card.top:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:20px 20px 0 0;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3))}
+.sp-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.sp-tabs button{border:1px solid var(--sp-line);background:var(--sp-soft);color:var(--sp-txt);padding:10px 16px;border-radius:12px;font:inherit;font-size:.88rem;font-weight:700;cursor:pointer}
+.sp-tabs button.on{background:var(--sp-pri);border-color:var(--sp-pri);color:#fff;box-shadow:0 6px 16px -6px color-mix(in srgb,var(--sp-pri) 70%,transparent)}
+.sp-lay{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:26px;align-items:start}
+.sp-in{display:none}.sp-in.on{display:block}
+.sp-row{margin-bottom:18px}
+.sp-row .t{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.sp-row label{font-size:.88rem;font-weight:600}
+.sp-row .v{display:flex;align-items:center;gap:4px;background:color-mix(in srgb,var(--sp-pri) 10%,var(--sp-sur));border:1px solid color-mix(in srgb,var(--sp-pri) 30%,var(--sp-line));border-radius:9px;padding:5px 10px;color:var(--sp-pri);font-weight:800}
+.sp-row .v input{width:96px;border:none;background:transparent;color:inherit;font:inherit;font-weight:800;text-align:right;padding:0}
+.sp-row .v input:focus{outline:none}
+.sp-row .v small{font-weight:700;font-size:.8rem}
+.sp-rng{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:99px;background:linear-gradient(90deg,var(--sp-pri) var(--p,50%),var(--sp-line) var(--p,50%));outline:none;cursor:pointer}
+.sp-rng::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid var(--sp-pri);box-shadow:0 2px 6px rgba(15,23,42,.25)}
+.sp-rng::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--sp-pri)}
+.sp-tg{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px dashed var(--sp-line);font-size:.88rem}
+.sp-tg small{display:block;color:var(--sp-mut);font-size:.75rem}
+.sp-sw{position:relative;width:44px;height:24px;flex:none}
+.sp-sw input{opacity:0;width:0;height:0}
+.sp-sw i{position:absolute;inset:0;background:var(--sp-line);border-radius:99px;cursor:pointer;transition:.2s}
+.sp-sw i:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.sp-sw input:checked+i{background:var(--sp-pri)}
+.sp-sw input:checked+i:before{transform:translateX(20px)}
+.sp-mini{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--sp-mut)}
+.sp-mini input{width:64px;background:var(--sp-soft);border:1px solid var(--sp-line);color:var(--sp-txt);border-radius:8px;padding:5px 7px;font:inherit;font-size:.82rem}
+.sp-res .lbl{font-size:.85rem;color:var(--sp-mut);font-weight:600}
+.sp-hero{font-size:2.6rem;font-weight:800;letter-spacing:-.02em;line-height:1.1;margin:4px 0 2px;color:var(--sp-txt)}
+.sp-sub{font-size:.88rem;color:var(--sp-mut)}
+.sp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.sp-stat{border:1px solid var(--sp-line);border-radius:14px;padding:12px;background:var(--sp-soft)}
+.sp-stat small{display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--sp-mut);font-weight:600}
+.sp-stat small i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.sp-stat b{display:block;font-size:1.05rem;margin-top:4px;font-variant-numeric:tabular-nums}
+.sp-chart{position:relative;margin-top:6px}
+.sp-chart svg{width:100%;height:270px;display:block;overflow:visible}
+.sp-chart .ax{font-size:11px;fill:var(--sp-mut)}
+.sp-chart .grid{stroke:var(--sp-line);stroke-width:1}
+.sp-leg{display:flex;flex-wrap:wrap;gap:14px;font-size:.8rem;margin-top:6px;color:var(--sp-txt)}
+.sp-leg span{display:flex;align-items:center;gap:6px}
+.sp-leg i{width:12px;height:12px;border-radius:3px}
+.sp-leg i.dash{height:0;border-top:2px dashed var(--c3);width:16px;border-radius:0}
+.sp-tip{position:absolute;pointer-events:none;background:var(--sp-txt);color:var(--sp-sur);border-radius:10px;padding:9px 11px;font-size:.78rem;line-height:1.55;opacity:0;transition:opacity .1s;white-space:nowrap;z-index:5;box-shadow:0 10px 24px -8px rgba(0,0,0,.4)}
+.sp-tip b{font-size:.84rem}
+.sp-tip i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px}
+.sp-ins{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+.sp-in-card{border:1px solid var(--sp-line);border-radius:16px;padding:14px;background:var(--sp-sur)}
+.sp-in-card .e{font-size:1.3rem}
+.sp-in-card .h{font-size:.86rem;font-weight:700;margin:6px 0 4px}
+.sp-in-card p{font-size:.82rem;color:var(--sp-mut);margin:0;line-height:1.5}
+.sp-in-card p b{color:var(--sp-txt)}
+.sp-yr{margin-top:18px}
+.sp-yr summary{cursor:pointer;font-weight:700;font-size:.9rem}
+.sp-yr table,.sp-bt table{width:100%;border-collapse:collapse;font-size:.84rem;margin-top:10px}
+.sp-yr th,.sp-yr td,.sp-bt th,.sp-bt td{padding:7px 6px;border-bottom:1px dashed var(--sp-line);text-align:right;font-variant-numeric:tabular-nums}
+.sp-yr th:first-child,.sp-yr td:first-child,.sp-bt th:first-child,.sp-bt td:first-child{text-align:left}
+.sp-yr th,.sp-bt th{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--sp-mut)}
+.sp-btn{border:1px solid var(--sp-line);background:var(--sp-soft);color:var(--sp-txt);padding:9px 14px;border-radius:10px;font:inherit;font-size:.84rem;font-weight:700;cursor:pointer}
+.sp-btn.pri{background:var(--sp-pri);border-color:var(--sp-pri);color:#fff}
+.sp-btn:hover{filter:brightness(1.04)}
+.sp-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.sp-bt{margin-top:24px}
+.sp-bt h2{font-size:1.25rem;margin:0 0 4px}
+.sp-bt .lead{color:var(--sp-mut);font-size:.9rem;margin:0 0 14px}
+.sp-search{position:relative}
+.sp-search input{width:100%;box-sizing:border-box;background:var(--sp-soft);border:1px solid var(--sp-line);color:var(--sp-txt);border-radius:12px;padding:13px 14px 13px 42px;font:inherit;font-size:.95rem}
+.sp-search:before{content:"🔎";position:absolute;left:14px;top:12px}
+.sp-chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.sp-chips button{border:1px solid var(--sp-line);background:var(--sp-sur);color:var(--sp-txt);border-radius:99px;padding:6px 12px;font:inherit;font-size:.78rem;font-weight:600;cursor:pointer}
+.sp-chips button:hover{border-color:var(--sp-pri);color:var(--sp-pri)}
+.sp-list{max-height:260px;overflow:auto;border:1px solid var(--sp-line);border-radius:12px;display:none}
+.sp-list.on{display:block}
+.sp-list button{display:block;width:100%;text-align:left;border:none;border-bottom:1px solid var(--sp-line);background:var(--sp-sur);color:var(--sp-txt);padding:10px 12px;font:inherit;font-size:.86rem;cursor:pointer}
+.sp-list button:hover{background:var(--sp-soft)}
+.sp-list small{color:var(--sp-mut)}
+.sp-fund{display:none;margin-top:16px}
+.sp-fund.on{display:block}
+.sp-fh{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;padding:14px;border-radius:14px;background:color-mix(in srgb,var(--sp-pri) 6%,var(--sp-sur));border:1px solid color-mix(in srgb,var(--sp-pri) 25%,var(--sp-line))}
+.sp-fh h3{margin:0;font-size:1rem}
+.sp-fh small{color:var(--sp-mut)}
+.sp-nav{text-align:right}
+.sp-nav b{font-size:1.4rem}
+.sp-live{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:800;color:#16a34a;letter-spacing:.05em}
+.sp-live:before{content:"";width:8px;height:8px;border-radius:50%;background:#16a34a;animation:spp 1.6s infinite}
+@keyframes spp{0%{box-shadow:0 0 0 0 rgba(22,163,74,.5)}70%{box-shadow:0 0 0 8px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
+.sp-cagr{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.sp-cagr div{border:1px solid var(--sp-line);border-radius:12px;padding:10px;text-align:center;background:var(--sp-soft)}
+.sp-cagr small{font-size:.72rem;color:var(--sp-mut);font-weight:700}
+.sp-cagr b{display:block;font-size:1rem;margin-top:2px}
+.sp-f3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
+.sp-f3 label{display:block;font-size:.8rem;font-weight:600;margin-bottom:5px}
+.sp-f3 input{width:100%;box-sizing:border-box;background:var(--sp-soft);border:1px solid var(--sp-line);color:var(--sp-txt);border-radius:10px;padding:10px 12px;font:inherit}
+.sp-msg{font-size:.85rem;color:var(--sp-mut);padding:10px 0}
+.sp-disc{font-size:.76rem;color:var(--sp-mut);margin-top:12px;line-height:1.5}
+.pos{color:#16a34a}.neg{color:#dc2626}
+.art details{background:var(--sp-sur);border:1px solid var(--sp-line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.art summary{font-weight:600;cursor:pointer;color:var(--sp-txt)}
+.art details p{margin:8px 0 0}
+.art table{width:100%;border-collapse:collapse;font-size:.88rem}
+.art td,.art th{border-bottom:1px solid var(--sp-line);padding:8px 6px;text-align:left;vertical-align:top}
+@media(max-width:980px){.sp-lay{grid-template-columns:1fr}.sp-ins{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.sp-stats{grid-template-columns:1fr 1fr}.sp-ins,.sp-f3{grid-template-columns:1fr}.sp-cagr{grid-template-columns:1fr 1fr}.sp-hero{font-size:2.1rem}.sp-chart svg{height:220px}.sp-tabs button{flex:1;padding:9px 8px;font-size:.8rem}}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.cooridorstore.in/#organization",
+      "name": "Cooridor Store",
+      "url": "https://www.cooridorstore.in/",
+      "logo": { "@type": "ImageObject", "url": "https://www.cooridorstore.in/og-image.jpg" }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.cooridorstore.in/#website",
+      "url": "https://www.cooridorstore.in/",
+      "name": "Cooridor Store",
+      "description": "Free Indian tax, GST and accounting tools",
+      "inLanguage": "en-IN",
+      "publisher": { "@id": "https://www.cooridorstore.in/#organization" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.cooridorstore.in/sip-calculator#webpage",
+      "url": "https://www.cooridorstore.in/sip-calculator",
+      "name": "SIP Calculator with Step-up, Lumpsum, Goal Planner and SWP",
+      "description": "Calculate SIP returns with yearly step-up, inflation and LTCG tax, plan goals, test SWP and backtest any mutual fund with real NAV history.",
+      "inLanguage": "en-IN",
+      "isPartOf": { "@id": "https://www.cooridorstore.in/#website" },
+      "author": { "@id": "https://www.cooridorstore.in/#organization" },
+      "publisher": { "@id": "https://www.cooridorstore.in/#organization" },
+      "datePublished": "2026-11-01",
+      "dateModified": "2026-11-28",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.cooridorstore.in/" },
+          { "@type": "ListItem", "position": 2, "name": "SIP Calculator", "item": "https://www.cooridorstore.in/sip-calculator" }
+        ]
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "SIP Calculator",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "url": "https://www.cooridorstore.in/sip-calculator",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+      "publisher": { "@id": "https://www.cooridorstore.in/#organization" }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type": "Question", "name": "What is a SIP calculator and how does it work?", "acceptedAnswer": {"@type": "Answer", "text": "A SIP calculator estimates how much your monthly investment in a mutual fund can grow to. You enter the monthly amount, expected annual return and time period, and it applies monthly compounding to show the total invested, estimated returns and maturity value. This calculator also handles yearly step-up, a one-time amount, inflation and LTCG tax."}},
+{"@type": "Question", "name": "What is the formula for SIP returns?", "acceptedAnswer": {"@type": "Answer", "text": "Maturity value = P × [((1 + r)^n − 1) ÷ r] × (1 + r), where P is the monthly SIP, r is the expected annual return divided by 12, and n is the number of monthly instalments. For example, ₹10,000 a month for 15 years at 12% grows to about ₹50.46 lakh on an investment of ₹18 lakh."}},
+{"@type": "Question", "name": "What is a step-up SIP?", "acceptedAnswer": {"@type": "Answer", "text": "A step-up SIP, also called a top-up SIP, increases your monthly instalment by a fixed percentage every year, usually in line with salary hikes. ₹10,000 a month for 15 years at 12% grows to about ₹50.46 lakh as a flat SIP, but to about ₹86.84 lakh with a 10% yearly step-up."}},
+{"@type": "Question", "name": "How much SIP is needed for ₹1 crore?", "acceptedAnswer": {"@type": "Answer", "text": "At an expected 12% annual return, you need about ₹43,041 a month for 10 years, ₹19,819 for 15 years, ₹10,009 for 20 years, ₹5,270 for 25 years or ₹2,833 for 30 years. Use the Goal planner tab to include inflation, step-up and existing savings."}},
+{"@type": "Question", "name": "SIP or lumpsum: which is better?", "acceptedAnswer": {"@type": "Answer", "text": "A lumpsum earns more when markets rise steadily after you invest, because all the money is invested from day one. A SIP spreads purchases over time, buying more units when prices are low (rupee cost averaging), which reduces the risk of investing everything at a market peak. Most salaried investors use SIPs; a lumpsum suits idle cash, often moved in gradually through a systematic transfer plan."}},
+{"@type": "Question", "name": "How are SIP returns taxed in 2026-27?", "acceptedAnswer": {"@type": "Answer", "text": "For equity mutual funds, units held for more than 12 months give long-term capital gains taxed at 12.5% on gains above ₹1.25 lakh in a financial year; units held for 12 months or less are taxed at 20%. Each SIP instalment has its own holding period. Gains on debt funds bought after 1 April 2023 are taxed at your income tax slab rate. Cess applies on top."}},
+{"@type": "Question", "name": "What is XIRR in SIP?", "acceptedAnswer": {"@type": "Answer", "text": "XIRR (extended internal rate of return) is the annualised return on investments made on different dates, such as monthly SIP instalments. It is the correct way to measure SIP performance, because simple CAGR assumes all the money was invested on the first day. The fund backtest on this page shows the XIRR of a real SIP."}},
+{"@type": "Question", "name": "What is SWP and how is it different from SIP?", "acceptedAnswer": {"@type": "Answer", "text": "A SIP puts a fixed amount into a fund every month; an SWP (systematic withdrawal plan) takes a fixed amount out every month while the rest stays invested. SWP is used for regular income after retirement. The SWP tab shows how long your corpus will last and the maximum safe monthly withdrawal."}},
+{"@type": "Question", "name": "Is the mutual fund data on this page live?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The fund search and backtest fetch the latest NAV and full NAV history from AMFI data through the free mfapi.in service, which updates several times a day. The calculator tabs use the return you enter, not live data."}},
+{"@type": "Question", "name": "Can I lose money in a SIP?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. SIPs invest in market-linked mutual funds, so the value can fall below the amount invested, especially over short periods or in equity funds during a market fall. Over longer periods diversified equity funds have historically smoothed out volatility, but past returns do not guarantee future returns. Read the scheme documents and check your risk profile before investing."}}
+]}
+</script>
 </head>
 <body>
 <div id="site-header"></div>
 <main class="container page">
  <div class="crumb"><a href="index.html">Home</a> › <span data-en="SIP Calculator" data-hi="SIP कैलकुलेटर">SIP Calculator</span></div>
  <div class="ph">
-  <h1 data-en="SIP Calculator" data-hi="SIP कैलकुलेटर">SIP Calculator</h1>
-  <p data-en="Estimate how much your monthly SIP can grow to, with an optional yearly step-up." data-hi="अंदाज़ा लगाइए कि आपकी मासिक SIP कितनी बढ़ सकती है, हर साल बढ़ोतरी (step-up) के विकल्प के साथ।">Estimate how much your monthly SIP can grow to, with an optional yearly step-up.</p>
+  <h1 data-en="SIP Calculator with Step-up" data-hi="स्टेप-अप के साथ SIP कैलकुलेटर">SIP Calculator with Step-up</h1>
+  <p data-en="Plan your mutual fund SIP with yearly step-up, inflation and tax, set a goal, test withdrawals, and see how a real fund would have grown your money." data-hi="सालाना स्टेप-अप, महंगाई और टैक्स के साथ अपनी म्यूचुअल फंड SIP प्लान करें, लक्ष्य तय करें, विड्रॉल जांचें, और देखें कि असली फंड में आपका पैसा कितना बढ़ता।">Plan your mutual fund SIP with yearly step-up, inflation and tax, set a goal, test withdrawals, and see how a real fund would have grown your money.</p>
+  <div class="sp-badges"><span>📈 SIP + step-up</span><span>💰 Lumpsum</span><span>🎯 Goal planner</span><span>🏧 SWP</span><span>📉 Inflation-adjusted</span><span>🧾 LTCG tax 2026-27</span><span>🔴 Live fund NAV backtest</span></div>
  </div>
- <div class="lay">
-  <div class="card box">
-   <div class="f"><label data-en="Monthly investment, ₹" data-hi="मासिक निवेश, ₹">Monthly investment, ₹</label><div class="rg"><input type="range" id="amR" min="500" max="200000" step="500"><input id="am" inputmode="decimal" value="5000"></div></div>
-   <div class="f"><label data-en="Expected return, % per year" data-hi="अनुमानित रिटर्न, % सालाना">Expected return, % per year</label><div class="rg"><input type="range" id="rtR" min="1" max="30" step="0.5"><input id="rt" inputmode="decimal" value="12"></div></div>
-   <div class="f"><label data-en="Time period, years" data-hi="अवधि, साल">Time period, years</label><div class="rg"><input type="range" id="yrR" min="1" max="40" step="1"><input id="yr" inputmode="numeric" value="10"></div></div>
-   <div class="f"><label data-en="Yearly step-up, % (optional)" data-hi="सालाना बढ़ोतरी, % (वैकल्पिक)">Yearly step-up, % (optional)</label><div class="rg"><input type="range" id="suR" min="0" max="50" step="1"><input id="su" inputmode="decimal" value="0"></div></div>
+
+ <div class="sp-card top" style="margin-top:22px">
+  <div class="sp-tabs" id="tabs">
+   <button type="button" data-m="sip" class="on">📈 SIP</button>
+   <button type="button" data-m="lump">💰 <span data-en="Lumpsum" data-hi="एकमुश्त">Lumpsum</span></button>
+   <button type="button" data-m="goal">🎯 <span data-en="Goal planner" data-hi="लक्ष्य प्लानर">Goal planner</span></button>
+   <button type="button" data-m="swp">🏧 SWP</button>
   </div>
-  <div class="card box">
-   <span class="lbl" data-en="Estimated value" data-hi="अनुमानित रकम">Estimated value</span>
-   <div class="big" id="fv">₹0</div>
-   <div class="pbar"><i id="pb"></i></div>
-   <div class="leg"><span><b style="background:var(--pri)"></b><span data-en="Invested" data-hi="निवेश">Invested</span></span><span><b style="background:var(--acc)"></b><span data-en="Returns" data-hi="कमाई">Returns</span></span></div>
-   <table class="rt">
-    <tr><td data-en="Total invested" data-hi="कुल निवेश">Total invested</td><td id="o1"></td></tr>
-    <tr><td data-en="Estimated returns" data-hi="अनुमानित कमाई">Estimated returns</td><td id="o2"></td></tr>
-    <tr class="tot"><td data-en="Total value" data-hi="कुल रकम">Total value</td><td id="o3"></td></tr>
-   </table>
-   <div class="work"><b data-en="How we calculated it" data-hi="हमने कैसे निकाला">How we calculated it</b><pre id="wk"></pre></div>
-   <p class="note" data-en="Mutual fund returns are not guaranteed. This is an estimate at a fixed rate." data-hi="म्यूचुअल फ़ंड का रिटर्न तय नहीं होता। ये एक तय दर पर अनुमान है।">Mutual fund returns are not guaranteed. This is an estimate at a fixed rate.</p>
+  <div class="sp-lay">
+   <div>
+    <div class="sp-in on" data-m="sip">
+     <div class="sp-row" data-k="amt" data-min="500" data-max="500000" data-step="500" data-val="10000" data-pre="₹" data-len="Monthly investment" data-lhi="हर महीने निवेश"></div>
+     <div class="sp-row" data-k="ret" data-min="1" data-max="30" data-step="0.5" data-val="12" data-suf="%" data-len="Expected return (per year)" data-lhi="अनुमानित रिटर्न (सालाना)"></div>
+     <div class="sp-row" data-k="yrs" data-min="1" data-max="40" data-step="1" data-val="15" data-suf="yrs" data-len="Time period" data-lhi="समय"></div>
+     <div class="sp-row" data-k="step" data-min="0" data-max="50" data-step="1" data-val="10" data-suf="%" data-len="Yearly step-up (top-up)" data-lhi="सालाना स्टेप-अप (टॉप-अप)"></div>
+     <div class="sp-row" data-k="init" data-min="0" data-max="5000000" data-step="5000" data-val="0" data-pre="₹" data-len="One-time amount at start (optional)" data-lhi="शुरुआत में एकमुश्त राशि (वैकल्पिक)"></div>
+    </div>
+    <div class="sp-in" data-m="lump">
+     <div class="sp-row" data-k="lamt" data-min="5000" data-max="10000000" data-step="5000" data-val="500000" data-pre="₹" data-len="Total investment" data-lhi="कुल निवेश"></div>
+     <div class="sp-row" data-k="lret" data-min="1" data-max="30" data-step="0.5" data-val="12" data-suf="%" data-len="Expected return (per year)" data-lhi="अनुमानित रिटर्न (सालाना)"></div>
+     <div class="sp-row" data-k="lyrs" data-min="1" data-max="40" data-step="1" data-val="10" data-suf="yrs" data-len="Time period" data-lhi="समय"></div>
+    </div>
+    <div class="sp-in" data-m="goal">
+     <div class="sp-row" data-k="gamt" data-min="100000" data-max="100000000" data-step="100000" data-val="10000000" data-pre="₹" data-len="Goal amount (in today's money)" data-lhi="लक्ष्य राशि (आज के मूल्य में)"></div>
+     <div class="sp-row" data-k="gyrs" data-min="1" data-max="40" data-step="1" data-val="20" data-suf="yrs" data-len="Years to goal" data-lhi="लक्ष्य तक साल"></div>
+     <div class="sp-row" data-k="gret" data-min="1" data-max="30" data-step="0.5" data-val="12" data-suf="%" data-len="Expected return (per year)" data-lhi="अनुमानित रिटर्न (सालाना)"></div>
+     <div class="sp-row" data-k="gstep" data-min="0" data-max="50" data-step="1" data-val="0" data-suf="%" data-len="Yearly step-up" data-lhi="सालाना स्टेप-अप"></div>
+     <div class="sp-row" data-k="gsave" data-min="0" data-max="50000000" data-step="10000" data-val="0" data-pre="₹" data-len="Savings already invested" data-lhi="पहले से निवेश की गई बचत"></div>
+    </div>
+    <div class="sp-in" data-m="swp">
+     <div class="sp-row" data-k="scorp" data-min="100000" data-max="100000000" data-step="50000" data-val="5000000" data-pre="₹" data-len="Total corpus" data-lhi="कुल फंड"></div>
+     <div class="sp-row" data-k="swd" data-min="1000" data-max="1000000" data-step="1000" data-val="30000" data-pre="₹" data-len="Monthly withdrawal" data-lhi="हर महीने निकासी"></div>
+     <div class="sp-row" data-k="sret" data-min="1" data-max="20" data-step="0.5" data-val="9" data-suf="%" data-len="Expected return (per year)" data-lhi="अनुमानित रिटर्न (सालाना)"></div>
+     <div class="sp-row" data-k="syrs" data-min="1" data-max="40" data-step="1" data-val="20" data-suf="yrs" data-len="Withdrawal period" data-lhi="निकासी अवधि"></div>
+     <div class="sp-row" data-k="sinc" data-min="0" data-max="15" data-step="1" data-val="0" data-suf="%" data-len="Yearly increase in withdrawal" data-lhi="निकासी में सालाना बढ़त"></div>
+    </div>
+    <div class="sp-tg"><span><span data-en="Show value in today's money" data-hi="आज के मूल्य में दिखाएं">Show value in today's money</span><small data-en="Adjusts for inflation" data-hi="महंगाई के हिसाब से">Adjusts for inflation</small></span><span class="sp-mini"><input id="infl" inputmode="decimal" value="6" aria-label="Inflation %">%<label class="sp-sw"><input type="checkbox" id="inflOn" checked><i></i></label></span></div>
+    <div class="sp-tg"><span><span data-en="Deduct LTCG tax on redemption" data-hi="निकासी पर LTCG टैक्स घटाएं">Deduct LTCG tax on redemption</span><small data-en="Equity funds: 12.5% above ₹1.25 lakh" data-hi="इक्विटी फंड: ₹1.25 लाख से ऊपर 12.5%">Equity funds: 12.5% above ₹1.25 lakh</small></span><label class="sp-sw"><input type="checkbox" id="taxOn"><i></i></label></div>
+   </div>
+
+   <div class="sp-res" id="res">
+    <div class="lbl" id="heroLbl"></div>
+    <div class="sp-hero" id="hero">₹0</div>
+    <div class="sp-sub" id="heroSub"></div>
+    <div class="sp-stats" id="stats"></div>
+    <div class="sp-chart" id="chartBox"><svg id="chart" role="img" aria-label="Growth chart"></svg><div class="sp-tip" id="tip"></div></div>
+    <div class="sp-leg" id="leg"></div>
+   </div>
   </div>
+
+  <div class="sp-ins" id="ins"></div>
+
+  <details class="sp-yr" id="yrBox"><summary data-en="Year-by-year table" data-hi="साल-दर-साल टेबल">Year-by-year table</summary><div style="overflow:auto"><table id="yrT"></table></div>
+   <div class="sp-btns"><button type="button" class="sp-btn" id="csv">⬇ <span data-en="Download Excel (CSV)" data-hi="Excel (CSV) डाउनलोड">Download Excel (CSV)</span></button><button type="button" class="sp-btn" id="cp">📋 <span data-en="Copy summary" data-hi="सारांश कॉपी करें">Copy summary</span></button></div>
+  </details>
  </div>
- <div class="card sch"><h3 style="font-size:1.05rem" data-en="Year-wise growth" data-hi="साल-वार बढ़त">Year-wise growth</h3><div class="tw" id="tb"></div></div>
+
+ <div class="sp-card sp-bt" id="bt">
+  <h2 data-en="How would a real mutual fund have grown your SIP?" data-hi="असली म्यूचुअल फंड में आपकी SIP कितनी बढ़ती?">How would a real mutual fund have grown your SIP?</h2>
+  <p class="lead" data-en="Search any Indian mutual fund to see its latest NAV and test a SIP on its actual NAV history. Data comes live from AMFI NAVs via mfapi.in." data-hi="कोई भी भारतीय म्यूचुअल फंड खोजें, उसकी ताज़ा NAV देखें और उसके असली NAV इतिहास पर SIP जांचें। डेटा AMFI NAV से mfapi.in के ज़रिए लाइव आता है।">Search any Indian mutual fund to see its latest NAV and test a SIP on its actual NAV history. Data comes live from AMFI NAVs via mfapi.in.</p>
+  <div class="sp-search"><input id="fq" type="search" placeholder="Type a fund name, e.g. Nifty 50 index, flexi cap, ELSS" autocomplete="off" aria-label="Search mutual fund"></div>
+  <div class="sp-chips" id="chips"><button type="button">Nifty 50 Index Direct Growth</button><button type="button">Nifty Next 50 Direct Growth</button><button type="button">Flexi Cap Direct Growth</button><button type="button">Midcap Direct Growth</button><button type="button">Small Cap Direct Growth</button><button type="button">ELSS Tax Saver Direct Growth</button><button type="button">Gold Direct Growth</button></div>
+  <div class="sp-list" id="flist"></div>
+  <div class="sp-msg" id="fmsg"></div>
+  <div class="sp-fund" id="fund">
+   <div class="sp-fh"><div><h3 id="fName"></h3><small id="fMeta"></small></div><div class="sp-nav"><span class="sp-live">LIVE NAV</span><br><b id="fNav"></b><br><small id="fDate"></small></div></div>
+   <div class="sp-cagr" id="fCagr"></div>
+   <div class="sp-f3">
+    <div><label for="bAmt" data-en="Monthly SIP, ₹" data-hi="मासिक SIP, ₹">Monthly SIP, ₹</label><input id="bAmt" inputmode="decimal" value="10000"></div>
+    <div><label for="bStart" data-en="SIP start month" data-hi="SIP शुरू का महीना">SIP start month</label><input id="bStart" type="month"></div>
+    <div><label for="bDay" data-en="SIP date (1–28)" data-hi="SIP तारीख (1–28)">SIP date (1–28)</label><input id="bDay" inputmode="numeric" value="5"></div>
+   </div>
+   <div class="sp-stats" id="bStats"></div>
+   <div class="sp-chart"><svg id="bChart" role="img" aria-label="Backtest chart"></svg><div class="sp-tip" id="bTip"></div></div>
+   <div class="sp-leg"><span><i style="background:var(--c1)"></i><span data-en="Amount invested" data-hi="निवेश राशि">Amount invested</span></span><span><i style="background:var(--c2)"></i><span data-en="Value of your SIP" data-hi="आपकी SIP की वैल्यू">Value of your SIP</span></span></div>
+   <div class="sp-btns"><button type="button" class="sp-btn pri" id="useX">↗ <span data-en="Use this fund's XIRR in the calculator" data-hi="इस फंड का XIRR कैलकुलेटर में लगाएं">Use this fund's XIRR in the calculator</span></button></div>
+  </div>
+  <p class="sp-disc">⚠️ <span data-en="Past performance does not guarantee future returns. This is a calculation tool, not investment advice or a recommendation to buy any fund. Mutual fund investments are subject to market risks; read all scheme-related documents carefully." data-hi="पिछला प्रदर्शन भविष्य के रिटर्न की गारंटी नहीं है। ये एक कैलकुलेशन टूल है, निवेश सलाह या किसी फंड को खरीदने की सिफारिश नहीं। म्यूचुअल फंड निवेश बाज़ार जोखिमों के अधीन हैं; योजना से जुड़े सभी दस्तावेज़ ध्यान से पढ़ें।">Past performance does not guarantee future returns. This is a calculation tool, not investment advice or a recommendation to buy any fund. Mutual fund investments are subject to market risks; read all scheme-related documents carefully.</span></p>
+ </div>
 
  <article class="art">
-  <h2>What is a SIP?</h2>
-  <p>A Systematic Investment Plan (SIP) lets you invest a fixed amount in a mutual fund every month. Because each month's money keeps earning returns on top of earlier returns, small regular investments can grow into a large amount over time. This is the power of compounding.</p>
-  <h2>SIP formula</h2>
-  <div class="fx">FV = P × [((1 + i)<sup>n</sup> − 1) ÷ i] × (1 + i)</div>
-  <p>P is the monthly investment, i is the monthly return (annual return ÷ 12 ÷ 100) and n is the number of months. With a step-up, the monthly amount rises every year, so we calculate it month by month.</p>
-  <h3>Example</h3>
-  <p>₹5,000 a month for 10 years at 12%: you invest ₹6,00,000 and the estimated value is about ₹11.62 lakh, so estimated returns are about ₹5.62 lakh.</p>
-  <h2>Why step-up your SIP?</h2>
-  <p>Raising your SIP by even 10% every year, in line with salary hikes, can make the final amount much larger than a flat SIP. Try it with the step-up slider above.</p>
-  <h2>Related tools</h2>
+  <h2>What is a SIP calculator?</h2>
+  <p>A SIP calculator is a free online tool that shows how much your systematic investment plan (SIP) in a mutual fund can grow to. This SIP return calculator goes further than most: it works as a step-up SIP calculator, lumpsum calculator, goal-based SIP planner and SWP calculator in one place, adjusts the result for inflation, deducts LTCG tax under 2026-27 rules, and lets you backtest a SIP in any real mutual fund using its actual NAV history.</p>
+
+  <h2>How do I use this SIP calculator?</h2>
+  <ol>
+   <li><b>SIP:</b> set your monthly investment, expected return, time period and yearly step-up. Add a one-time amount if you are starting with savings.</li>
+   <li><b>Lumpsum:</b> enter a one-time investment to see its future value and compare it with spreading the same money as a SIP.</li>
+   <li><b>Goal planner:</b> enter a target such as ₹1 crore for retirement or ₹25 lakh for your child's education, and see the monthly SIP or lumpsum needed.</li>
+   <li><b>SWP:</b> enter your corpus and monthly withdrawal to see how long the money lasts.</li>
+   <li>Turn on <b>today's money</b> to see the inflation-adjusted value and <b>LTCG tax</b> to see what you keep after tax. Hover on the chart for year-wise values, and download the full table in Excel.</li>
+  </ol>
+
+  <h2>What is the SIP formula?</h2>
+  <p><b>Maturity value = P × [((1 + r)<sup>n</sup> − 1) ÷ r] × (1 + r)</b>, where P is the monthly investment, r is the expected annual return ÷ 12 and n is the number of months. Each instalment is assumed to be invested at the start of the month.</p>
+  <p><b>Example:</b> ₹10,000 a month for 15 years at 12% means 180 instalments and a total investment of ₹18,00,000. The estimated maturity value is about ₹50,45,760, so the estimated gain is about ₹32,45,760.</p>
+
+  <h2>What is a step-up SIP and why does it matter?</h2>
+  <p>A step-up SIP (top-up SIP) raises your monthly instalment every year, usually by 5% to 15%, in step with salary increases. In the example above, a flat SIP of ₹10,000 grows to about ₹50.46 lakh, while the same SIP with a 10% yearly step-up grows to about ₹86.84 lakh on a total investment of about ₹38.13 lakh. The <i>Power of step-up</i> card shows the extra amount for your own numbers.</p>
+
+  <h2>How much SIP do I need for ₹1 crore?</h2>
+  <table>
+   <tr><th>Time period</th><th>Monthly SIP at 12% a year</th></tr>
+   <tr><td>10 years</td><td>₹43,041</td></tr>
+   <tr><td>15 years</td><td>₹19,819</td></tr>
+   <tr><td>20 years</td><td>₹10,009</td></tr>
+   <tr><td>25 years</td><td>₹5,270</td></tr>
+   <tr><td>30 years</td><td>₹2,833</td></tr>
+  </table>
+  <p>These figures do not include inflation. ₹1 crore 20 years from now is worth much less in today's money, so use the Goal planner with inflation turned on for a realistic target.</p>
+
+  <h2>SIP vs lumpsum: which is better?</h2>
+  <p>A lumpsum works best when you already have the money and markets rise steadily afterwards. A SIP suits regular income, builds discipline and averages your purchase cost through market ups and downs (rupee cost averaging). Many investors keep a lumpsum in a liquid fund and move it into equity through a systematic transfer plan (STP) over 6 to 12 months.</p>
+
+  <h2>How are mutual fund returns taxed in FY 2026-27?</h2>
+  <table>
+   <tr><th>Fund type</th><th>Short-term</th><th>Long-term</th></tr>
+   <tr><td>Equity funds and ELSS (65%+ equity)</td><td>Held 12 months or less: 20%</td><td>Held over 12 months: 12.5% on gains above ₹1.25 lakh a year</td></tr>
+   <tr><td>Debt funds bought on or after 1 April 2023</td><td colspan="2">Taxed at your income tax slab rate, whatever the holding period</td></tr>
+   <tr><td>Gold, international and other non-equity funds</td><td>Held up to 24 months: slab rate</td><td>Held over 24 months: 12.5%</td></tr>
+  </table>
+  <p>Surcharge and 4% cess apply on top. In a SIP, every instalment is treated separately, so units bought in the last 12 months are short-term even if the SIP is many years old.</p>
+
+  <h2>What do these mutual fund terms mean?</h2>
+  <h3>SIP (systematic investment plan)</h3><p>A fixed amount invested in a mutual fund at regular intervals, usually monthly, through an auto-debit from your bank account.</p>
+  <h3>NAV (net asset value)</h3><p>The price of one unit of a mutual fund, declared every business day. Your SIP buys units at that day's NAV.</p>
+  <h3>Units</h3><p>Your share of the fund. Units = amount invested ÷ NAV. Value = units × current NAV.</p>
+  <h3>CAGR</h3><p>Compound annual growth rate: the yearly growth rate of a single investment between two dates. The fund's 1, 3, 5 and 10-year CAGR are shown in the backtest.</p>
+  <h3>XIRR</h3><p>The annual return on cash flows made on different dates, such as SIP instalments. It is the right measure of SIP performance.</p>
+  <h3>Step-up (top-up) SIP</h3><p>A SIP whose amount rises by a fixed percentage every year.</p>
+  <h3>Lumpsum</h3><p>A one-time investment of the whole amount.</p>
+  <h3>SWP and STP</h3><p>A systematic withdrawal plan takes a fixed amount out every month. A systematic transfer plan moves money from one fund to another in instalments.</p>
+  <h3>Direct vs regular plan</h3><p>A direct plan is bought straight from the fund house with no distributor commission, so its expense ratio is lower. A regular plan is bought through a distributor and costs more every year.</p>
+  <h3>Expense ratio</h3><p>The annual fee charged by the fund as a percentage of your investment. It is already reflected in the NAV.</p>
+  <h3>Exit load</h3><p>A fee some funds charge if you redeem within a set period, often 1% within one year.</p>
+  <h3>Index fund</h3><p>A fund that copies an index such as the Nifty 50 or Sensex, usually with a low expense ratio.</p>
+  <h3>ELSS</h3><p>An equity-linked savings scheme: an equity fund with a three-year lock-in that qualifies for the Section 80C deduction in the old tax regime.</p>
+  <h3>Inflation</h3><p>The yearly rise in prices that reduces what your money can buy. At 6% inflation, ₹1 crore 20 years from now buys roughly what ₹31 lakh buys today.</p>
+  <h3>LTCG and STCG</h3><p>Long-term and short-term capital gains: the profit when you sell units, taxed at different rates depending on how long you held them.</p>
+  <h3>KYC</h3><p>Know your customer: a one-time identity check (PAN, Aadhaar and address) needed before you invest in any mutual fund.</p>
+
+  <h2>Frequently asked questions</h2>
+  <details><summary>1. What is a SIP calculator and how does it work?</summary><p>A SIP calculator estimates how much your monthly investment in a mutual fund can grow to. You enter the monthly amount, expected annual return and time period, and it applies monthly compounding to show the total invested, estimated returns and maturity value. This calculator also handles yearly step-up, a one-time amount, inflation and LTCG tax.</p></details>
+  <details><summary>2. What is the formula for SIP returns?</summary><p>Maturity value = P × [((1 + r)^n − 1) ÷ r] × (1 + r), where P is the monthly SIP, r is the expected annual return divided by 12, and n is the number of monthly instalments. For example, ₹10,000 a month for 15 years at 12% grows to about ₹50.46 lakh on an investment of ₹18 lakh.</p></details>
+  <details><summary>3. What is a step-up SIP?</summary><p>A step-up SIP, also called a top-up SIP, increases your monthly instalment by a fixed percentage every year, usually in line with salary hikes. ₹10,000 a month for 15 years at 12% grows to about ₹50.46 lakh as a flat SIP, but to about ₹86.84 lakh with a 10% yearly step-up.</p></details>
+  <details><summary>4. How much SIP is needed for ₹1 crore?</summary><p>At an expected 12% annual return, you need about ₹43,041 a month for 10 years, ₹19,819 for 15 years, ₹10,009 for 20 years, ₹5,270 for 25 years or ₹2,833 for 30 years. Use the Goal planner tab to include inflation, step-up and existing savings.</p></details>
+  <details><summary>5. SIP or lumpsum: which is better?</summary><p>A lumpsum earns more when markets rise steadily after you invest, because all the money is invested from day one. A SIP spreads purchases over time, buying more units when prices are low (rupee cost averaging), which reduces the risk of investing everything at a market peak. Most salaried investors use SIPs; a lumpsum suits idle cash, often moved in gradually through a systematic transfer plan.</p></details>
+  <details><summary>6. How are SIP returns taxed in 2026-27?</summary><p>For equity mutual funds, units held for more than 12 months give long-term capital gains taxed at 12.5% on gains above ₹1.25 lakh in a financial year; units held for 12 months or less are taxed at 20%. Each SIP instalment has its own holding period. Gains on debt funds bought after 1 April 2023 are taxed at your income tax slab rate. Cess applies on top.</p></details>
+  <details><summary>7. What is XIRR in SIP?</summary><p>XIRR (extended internal rate of return) is the annualised return on investments made on different dates, such as monthly SIP instalments. It is the correct way to measure SIP performance, because simple CAGR assumes all the money was invested on the first day. The fund backtest on this page shows the XIRR of a real SIP.</p></details>
+  <details><summary>8. What is SWP and how is it different from SIP?</summary><p>A SIP puts a fixed amount into a fund every month; an SWP (systematic withdrawal plan) takes a fixed amount out every month while the rest stays invested. SWP is used for regular income after retirement. The SWP tab shows how long your corpus will last and the maximum safe monthly withdrawal.</p></details>
+  <details><summary>9. Is the mutual fund data on this page live?</summary><p>Yes. The fund search and backtest fetch the latest NAV and full NAV history from AMFI data through the free mfapi.in service, which updates several times a day. The calculator tabs use the return you enter, not live data.</p></details>
+  <details><summary>10. Can I lose money in a SIP?</summary><p>Yes. SIPs invest in market-linked mutual funds, so the value can fall below the amount invested, especially over short periods or in equity funds during a market fall. Over longer periods diversified equity funds have historically smoothed out volatility, but past returns do not guarantee future returns. Read the scheme documents and check your risk profile before investing.</p></details>
+
+  <section class="sources">
+   <h2>Which official websites should investors use?</h2>
+   <blockquote cite="https://www.sebi.gov.in/">
+    <p>Every mutual fund advertisement in India must carry the SEBI-mandated warning: "Mutual Fund investments are subject to market risks, read all scheme related documents carefully."</p>
+    <footer>— Statutory disclaimer, <cite><a href="https://www.sebi.gov.in/" target="_blank" rel="noopener">Securities and Exchange Board of India (SEBI)</a></cite></footer>
+   </blockquote>
+   <table>
+    <tr><th>Website</th><th>What you can do there</th></tr>
+    <tr><td><a href="https://www.sebi.gov.in/" target="_blank" rel="noopener">SEBI (sebi.gov.in)</a></td><td>Mutual fund regulations, circulars and registered intermediaries</td></tr>
+    <tr><td><a href="https://investor.sebi.gov.in/" target="_blank" rel="noopener">SEBI Investor Website</a></td><td>Free investor education on mutual funds and SIPs</td></tr>
+    <tr><td><a href="https://scores.sebi.gov.in/" target="_blank" rel="noopener">SEBI SCORES</a></td><td>File a complaint against a fund house or distributor</td></tr>
+    <tr><td><a href="https://www.amfiindia.com/" target="_blank" rel="noopener">AMFI (amfiindia.com)</a></td><td>Official daily NAVs, fund lists and distributor (ARN) search</td></tr>
+    <tr><td><a href="https://www.mfcentral.com/" target="_blank" rel="noopener">MF Central</a></td><td>Consolidated account statement, KYC and service requests across fund houses</td></tr>
+    <tr><td><a href="https://www.incometax.gov.in/" target="_blank" rel="noopener">Income Tax e-Filing Portal</a></td><td>Report capital gains and check AIS for mutual fund transactions</td></tr>
+    <tr><td><a href="https://www.rbi.org.in/" target="_blank" rel="noopener">Reserve Bank of India</a></td><td>Inflation and interest rate data that affect returns</td></tr>
+   </table>
+   <p style="font-size:.85rem">Live fund data: <a href="https://www.mfapi.in/" target="_blank" rel="noopener">mfapi.in</a>, which republishes AMFI NAV data.</p>
+  </section>
+
+  <p class="note">Last updated: 28 November 2026</p>
+
+  <h2>Which other money tools can help?</h2>
   <div class="related">
    <a class="card" href="emi-calculator.html">🏦 EMI Calculator</a>
+   <a class="card" href="in-hand-salary-calculator.html">💰 In-hand Salary Calculator</a>
    <a class="card" href="income-tax-calculator.html">📊 Income Tax Calculator</a>
-   <a class="card" href="tax-quiz.html">🎯 Tax Quiz</a>
+   <a class="card" href="gratuity-calculator.html">🎁 Gratuity Calculator</a>
   </div>
  </article>
 </main>
 <div id="site-footer"></div>
 <script src="app.js"></script>
 <script>
+(function(){
+'use strict';
+var API='https://api.mfapi.in/mf';
+function $(id){return document.getElementById(id);}
 function T(en,hi){return document.documentElement.lang==='hi'?hi:en;}
-function inr(n){return '₹'+Math.round(n).toLocaleString('en-IN');}
-function num(id){return parseFloat(String(document.getElementById(id).value).replace(/[^0-9.]/g,''))||0;}
-function link(a){var r=document.getElementById(a+'R'),i=document.getElementById(a);r.value=num(a);r.oninput=function(){i.value=r.value;calc();};i.oninput=function(){r.value=num(a);calc();};}
-['am','rt','yr','su'].forEach(link);
-function calc(){var P=num('am'),R=num('rt'),Y=Math.round(num('yr')),S=num('su'),i=R/1200,n=Y*12;
- if(!P||!Y){['fv','o1','o2','o3'].forEach(function(id){document.getElementById(id).textContent='₹0';});document.getElementById('tb').innerHTML='';document.getElementById('wk').textContent='';return;}
- var val=0,inv=0,amt=P,rows=[];
- for(var m=1;m<=n;m++){val=(val+amt)*(1+i);inv+=amt;if(m%12===0){rows.push([m/12,amt,inv,val]);amt=amt*(1+S/100);}}
- var gain=val-inv;
- document.getElementById('fv').textContent=inr(val);document.getElementById('o1').textContent=inr(inv);document.getElementById('o2').textContent=inr(gain);document.getElementById('o3').textContent=inr(val);
- document.getElementById('pb').style.width=(inv/val*100)+'%';
- var w='P = '+inr(P)+'\ni = '+R+' ÷ 12 ÷ 100 = '+i.toFixed(6)+'\nn = '+Y+' × 12 = '+n+' '+T('months','महीने');
- if(!S&&i){var f=Math.pow(1+i,n);w+='\n(1 + i)^n = '+f.toFixed(4)+'\nFV = '+inr(P)+' × (('+f.toFixed(4)+' − 1) ÷ '+i.toFixed(6)+') × '+(1+i).toFixed(6)+'\n   = '+inr(val);}
- else if(S)w+='\n'+T('Step-up','बढ़ोतरी')+': '+S+'% '+T('every year, so each month is added and grown one by one.','हर साल, इसलिए हर महीने की रकम जोड़कर अलग-अलग बढ़ाई गई।')+'\n'+T('Last year monthly SIP','आख़िरी साल की मासिक SIP')+' = '+inr(rows[rows.length-1][1]);
- w+='\n'+T('Returns','कमाई')+' = '+inr(val)+' − '+inr(inv)+' = '+inr(gain);
- document.getElementById('wk').textContent=w;
- document.getElementById('tb').innerHTML='<table><tr><th>'+T('Year','साल')+'</th><th>'+T('Monthly SIP','मासिक SIP')+'</th><th>'+T('Total invested','कुल निवेश')+'</th><th>'+T('Value','रकम')+'</th></tr>'+rows.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+inr(r[1])+'</td><td>'+inr(r[2])+'</td><td>'+inr(r[3])+'</td></tr>';}).join('')+'</table>';}
-calc();
-document.addEventListener('langchange',calc);
+function inr(n){return (n<0?'−':'')+'₹'+Math.round(Math.abs(n)).toLocaleString('en-IN');}
+function short(n){var a=Math.abs(n);if(a>=1e7)return '₹'+(n/1e7).toFixed(a>=1e9?0:2).replace(/\.00$/,'')+' Cr';if(a>=1e5)return '₹'+(n/1e5).toFixed(2).replace(/\.00$/,'')+' L';if(a>=1e3)return '₹'+(n/1e3).toFixed(1).replace(/\.0$/,'')+'K';return '₹'+Math.round(n);}
+function words(n){if(n>=1e7)return (n/1e7).toFixed(2).replace(/\.?0+$/,'')+' crore';if(n>=1e5)return (n/1e5).toFixed(2).replace(/\.?0+$/,'')+' lakh';return '';}
+function pct(x){return (x>=0?'+':'')+x.toFixed(2)+'%';}
+var mode='sip',V={};
+
+/* ---------- slider rows ---------- */
+document.querySelectorAll('.sp-row[data-k]').forEach(function(r){
+ var k=r.dataset.k,lab=r.dataset.len;
+ r.innerHTML='<div class="t"><label for="r_'+k+'" data-en="'+lab+'" data-hi="'+r.dataset.lhi+'">'+lab+'</label><span class="v">'+(r.dataset.pre?'<small>'+r.dataset.pre+'</small>':'')+'<input id="n_'+k+'" inputmode="decimal" aria-label="'+lab+'">'+(r.dataset.suf?'<small>'+r.dataset.suf+'</small>':'')+'</span></div><input type="range" class="sp-rng" id="r_'+k+'" min="'+r.dataset.min+'" max="'+r.dataset.max+'" step="'+r.dataset.step+'">';
+ var rng=r.querySelector('.sp-rng'),num=r.querySelector('input[inputmode]');
+ function setV(v,from){v=isFinite(v)?v:+r.dataset.val;V[k]=v;var mn=+rng.min,mx=+rng.max;rng.value=Math.min(mx,Math.max(mn,v));rng.style.setProperty('--p',((rng.value-mn)/(mx-mn)*100)+'%');if(from!=='num')num.value=r.dataset.pre?Math.round(v).toLocaleString('en-IN'):v;}
+ r._set=setV;setV(+r.dataset.val);
+ rng.addEventListener('input',function(){setV(+rng.value,'rng');calc();});
+ num.addEventListener('input',function(){var v=parseFloat(num.value.replace(/[^0-9.]/g,''));if(isFinite(v)){setV(v,'num');calc();}});
+ num.addEventListener('blur',function(){setV(V[k]);});
+});
+function setVal(k,v){var r=document.querySelector('.sp-row[data-k="'+k+'"]');if(r)r._set(v);}
+
+/* ---------- math ---------- */
+function sipSeries(amt,ret,yrs,step,init){
+ var r=ret/100/12,bal=init,inv=init,m=amt,rows=[],infl=+($('infl').value)||0;
+ for(var y=1;y<=yrs;y++){for(var i=0;i<12;i++){bal=(bal+m)*(1+r);inv+=m;}if(init&&y===1){} rows.push({y:y,inv:inv,val:bal,real:bal/Math.pow(1+infl/100,y),m:m});m=m*(1+step/100);}
+ return rows;
+}
+function lumpSeries(amt,ret,yrs){var rows=[],infl=+($('infl').value)||0;for(var y=1;y<=yrs;y++){var v=amt*Math.pow(1+ret/100,y);rows.push({y:y,inv:amt,val:v,real:v/Math.pow(1+infl/100,y)});}return rows;}
+function ltcg(gain){return Math.max(0,gain-125000)*0.125*1.04;}
+function fvSip(amt,ret,yrs,step){var s=sipSeries(amt,ret,yrs,step,0);return s.length?s[s.length-1].val:0;}
+
+/* ---------- chart ---------- */
+function drawChart(svg,tip,rows,opts){
+ var W=svg.clientWidth||600,H=svg.clientHeight||270,P={l:58,r:14,t:12,b:28};
+ svg.setAttribute('viewBox','0 0 '+W+' '+H);
+ if(!rows.length){svg.innerHTML='';return;}
+ var maxV=0;rows.forEach(function(d){maxV=Math.max(maxV,d.val,d.inv);});maxV=niceMax(maxV);
+ var n=rows.length,xs=function(i){return P.l+(n===1?(W-P.l-P.r)/2:i*(W-P.l-P.r)/(n-1));},ys=function(v){return H-P.b-(v/maxV)*(H-P.t-P.b);};
+ var g='',ticks=4;
+ for(var t=0;t<=ticks;t++){var v=maxV*t/ticks,yy=ys(v);g+='<line class="grid" x1="'+P.l+'" x2="'+(W-P.r)+'" y1="'+yy+'" y2="'+yy+'"/><text class="ax" x="'+(P.l-8)+'" y="'+(yy+4)+'" text-anchor="end">'+short(v)+'</text>';}
+ var every=Math.max(1,Math.ceil(n/8));rows.forEach(function(d,i){if(i%every===0||i===n-1)g+='<text class="ax" x="'+xs(i)+'" y="'+(H-8)+'" text-anchor="middle">'+(d.lab||(T('Y','वर्ष ')+d.y))+'</text>';});
+ var base=H-P.b;
+ var invPts=rows.map(function(d,i){return xs(i)+','+ys(d.inv);}),valPts=rows.map(function(d,i){return xs(i)+','+ys(d.val);});
+ var invArea='M'+xs(0)+','+base+' L'+invPts.join(' L')+' L'+xs(n-1)+','+base+' Z';
+ var gainArea='M'+invPts[0]+' L'+valPts.join(' L')+' L'+invPts.slice().reverse().join(' L')+' Z';
+ var id=svg.id;
+ g='<defs><linearGradient id="'+id+'g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c1)" stop-opacity=".9"/><stop offset="1" stop-color="var(--c1)" stop-opacity=".55"/></linearGradient><linearGradient id="'+id+'g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c2)" stop-opacity=".85"/><stop offset="1" stop-color="var(--c2)" stop-opacity=".35"/></linearGradient><clipPath id="'+id+'cl"><rect x="0" y="0" width="0" height="'+H+'"><animate attributeName="width" from="0" to="'+W+'" dur=".7s" fill="freeze"/></rect></clipPath></defs>'+g;
+ g+='<g clip-path="url(#'+id+'cl)"><path d="'+gainArea+'" fill="url(#'+id+'g2)"/><path d="'+invArea+'" fill="url(#'+id+'g1)"/>';
+ g+='<polyline points="'+valPts.join(' ')+'" fill="none" stroke="var(--c2)" stroke-width="2" stroke-linejoin="round"/>';
+ if(opts.real)g+='<polyline points="'+rows.map(function(d,i){return xs(i)+','+ys(d.real);}).join(' ')+'" fill="none" stroke="var(--c3)" stroke-width="2" stroke-dasharray="5 4"/>';
+ g+='</g><line id="'+id+'x" class="grid" y1="'+P.t+'" y2="'+base+'" stroke="var(--sp-txt)" stroke-opacity=".35" style="display:none"/><circle id="'+id+'d" r="4.5" fill="var(--c2)" stroke="var(--sp-sur)" stroke-width="2" style="display:none"/><rect x="'+P.l+'" y="'+P.t+'" width="'+(W-P.l-P.r)+'" height="'+(base-P.t)+'" fill="transparent" id="'+id+'h"/>';
+ svg.innerHTML=g;
+ var hit=svg.querySelector('#'+id+'h'),xl=svg.querySelector('#'+id+'x'),dot=svg.querySelector('#'+id+'d');
+ function show(e){var r=svg.getBoundingClientRect(),sx=(e.touches?e.touches[0].clientX:e.clientX)-r.left,px=sx*(W/r.width),i=Math.round((px-P.l)/((W-P.l-P.r)/Math.max(1,n-1)));i=Math.max(0,Math.min(n-1,i));var d=rows[i],x=xs(i);
+  xl.setAttribute('x1',x);xl.setAttribute('x2',x);xl.style.display='';dot.setAttribute('cx',x);dot.setAttribute('cy',ys(d.val));dot.style.display='';
+  tip.innerHTML='<b>'+(d.lab||T('Year ','वर्ष ')+d.y)+'</b><br><i style="background:var(--c2)"></i>'+T('Value ','वैल्यू ')+inr(d.val)+'<br><i style="background:var(--c1)"></i>'+T('Invested ','निवेश ')+inr(d.inv)+(opts.real?'<br><i style="background:var(--c3)"></i>'+T("Today's money ",'आज का मूल्य ')+inr(d.real):'')+'<br>'+T('Gain ','मुनाफ़ा ')+inr(d.val-d.inv);
+  tip.style.opacity=1;var tx=x*(r.width/W)+12;if(tx+tip.offsetWidth>r.width)tx=x*(r.width/W)-tip.offsetWidth-12;tip.style.left=tx+'px';tip.style.top=Math.max(0,ys(d.val)*(r.height/H)-tip.offsetHeight/2)+'px';}
+ function hide(){tip.style.opacity=0;xl.style.display='none';dot.style.display='none';}
+ hit.addEventListener('mousemove',show);hit.addEventListener('touchstart',show,{passive:true});hit.addEventListener('touchmove',show,{passive:true});hit.addEventListener('mouseleave',hide);hit.addEventListener('touchend',function(){setTimeout(hide,1500);});
+}
+function niceMax(v){if(v<=0)return 1;var p=Math.pow(10,Math.floor(Math.log10(v))),f=v/p;var nf=f<=1?1:f<=1.5?1.5:f<=2?2:f<=2.5?2.5:f<=3?3:f<=4?4:f<=5?5:f<=6?6:f<=8?8:10;return nf*p;}
+
+/* ---------- main calc ---------- */
+var lastRows=[],lastSum='';
+function stat(lbl,val,col){return '<div class="sp-stat"><small>'+(col?'<i style="background:'+col+'"></i>':'')+lbl+'</small><b>'+val+'</b></div>';}
+function ins(e,h,p){return '<div class="sp-in-card"><div class="e">'+e+'</div><div class="h">'+h+'</div><p>'+p+'</p></div>';}
+function calc(){
+ var inflOn=$('inflOn').checked,taxOn=$('taxOn').checked,infl=+($('infl').value)||0,rows=[],h='',sub='',st='',insH='';
+ if(mode==='sip'||mode==='lump'){
+  var isS=mode==='sip';
+  rows=isS?sipSeries(V.amt,V.ret,V.yrs,V.step,V.init):lumpSeries(V.lamt,V.lret,V.lyrs);
+  var L=rows[rows.length-1],gain=L.val-L.inv,tax=taxOn?ltcg(gain):0,net=L.val-tax,yrs=isS?V.yrs:V.lyrs;
+  $('heroLbl').textContent=T('Estimated value after ','')+yrs+T(' years',' साल बाद अनुमानित वैल्यू');
+  h=inr(net);sub=(words(net)?'₹'+words(net)+' · ':'')+(L.inv?(net/L.inv).toFixed(2)+'× '+T('your money','आपका पैसा'):'')+(taxOn?' · '+T('after tax ','टैक्स के बाद '):'');
+  st=stat(T('Invested','निवेश'),inr(L.inv),'var(--c1)')+stat(T('Est. returns','अनुमानित रिटर्न'),inr(gain-tax),'var(--c2)')+(inflOn?stat(T("In today's money",'आज के मूल्य में'),inr(net/Math.pow(1+infl/100,yrs)),'var(--c3)'):stat(T('Tax (LTCG)','टैक्स (LTCG)'),inr(tax)));
+  if(taxOn&&inflOn)st+='';
+  if(isS){
+   var d1=fvSip(V.amt,V.ret,Math.max(0,V.yrs-1),V.step),d3=fvSip(V.amt,V.ret,Math.max(0,V.yrs-3),V.step),d5=fvSip(V.amt,V.ret,Math.max(0,V.yrs-5),V.step),base=fvSip(V.amt,V.ret,V.yrs,V.step);
+   insH+=ins('⏳',T('Cost of waiting','इंतज़ार की कीमत'),T('Start 1 year late: ','1 साल देर से: ')+'<b class="neg">'+inr(d1-base)+'</b><br>'+T('3 years late: ','3 साल देर से: ')+'<b class="neg">'+inr(d3-base)+'</b><br>'+T('5 years late: ','5 साल देर से: ')+'<b class="neg">'+inr(d5-base)+'</b>');
+   var noStep=fvSip(V.amt,V.ret,V.yrs,0),w10=fvSip(V.amt,V.ret,V.yrs,V.step||10);
+   insH+=ins('🚀',T('Power of step-up','स्टेप-अप की ताकत'),V.step?T('Your '+V.step+'% step-up adds ','आपका '+V.step+'% स्टेप-अप जोड़ता है ')+'<b class="pos">'+inr(base-noStep)+'</b>'+T(' over a flat SIP.',' सपाट SIP से ज़्यादा।'):T('A 10% yearly step-up would add ','10% सालाना स्टेप-अप जोड़ता ')+'<b class="pos">'+inr(w10-noStep)+'</b>.');
+   var ms=[1e6,2.5e6,5e6,1e7,5e7,1e8],mh=[];ms.forEach(function(m){for(var i=0;i<rows.length;i++){if(rows[i].val>=m){mh.push(short(m).replace('.00','')+' → '+T('year ','साल ')+rows[i].y);break;}}});
+   insH+=ins('🏁',T('Milestones','मील के पत्थर'),mh.length?mh.slice(0,4).join('<br>'):T('Increase amount or time to reach ₹10 lakh.','₹10 लाख तक पहुँचने के लिए राशि या समय बढ़ाएं।'));
+   var monthsFirst=rows[0].m;insH+=ins('📊',T('Your monthly SIP','आपकी मासिक SIP'),T('Year 1: ','साल 1: ')+'<b>'+inr(monthsFirst)+'</b><br>'+T('Final year: ','आखिरी साल: ')+'<b>'+inr(rows[rows.length-1].m)+'</b><br>'+T('Money doubles about every ','पैसा लगभग हर ')+'<b>'+(72/V.ret).toFixed(1)+'</b>'+T(' years',' साल में दोगुना'));
+  }else{
+   var sipEq=fvSip(V.lamt/(V.lyrs*12),V.lret,V.lyrs,0);
+   insH+=ins('⚖️',T('Lumpsum vs SIP','एकमुश्त बनाम SIP'),T('Same money as a monthly SIP of ','यही पैसा मासिक SIP ')+inr(V.lamt/(V.lyrs*12))+T(' would grow to ',' में बढ़कर होता ')+'<b>'+inr(sipEq)+'</b>.'+T(' Lumpsum earns more if markets rise steadily; SIP averages cost when they swing.',' बाज़ार लगातार बढ़े तो एकमुश्त ज़्यादा कमाता है; उतार-चढ़ाव में SIP लागत औसत करती है।'));
+   insH+=ins('📊',T('Rule of 72','72 का नियम'),T('At ','')+V.lret+T('% your money doubles about every ','% पर पैसा लगभग हर ')+'<b>'+(72/V.lret).toFixed(1)+'</b>'+T(' years.',' साल में दोगुना।'));
+   insH+=ins('🧾',T('Tax on redemption','निकासी पर टैक्स'),T('LTCG on ','')+inr(gain)+T(' gain at 12.5% above ₹1.25 lakh: ',' मुनाफ़े पर LTCG (₹1.25 लाख से ऊपर 12.5%): ')+'<b>'+inr(ltcg(gain))+'</b>');
+   insH+=ins('📉',T('Inflation check','महंगाई जांच'),T("Value in today's money: ",'आज के मूल्य में: ')+'<b>'+inr(L.val/Math.pow(1+infl/100,V.lyrs))+'</b>'+T(' at ',' @ ')+infl+'% '+T('inflation','महंगाई'));
+  }
+  lastSum=(isS?'SIP '+inr(V.amt)+'/month, '+V.ret+'% for '+V.yrs+' years'+(V.step?', '+V.step+'% step-up':''):'Lumpsum '+inr(V.lamt)+', '+V.lret+'% for '+V.lyrs+' years')+'\nInvested: '+inr(L.inv)+'\nEstimated value: '+inr(L.val)+(taxOn?'\nAfter LTCG tax: '+inr(net):'')+'\n— cooridorstore.in/sip-calculator';
+  drawChart($('chart'),$('tip'),rows,{real:inflOn});
+  $('leg').innerHTML='<span><i style="background:var(--c1)"></i>'+T('Invested','निवेश')+'</span><span><i style="background:var(--c2)"></i>'+T('Returns','रिटर्न')+'</span>'+(inflOn?'<span><i class="dash"></i>'+T("Value in today's money",'आज के मूल्य में वैल्यू')+'</span>':'');
+  $('yrT').innerHTML='<tr><th>'+T('Year','साल')+'</th>'+(isS?'<th>'+T('Monthly SIP','मासिक SIP')+'</th>':'')+'<th>'+T('Invested','निवेश')+'</th><th>'+T('Returns','रिटर्न')+'</th><th>'+T('Value','वैल्यू')+'</th>'+(inflOn?'<th>'+T("Today's money",'आज का मूल्य')+'</th>':'')+'</tr>'+rows.map(function(d){return '<tr><td>'+d.y+'</td>'+(isS?'<td>'+inr(d.m)+'</td>':'')+'<td>'+inr(d.inv)+'</td><td>'+inr(d.val-d.inv)+'</td><td>'+inr(d.val)+'</td>'+(inflOn?'<td>'+inr(d.real)+'</td>':'')+'</tr>';}).join('');
+ }
+ else if(mode==='goal'){
+  var fut=V.gamt*(inflOn?Math.pow(1+infl/100,V.gyrs):1),savFV=V.gsave*Math.pow(1+V.gret/100,V.gyrs),need=Math.max(0,fut-savFV);
+  var unit=fvSip(1,V.gret,V.gyrs,V.gstep),sip=need/unit,lump=need/Math.pow(1+V.gret/100,V.gyrs);
+  rows=sipSeries(sip,V.gret,V.gyrs,V.gstep,V.gsave);
+  $('heroLbl').textContent=T('Monthly SIP needed','ज़रूरी मासिक SIP');h=inr(sip);
+  sub=T('to reach ','')+inr(fut)+(inflOn?' ('+inr(V.gamt)+T(" in today's money",' आज के मूल्य में')+')':'')+T(' in ',' तक पहुँचने के लिए, ')+V.gyrs+T(' years',' साल में');
+  var L2=rows[rows.length-1];
+  st=stat(T('Goal (future value)','लक्ष्य (भविष्य मूल्य)'),inr(fut),'var(--c3)')+stat(T('Total you invest','कुल निवेश'),inr(L2.inv),'var(--c1)')+stat(T('Or lumpsum today','या आज एकमुश्त'),inr(lump),'var(--c2)');
+  [5,10,15].forEach(function(dy){});
+  var later=fvSip(1,V.gret,Math.max(1,V.gyrs-5),V.gstep);
+  insH+=ins('⏳',T('If you start 5 years later','5 साल बाद शुरू करें तो'),T('You would need ','आपको चाहिए ')+'<b class="neg">'+inr(need/later)+'</b>'+T(' a month instead.',' महीना।'));
+  insH+=ins('🚀',T('With a 10% step-up','10% स्टेप-अप के साथ'),T('Start with just ','सिर्फ ')+'<b class="pos">'+inr(need/fvSip(1,V.gret,V.gyrs,10))+'</b>'+T(' a month and raise it 10% each year.',' महीने से शुरू करें और हर साल 10% बढ़ाएं।'));
+  insH+=ins('📈',T('At a higher return','ज़्यादा रिटर्न पर'),T('At ','')+(V.gret+2)+T('% you would need ','% पर चाहिए ')+'<b>'+inr(need/fvSip(1,V.gret+2,V.gyrs,V.gstep))+'</b>'+T(' a month.',' महीना।'));
+  insH+=ins('🎯',T('Popular goals','लोकप्रिय लक्ष्य'),T('Try ₹1 crore retirement, ₹25 lakh child education or ₹15 lakh car with the goal slider.','₹1 करोड़ रिटायरमेंट, ₹25 लाख बच्चे की पढ़ाई या ₹15 लाख कार आज़माएं।'));
+  lastSum='Goal '+inr(V.gamt)+' in '+V.gyrs+' years at '+V.gret+'%\nFuture value: '+inr(fut)+'\nMonthly SIP needed: '+inr(sip)+'\n— cooridorstore.in/sip-calculator';
+  drawChart($('chart'),$('tip'),rows,{real:false});
+  $('leg').innerHTML='<span><i style="background:var(--c1)"></i>'+T('Invested','निवेश')+'</span><span><i style="background:var(--c2)"></i>'+T('Returns','रिटर्न')+'</span>';
+  $('yrT').innerHTML='<tr><th>'+T('Year','साल')+'</th><th>'+T('Monthly SIP','मासिक SIP')+'</th><th>'+T('Invested','निवेश')+'</th><th>'+T('Value','वैल्यू')+'</th></tr>'+rows.map(function(d){return '<tr><td>'+d.y+'</td><td>'+inr(d.m)+'</td><td>'+inr(d.inv)+'</td><td>'+inr(d.val)+'</td></tr>';}).join('');
+ }
+ else{
+  var r=V.sret/100/12,bal=V.scorp,w=V.swd,tot=0,y,last=0;rows=[];var ran=0;
+  for(y=1;y<=V.syrs;y++){for(var i=0;i<12;i++){if(bal<=0)break;var take=Math.min(w,bal);bal-=take;tot+=take;bal*=1+r;ran++;}rows.push({y:y,inv:Math.max(0,V.scorp-tot),val:Math.max(0,bal),real:Math.max(0,bal)/Math.pow(1+infl/100,y),w:w,lab:T('Y','वर्ष ')+y});w*=1+V.sinc/100;if(bal<=0)break;}
+  var lasts=bal>0;
+  $('heroLbl').textContent=T('Balance left after ','')+V.syrs+T(' years',' साल बाद बचा बैलेंस');h=inr(Math.max(0,bal));
+  sub=lasts?T('Your money lasts the full period ✓','आपका पैसा पूरी अवधि चलेगा ✓'):T('Money runs out after ','पैसा खत्म होगा ')+Math.floor(ran/12)+T(' years ',' साल ')+(ran%12)+T(' months',' महीने बाद');
+  st=stat(T('Total withdrawn','कुल निकासी'),inr(tot),'var(--c1)')+stat(T('Corpus','फंड'),inr(V.scorp))+stat(T('Withdrawal rate','निकासी दर'),(V.swd*12/V.scorp*100).toFixed(1)+'% '+T('a year','सालाना'));
+  var safe=V.scorp*(r)/(1-Math.pow(1+r,-V.syrs*12))/(1+r);
+  insH+=ins('🛡️',T('Maximum safe withdrawal','अधिकतम सुरक्षित निकासी'),T('To last exactly ','ठीक ')+V.syrs+T(' years, withdraw up to ',' साल चलाने के लिए अधिकतम ')+'<b>'+inr(safe)+'</b>'+T(' a month (no yearly increase).',' महीना निकालें (बिना सालाना बढ़त)।'));
+  insH+=ins('📉',T('Inflation check','महंगाई जांच'),T("Your last withdrawal in today's money: ",'आज के मूल्य में आखिरी निकासी: ')+'<b>'+inr(rows.length?rows[rows.length-1].w/Math.pow(1+infl/100,rows.length):0)+'</b>');
+  insH+=ins('🧾',T('Tax on SWP','SWP पर टैक्स'),T('Only the gain part of each withdrawal is taxed, so SWP from equity funds held over 12 months is often more tax-efficient than interest income.','हर निकासी के सिर्फ मुनाफ़े वाले हिस्से पर टैक्स लगता है, इसलिए 12 महीने से पुराने इक्विटी फंड से SWP अक्सर ब्याज से ज़्यादा टैक्स-कुशल है।'));
+  insH+=ins('💡',T('Tip','सुझाव'),T('Keep 1–2 years of withdrawals in a debt or liquid fund so you never sell equity in a falling market.','1–2 साल की निकासी डेट या लिक्विड फंड में रखें ताकि गिरते बाज़ार में इक्विटी न बेचनी पड़े।'));
+  lastSum='SWP '+inr(V.swd)+'/month from '+inr(V.scorp)+' at '+V.sret+'%\nTotal withdrawn: '+inr(tot)+'\nBalance left: '+inr(Math.max(0,bal))+'\n— cooridorstore.in/sip-calculator';
+  drawChart($('chart'),$('tip'),rows.map(function(d){return {y:d.y,lab:d.lab,inv:0,val:d.val,real:d.real};}),{real:inflOn});
+  $('leg').innerHTML='<span><i style="background:var(--c2)"></i>'+T('Balance left','बचा बैलेंस')+'</span>'+(inflOn?'<span><i class="dash"></i>'+T("In today's money",'आज के मूल्य में')+'</span>':'');
+  $('yrT').innerHTML='<tr><th>'+T('Year','साल')+'</th><th>'+T('Monthly withdrawal','मासिक निकासी')+'</th><th>'+T('Balance','बैलेंस')+'</th></tr>'+rows.map(function(d){return '<tr><td>'+d.y+'</td><td>'+inr(d.w)+'</td><td>'+inr(d.val)+'</td></tr>';}).join('');
+ }
+ $('hero').textContent=h;$('heroSub').textContent=sub;$('stats').innerHTML=st;$('ins').innerHTML=insH;lastRows=rows;save();
+}
+
+/* ---------- tabs & misc ---------- */
+$('tabs').addEventListener('click',function(e){var b=e.target.closest('[data-m]');if(!b)return;mode=b.dataset.m;document.querySelectorAll('#tabs button').forEach(function(x){x.classList.toggle('on',x===b);});document.querySelectorAll('.sp-in').forEach(function(x){x.classList.toggle('on',x.dataset.m===mode);});calc();});
+['infl','inflOn','taxOn'].forEach(function(id){$(id).addEventListener(id==='infl'?'input':'change',calc);});
+$('csv').onclick=function(){var t=$('yrT'),csv=[].map.call(t.rows,function(r){return [].map.call(r.cells,function(c){return '"'+c.textContent.replace(/₹|,/g,'')+'"';}).join(',');}).join('\n');var a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv'}));a.download='sip-calculation.csv';document.body.appendChild(a);a.click();setTimeout(function(){a.remove();},500);};
+$('cp').onclick=function(){(navigator.clipboard?navigator.clipboard.writeText(lastSum):Promise.reject()).then(function(){$('cp').lastChild.textContent=T('Copied ✓','कॉपी हो गया ✓');setTimeout(function(){$('cp').lastChild.textContent=T('Copy summary','सारांश कॉपी करें');},1500);},function(){prompt('Copy:',lastSum);});};
+function save(){try{localStorage.setItem('sp_calc_v2',JSON.stringify({mode:mode,V:V,infl:$('infl').value,inflOn:$('inflOn').checked,taxOn:$('taxOn').checked}));}catch(e){}}
+function load(){try{var o=JSON.parse(localStorage.getItem('sp_calc_v2')||'null');if(!o)return;for(var k in o.V)setVal(k,o.V[k]);$('infl').value=o.infl;$('inflOn').checked=o.inflOn;$('taxOn').checked=o.taxOn;if(o.mode){var b=document.querySelector('#tabs [data-m="'+o.mode+'"]');if(b)b.click();}}catch(e){}}
+var rz;window.addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(function(){calc();if(fund.nav)backtest();},200);});
+
+/* ================= real fund backtest ================= */
+var fund={},cache={},stimer=null;
+function parseD(s){var p=s.split('-');return new Date(+p[2],+p[1]-1,+p[0]);}
+function fmtD(d){return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});}
+function search(q){
+ q=q.trim();var L=$('flist');if(q.length<3){L.classList.remove('on');return;}
+ $('fmsg').textContent=T('Searching…','खोज रहे हैं…');
+ fetch(API+'/search?q='+encodeURIComponent(q)).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(list){
+  $('fmsg').textContent='';
+  var words=q.toLowerCase().split(/\s+/);
+  list=list.filter(function(f){var n=f.schemeName.toLowerCase();return !/idcw|dividend|bonus/.test(n);});
+  list.sort(function(a,b){var sa=/direct/i.test(a.schemeName)+/growth/i.test(a.schemeName),sb=/direct/i.test(b.schemeName)+/growth/i.test(b.schemeName);return sb-sa;});
+  if(!list.length){L.classList.remove('on');$('fmsg').textContent=T('No fund found. Try fewer words.','कोई फंड नहीं मिला। कम शब्द लिखें।');return;}
+  L.innerHTML=list.slice(0,40).map(function(f){return '<button type="button" data-c="'+f.schemeCode+'">'+f.schemeName.replace(/</g,'&lt;')+' <small>#'+f.schemeCode+'</small></button>';}).join('');L.classList.add('on');
+ }).catch(function(){$('fmsg').textContent=T('Live fund data could not load right now. Check your internet and try again.','लाइव फंड डेटा अभी लोड नहीं हुआ। इंटरनेट जांचें और फिर कोशिश करें।');});
+}
+$('fq').addEventListener('input',function(){clearTimeout(stimer);var q=this.value;stimer=setTimeout(function(){search(q);},350);});
+$('chips').addEventListener('click',function(e){if(e.target.tagName==='BUTTON'){$('fq').value=e.target.textContent;search(e.target.textContent);}});
+$('flist').addEventListener('click',function(e){var b=e.target.closest('[data-c]');if(b)loadFund(b.dataset.c);});
+function loadFund(code){
+ $('flist').classList.remove('on');$('fmsg').textContent=T('Loading NAV history…','NAV इतिहास लोड हो रहा है…');
+ (cache[code]?Promise.resolve(cache[code]):fetch(API+'/'+code).then(function(r){if(!r.ok)throw 0;return r.json();})).then(function(j){
+  cache[code]=j;if(!j.data||!j.data.length)throw 0;
+  var nav=j.data.map(function(d){return {d:parseD(d.date),v:parseFloat(d.nav)};}).filter(function(x){return x.v>0;}).sort(function(a,b){return a.d-b.d;});
+  fund={code:code,meta:j.meta,nav:nav};$('fmsg').textContent='';
+  $('fName').textContent=j.meta.scheme_name;$('fMeta').textContent=[j.meta.fund_house,j.meta.scheme_category].filter(Boolean).join(' · ');
+  var last=nav[nav.length-1];$('fNav').textContent='₹'+last.v.toFixed(4);$('fDate').textContent=T('as on ','दिनांक ')+fmtD(last.d);
+  var c='';[[1,'1Y'],[3,'3Y'],[5,'5Y'],[10,'10Y']].forEach(function(p){var t=new Date(last.d);t.setFullYear(t.getFullYear()-p[0]);var b=null;for(var i=nav.length-1;i>=0;i--){if(nav[i].d<=t){b=nav[i];break;}}
+   if(b&&(t-b.d)<864e5*10){var cg=(Math.pow(last.v/b.v,1/p[0])-1)*100;c+='<div><small>'+p[1]+' CAGR</small><b class="'+(cg>=0?'pos':'neg')+'">'+pct(cg)+'</b></div>';}else c+='<div><small>'+p[1]+' CAGR</small><b>—</b></div>';});
+  $('fCagr').innerHTML=c;
+  var s=new Date(last.d);s.setFullYear(s.getFullYear()-5);if(s<nav[0].d)s=new Date(nav[0].d);
+  $('bStart').min=nav[0].d.toISOString().slice(0,7);$('bStart').max=last.d.toISOString().slice(0,7);
+  $('bStart').value=s.getFullYear()+'-'+('0'+(s.getMonth()+1)).slice(-2);
+  $('fund').classList.add('on');backtest();
+  $('fund').scrollIntoView({behavior:'smooth',block:'nearest'});
+ }).catch(function(){$('fmsg').textContent=T('Could not load this fund right now. Please try again.','ये फंड अभी लोड नहीं हुआ। फिर कोशिश करें।');});
+}
+function xirr(cf){var r=0.1;for(var k=0;k<100;k++){var f=0,df=0,t0=cf[0].d;cf.forEach(function(c){var t=(c.d-t0)/(365*864e5),p=Math.pow(1+r,t);f+=c.a/p;df+=-t*c.a/(p*(1+r));});var nr=r-f/df;if(!isFinite(nr))break;if(Math.abs(nr-r)<1e-7){r=nr;break;}r=Math.max(-0.99,nr);}return r;}
+function backtest(){
+ if(!fund.nav)return;var nav=fund.nav,amt=parseFloat(($('bAmt').value||'').replace(/[^0-9.]/g,''))||0,day=Math.min(28,Math.max(1,parseInt($('bDay').value,10)||1)),sm=$('bStart').value;
+ if(!amt||!sm)return;var p=sm.split('-'),d=new Date(+p[0],+p[1]-1,day),last=nav[nav.length-1],units=0,inv=0,cf=[],rows=[],j=0,lab;
+ if(d<nav[0].d)d=new Date(nav[0].d);
+ while(d<=last.d){while(j<nav.length&&nav[j].d<d)j++;if(j>=nav.length)break;var n=nav[j];units+=amt/n.v;inv+=amt;cf.push({d:n.d,a:-amt});
+  rows.push({lab:n.d.toLocaleDateString('en-IN',{month:'short',year:'2-digit'}),inv:inv,val:units*n.v,y:rows.length+1});
+  d=new Date(d.getFullYear(),d.getMonth()+1,day);}
+ if(!rows.length){$('bStats').innerHTML='';return;}
+ var val=units*last.v;cf.push({d:last.d,a:val});rows.push({lab:T('Now','अब'),inv:inv,val:val,y:rows.length+1});
+ var x=cf.length>2?xirr(cf)*100:0;fund.x=x;
+ $('bStats').innerHTML=stat(T('Invested','निवेश'),inr(inv),'var(--c1)')+stat(T('Value today','आज की वैल्यू'),inr(val),'var(--c2)')+stat('XIRR','<span class="'+(x>=0?'pos':'neg')+'">'+pct(x)+'</span>')+stat(T('Gain','मुनाफ़ा'),'<span class="'+(val>=inv?'pos':'neg')+'">'+inr(val-inv)+'</span>')+stat(T('Units','यूनिट'),units.toFixed(3))+stat(T('Instalments','किस्तें'),cf.length-1);
+ var step=Math.max(1,Math.ceil(rows.length/60)),thin=rows.filter(function(r,i){return i%step===0||i===rows.length-1;});
+ drawChart($('bChart'),$('bTip'),thin,{real:false});
+}
+['bAmt','bStart','bDay'].forEach(function(id){$(id).addEventListener('input',backtest);$(id).addEventListener('change',backtest);});
+$('useX').onclick=function(){if(fund.x==null)return;var b=document.querySelector('#tabs [data-m="sip"]');b.click();setVal('ret',Math.round(Math.max(1,Math.min(30,fund.x))*2)/2);calc();$('res').scrollIntoView({behavior:'smooth',block:'center'});};
+
+document.addEventListener('langchange',function(){document.querySelectorAll('.sp-row label[data-en]').forEach(function(l){});calc();if(fund.nav)backtest();});
+load();calc();
+})();
 </script>
 </body>
 </html>
